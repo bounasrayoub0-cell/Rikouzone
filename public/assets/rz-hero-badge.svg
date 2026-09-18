@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Background Vignette -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1e0b36" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#090312" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#040107" stop-opacity="1"/>
+    </radialGradient>
+
+    <!-- Squircle Card Background -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140924"/>
+      <stop offset="40%" stop-color="#0d0517"/>
+      <stop offset="100%" stop-color="#06020c"/>
+    </linearGradient>
+
+    <!-- Squircle Border Glow -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e879f9"/>
+      <stop offset="30%" stop-color="#a855f7"/>
+      <stop offset="70%" stop-color="#7e22ce"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <!-- Ring Gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#9333ea" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#6b21a8" stop-opacity="0.5"/>
+    </linearGradient>
+
+    <!-- Chrome Letter R - Top Facet -->
+    <linearGradient id="chromeLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#f8fafc"/>
+      <stop offset="70%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+
+    <!-- Chrome Letter R - Shadow / Bottom Facet -->
+    <linearGradient id="chromeDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="40%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Purple Letter Z - Bright Facet -->
+    <linearGradient id="purpleLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d0fe"/>
+      <stop offset="35%" stop-color="#d946ef"/>
+      <stop offset="75%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+
+    <!-- Purple Letter Z - Shadow / Spine Facet -->
+    <linearGradient id="purpleDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea"/>
+      <stop offset="50%" stop-color="#6b21a8"/>
+      <stop offset="100%" stop-color="#3b0764"/>
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Deep Glow Filter -->
+    <filter id="outerGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+      <feColorMatrix type="matrix" values="
+        0.7 0 0 0 0.65
+        0 0.3 0 0 0.2
+        0 0 0.9 0 0.95
+        0 0 0 0.8 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1024" height="1024" fill="#050109"/>
+  <rect width="1024" height="1024" fill="url(#bgGlow)"/>
+
+  <!-- Squircle App Icon Base -->
+  <g filter="url(#outerGlow)">
+    <!-- Outer Glow Silhouette -->
+    <rect x="112" y="112" width="800" height="800" rx="190" ry="190" fill="none" stroke="#9333ea" stroke-width="12" opacity="0.4" filter="blur(20px)"/>
+    <!-- Main Card Body -->
+    <rect x="112" y="112" width="800" height="800" rx="190" ry="190" fill="url(#cardGrad)" stroke="url(#borderGrad)" stroke-width="5.5"/>
+  </g>
+
+  <!-- Diagonal Tech Slashes Texture inside Card -->
+  <g opacity="0.18" clip-path="url(#cardClip)">
+    <clipPath id="cardClip">
+      <rect x="112" y="112" width="800" height="800" rx="190" ry="190"/>
+    </clipPath>
+    <!-- Diagonal Slashes -->
+    <line x1="50" y1="200" x2="400" y2="-150" stroke="#c084fc" stroke-width="38" stroke-linecap="round"/>
+    <line x1="200" y1="500" x2="650" y2="50" stroke="#a855f7" stroke-width="22" stroke-linecap="round"/>
+    <line x1="120" y1="800" x2="720" y2="200" stroke="#c084fc" stroke-width="16" stroke-linecap="round"/>
+    <line x1="350" y1="950" x2="950" y2="350" stroke="#a855f7" stroke-width="32" stroke-linecap="round"/>
+    <line x1="600" y1="1050" x2="1050" y2="600" stroke="#e879f9" stroke-width="18" stroke-linecap="round"/>
+    <line x1="100" y1="350" x2="450" y2="0" stroke="#7e22ce" stroke-width="10" stroke-linecap="round"/>
+    <line x1="500" y1="800" x2="900" y2="400" stroke="#7e22ce" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- Glowing Circular Ring Behind Logo -->
+  <circle cx="512" cy="512" r="275" fill="none" stroke="url(#ringGrad)" stroke-width="14" opacity="0.75" filter="url(#softGlow)"/>
+  <circle cx="512" cy="512" r="275" fill="none" stroke="#d946ef" stroke-width="4" opacity="0.8"/>
+
+  <!-- Logo Group (Monogram RZ) -->
+  <g transform="translate(0, 0)">
+    <!-- Ambient shadow of the letters -->
+    <g opacity="0.45" filter="blur(16px)" transform="translate(0, 18)">
+      <!-- R shadow -->
+      <path d="M 230,285 L 430,285 C 505,285 550,335 550,405 C 550,460 515,500 460,515 L 565,720 L 450,720 L 370,545 L 325,545 L 325,720 L 230,720 Z" fill="#000000"/>
+      <!-- Z shadow -->
+      <path d="M 480,285 L 775,285 L 775,370 L 595,635 L 790,635 L 790,720 L 485,720 L 485,635 L 665,370 L 480,370 Z" fill="#000000"/>
+    </g>
+
+    <!-- LETTER R (Brushed Chrome / Silver with 3D Bevels) -->
+    <!-- R Left Vertical Spine Base -->
+    <path d="M 235,280 L 335,280 L 335,720 L 235,720 Z" fill="url(#chromeDark)"/>
+    <!-- R Left Vertical Spine Face Highlight -->
+    <polygon points="235,280 290,280 290,720 235,720" fill="url(#chromeLight)"/>
+
+    <!-- R Top Loop Outer -->
+    <path d="M 335,280 L 445,280 C 520,280 565,330 565,405 C 565,475 515,520 445,520 L 335,520 Z" fill="url(#chromeLight)"/>
+    <!-- R Top Loop Inner Cutout -->
+    <path d="M 335,355 L 435,355 C 475,355 495,375 495,405 C 495,435 475,452 435,452 L 335,452 Z" fill="#0d0517"/>
+    <!-- R Inner Cutout Bevel Rim -->
+    <path d="M 335,452 L 435,452 C 475,452 495,435 495,405 L 505,408 C 505,448 480,465 435,465 L 335,465 Z" fill="url(#chromeDark)"/>
+
+    <!-- R Kick Leg (Diagonal Arrow) -->
+    <!-- R Kick Leg Base -->
+    <polygon points="380,515 480,515 605,720 500,720" fill="url(#chromeDark)"/>
+    <!-- R Kick Leg Face Highlight -->
+    <polygon points="405,515 480,515 605,720 550,720" fill="url(#chromeLight)"/>
+    <!-- R Kick Leg Tip Accent -->
+    <polygon points="550,720 605,720 585,690" fill="#ffffff"/>
+
+    <!-- Chrome Ridge Specular Highlights on R -->
+    <line x1="235" y1="280" x2="445" y2="280" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="235" y1="280" x2="235" y2="720" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="335" y1="280" x2="335" y2="720" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+    <line x1="405" y1="515" x2="550" y2="720" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+
+
+    <!-- LETTER Z (Electric Neon Purple / Magenta 3D Metallic) -->
+    <!-- Z Top Horizontal Bar -->
+    <polygon points="475,280 780,280 780,365 535,365" fill="url(#purpleLight)"/>
+    <!-- Z Top Bar Top Specular Highlight -->
+    <polygon points="475,280 780,280 765,315 500,315" fill="#f5d0fe" opacity="0.8"/>
+
+    <!-- Z Main Diagonal Spine Base -->
+    <polygon points="780,335 780,370 575,645 470,645" fill="url(#purpleDark)"/>
+    <!-- Z Main Diagonal Spine Upper Bevel -->
+    <polygon points="740,365 780,365 595,645 550,645" fill="url(#purpleLight)"/>
+    <!-- Z Main Diagonal Ridge Line -->
+    <line x1="760" y1="365" x2="572" y2="645" stroke="#fae8ff" stroke-width="3" opacity="0.9"/>
+
+    <!-- Z Bottom Horizontal Bar -->
+    <polygon points="460,635 795,635 795,720 460,720" fill="url(#purpleDark)"/>
+    <!-- Z Bottom Bar Highlight -->
+    <polygon points="460,635 795,635 770,670 485,670" fill="url(#purpleLight)"/>
+    <!-- Z Bottom Edge Chamfer Highlight -->
+    <line x1="460" y1="720" x2="795" y2="720" stroke="#d946ef" stroke-width="4"/>
+    <line x1="795" y1="635" x2="795" y2="720" stroke="#f0abfc" stroke-width="3.5"/>
+
+    <!-- Sparkle / Glint Accents on Intersections -->
+    <!-- Glint 1: Top R Corner -->
+    <g transform="translate(235, 280)">
+      <circle cx="0" cy="0" r="8" fill="#ffffff" filter="url(#softGlow)"/>
+      <line x1="-18" y1="0" x2="18" y2="0" stroke="#ffffff" stroke-width="2.5"/>
+      <line x1="0" y1="-18" x2="0" y2="18" stroke="#ffffff" stroke-width="2.5"/>
+    </g>
+
+    <!-- Glint 2: Z Top Right Tip -->
+    <g transform="translate(780, 280)">
+      <circle cx="0" cy="0" r="9" fill="#f5d0fe" filter="url(#softGlow)"/>
+      <line x1="-20" y1="0" x2="20" y2="0" stroke="#ffffff" stroke-width="3"/>
+      <line x1="0" y1="-20" x2="0" y2="20" stroke="#ffffff" stroke-width="3"/>
+    </g>
+
+    <!-- Glint 3: RZ Central Intersection -->
+    <g transform="translate(480, 520)">
+      <circle cx="0" cy="0" r="7" fill="#ffffff" filter="url(#softGlow)"/>
+      <line x1="-14" y1="0" x2="14" y2="0" stroke="#ffffff" stroke-width="2"/>
+      <line x1="0" y1="-14" x2="0" y2="14" stroke="#ffffff" stroke-width="2"/>
+    </g>
+
+    <!-- Glint 4: Z Bottom Right Corner -->
+    <g transform="translate(795, 720)">
+      <circle cx="0" cy="0" r="7" fill="#f5d0fe" filter="url(#softGlow)"/>
+      <line x1="-15" y1="0" x2="15" y2="0" stroke="#f0abfc" stroke-width="2"/>
+      <line x1="0" y1="-15" x2="0" y2="15" stroke="#f0abfc" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

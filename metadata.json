@@ -1,0 +1,6 @@
+{
+  "name": "RikouZone",
+  "description": "منصة صناع المحتوى والربح من الإنترنت - اكتشف مسارات الربح، أدوات صناع المحتوى، أفكار المحتوى وأدوات الذكاء الاصطناعي",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
