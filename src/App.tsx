@@ -15,8 +15,7 @@ import { CreatorsView } from './components/creators/CreatorsView';
 import { ProfileView } from './components/profile/ProfileView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { IncomePath, ContentIdea } from './types';
-
-const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
+import AdBanner from "./components/common/AdBanner";const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
 
 function MainApp() {
   const [currentTab, setCurrentTab] = useState<string>('home');
@@ -106,7 +105,7 @@ function MainApp() {
         {currentTab === 'home' && (
           <div>
             <Hero onNavigate={handleNavigate} />
-            <HomeFeatured
+            <AdBanner />            <HomeFeatured
               onNavigate={handleNavigate}
               onSelectPath={(path) => setSelectedIncomeModal(path)}
               onSelectIdea={(idea) => setSelectedIdeaModal(idea)}
