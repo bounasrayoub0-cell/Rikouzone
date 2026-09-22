@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { AdsterraNativeBanner } from '../common/AdsterraNativeBanner';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -164,8 +165,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
         </div>
 
+        {/* Adsterra Native Banner (Directly below 'Explore Income Paths' action & above the Rikou AI section) */}
+        <AdsterraNativeBanner />
+
         {/* 4 Feature Banners / Category Bento Grid */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* Card 1: Income Paths */}
           <div
@@ -239,6 +243,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           {/* Card 4: Rikou AI Suite */}
           <div
             id="hero-card-ai"
+            data-section="rikou-ai-section"
             onClick={() => onNavigate('ai')}
             className="group relative cursor-pointer overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-b from-amber-500/10 to-zinc-900/80 p-5 backdrop-blur-sm transition-all hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10"
           >
@@ -246,7 +251,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Sparkles className="h-6 w-6 stroke-[2.5]" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-              {isRTL ? 'Rikou AI (15 أداة ذكية)' : 'Rikou AI (15 Tools)'}
+              {isRTL ? 'جرب Rikou AI الذكي (15 أداة)' : 'Launch Rikou AI (15 Tools)'}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
               {isRTL
