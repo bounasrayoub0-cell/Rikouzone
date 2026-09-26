@@ -13,9 +13,17 @@ import { ToolsView } from './components/tools/ToolsView';
 import { RikouAIView } from './components/ai/RikouAIView';
 import { CreatorsView } from './components/creators/CreatorsView';
 import { ProfileView } from './components/profile/ProfileView';
+import { AffiliateMarketingView } from './components/affiliate/AffiliateMarketingView';
+import { TikTokAffiliateView } from './components/tiktok-affiliate/TikTokAffiliateView';
+import { YouTubeMonetizationView } from './components/youtube/YouTubeMonetizationView';
+import { InstagramMonetizationView } from './components/instagram/InstagramMonetizationView';
+import { FacebookMonetizationView } from './components/facebook/FacebookMonetizationView';
+import { BloggingMonetizationView } from './components/blogging/BloggingMonetizationView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
-import AdBanner from "./components/common/AdBanner";const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
+import AdBanner from "./components/common/AdBanner";
+const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
 
 function MainApp() {
   const [currentTab, setCurrentTab] = useState<string>('home');
@@ -75,11 +83,41 @@ function MainApp() {
   };
 
   const handleCopyText = (text: string, label: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast(label, 'success');
-    }).catch(() => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(label, 'success');
+        }).catch(() => {
+          fallbackCopy(text, label);
+        });
+      } else {
+        fallbackCopy(text, label);
+      }
+    } catch {
+      fallbackCopy(text, label);
+    }
+  };
+
+  const fallbackCopy = (text: string, label: string) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.top = '-9999px';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      if (successful) {
+        showToast(label, 'success');
+      } else {
+        showToast('تعذر النسخ تلقائياً', 'error');
+      }
+    } catch {
       showToast('تعذر النسخ تلقائياً', 'error');
-    });
+    }
   };
 
   const handleNavigate = (tab: string) => {
@@ -105,7 +143,8 @@ function MainApp() {
         {currentTab === 'home' && (
           <div>
             <Hero onNavigate={handleNavigate} />
-            <AdBanner />            <HomeFeatured
+            <AdBanner />
+            <HomeFeatured
               onNavigate={handleNavigate}
               onSelectPath={(path) => setSelectedIncomeModal(path)}
               onSelectIdea={(idea) => setSelectedIdeaModal(idea)}
@@ -120,6 +159,49 @@ function MainApp() {
           <IncomePathsView
             onToggleSave={handleToggleSave}
             isSaved={isSaved}
+            onCopyText={handleCopyText}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {currentTab === 'affiliate' && (
+          <AffiliateMarketingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'tiktok-affiliate' && (
+          <TikTokAffiliateView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'youtube-monetization' && (
+          <YouTubeMonetizationView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'instagram-monetization' && (
+          <InstagramMonetizationView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'facebook-monetization' && (
+          <FacebookMonetizationView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'blogging' && (
+          <BloggingMonetizationView
+            onNavigate={handleNavigate}
             onCopyText={handleCopyText}
           />
         )}
@@ -170,6 +252,12 @@ function MainApp() {
         onToggleSave={(id) => handleToggleSave(id, 'income')}
         isSaved={selectedIncomeModal ? isSaved(selectedIncomeModal.id) : false}
         onCopyText={handleCopyText}
+        onNavigateToAffiliate={() => handleNavigate('affiliate')}
+        onNavigateToTikTokAffiliate={() => handleNavigate('tiktok-affiliate')}
+        onNavigateToYouTube={() => handleNavigate('youtube-monetization')}
+        onNavigateToInstagram={() => handleNavigate('instagram-monetization')}
+        onNavigateToFacebook={() => handleNavigate('facebook-monetization')}
+        onNavigateToBlogging={() => handleNavigate('blogging')}
       />
 
       <IdeaDetailModal
@@ -196,8 +284,10 @@ function MainApp() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <MainApp />
-    </LanguageProvider>
+    <ErrorBoundary>
+      <LanguageProvider>
+        <MainApp />
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }

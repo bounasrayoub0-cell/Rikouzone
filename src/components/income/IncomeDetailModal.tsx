@@ -15,7 +15,8 @@ import {
   TrendingUp,
   ThumbsUp,
   ThumbsDown,
-  Monitor
+  Monitor,
+  Sparkles
 } from 'lucide-react';
 
 interface IncomeDetailModalProps {
@@ -24,6 +25,12 @@ interface IncomeDetailModalProps {
   onToggleSave: (id: string) => void;
   isSaved: boolean;
   onCopyText: (text: string, label: string) => void;
+  onNavigateToAffiliate?: () => void;
+  onNavigateToTikTokAffiliate?: () => void;
+  onNavigateToYouTube?: () => void;
+  onNavigateToInstagram?: () => void;
+  onNavigateToFacebook?: () => void;
+  onNavigateToBlogging?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -31,7 +38,13 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onClose,
   onToggleSave,
   isSaved,
-  onCopyText
+  onCopyText,
+  onNavigateToAffiliate,
+  onNavigateToTikTokAffiliate,
+  onNavigateToYouTube,
+  onNavigateToInstagram,
+  onNavigateToFacebook,
+  onNavigateToBlogging
 }) => {
   const { language, isRTL } = useLanguage();
 
@@ -103,6 +116,174 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
             </button>
           </div>
         </div>
+
+        {/* Upgraded Interactive Learning Path Banner for Affiliate Marketing */}
+        {path.id === 'affiliate-marketing' && onNavigateToAffiliate && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار التسويق بالعمولة التفاعلي المتكامل (10 وحدات)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، اختيار النيتش، 12 برنامجاً معتمداً، قوالب المحتوى، وحاسبات الأرباح، وخطة 7 أيام العملية.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToAffiliate();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح المسار التدريبي الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for TikTok Affiliate */}
+        {path.id === 'tiktok-affiliate' && onNavigateToTikTokAffiliate && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار أفلييت تيك توك التفاعلي المتكامل (10 أقسام)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، فاحص المنتجات، قوالب المحتوى والـ Hooks القابلة للنسخ، وحاسبة الأرباح، وخطة 7 أيام العملية.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToTikTokAffiliate();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار أفلييت تيك توك 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for YouTube Monetization */}
+        {path.id === 'youtube-monetization' && onNavigateToYouTube && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار تحقيق الدخل من يوتيوب التفاعلي المتكامل (10 أقسام)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، شروط YPP، حاسبة أرباح الـ RPM و AdSense، قوالب السكربتات والـ Hooks، منشئ الـ Media Kit، وخطة 30 يوماً.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToYouTube();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار يوتيوب الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Instagram Monetization */}
+        {path.id === 'instagram-monetization' && onNavigateToInstagram && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار الربح من انستغرام التفاعلي المتكامل (10 أقسام)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، طرق الربح الرسمية، هندسة الريلز والبايو، حاسبة التفاعل وسعر الرعايات، مولد الـ Media Kit، وخطة 30 يوماً.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToInstagram();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار انستغرام الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Facebook Monetization */}
+        {path.id === 'facebook-monetization' && onNavigateToFacebook && (
+          <div className="mt-5 rounded-2xl border border-blue-500/50 bg-gradient-to-r from-blue-500/20 via-amber-500/15 to-blue-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-blue-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 border border-blue-500/30 px-2.5 py-0.5 text-[11px] font-black text-blue-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار الربح من فيسبوك والريلز التفاعلي (7 مراحل متكاملة)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                تجهيز الصفحة، صناعة الريلز، فهم خوارزمية المشاركات، فاحص أهلية Meta، مولد السكربتات، وخطة 30 يوماً وتحديات يومية.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToFacebook();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار فيسبوك الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Niche Blogging & SEO */}
+        {path.id === 'blogging' && onNavigateToBlogging && (
+          <div className="mt-5 rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-500/20 via-amber-500/15 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار إنشاء المدونات المتخصصة و SEO (10 مراحل تطبيقية)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                تقييم النيتش، بحث الكلمات المفتاحية، بناء خطة 30 مقالاً وعناقيد المحتوى، محاكي نتائج Google، فاحص On-Page وخطة 90 يوماً.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToBlogging();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار المدونات والسيو الكامل 🚀
+            </button>
+          </div>
+        )}
 
         {/* Description */}
         <p className="mt-5 text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">

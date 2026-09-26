@@ -14,43 +14,45 @@ declare global {
 
 export default function AdBanner() {
   const adRef = useRef<HTMLDivElement>(null);
+  const loadedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!adRef.current) return;
+    if (!adRef.current || loadedRef.current) return;
+    loadedRef.current = true;
 
-    window.atOptions = {
-      key: "ca5ce1a3af5ba19280aa690a8812d52e",
-      format: "iframe",
-      height: 50,
-      width: 320,
-      params: {},
-    };
+    try {
+      window.atOptions = {
+        key: "ca5ce1a3af5ba19280aa690a8812d52e",
+        format: "iframe",
+        height: 50,
+        width: 320,
+        params: {},
+      };
 
-    const script = document.createElement("script");
-    script.src =
-      "https://www.highrevenueformat.com/ca5ce1a3af5ba19280aa690a8812d52e/invoke.js";
-    script.async = true;
+      const script = document.createElement("script");
+      script.src =
+        "https://www.highrevenueformat.com/ca5ce1a3af5ba19280aa690a8812d52e/invoke.js";
+      script.async = true;
+      script.onerror = () => {
+        // Silently swallow ad network load failures (e.g. adblock or CORS or iframe sandboxing)
+      };
 
-    adRef.current.appendChild(script);
+      adRef.current.appendChild(script);
+    } catch {
+      // Ignore ad loading failure in restricted environments
+    }
 
     return () => {
-      if (adRef.current) {
-        adRef.current.innerHTML = "";
-      }
+      // Do not abruptly destroy DOM while external script might be writing to it
     };
   }, []);
 
   return (
     <div
       ref={adRef}
+      className="mx-auto my-4 min-h-[50px] w-full max-w-[320px] flex items-center justify-center overflow-hidden"
       style={{
-        width: "320px",
-        height: "50px",
-        margin: "16px auto",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: "hidden",
+        minHeight: "50px",
       }}
     />
   );

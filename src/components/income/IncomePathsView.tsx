@@ -22,13 +22,15 @@ interface IncomePathsViewProps {
   isSaved: (id: string) => boolean;
   onCopyText: (text: string, label: string) => void;
   selectedPathId?: string | null;
+  onNavigate?: (tab: string) => void;
 }
 
 export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
   onToggleSave,
   isSaved,
   onCopyText,
-  selectedPathId
+  selectedPathId,
+  onNavigate
 }) => {
   const { language, isRTL } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
@@ -213,9 +215,41 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="rounded-lg bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-400 border border-amber-500/20">
-                      {path.category}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="rounded-lg bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-400 border border-amber-500/20">
+                        {path.category}
+                      </span>
+                      {path.id === 'affiliate-marketing' && (
+                        <span className="rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (10 وحدات)
+                        </span>
+                      )}
+                      {path.id === 'tiktok-affiliate' && (
+                        <span className="rounded-lg bg-gradient-to-r from-rose-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (10 أقسام)
+                        </span>
+                      )}
+                      {path.id === 'youtube-monetization' && (
+                        <span className="rounded-lg bg-gradient-to-r from-red-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (10 أقسام)
+                        </span>
+                      )}
+                      {path.id === 'instagram-monetization' && (
+                        <span className="rounded-lg bg-gradient-to-r from-pink-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (10 أقسام)
+                        </span>
+                      )}
+                      {path.id === 'facebook-monetization' && (
+                        <span className="rounded-lg bg-gradient-to-r from-blue-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-blue-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (7 مراحل)
+                        </span>
+                      )}
+                      {path.id === 'blogging' && (
+                        <span className="rounded-lg bg-gradient-to-r from-emerald-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/40 animate-pulse">
+                          🔥 مسار تفاعلي (10 مراحل)
+                        </span>
+                      )}
+                    </div>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -229,7 +263,23 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   </div>
 
                   <h3 
-                    onClick={() => setActiveModalPath(path)}
+                    onClick={() => {
+                      if (path.id === 'affiliate-marketing' && onNavigate) {
+                        onNavigate('affiliate');
+                      } else if (path.id === 'tiktok-affiliate' && onNavigate) {
+                        onNavigate('tiktok-affiliate');
+                      } else if (path.id === 'youtube-monetization' && onNavigate) {
+                        onNavigate('youtube-monetization');
+                      } else if (path.id === 'instagram-monetization' && onNavigate) {
+                        onNavigate('instagram-monetization');
+                      } else if (path.id === 'facebook-monetization' && onNavigate) {
+                        onNavigate('facebook-monetization');
+                      } else if (path.id === 'blogging' && onNavigate) {
+                        onNavigate('blogging');
+                      } else {
+                        setActiveModalPath(path);
+                      }
+                    }}
                     className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors cursor-pointer"
                   >
                     {title}
@@ -253,10 +303,44 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   </div>
 
                   <button
-                    onClick={() => setActiveModalPath(path)}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 py-2.5 text-xs font-bold text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent transition-all"
+                    onClick={() => {
+                      if (path.id === 'affiliate-marketing' && onNavigate) {
+                        onNavigate('affiliate');
+                      } else if (path.id === 'tiktok-affiliate' && onNavigate) {
+                        onNavigate('tiktok-affiliate');
+                      } else if (path.id === 'youtube-monetization' && onNavigate) {
+                        onNavigate('youtube-monetization');
+                      } else if (path.id === 'instagram-monetization' && onNavigate) {
+                        onNavigate('instagram-monetization');
+                      } else if (path.id === 'facebook-monetization' && onNavigate) {
+                        onNavigate('facebook-monetization');
+                      } else if (path.id === 'blogging' && onNavigate) {
+                        onNavigate('blogging');
+                      } else {
+                        setActiveModalPath(path);
+                      }
+                    }}
+                    className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging'
+                        ? 'bg-amber-500 text-black hover:bg-amber-400 shadow-md shadow-amber-500/20 font-black'
+                        : 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent'
+                    }`}
                   >
-                    <span>{isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint'}</span>
+                    <span>
+                      {path.id === 'affiliate-marketing'
+                        ? (isRTL ? 'افتح مسار التسويق بالعمولة الكامل 🚀' : 'Open Complete Affiliate Path 🚀')
+                        : path.id === 'tiktok-affiliate'
+                        ? (isRTL ? 'افتح مسار أفلييت تيك توك الكامل 🚀' : 'Open TikTok Affiliate Path 🚀')
+                        : path.id === 'youtube-monetization'
+                        ? (isRTL ? 'افتح مسار يوتيوب الكامل 🚀' : 'Open Complete YouTube Path 🚀')
+                        : path.id === 'instagram-monetization'
+                        ? (isRTL ? 'افتح مسار إنستغرام الكامل 🚀' : 'Open Complete Instagram Path 🚀')
+                        : path.id === 'facebook-monetization'
+                        ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Complete Facebook Path 🚀')
+                        : path.id === 'blogging'
+                        ? (isRTL ? 'افتح مسار المدونات والسيو الكامل 🚀' : 'Open Complete Blogging & SEO Path 🚀')
+                        : (isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint')}
+                    </span>
                     <ArrowIcon className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -273,6 +357,12 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onToggleSave={(id) => onToggleSave(id, 'income')}
         isSaved={activeModalPath ? isSaved(activeModalPath.id) : false}
         onCopyText={onCopyText}
+        onNavigateToAffiliate={() => onNavigate && onNavigate('affiliate')}
+        onNavigateToTikTokAffiliate={() => onNavigate && onNavigate('tiktok-affiliate')}
+        onNavigateToYouTube={() => onNavigate && onNavigate('youtube-monetization')}
+        onNavigateToInstagram={() => onNavigate && onNavigate('instagram-monetization')}
+        onNavigateToFacebook={() => onNavigate && onNavigate('facebook-monetization')}
+        onNavigateToBlogging={() => onNavigate && onNavigate('blogging')}
       />
 
     </div>

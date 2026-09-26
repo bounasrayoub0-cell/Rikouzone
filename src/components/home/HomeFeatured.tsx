@@ -138,7 +138,23 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                   </div>
 
                   <h3 
-                    onClick={() => onSelectPath(path)}
+                    onClick={() => {
+                      if (path.id === 'affiliate-marketing') {
+                        onNavigate('affiliate');
+                      } else if (path.id === 'tiktok-affiliate') {
+                        onNavigate('tiktok-affiliate');
+                      } else if (path.id === 'youtube-monetization') {
+                        onNavigate('youtube-monetization');
+                      } else if (path.id === 'instagram-monetization') {
+                        onNavigate('instagram-monetization');
+                      } else if (path.id === 'facebook-monetization') {
+                        onNavigate('facebook-monetization');
+                      } else if (path.id === 'blogging') {
+                        onNavigate('blogging');
+                      } else {
+                        onSelectPath(path);
+                      }
+                    }}
                     className="mt-3 text-base font-bold text-white group-hover:text-amber-300 transition-colors cursor-pointer line-clamp-1"
                   >
                     {title}
@@ -160,10 +176,42 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                   </div>
 
                   <button
-                    onClick={() => onSelectPath(path)}
-                    className="mt-3 w-full rounded-xl bg-zinc-800/80 py-2 text-xs font-bold text-zinc-200 hover:bg-amber-500 hover:text-black transition-all"
+                    onClick={() => {
+                      if (path.id === 'affiliate-marketing') {
+                        onNavigate('affiliate');
+                      } else if (path.id === 'tiktok-affiliate') {
+                        onNavigate('tiktok-affiliate');
+                      } else if (path.id === 'youtube-monetization') {
+                        onNavigate('youtube-monetization');
+                      } else if (path.id === 'instagram-monetization') {
+                        onNavigate('instagram-monetization');
+                      } else if (path.id === 'facebook-monetization') {
+                        onNavigate('facebook-monetization');
+                      } else if (path.id === 'blogging') {
+                        onNavigate('blogging');
+                      } else {
+                        onSelectPath(path);
+                      }
+                    }}
+                    className={`mt-3 w-full rounded-xl py-2 text-xs font-bold transition-all ${
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging'
+                        ? 'bg-amber-500 text-black hover:bg-amber-400 font-black shadow-md shadow-amber-500/20'
+                        : 'bg-zinc-800/80 text-zinc-200 hover:bg-amber-500 hover:text-black'
+                    }`}
                   >
-                    {isRTL ? 'عرض الدليل الكامل والخطوات' : 'View Full Blueprint'}
+                    {path.id === 'affiliate-marketing'
+                      ? (isRTL ? 'افتح المسار التدريبي الكامل 🚀' : 'Open Complete Path 🚀')
+                      : path.id === 'tiktok-affiliate'
+                      ? (isRTL ? 'افتح مسار أفلييت تيك توك 🚀' : 'Open TikTok Affiliate 🚀')
+                      : path.id === 'youtube-monetization'
+                      ? (isRTL ? 'افتح مسار يوتيوب الكامل 🚀' : 'Open YouTube Path 🚀')
+                      : path.id === 'instagram-monetization'
+                      ? (isRTL ? 'افتح مسار إنستغرام الكامل 🚀' : 'Open Instagram Path 🚀')
+                      : path.id === 'facebook-monetization'
+                      ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Facebook Path 🚀')
+                      : path.id === 'blogging'
+                      ? (isRTL ? 'افتح مسار المدونات والسيو 🚀' : 'Open Blogging & SEO 🚀')
+                      : (isRTL ? 'عرض الدليل الكامل والخطوات' : 'View Full Blueprint')}
                   </button>
                 </div>
               </div>
