@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               منصة صناع المحتوى والربح من الإنترنت
             </div>
             <div className="text-xs text-zinc-400 font-medium mt-0.5">
-              Founded by <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">Ayoub Bounassre</span>
+              Founded by <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">Ayoub Bounasr</span>
             </div>
             <div className="text-[11px] text-zinc-500 mt-1 font-normal">
               © 2026 RikouZone. All rights reserved
