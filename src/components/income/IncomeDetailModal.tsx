@@ -31,6 +31,10 @@ interface IncomeDetailModalProps {
   onNavigateToInstagram?: () => void;
   onNavigateToFacebook?: () => void;
   onNavigateToBlogging?: () => void;
+  onNavigateToSeoServices?: () => void;
+  onNavigateToWriting?: () => void;
+  onNavigateToCopywriting?: () => void;
+  onNavigateToVideoEditing?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -44,7 +48,11 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToYouTube,
   onNavigateToInstagram,
   onNavigateToFacebook,
-  onNavigateToBlogging
+  onNavigateToBlogging,
+  onNavigateToSeoServices,
+  onNavigateToWriting,
+  onNavigateToCopywriting,
+  onNavigateToVideoEditing
 }) => {
   const { language, isRTL } = useLanguage();
 
@@ -281,6 +289,118 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
               className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
             >
               افتح مسار المدونات والسيو الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for SEO Services */}
+        {path.id === 'seo-services' && onNavigateToSeoServices && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار تقديم وبيع خدمات تحسين محركات البحث (SEO Services)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                14 مرحلة تعليمية عملية، فاحص وتدقيق ومولد تقارير SEO Audit، حاسبة تسعير العقود الشهرية، دراسة حالة قبل/بعد On-Page، وسكربتات إغلاق الصفقات للعملاء.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToSeoServices();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+            >
+              افتح مسار خدمات السيو الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Freelance Writing */}
+        {path.id === 'freelance-writing' && onNavigateToWriting && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار كتابة المحتوى المستقل (Freelance Writing - 20 مرحلة تطبيقية)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                20 مرحلة شاملة، صانع عينات البورتفوليو، حاسبة تسعير المقالات والعقود، مقارنة الكتابة قبل وبعد، خطة 30 يوماً واختبار نهائي مع شهادة معتمدة.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToWriting();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار كتابة المحتوى الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Copywriting */}
+        {path.id === 'copywriting' && onNavigateToCopywriting && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار الكتابة الإعلانية والإقناعية (High-Converting Copywriting - 22 مرحلة)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                22 مرحلة تعليمية شاملة، مختبر أطر الإقناع PAS و AIDA و BAB، صانع شخصية العميل Avatar، ملف الـ Swipe File الأخلاقي، مقارنة قبل وبعد، والمشروع النهائي مع شهادة معتمدة.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToCopywriting();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار الكوبي رايتنج الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Video Editing */}
+        {path.id === 'video-editing' && onNavigateToVideoEditing && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار مونتاج الفيديوهات القصيرة (Video Editing & Shorts - 22 مرحلة تطبيقية)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                22 مرحلة تعليمية شاملة، محاكي التايم لاين التفاعلي، محدد البرامج، مقارنة قبل وبعد، حاسبة التصدير ومناطق الأمان، والمشروع النهائي مع شهادة معتمدة.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToVideoEditing();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار مونتاج الفيديو الكامل 🚀
             </button>
           </div>
         )}

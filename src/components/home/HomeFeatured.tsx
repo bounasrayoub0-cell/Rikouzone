@@ -189,12 +189,20 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onNavigate('facebook-monetization');
                       } else if (path.id === 'blogging') {
                         onNavigate('blogging');
+                      } else if (path.id === 'seo-services') {
+                        onNavigate('seo-services');
+                      } else if (path.id === 'freelance-writing') {
+                        onNavigate('freelance-writing');
+                      } else if (path.id === 'copywriting') {
+                        onNavigate('copywriting');
+                      } else if (path.id === 'video-editing') {
+                        onNavigate('video-editing');
                       } else {
                         onSelectPath(path);
                       }
                     }}
-                    className={`mt-3 w-full rounded-xl py-2 text-xs font-bold transition-all ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging'
+                    className={`mt-3 w-full rounded-xl py-2 text-xs font-bold transition-all cursor-pointer ${
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing'
                         ? 'bg-amber-500 text-black hover:bg-amber-400 font-black shadow-md shadow-amber-500/20'
                         : 'bg-zinc-800/80 text-zinc-200 hover:bg-amber-500 hover:text-black'
                     }`}
@@ -211,6 +219,14 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                       ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Facebook Path 🚀')
                       : path.id === 'blogging'
                       ? (isRTL ? 'افتح مسار المدونات والسيو 🚀' : 'Open Blogging & SEO 🚀')
+                      : path.id === 'seo-services'
+                      ? (isRTL ? 'افتح مسار خدمات السيو الكامل 🚀' : 'Open Complete SEO Services 🚀')
+                      : path.id === 'freelance-writing'
+                      ? (isRTL ? 'افتح مسار كتابة المحتوى الكامل 🚀' : 'Open Complete Freelance Writing 🚀')
+                      : path.id === 'copywriting'
+                      ? (isRTL ? 'افتح مسار الكوبي رايتنج الكامل 🚀' : 'Open Complete Copywriting 🚀')
+                      : path.id === 'video-editing'
+                      ? (isRTL ? 'افتح مسار مونتاج الفيديو الكامل 🚀' : 'Open Complete Video Editing 🚀')
                       : (isRTL ? 'عرض الدليل الكامل والخطوات' : 'View Full Blueprint')}
                   </button>
                 </div>

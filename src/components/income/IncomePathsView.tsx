@@ -316,12 +316,20 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('facebook-monetization');
                       } else if (path.id === 'blogging' && onNavigate) {
                         onNavigate('blogging');
+                      } else if (path.id === 'seo-services' && onNavigate) {
+                        onNavigate('seo-services');
+                      } else if (path.id === 'freelance-writing' && onNavigate) {
+                        onNavigate('freelance-writing');
+                      } else if (path.id === 'copywriting' && onNavigate) {
+                        onNavigate('copywriting');
+                      } else if (path.id === 'video-editing' && onNavigate) {
+                        onNavigate('video-editing');
                       } else {
                         setActiveModalPath(path);
                       }
                     }}
-                    className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging'
+                    className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing'
                         ? 'bg-amber-500 text-black hover:bg-amber-400 shadow-md shadow-amber-500/20 font-black'
                         : 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent'
                     }`}
@@ -339,6 +347,14 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Complete Facebook Path 🚀')
                         : path.id === 'blogging'
                         ? (isRTL ? 'افتح مسار المدونات والسيو الكامل 🚀' : 'Open Complete Blogging & SEO Path 🚀')
+                        : path.id === 'seo-services'
+                        ? (isRTL ? 'افتح مسار خدمات السيو الكامل 🚀' : 'Open Complete SEO Services Path 🚀')
+                        : path.id === 'freelance-writing'
+                        ? (isRTL ? 'افتح مسار كتابة المحتوى الكامل 🚀' : 'Open Complete Freelance Writing Path 🚀')
+                        : path.id === 'copywriting'
+                        ? (isRTL ? 'افتح مسار الكوبي رايتنج الكامل 🚀' : 'Open Complete Copywriting Path 🚀')
+                        : path.id === 'video-editing'
+                        ? (isRTL ? 'افتح مسار مونتاج الفيديو الكامل 🚀' : 'Open Complete Video Editing Path 🚀')
                         : (isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint')}
                     </span>
                     <ArrowIcon className="h-3.5 w-3.5" />
@@ -363,6 +379,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToInstagram={() => onNavigate && onNavigate('instagram-monetization')}
         onNavigateToFacebook={() => onNavigate && onNavigate('facebook-monetization')}
         onNavigateToBlogging={() => onNavigate && onNavigate('blogging')}
+        onNavigateToSeoServices={() => onNavigate && onNavigate('seo-services')}
+        onNavigateToWriting={() => onNavigate && onNavigate('freelance-writing')}
+        onNavigateToCopywriting={() => onNavigate && onNavigate('copywriting')}
+        onNavigateToVideoEditing={() => onNavigate && onNavigate('video-editing')}
       />
 
     </div>

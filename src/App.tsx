@@ -19,6 +19,10 @@ import { YouTubeMonetizationView } from './components/youtube/YouTubeMonetizatio
 import { InstagramMonetizationView } from './components/instagram/InstagramMonetizationView';
 import { FacebookMonetizationView } from './components/facebook/FacebookMonetizationView';
 import { BloggingMonetizationView } from './components/blogging/BloggingMonetizationView';
+import { SeoServicesView } from './components/seo-services/SeoServicesView';
+import { FreelanceWritingView } from './components/writing/FreelanceWritingView';
+import { CopywritingView } from './components/copywriting/CopywritingView';
+import { VideoEditingView } from './components/video-editing/VideoEditingView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -206,6 +210,34 @@ function MainApp() {
           />
         )}
 
+        {currentTab === 'seo-services' && (
+          <SeoServicesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'freelance-writing' && (
+          <FreelanceWritingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'copywriting' && (
+          <CopywritingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'video-editing' && (
+          <VideoEditingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
         {currentTab === 'ideas' && (
           <ContentIdeasView
             onToggleSave={handleToggleSave}
@@ -258,6 +290,10 @@ function MainApp() {
         onNavigateToInstagram={() => handleNavigate('instagram-monetization')}
         onNavigateToFacebook={() => handleNavigate('facebook-monetization')}
         onNavigateToBlogging={() => handleNavigate('blogging')}
+        onNavigateToSeoServices={() => handleNavigate('seo-services')}
+        onNavigateToWriting={() => handleNavigate('freelance-writing')}
+        onNavigateToCopywriting={() => handleNavigate('copywriting')}
+        onNavigateToVideoEditing={() => handleNavigate('video-editing')}
       />
 
       <IdeaDetailModal
