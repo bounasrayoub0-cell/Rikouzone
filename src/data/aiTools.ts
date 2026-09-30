@@ -14,6 +14,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'e.g., Free Fire tips, AI productivity tools, Crypto for beginners',
     arabicPlaceholder: 'مثال: نصائح فري فاير للاحتراف، أدوات ذكاء اصطناعي للإنتاجية، التجارة الإلكترونية للمبتدئين',
     frenchPlaceholder: 'ex: astuces Free Fire, productivité IA, e-commerce pour débutants',
+    promptPrefixAr: 'اقترح لي 10 أفكار محتوى مبتكرة وفيروسية لمجال: ',
+    promptPrefixEn: 'Give me 10 viral and high-retention content ideas about: ',
+    promptPrefixFr: 'Donne-moi 10 idées de contenu virales et engageantes sur : ',
     fields: [
       {
         id: 'topic',
@@ -61,6 +64,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Video subject and key points to cover',
     arabicPlaceholder: 'موضوع الفيديو والنقاط الرئيسية التي تريد تغطيتها بالتفصيل',
     frenchPlaceholder: 'Sujet de la vidéo et points clés à aborder',
+    promptPrefixAr: 'اكتب لي سكريبت فيديو كامل كلمة بكلمة مع التوجيهات البصرية والمؤثرات عن: ',
+    promptPrefixEn: 'Write a full word-for-word video script with visual cues and SFX about: ',
+    promptPrefixFr: 'Rédige un script vidéo complet mot à mot avec indications visuelles et effets sonores sur : ',
     fields: [
       {
         id: 'scriptTitle',
@@ -101,6 +107,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'What is your video about?',
     arabicPlaceholder: 'عن ماذا يتحدث الفيديو الخاص بك؟',
     frenchPlaceholder: 'De quoi parle votre vidéo ?',
+    promptPrefixAr: 'أريد 5 خطافات افتتاحية (Hooks) خاطفة ومحفزة للفضول لموضوع: ',
+    promptPrefixEn: 'Generate 5 high-retention opening hooks for: ',
+    promptPrefixFr: 'Génère 5 accroches percutantes (hooks) pour : ',
     fields: [
       {
         id: 'hookSubject',
@@ -135,6 +144,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Draft title or video concept',
     arabicPlaceholder: 'مسودة عنوانك أو الفكرة الأولية للفيديو',
     frenchPlaceholder: 'Votre idée de départ ou ébauche de titre',
+    promptPrefixAr: 'اقترح لي 10 عناوين يوتيوب ذات نسبة نقر عالية (High CTR) لفيديو عن: ',
+    promptPrefixEn: 'Suggest 10 high-CTR YouTube titles for a video about: ',
+    promptPrefixFr: 'Propose 10 titres YouTube à fort taux de clic (CTR) pour : ',
     fields: [
       {
         id: 'concept',
@@ -164,6 +176,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Brief summary of what happened in the video',
     arabicPlaceholder: 'ملخص موجز لمحتوى الفيديو والروابط المراد وضعها',
     frenchPlaceholder: 'Résumé de la vidéo et liens à intégrer',
+    promptPrefixAr: 'اكتب لي وصف فيديو احترافي متوافق مع السيو مع الفواصل الزمنية لموضوع: ',
+    promptPrefixEn: 'Write an SEO-optimized video description with timestamps for: ',
+    promptPrefixFr: 'Rédige une description vidéo optimisée pour le SEO avec chapitres pour : ',
     fields: [
       {
         id: 'videoSummary',
@@ -192,6 +207,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Topic or keywords (e.g. Free Fire, Dropshipping)',
     arabicPlaceholder: 'الموضوع أو الكلمات الدلالية (مثال: فري فاير، دروب شيبينغ، مونتاج)',
     frenchPlaceholder: 'Sujet ou mots-clés',
+    promptPrefixAr: 'استخرج لي حزمة هاشتاقات ذكية ومتوازنة لـ TikTok و Reels لموضوع: ',
+    promptPrefixEn: 'Extract targeted and balanced hashtags for TikTok and Reels about: ',
+    promptPrefixFr: 'Extrais une sélection de hashtags ciblés pour TikTok et Reels sur : ',
     fields: [
       {
         id: 'tagTopic',
@@ -225,6 +243,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Describe your visual post or reel content',
     arabicPlaceholder: 'صف المنشور أو الريلز وما الرسالة التي تريد إيصالها',
     frenchPlaceholder: 'Décrivez votre publication ou contenu visuel',
+    promptPrefixAr: 'اكتب لي كابشن تفاعلي وجذاب لانستغرام وتيك توك مع نداء إجراء واضح عن: ',
+    promptPrefixEn: 'Write an engaging social media caption with a clear CTA about: ',
+    promptPrefixFr: 'Rédige une légende captivante pour Instagram et TikTok avec un CTA clair sur : ',
     fields: [
       {
         id: 'captionContext',
@@ -259,6 +280,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Paste your draft or original text here...',
     arabicPlaceholder: 'الصق النص المراد إعادة صياغته هنا...',
     frenchPlaceholder: 'Collez votre texte à reformuler ici...',
+    promptPrefixAr: 'أعد صياغة هذا النص بأسلوب مشوق ومباشر وسهل القراءة: ',
+    promptPrefixEn: 'Rewrite this text in a punchy, engaging, and easy-to-read style: ',
+    promptPrefixFr: 'Reformule ce texte dans un style percutant et facile à lire : ',
     fields: [
       {
         id: 'originalText',
@@ -293,6 +317,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Primary keyword or service (e.g. video editing agency)',
     arabicPlaceholder: 'الكلمة المفتاحية الرئيسية أو الخدمة (مثال: خدمات المونتاج، متجر فري فاير)',
     frenchPlaceholder: 'Mot-clé principal ou thématique',
+    promptPrefixAr: 'أريد خطة سيو شاملة مع كلمات مفتاحية دقيقة وهيكلة H1 و H2 لموضوع: ',
+    promptPrefixEn: 'Provide an SEO plan with target keywords and heading structure for: ',
+    promptPrefixFr: 'Fournis un plan SEO avec mots-clés cibles et structure H1/H2 pour : ',
     fields: [
       {
         id: 'targetKeyword',
@@ -315,6 +342,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Paste your title, hook, or full script to analyze',
     arabicPlaceholder: 'الصق عنوانك أو الهوك أو السكربت لتحليله بالذكاء الاصطناعي',
     frenchPlaceholder: 'Collez votre texte à analyser',
+    promptPrefixAr: 'حلل لي هذا المحتوى وقيم نقاط القوة والضعف وفرص زيادة التفاعل: ',
+    promptPrefixEn: 'Analyze this content, evaluate retention strength and improvement points: ',
+    promptPrefixFr: "Analyse ce contenu, évalue la rétention et les axes d'amélioration : ",
     fields: [
       {
         id: 'contentToAnalyze',
@@ -337,6 +367,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'What visual scene do you envision for this video?',
     arabicPlaceholder: 'صف المشهد البصري الذي تتخيله للصورة المصغرة',
     frenchPlaceholder: 'Décrivez la scène visuelle que vous imaginez',
+    promptPrefixAr: 'اكتب لي برومبت احترافي لـ Midjourney لتوليد صورة مصغرة 8K سينمائية لموضوع: ',
+    promptPrefixEn: 'Write a Midjourney prompt to generate an 8K cinematic thumbnail background for: ',
+    promptPrefixFr: 'Rédige un prompt Midjourney pour générer une miniature 8K percutante sur : ',
     fields: [
       {
         id: 'sceneIdea',
@@ -370,6 +403,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Who are you and who do you help?',
     arabicPlaceholder: 'من أنت وماذا تقدم ولمن تقدم خدماتك؟',
     frenchPlaceholder: 'Qui êtes-vous et quelle valeur apportez-vous ?',
+    promptPrefixAr: 'صغ لي 3 نماذج بايو احترافية لحسابي مع نداء اتخاذ إجراء واضح لمجال: ',
+    promptPrefixEn: 'Draft 3 high-converting profile bios with a clear CTA for: ',
+    promptPrefixFr: "Rédige 3 modèles de bio professionnelle avec un appel à l'action clair pour : ",
     fields: [
       {
         id: 'whoYouHelp',
@@ -399,6 +435,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Product name and core benefit',
     arabicPlaceholder: 'اسم المنتج وأهم ميزة أو فائدة يقدمها للمستخدم',
     frenchPlaceholder: 'Nom du produit et avantage principal',
+    promptPrefixAr: 'اكتب لي مراجعة بيعية مقنعة وأصيلة لمنتج أفيلييت: ',
+    promptPrefixEn: 'Write a persuasive and authentic affiliate product review for: ',
+    promptPrefixFr: "Rédige une recommandation d'affiliation persuasive et authentique pour : ",
     fields: [
       {
         id: 'productName',
@@ -428,6 +467,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Your niche (e.g. Freelancing, Tech, Gaming)',
     arabicPlaceholder: 'مجالك (مثال: العمل الحر، التقنية، الألعاب، الإنتاجية)',
     frenchPlaceholder: 'Votre niche (ex: Freelance, Tech, Gaming)',
+    promptPrefixAr: 'أنشئ لي جدول وخطة نشر أسبوعية متوازنة لـ 7 أيام في مجال: ',
+    promptPrefixEn: 'Create a balanced 7-day content schedule and editorial calendar for: ',
+    promptPrefixFr: 'Crée un calendrier éditorial équilibré sur 7 jours pour : ',
     fields: [
       {
         id: 'channelNiche',
@@ -450,6 +492,9 @@ export const aiToolsList: AIToolConfig[] = [
     placeholder: 'Type any keyword (e.g. coffee, shoes, keyboards, keyboards, time management)',
     arabicPlaceholder: 'أدخل أي كلمة عشوائية (مثال: القهوة، الأحذية، الكيبورد، إدارة الوقت)',
     frenchPlaceholder: 'Tapez un mot-clé (ex: café, claviers, gestion du temps)',
+    promptPrefixAr: 'حول هذا الموضوع العادي إلى 5 أفكار فيديوهات غير متوقعة ومشوقة: ',
+    promptPrefixEn: 'Transform this topic into 5 creative and unexpected video concepts: ',
+    promptPrefixFr: 'Transforme ce sujet en 5 concepts vidéo captivants et inattendus : ',
     fields: [
       {
         id: 'rawKeyword',
@@ -461,230 +506,554 @@ export const aiToolsList: AIToolConfig[] = [
   }
 ];
 
-// Offline Intelligent Generation Engine - generates realistic, high-value structured results
-// Prepared architecture: can easily forward to `/api/gemini` when server backend is linked.
-export function executeAITool(toolId: string, values: Record<string, string>, language: 'ar' | 'en' | 'fr' = 'ar'): string {
-  const isAr = language === 'ar';
+import { ChatMessage } from '../types';
 
-  switch (toolId) {
-    case 'ai-content-ideas': {
-      const topic = values.topic || (isAr ? 'صناعة المحتوى والربح' : 'Content Creation & Income');
-      const platform = values.platform || 'Shorts';
-      return isAr
-        ? `🔥 نتائج Rikou AI المقترحة لمجال (${topic}) على منصة (${platform}):
+// Client-side communicator to Server-side Rikou AI Gemini API with seamless intelligent offline fallback
+export async function sendChatMessageToRikouAI(
+  messages: ChatMessage[],
+  quickActionId?: string,
+  language: 'ar' | 'en' | 'fr' = 'ar',
+  isRegenerate: boolean = false
+): Promise<string> {
+  try {
+    const res = await fetch('/api/rikou-ai/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: messages.map((m) => ({
+          role: m.role,
+          content: m.content,
+          attachment: m.attachment ? {
+            name: m.attachment.name,
+            type: m.attachment.type,
+            dataUrl: m.attachment.dataUrl,
+          } : undefined,
+        })),
+        quickActionId,
+        language,
+        isRegenerate,
+      }),
+    });
 
-1️⃣ [زاوية الصدمة والفضول]:
-• العنوان: "الخطأ الذي يفعله 95% من المبتدئين في ${topic} ويضيع وقتهم تماماً"
-• الهوك: "لو كنت تسعى للنجاح في ${topic}، توقف عن فعل هذا الشيء فوراً..."
-• فكرة المحتوى: مقارنة بين الطريقة التقليدية البطيئة والاستراتيجية الذكية الحديثة.
-
-2️⃣ [زاوية المقارنة بالأرقام]:
-• العنوان: "مقارنة حقيقية: نتائج أسبوع كامل من تطبيق أسرار ${topic}"
-• الهوك: "جربت هذه الطريقة لمدة 7 أيام متواصلة، وهذه كانت النتيجة الصادمة!"
-• فكرة المحتوى: توثيق عملي خطوة بخطوة مع عرض لقطات شاشة وأرقام ملموسة.
-
-3️⃣ [زاوية الحل السريع والمجاني]:
-• العنوان: "3 أدوات مجانية 100% لا يستغني عنها أي محترف في ${topic}"
-• الهوك: "وفر مئات الدولارات شهرياً بهذه الأدوات السرية..."
-• فكرة المحتوى: استعراض 3 حلول مجانية تنجز ما يفعله المنافسون بأموال طائلة.
-
-4️⃣ [زاوية التحدي المثير]:
-• العنوان: "هل يمكن الوصول إلى أول نتيجة حقيقية في ${topic} في 48 ساعة فقط؟"
-• الهوك: "وضعت نفسي في تحدٍ مستحيل، وشاهد ما حدث!"`
-        : `🔥 Rikou AI Generated Ideas for (${topic}) on (${platform}):
-
-1️⃣ [Curiosity Gap Angle]:
-• Title: "The Fatal Mistake 95% of Beginners Make in ${topic}"
-• Hook: "If you are trying to master ${topic}, stop doing this one thing right now..."
-• Concept: Contrast outdated legacy advice with the modern high-leverage tactic.
-
-2️⃣ [Proof & Data Angle]:
-• Title: "I Tested the Top Strategy for ${topic} for 7 Days Straight"
-• Hook: "I put this method to the test so you do not have to, and the numbers are wild."
-• Concept: Document a 7-day challenge with raw screenshots and takeaways.
-
-3️⃣ [Free Tools / Shortcuts]:
-• Title: "3 Completely Free Tools that Make ${topic} 10x Easier"
-• Hook: "Stop paying for expensive tools when these exist for $0..."
-• Concept: Rapid showcase of 3 underrated free utilities.`;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.reply && typeof data.reply === 'string' && data.reply.trim().length > 0) {
+        return data.reply.trim();
+      }
     }
+  } catch (err) {
+    console.warn('Backend /api/rikou-ai/chat call failed, engaging dynamic contextual generator:', err);
+  }
 
-    case 'ai-script-generator': {
-      const title = values.scriptTitle || (isAr ? 'سر من أسرار النجاح الرقمي' : 'Digital Mastery Secret');
-      const duration = values.duration || '60s';
-      return isAr
-        ? `🎬 سيناريو فيديو احترافي بواسطة Rikou AI
-📌 الموضوع: ${title} | المدة المستهدفة: ${duration}
+  // Fallback to client-side dynamic contextual generator
+  return generateContextualAIResponse(messages, quickActionId, language, isRegenerate);
+}
 
-[00:00 - 00:03] ⚡ الهوك الافتتاحي (بصري + صوتي):
-• الكاميرا: زووم سريع على الوجه أو الشاشة مع حركة يد قاطعة.
-• الصوت: مؤثر Whoosh حاد + نص متحرك بخط أصفر عريض.
-• الإلقاء الصوتي: "لو ما زلت تظن أن ${title} يحتاج لسنوات من الخبرة، فأنت تفوت أسهل فرصة في 2026!"
+// Helper to extract idea titles from previous assistant messages
+function extractIdeaByNumber(history: ChatMessage[], ideaNum: number): { title: string; concept: string } | null {
+  for (let i = history.length - 1; i >= 0; i--) {
+    const msg = history[i];
+    if (msg.role !== 'assistant') continue;
+    const text = msg.content;
 
-[00:03 - 00:15] 🛑 المشكلة وإثارة الفضول:
-• الكاميرا: لقطات أرشيفية سريعة B-roll توضح الإحباط والبحث المتكرر.
-• الإلقاء الصوتي: "المشكلة أن أغلب الناس يتبعون الطرق القديمة التي تم استهلاكها بالكامل، والنتيجة صفر مشاهدات أو مبيعات."
-
-[00:15 - 00:40] 💡 الحل والخطوات الثلاث:
-• الكاميرا: استعراض الشاشة خطوة بخطوة مع أسهم وإبراز المؤشر.
-• الخطوة 1: ابدأ بالتركيز على النتيجة المباشرة وتجنب الحشو.
-• الخطوة 2: استغل الأدوات الذكية لأتمتة 80% من المجهود الشاق.
-• الخطوة 3: طبق مبدأ الاستمرارية بنشر عينة كل 48 ساعة دون انقطاع.
-
-[00:40 - 00:55] 🚀 الخاتمة ونداء الإجراء (CTA):
-• الكاميرا: العودة لزاوية ثابتة واضحة ومبتسمة.
-• الإلقاء الصوتي: "اكتب كلمة (سر) في التعليقات لأرسل لك القالب المجاني فوراً في الخاص، ولا تنس حفظ الفيديو!"`
-        : `🎬 Complete Production Script by Rikou AI
-📌 Topic: ${title} | Target Length: ${duration}
-
-[00:00 - 00:03] ⚡ Visual & Audio Hook:
-• Visual: Fast zoom cut, bold text popping on screen with a sharp whoosh.
-• Dialogue: "If you still think ${title} requires years of experience, you are missing out on the biggest opportunity right now."
-
-[00:03 - 00:15] 🛑 The Problem:
-• Dialogue: "Most people waste months using outdated methods that no longer work. Here is what you must do instead."
-
-[00:15 - 00:42] 💡 The 3-Step Framework:
-• Step 1: Remove friction and focus on the one metric that moves the needle.
-• Step 2: Use smart leverage to automate 80% of repetitive busywork.
-• Step 3: Test fast, double down on what spikes engagement, and discard the rest.
-
-[00:42 - 00:55] 🚀 Outro & Call to Action (CTA):
-• Dialogue: "Save this video for tonight, and drop a comment if you want part 2!"`;
-    }
-
-    case 'ai-hook-generator': {
-      const subject = values.hookSubject || (isAr ? 'الربح وصناعة المحتوى' : 'online growth');
-      return isAr
-        ? `🪝 5 خطافات افتتاحية خارقة بواسطة Rikou AI لموضوع (${subject}):
-
-1️⃣ [هوك الخطأ القاتل]:
-"توقف عن فعل هذا الخطأ في ${subject} قبل أن تدمر خوارزميات حسابك إلى الأبد!"
-
-2️⃣ [هوك الفضول العكسي]:
-"هذا الشيء الصغير غير كل نتائجي في ${subject}، والمفاجأة أنه مجاني 100%..."
-
-3️⃣ [هوك الصدمة والأرقام]:
-"90% من الناس يضيعون ساعات في ${subject}، بينما المحترفون يفعلون هذا الشيء في 3 دقائق فقط!"
-
-4️⃣ [هوك القصة والتحول]:
-"كنت مفلساً وعالقاً في نقطة الصفر، حتى اكتشفت هذه القاعدة البسيطة في ${subject}..."
-
-5️⃣ [هوك التحدي المباشر]:
-"أراهنك أنك لم تكن تعرف أن هذا الموقع يفعل كل هذا في ${subject}!"`
-        : `🪝 5 High-Retention Hooks by Rikou AI for (${subject}):
-
-1️⃣ "Stop making this single mistake with ${subject} before you permanently ruin your momentum!"
-2️⃣ "Nobody is talking about this hidden trick in ${subject}, and it changes everything."
-3️⃣ "90% of creators do ${subject} completely backwards. Here is the modern approach."
-4️⃣ "I was stuck at zero until I changed this one rule about ${subject}..."
-5️⃣ "I guarantee you did not know this free tool could do this for ${subject}!"`;
-    }
-
-    case 'youtube-title-generator': {
-      const concept = values.concept || (isAr ? 'طرق الربح والمونتاج' : 'viral editing');
-      return isAr
-        ? `✨ عناوين يوتيوب مقترحة ذات معدل نقر (High CTR) استثنائي:
-
-1. كيف فعلت هذا الشيء المستحيل في 7 أيام فقط؟ (بالأدلة والأرقام)
-2. توقف فوراً! الحقيقة الصادمة حول ${concept} التي يخفونها عنك
-3. من الصفر إلى أول 1,000$ عبر ${concept} (دليل 2026 الشامل)
-4. جربت أشهر طريقة لـ ${concept}... وهذه كانت النتيجة الصادمة!
-5. 5 أسرار خفية في ${concept} ستجعلك تتفوق على 99% من منافسيك
-6. الشرح الذي تمنيت لو شاهدته قبل أن أبدأ في ${concept}`
-        : `✨ High CTR YouTube Titles by Rikou AI:
-
-1. I Tried ${concept} for 7 Days (Shocking Results)
-2. Stop Doing ${concept} The Old Way!
-3. The Only Video on ${concept} You Will Ever Need (2026 Guide)
-4. 5 Hidden Secrets in ${concept} That 99% of People Miss
-5. How I Mastered ${concept} from Scratch in 14 Days`;
-    }
-
-    case 'ai-hashtag-generator': {
-      const topic = values.tagTopic || 'RikouZone';
-      return isAr
-        ? `🏷️ حزمة الهاشتاقات المتوازنة بواسطة Rikou AI لـ (${topic}):
-
-#${topic.replace(/\s+/g, '_')} #صناع_المحتوى #الربح_من_الإنترنت #تطوير_الذات #تقنية #نصائح_ريلز #اكسبلور #ترند #شورتس #بزنس_أونلاين #فري_فاير #مونتاج #أفكار_محتوى #ريادة_الأعمال #دخل_سلبي`
-        : `🏷️ Targeted Hashtag Cloud by Rikou AI for (${topic}):
-
-#${topic.replace(/\s+/g, '')} #ContentCreator #OnlineIncome #ViralReels #CreatorEconomy #GrowthHacks #TechTrends #SideHustle #ShortsViral #DigitalBusiness`;
-    }
-
-    case 'ai-caption-generator': {
-      const context = values.captionContext || (isAr ? 'أهمية الاستمرارية والتطبيق العملي' : 'Consistency and execution');
-      return isAr
-        ? `✍️ كابشن انستغرام وتيك توك احترافي ومحفز للتفاعل:
-
-لو أردت تغييراً حقيقياً في حياتك، تذكر أن الأفكار وحدها لا تصنع الفارق.. بل التنفيذ اليومي المستمر! ⏳
-
-في هذا الفيديو كشفت لك التفاصيل الدقيقة حول (${context}).
-الكثير من الناس ينتظرون اللحظة المثالية، بينما الحقيقة أن البداية العشوائية اليوم أفضل من الخطة الكاملة المؤجلة لسنوات.
-
-👇 شاركنا في التعليقات: ما هي أكبر عقبة تواجهك حالياً؟
-💾 احفظ المنشور للرجوع إليه وقت التطبيق
-🔗 الرابط التفصيلي متاح في البايو مجاناً!`
-        : `✍️ High-Engagement Social Caption by Rikou AI:
-
-Ideas are cheap; disciplined daily execution is everything. ⏳
-
-In this clip, we broke down (${context}) and how you can apply it right now without overcomplicating things.
-
-👇 Drop your biggest bottleneck in the comments below!
-💾 Save this post for your next work session
-🔗 Direct resources linked in bio!`;
-    }
-
-    case 'ai-thumbnail-prompt-generator': {
-      const idea = values.sceneIdea || 'A gamer looking shocked at an insane screen';
-      return `🎨 Midjourney / DALL-E 8K Generation Prompt:
-
-Prompt: High-contrast YouTube thumbnail background, ${idea}, intense dynamic dramatic lighting, gold and neon accents, 8k resolution, cinematic atmosphere, octane render, vivid colors, depth of field, clear composition with negative space for bold text, photorealistic details --ar 16:9 --v 6.0 --style raw`;
-    }
-
-    case 'ai-bio-generator': {
-      const mission = values.whoYouHelp || (isAr ? 'مساعدة المبتدئين على كسب أول دخل رقمي' : 'Helping creators monetize');
-      return isAr
-        ? `👤 3 خيارات بايو احترافية لحسابك:
-
-الخيار 1 (مباشر وموجه نحو النتائج):
-🚀 أساعدك في ${mission}
-📈 خطط عمل واستراتيجيات بدون تعقيد
-👇 احصل على دليلك المجاني من الرابط:
-
-الخيار 2 (قائم على بناء الثقة والأرقام):
-💡 مهتم بـ ${mission} | صانع محتوى
-🎯 من الصفر إلى الاحتراف خطوة بخطوة
-📥 موارد مجانية وأدوات احترافية بالأسفل 👇
-
-الخيار 3 (قصير وأنيق):
-✨ دليلك الشامل لـ ${mission}
-🎬 فيديوهات يومية وأفكار فيروسية
-🔗 ابدأ الآن مجاناً 👇`
-        : `👤 3 Professional Bio Formats:
-
-Option 1:
-🚀 Helping you with ${mission}
-📈 Actionable systems without fluff
-👇 Grab your free starter toolkit:
-
-Option 2:
-💡 Passionate about ${mission}
-🎯 Zero to mastery blueprints
-📥 Free templates & guides below 👇`;
-    }
-
-    default: {
-      return isAr
-        ? `✅ تم توليد محتوى ذكي ومخصص بواسطة Rikou AI بنجاح!
-استناداً إلى معطياتك: تم تجهيز مخرجات عالية الجودة متوافقة مع خوارزميات النشر لعام 2026.
-
-💡 نصيحة RikouZone: احرص دائماً على إضافة لمستك الشخصية وتجربتك الواقعية قبل النشر لضمان تفاعل بشري أصيل وصادق مع المتابعين.`
-        : `✅ Intelligent content synthesized successfully by Rikou AI!
-Tailored output engineered for current 2026 algorithmic criteria.
-
-💡 RikouZone Pro Tip: Blend in your personal storytelling nuances for maximum audience connection.`;
+    // Check for patterns like 3️⃣, 3., 3-, 3)
+    const regex = new RegExp(`(?:${ideaNum}️⃣|\\b${ideaNum}\\.|\\b${ideaNum}\\-|\\b${ideaNum}\\)|الفكرة\\s*${ideaNum})\\s*([^\n]+)`, 'i');
+    const match = text.match(regex);
+    if (match) {
+      const fullLine = match[0];
+      const title = match[1]?.replace(/[•\-\*\[\]]/g, '').trim() || `الفكرة رقم ${ideaNum}`;
+      // Grab next 2 lines as concept
+      const afterMatch = text.slice(match.index! + match[0].length);
+      const nextLines = afterMatch.split('\n').filter(l => l.trim().length > 0).slice(0, 3).join(' ');
+      return { title, concept: nextLines };
     }
   }
+  return null;
 }
+
+// Helper to find the latest script in conversation history
+function findLatestScriptInHistory(history: ChatMessage[]): string | null {
+  for (let i = history.length - 1; i >= 0; i--) {
+    const msg = history[i];
+    if (msg.role === 'assistant' && (msg.content.includes('[00:') || msg.content.includes('سيناريو') || msg.content.includes('Script') || msg.content.includes('الهوك'))) {
+      return msg.content;
+    }
+  }
+  return null;
+}
+
+// Dynamic, multi-turn conversational AI reasoning engine
+export function generateContextualAIResponse(
+  messages: ChatMessage[],
+  quickActionId?: string,
+  language: 'ar' | 'en' | 'fr' = 'ar',
+  isRegenerate: boolean = false
+): string {
+  const isAr = language === 'ar';
+  const isFr = language === 'fr';
+
+  if (!messages || messages.length === 0) {
+    return isAr
+      ? 'مرحباً بك! أنا Rikou AI، كيف أساعدك اليوم في صناعة المحتوى أو الربح أو كتابة السكربتات؟'
+      : 'Hello! I am Rikou AI. How can I help you today with content creation, scripting, or digital growth?';
+  }
+
+  const lastUserMsg = messages[messages.length - 1]?.content.trim() || '';
+  const lowerMsg = lastUserMsg.toLowerCase();
+  const history = messages.slice(0, -1);
+
+  // 1. Multi-turn Follow-up: User references a specific Idea (e.g. "الفكرة رقم 3 عجباتني، كتب ليا Script كامل")
+  const ideaRefMatch = lastUserMsg.match(/(?:الفكرة\s*(?:رقم\s*)?(\d+)|فكرة\s*(\d+)|idea\s*#?(\d+)|(\d+)\s*عجباتني|عجباتني\s*(\d+))/i);
+  if (ideaRefMatch && (lowerMsg.includes('script') || lowerMsg.includes('سكربت') || lowerMsg.includes('كتب') || lowerMsg.includes('سيناريو') || lowerMsg.includes('كامل') || lowerMsg.includes('write'))) {
+    const ideaNum = parseInt(ideaRefMatch[1] || ideaRefMatch[2] || ideaRefMatch[3] || ideaRefMatch[4] || ideaRefMatch[5], 10);
+    const extractedIdea = extractIdeaByNumber(history, ideaNum);
+    const chosenTitle = extractedIdea ? extractedIdea.title : (isAr ? `الفكرة رقم ${ideaNum}` : `Idea #${ideaNum}`);
+
+    if (isRegenerate) {
+      if (isAr) {
+        return `إليك نسخة بديلة للسكريبت بزاوية مختلفة وجريئة لـ (${chosenTitle}):
+
+### المقدمة الافتتاحية
+"لو كان النجاح في هذا الأمر يحتاج إلى ما يدّعيه الجميع، لما رأيت المبتدئين يسبقون أصحاب الخبرة في أسابيع قليلة!"
+
+### تفكيك المشكلة
+الناس يقضون ساعات في البحث عن أسرار وهمية ودورات مكلفة، بينما السر الحقيقي يكمن في طريقة تطبيق واحدة يرفض معظمهم تجربتها خوفاً من التغيير.
+
+### الخطوات العملية الثلاث
+1. اختر مساراً واحداً محدداً ولا تشتت انتباهك بأكثر من فكرة في نفس الوقت.
+2. ركز على المهارات الأساسية التي تولد نتائج ملموسة بدل الانشغال بالشكليات المعقدة.
+3. اختبر أسلوبك واستمر بانتظام لقياس التفاعل الحقيقي.
+
+### الخاتمة ودعوة التفاعل
+احفظ هذا الفيديو لتبدأ بتطبيقه فوراً، وشاركني في التعليقات: هل أنت مستعد للبدء بهذه الخطوة؟`;
+      }
+    }
+
+    if (isAr) {
+      return `إليك السكريبت الكامل والجاهز للإلقاء لـ (${chosenTitle}):
+
+### المقدمة
+"لو كنت تسعى لنتائج حقيقية في هذا المجال، فأغلب ما تسمعه في الفيديوهات الشائعة هو مضيعة كاملة للوقت!"
+
+### جوهر المشكلة
+السبب هو أن أغلب المبتدئين يركزون على الأدوات المعقدة، بينما المعادلة الحقيقية أبسط بكثير وتعتمد على خطوات ذكية ومباشرة.
+
+### خطوات التنفيذ
+1. الخطوة الأولى: تخلص من الحشو وركز على حل مشكلة واحدة ومحددة جداً للمتابع.
+2. الخطوة الثانية: استخدم أدوات ذكية ومجانية لأتمتة الجزء الأكبر من المجهود المكرر.
+3. الخطوة الثالثة: انشر بانتظام كل 48 ساعة وقس التفاعل الفعلي بدلاً من الاكتفاء بالمشاهدات السطحية.
+
+### الخاتمة
+اكتب لي في التعليقات لأرسل لك الدليل العملي مجاناً، ولا تنسَ حفظ الفيديو لتتمكن من الرجوع إليه عند البدء!`;
+    } else {
+      return `Here is the complete script for [${chosenTitle}]:
+
+### Hook & Introduction
+"If you are still trying to master this the traditional way, stop right now before you burn out."
+
+### The Core Problem
+90% of people get stuck because they focus on flashy tools instead of one single leverage point that actually moves the needle.
+
+### Actionable Steps
+1. Strip away the noise and target one specific outcome.
+2. Automate the repetitive manual work using modern workflows.
+3. Measure actual retention and double down on what works.
+
+### Outro & Call to Action
+Drop a comment below if you want the full breakdown, and save this post to review when implementing!`;
+    }
+  }
+
+  // 2. Multi-turn Follow-up: User asks to make previous script more suspenseful ("خليه أكثر تشويقاً" / "خلي المقدمة أكثر تشويقاً" / "خليه حماسي" / "make it more suspenseful")
+  if (lowerMsg.includes('تشويق') || lowerMsg.includes('حماسي') || lowerMsg.includes('إثارة') || lowerMsg.includes('مقدمة') || lowerMsg.includes('suspense') || lowerMsg.includes('exciting') || lowerMsg.includes('dramatic')) {
+    if (isRegenerate && isAr) {
+      return `إليك تعديل المقدمة بأسلوب تشويقي متصاعد وجاذب للانتباه:
+
+### المقدمة المشوقة
+"إذا كنت تظن أن النجاح في هذا المجال ضربة حظ، فلديك 30 ثانية لتغير رأيك أو تكرر نفس الأخطاء!"
+
+### رفع مستوى الترقب
+معظم الذين بدأوا قبلك استسلموا في أول أسبوعين لأنهم اعتمدوا على النصائح المستهلكة. بينما الأقلية الذكية اعتمدت هذا السر الخفي الذي لن يخبرك به أحد مجاناً.
+
+### الحل المباشر
+لا تعقد الأمور. طبق هذه الخطوة الواحدة اليوم، وإذا لم ترَ تغييراً ملموساً في التفاعل والنتائج، يمكنك إلغاء متابعتي فوراً.
+
+### الخاتمة
+احفظ الفيديو الآن لتتأكد بنفسك، وأخبرني في التعليقات: هل تجرؤ على تطبيق هذه الطريقة؟`;
+    }
+    return isAr
+      ? `تم تعديل السكريبت ليكون أكثر تشويقاً وحماساً وإثارة للفضول:
+
+### المقدمة
+"هناك سر يتردد الكثيرون في كشفه لك.. لأنك لو عرفته، ستفهم لماذا كنت تضيع وقتك طوال هذه الشهور!"
+
+### رفع وتيرة الإثارة
+الفرق بين من يحقق نتائج استثنائية وأرباحاً حقيقية وبين من يبقى في مكانه.. ليس الحظ وليس المعدات الباهظة، بل هذه القاعدة المحددة.
+
+### النقطة الجوهرية
+المحترفون لا يضيعون وقتهم في الأساليب التقليدية؛ بل يركزون على تقديم قيمة صادمة وغير متوقعة في البداية، تتبعها خطوات عملية قابلة للتطبيق الفوري.
+
+### الخاتمة
+لا تفوت هذه الفرصة.. احفظ هذا الفيديو قبل أن تنساه، وشاركني في التعليقات: هل أنت مستعد للبدء؟`
+      : `Here is the revised, high-suspense edition:
+
+### Hook
+"Nobody in this industry wants you to know what I am about to show you in the next 40 seconds."
+
+### Tension & Core Value
+The gap between high-performing creators and those stuck at zero isn't luck or money—it is this exact hidden leverage. Implement this 2-step loop today.
+
+### Call to Action
+Save this right now before you scroll, and drop a comment below to unlock the rest!`;
+  }
+
+  // 3. User asks for Micro-SaaS ideas ("عطيني 5 أفكار لمشاريع Micro-SaaS")
+  if (lowerMsg.includes('micro-saas') || lowerMsg.includes('microsaas') || lowerMsg.includes('saas') || (lowerMsg.includes('مشاريع') && lowerMsg.includes('برمج'))) {
+    if (isAr) {
+      if (isRegenerate) {
+        return `إليك 5 أفكار مشاريع Micro-SaaS بديلة بفرص سوقية واعدة لعام 2026:
+
+### 1. نظام إشعارات الأسعار والمخزون للمتاجر المحلية
+منصة خفيفة تتيح لأصحاب المتاجر إرسال رسائل فورية لعملائهم عند توفر منتج جديد أو انخفاض سعره، دون الحاجة لتطبيقات معقدة.
+• **المشكلة:** صعوبة إعادة جذب العملاء الذين زاروا المتجر دون شراء.
+• **طريقة الربح:** اشتراك يبدأ من 19$ شهرياً حسب عدد الرسائل الشهرية.
+
+### 2. مولد ومجدول النشرات الإخبارية التلقائي للمستقلين
+أداة تلخص الروابط والمقالات التي يحفظها صانع المحتوى أسبوعياً في نشرة بريدية أنيقة وجاهزة للإرسال لمشتركيه.
+• **المشكلة:** النشرات البريدية مربحة لكن تجميعها وصياغتها أسبوعياً يستنزف ساعات طويلة.
+• **طريقة الربح:** 15$ شهرياً مع قوالب احترافية غير محدودة.
+
+### 3. أداة متابعة تجديد التراخيص والوثائق للشركات الصغيرة
+خدمة تذكير آلية ترسل تنبيهات مبكرة للشركات قبل انتهاء السجلات التجارية، الرخص، أو الاشتراكات السنوية.
+• **المشكلة:** الغرامات المالية المفاجئة بسبب نسيان مواعيد التجديد الرسمية.
+• **طريقة الربح:** باقة سنوية ثابتة أو 9$ شهرياً.
+
+### 4. أداة جمع تقييمات العملاء وتوثيقها بالفيديو
+صفحة بسيطة ترسل رابطاً سريعاً للعميل ليسجل مراجعة فيديو قصيرة في 30 ثانية مع ترخيص النشر.
+• **المشكلة:** التقييمات المكتوبة تفقد مصداقيتها، ومراجعات الفيديو صعبة الجمع.
+• **طريقة الربح:** 25$ شهرياً مع إمكانية تضمين التقييمات في أي موقع بسهولة.
+
+### 5. حاسبة التسعير السريع لعروض الأسعار للمقاولين والمصممين
+تطبيق سريع لحساب تكاليف المشاريع وإصدار عرض سعر احترافي (Quote) للعميل في أقل من دقيقتين.
+• **المشكلة:** تضييع أيام في صياغة عروض الأسعار مما يفقد العميل حماسه.
+• **طريقة الربح:** تجربة مجانية ثم 12$ شهرياً.
+
+---
+💡 خطوتك التالية المقترحة: اختر الفكرة الأقرب لخبرتك وابدأ بإنشاء صفحة هبوط أولية (Landing Page) لمعرفة رغبة العملاء قبل كتابة سطر برمجي واحد.`;
+      }
+
+      return `مرحباً بك! إليك 5 أفكار لمشاريع Micro-SaaS عملية ومربحة، مصممة ليتمكن مطور أو صانع محتوى مستقل من بنائها وإطلاقها بنموذج اشتراك شهري مستدام:
+
+### 1. منصة أتمتة الردود والمبيعات في الرسائل الخاصة
+أداة سحابية خفيفة ترسل تفاصيل المنتج ورابط الشراء الفوري بمجرد كتابة المتابع كلمة معينة في التعليقات أو الخاص.
+• **المشكلة:** أصحاب المتاجر وصناع المحتوى يضيعون مبيعات يومية بسبب التأخر في الرد على استفسارات الأسعار.
+• **الجمهور المستهدف:** المتاجر الإلكترونية الصغيرة، المدربون، وصناع المحتوى.
+• **نموذج الربح:** اشتراك شهري متدرج (من 15$ إلى 49$ شهرياً).
+
+### 2. محول المحتوى الطويل إلى منشورات مهنية
+أداة تستخرج أهم الأفكار من المقالات أو مقاطع البودكاست وتصيغها في منشورات تفاعلية جاهزة لشبكات LinkedIn و X.
+• **المشكلة:** الشركات والخبراء يملكون محتوى قيماً لكنهم يعانون من ضيق الوقت لتكييفه لكل منصة.
+• **الجمهور المستهدف:** رواد الأعمال، مسؤولو التسويق، وصناع المحتوى المهني.
+• **نموذج الربح:** خطة أساسية بـ 19$ وخطة متقدمة بـ 49$ شهرياً.
+
+### 3. أداة الفواتير السريعة مع الدفع الفوري
+تطبيق ويب خفيف ينشئ فواتير متعددة العملات في أقل من دقيقة، مع روابط دفع مباشرة وتتبع تلقائي للفواتير المتأخرة.
+• **المشكلة:** برامج المحاسبة التقليدية معقدة وباهظة للمستقل الذي يريد فقط إرسال فاتورة أنيقة وتحصيل أمواله.
+• **الجمهور المستهدف:** المستقلون والمصممون والمطورون في العالم العربي.
+• **نموذج الربح:** خطة مجانية لـ 3 فواتير، وخطة غير محدودة بـ 9$ شهرياً.
+
+### 4. مدقق الظهور في خرائط جوجل للمتاجر المحلية
+فحص دوري لنشاط Google Business Profile وإرسال تقرير أسبوعي مبسّط ينبه المالك بنواقص التقييمات والكلمات المفتاحية.
+• **المشكلة:** أصحاب المحلات والعيادات يجهلون سبب تراجع ظهورهم في نتائج البحث المحلية القريبة.
+• **الجمهور المستهدف:** المتاجر المحلية، المطاعم، ومقدمو الخدمات.
+• **نموذج الربح:** 29$ شهرياً لكل فرع مع تنبيهات ذكية.
+
+### 5. نظام إدارة الاشتراكات والنفقات للفرق الصغيرة
+لوحة تحكم واحدة تجمع بطاقات الاشتراكات وترسل تنبيهاً ذكياً قبل كل تجديد بـ 3 أيام لاقتراح الإلغاء أو الاستمرار.
+• **المشكلة:** الفرق الصغيرة تنسى مواعيد تجديد الأدوات السحابية وتفاجأ بخصومات دورية لأدوات غير مستخدمة.
+• **الجمهور المستهدف:** الوكالات الرقمية والشركات الناشئة وفرق العمل عن بعد.
+• **نموذج الربح:** 14$ شهرياً للفريق.
+
+---
+💡 خطوتك التالية المقترحة:
+اختر الفكرة التي تحل مشكلة واجهتها بنفسك أو تعرف من يعاني منها، وابدأ ببناء نموذج أولي مبسط (MVP) خلال أسبوعين لاختبار جاهزية الدفع لدى أول 5 عملاء.`;
+    } else {
+      return `Here are 5 practical and profitable Micro-SaaS project ideas designed for solo founders:
+
+### 1. Social DM Sales Closer
+A lightweight automation tool that sends instant product details and checkout links whenever a user comments a keyword on a post.
+• **Problem:** Creators and boutique sellers lose sales due to delayed direct message responses.
+• **Monetization:** $19 to $49/month tiered subscription.
+
+### 2. Long-Form Content Repurposer
+Transforms blog posts and podcast transcripts into ready-to-publish threads and carousels for LinkedIn and X.
+• **Problem:** Founders have valuable long-form ideas but lack the time to reformat them daily.
+• **Monetization:** $19/month basic plan, $49/month pro plan.
+
+### 3. Instant Invoicer with Direct Checkout
+Enables freelancers to create multi-currency branded invoices with one-click payment links in under 60 seconds.
+• **Problem:** Legacy accounting platforms are bloated and expensive for simple billing needs.
+• **Monetization:** Free tier up to 3 invoices, $9/month unlimited.
+
+### 4. Local Search Rank Tracker
+Weekly automated checkups that audit Google Business profiles and advise shop owners on missing reviews and search visibility.
+• **Problem:** Local retailers lose walk-in customers when their local ranking drops.
+• **Monetization:** $29/month per location.
+
+### 5. Small Team SaaS Spend Auditor
+Monitors team subscription renewals and alerts the owner 3 days before renewal to prevent unwanted charges.
+• **Problem:** Small teams waste hundreds each month on dormant software seats.
+• **Monetization:** $14/month flat team fee.
+
+---
+💡 Next Step: Choose the idea closest to your domain expertise and test customer demand before building.`;
+    }
+  }
+
+  // 4. User asks for ideas (e.g. "عطيني 10 أفكار لفيديوهات YouTube عن الربح من الإنترنت" or similar)
+  if (lowerMsg.includes('أفكار') || lowerMsg.includes('افكار') || lowerMsg.includes('ideas') || lowerMsg.includes('عطيني') || lowerMsg.includes('مقترحات') || quickActionId === 'ai-content-ideas') {
+    // Extract topic
+    let topic = 'الربح من الإنترنت وصناعة المحتوى';
+    const topicMatch = lastUserMsg.match(/(?:عن|في|حول|على|about|on|pour)\s+([^\n\.\?!,]+)/i);
+    if (topicMatch && topicMatch[1]?.trim().length > 2) {
+      topic = topicMatch[1].trim();
+    }
+
+    if (isRegenerate && isAr) {
+      return `إليك 5 أفكار بديلة بزوايا محتوى جديدة لـ (${topic}):
+
+### 1. تجربة واقعية عكس التوقعات
+"جربت عكس ما ينصح به الجميع في ${topic} لمدة 30 يوماً.. وهذه كانت النتيجة الصادمة"
+مقارنة صريحة بين النظريات السائدة والواقع العملي مع مشاركة النتائج الحقيقية.
+
+### 2. كشف التكاليف الحقيقية دون مبالغات
+"كم كلفني البدء في ${topic} بالضبط؟ كشف حساب تفصيلي بدون تجميل"
+شفافية عالية تجذب المتابعين الجادين وتكسب ثقتهم من أول دقيقة.
+
+### 3. دليل الاختصار لعام 2026
+"كيف تسبق 90% من المبتدئين في ${topic} باستخدام هذه الأدوات المجانية الثلاث"
+طرح حلول ذكية وعملية توفر على المشاهد أشهراً من التجربة العشوائية.
+
+### 4. دراسة حالة لقصة نجاح من الصفر
+"تحليل كيف وصل مبتدئ إلى أول نتائج ملموسة في ${topic} خلال 90 يوماً"
+شرح الخطوات اليومية التي يمكن لأي شخص تكرارها بنفسه.
+
+### 5. تجنب الخطأ الأكثر شيوعاً
+"الفخ الوحيد الذي يعطل نجاح أغلب صانعي المحتوى في ${topic} وكيف تتفاداه اليوم"
+نصيحة وقائية دقيقة توفر وقت وجهد المشاهدين.
+
+💬 اختر أي فكرة ترغب في كتابة سكريبت كامل لها، وسأجهزها لك فوراً!`;
+    }
+
+    if (isAr) {
+      return `إليك 10 أفكار محتوى قوية ومتنوعة لمجال (${topic}):
+
+### 1. زاوية التجربة والتحدي الواقعي
+"جربت أحدث طريقة لـ ${topic} لمدة 7 أيام متواصلة (النتيجة الحقيقية)"
+توثيق عملي للتجربة اليومية ومشاركة الأرقام والعقبات الصادقة بدون تجميل.
+
+### 2. كشف الأخطاء الشائعة
+"الخطأ الذي يفعله 95% من المبتدئين في ${topic} ويضيع عليهم شهوراً"
+تنبيه صريح يلفت انتباه المتابعين ويصحح المفاهيم الخاطئة التي تعطل تقدمهم.
+
+### 3. تفكيك التكاليف والبدائل المجانية
+"قبل أن تدفع دولاراً واحداً في كورس لـ ${topic}، شاهد هذا الفيديو"
+تقديم أدوات ومصادر مجانية بديلة تختصر الوقت والمال وتمنح قيمة حقيقية وفورية.
+
+### 4. أدوات تسريع الإنجاز والذكاء الاصطناعي
+"3 أدوات ذكية ومجانية تجعل العمل في ${topic} أسهل بـ 10 أضعاف"
+استعراض سريع لأدوات تزيد الإنتاجية وتوفر الساعات اليومية المهدرة.
+
+### 5. خطة البداية من الصفر (0 إلى 1)
+"لو بدأت من الصفر اليوم في ${topic} بدون رأس مال، هكذا سأبدأ"
+خارطة طريق لـ 30 يوماً مقسمة لمهام أسبوعية واضحة ومحددة.
+
+### 6. المقارنة المباشرة
+"الطريقة التقليدية مقابل الطريقة الذكية في ${topic}"
+مقارنة عملية سريعة توضح كيف تطور المجال وما الذي ينجح فعلياً حالياً.
+
+### 7. الاستراتيجيات التفاعلية لجذب الجمهور
+"كيف تجعل جمهورك يتفاعل مع كل منشور في ${topic}"
+نصائح تفاعلية لصياغة رسائل تلامس احتياجات واهتمامات المتابع وتدفعه للتعليق والمشاركة.
+
+### 8. دراسة الحالة والأرقام
+"تحليل مفصل لأول نتائج تم تحقيقها في ${topic}"
+استعراض أرقام وخطوات ملموسة تثبت فعالية التطبيق وتلهم المبتدئين.
+
+### 9. إجابات صريحة عن التردد والمخاوف
+"هل فعلاً فات الأوان للبدء في ${topic}؟ الجواب بدون مجاملة"
+إزالة المخاوف وتوضيح الفرص الحقيقية المتاحة الآن وكيفية اقتناصها.
+
+### 10. التوقعات والترندات القادمة
+"كيف سيتغير مجال ${topic} خلال هذا العام وكيف تستعد له"
+نظرة استشرافية تساعد المتابع على أن يكون سبّاقاً في مجاله ومواكباً لأحدث الخوارزميات.
+
+💬 اختر رقم أي فكرة ترغب في كتابة سكريبت كامل لها، وسأبدأ فوراً!`;
+    } else {
+      return `Here are 10 high-value content ideas for (${topic}):
+
+### 1. The 7-Day Challenge
+"I Tested the Most Popular Strategy for ${topic} for 7 Days (Real Results)"
+Documenting daily experience and sharing honest metrics without sugarcoating.
+
+### 2. Common Pitfalls Exposed
+"The #1 Mistake 95% of Beginners Make in ${topic}"
+Straightforward advice to save viewers months of wasted effort.
+
+### 3. Free Alternatives Blueprint
+"Before You Pay for a Course on ${topic}, Watch This"
+Highlighting zero-cost tools and resources that deliver immediate value.
+
+### 4. High-Leverage AI Workflows
+"3 Free Workflows That Make ${topic} 10x Easier in 2026"
+Quick walkthrough of automation tools that boost productivity.
+
+### 5. Zero-to-One Roadmap
+"If I Had to Start ${topic} from Scratch with $0, I'd Do This"
+A step-by-step 30-day action plan broken into weekly milestones.
+
+### 6. The Modern Comparison
+"The Traditional Method vs. The Modern High-Leverage Approach for ${topic}"
+A practical breakdown of what actually works right now.
+
+### 7. Audience Retention Blueprint
+"How to Keep Viewers Hooked on Your ${topic} Content"
+Practical advice on structuring narratives that drive engagement.
+
+### 8. Case Study Breakdown
+"How a Complete Beginner Reached Their First Win in ${topic} in 30 Days"
+Actionable takeaways that viewers can replicate immediately.
+
+### 9. Debunking Industry Myths
+"Is It Truly Too Late to Start in ${topic}? Honest Answer"
+Dissecting market realities and showing where real opportunities remain.
+
+### 10. Future Trends & Preparation
+"Where ${topic} is Heading This Year and How to Stay Ahead"
+A forward-looking perspective to keep your content relevant.
+
+💬 Tell me which idea you like best and I'll write the full script right away!`;
+    }
+  }
+
+  // 4. User asks for Hooks specifically
+  if (lowerMsg.includes('hook') || lowerMsg.includes('هوك') || lowerMsg.includes('خطاف') || quickActionId === 'ai-hook-generator') {
+    return isAr
+      ? `⚡ 5 خطافات افتتاحية (Hooks) خاطفة ومثبتة الفعالية لتثبيت المشاهد في أول ثانيتين:
+
+1️⃣ [هوك الصدمة والتحذير المباشر]:
+"توقف عن نشر أي فيديو قبل أن تعرف هذا الشيء الصغير الذي يخفي عنك خوارزميات المنصة!"
+
+2️⃣ [هوك كشف السر والبديل المجاني]:
+"أكبر صدمة في هذا المجال هي أن الأداة التي تدفع لها مئات الدولارات، كاين موقع مجاني كيدير نفس الخدمة فـ 3 ثواني!"
+
+3️⃣ [هوك المقارنة بالأرقام والفضول]:
+"90% من الناس كيخدموا 8 سوايع باش يوصلوا لهاد النتيجة، بينما المحترفون كيفعلوها بـ 3 نقرات فقط!"
+
+4️⃣ [هوك القصة والتحول الحقيقي]:
+"كنت عالقاً فـ نقطة الصفر وكنت باغي نستسلم، حتى جربت هاد القاعدة البسيطة اللي بدلات كلشي..."
+
+5️⃣ [هوك التحدي المثير]:
+"أراهنك أنك لو طبقتي هاد الاستراتيجية لـ 48 ساعة فقط، غاتشوف فارق ما شفتيهش فـ 6 أشهر كاملة!"
+
+💡 نصيحة Rikou AI: ادمج الهوك الصوتي مع حركة بصرية مفاجئة (Cut سريع أو نص بارز) لمنع المستخدم من التمرير.`
+      : `⚡ 5 High-Converting Opening Hooks:
+1️⃣ "Stop making this single mistake before you permanently hurt your reach."
+2️⃣ "Nobody is talking about this free tool, and it replaces a $200/mo subscription."
+3️⃣ "90% of creators do this backwards. Here is the modern approach."
+4️⃣ "I was stuck at zero until I changed this exact single habit..."
+5️⃣ "I guarantee you did not know this feature existed for your content."`;
+  }
+
+  // 5. User asks for Titles specifically
+  if (lowerMsg.includes('عناوين') || lowerMsg.includes('عنوان') || lowerMsg.includes('title') || quickActionId === 'youtube-title-generator') {
+    return isAr
+      ? `🚀 10 عناوين يوتيوب ذات نسبة نقر للظهور (High CTR) استثنائية:
+
+1. توقف فوراً! الحقيقة الصادمة التي يخفونها عنك في 2026
+2. جربت هذه الطريقة لمدة 7 أيام متواصلة... وهذه كانت النتيجة الصادمة!
+3. من الصفر إلى أول 1,000$ (الدليل الواقعي بدون كورسات مدفوعة)
+4. 5 أسرار خفية ستجعلك تتفوق على 99% من منافسيك في هذا المجال
+5. كيف حققت هذا الشيء المستحيل في 48 ساعة فقط؟ (بالأدلة والأرقام)
+6. الشرح الذي تمنيت لو شاهدته قبل أن أبدأ قبل سنة كاملة
+7. أكبر كذبة يروجها المؤثرون اليوم (ولماذا يجب أن تحذر منها)
+8. الدليل الشامل للمبتدئين: خطوة بخطوة من الصفر حتى أول نجاح
+9. 3 أدوات مجانية 100% ستغير طريقة عملك إلى الأبد
+10. لماذا يفشل 95% من المبتدئين في أول شهر؟ (وكيف تتجنب مصيرهم)
+
+🎯 نصيحة RikouZone: اختر العنوان الذي يثير الفضول دون مبالغة مضللة لتحافظ على رضا المشاهد.`
+      : `🚀 10 High-CTR Video Titles:
+1. Stop Doing This The Old Way (2026 Guide)
+2. I Tested This Strategy for 7 Days (Shocking Results)
+3. From Zero to Your First Win (No Paid Courses Required)
+4. 5 Hidden Secrets That 99% of Beginners Overlook
+5. How I Did This in 48 Hours (Full Transparent Breakdown)
+6. The Video I Wish I Watched When I First Started
+7. The Biggest Myth in the Creator Economy Right Now
+8. Step-by-Step Blueprint for Absolute Beginners
+9. 3 Free Tools That Completely Change the Game
+10. Why 95% Fail in Month One (And How You Won't)`;
+  }
+
+  // 6. User asks for Hashtags
+  if (lowerMsg.includes('هاشتاق') || lowerMsg.includes('هاشتاغ') || lowerMsg.includes('hashtag') || quickActionId === 'ai-hashtag-generator') {
+    return isAr
+      ? `🏷️ حزمة الهاشتاقات الذكية والمتوازنة لـ TikTok و Instagram Reels و YouTube Shorts:
+
+📌 هاشتاقات ذات وصول واسع (Viral Reach):
+#صناع_المحتوى #الربح_من_الإنترنت #تطوير_الذات #تقنية #نصائح_ريلز #اكسبلور #ترند #شورتس
+
+🎯 هاشتاقات تخصصية دقيقة (Targeted Niche):
+#ريادة_الأعمال #دخل_سلبي #بزنس_أونلاين #فريلانس #مونتاج #صناعة_المحتوى #أفكار_فيديوهات
+
+💡 استراتيجية النشر: ضع 3-5 وسوم فقط في عنوان Shorts، و 5-7 وسوم في كابشن TikTok، و 8-12 وسم في Reels لضمان استهداف الخوارزميات بدقة.`
+      : `🏷️ Targeted Hashtag Cloud:
+#ContentCreator #OnlineIncome #ViralReels #CreatorEconomy #SideHustle #GrowthHacks #DigitalMarketing #VideoEditing`;
+  }
+
+  // 7. General Intelligent Conversational Response
+  return isAr
+    ? `✨ مرحباً بك! لقد استلمت طلبك بخصوص: "${lastUserMsg}"
+
+بصفتي Rikou AI، قمت بتحليل طلبك وصياغة هذه الإرشادات العملية المباشرة:
+
+1. **الهدف الأساسي**: التركيز على القيمة الفعلية وتفكيك أي تعقيد إلى خطوات بسيطة يمكن تطبيقها في دقائق.
+2. **الاستراتيجية الفورية**: ابدأ دائماً بنموذج عمل أولي بسيط (MVP) واختبر تفاعل الجمهور قبل استثمار وقت طويل في الإعدادات المعقدة.
+3. **أفضل الممارسات**:
+   • اكتب هوك قوي في أول 3 ثوانٍ يحدد بوضوح من هو المشاهد المستهدف.
+   • احذف أي مقدمات طويلة أو مقدمات روتينية لا تضيف قيمة.
+   • اجعل نداء اتخاذ الإجراء (CTA) محدد ومباشر مثل حفظ المنشور أو كتابة كلمة في التعليقات.
+
+💬 إذا أردت أن أكتب لك سكريبت فيديو كامل عن هذا الموضوع، أو أفكار محتوى، أو خطة أسبوعية، فقط أخبرني وسأبدأ فوراً!`
+    : `✨ I have processed your request regarding: "${lastUserMsg}"
+
+Here is my direct, actionable recommendation from Rikou AI:
+
+1. **Core Objective**: Cut straight to high-leverage execution rather than overthinking tools.
+2. **Execution Blueprint**: Test quickly with short-form assets, measure audience retention, and double down on what works.
+3. **Immediate Action Steps**:
+   • Focus on a strong 2-second hook that highlights a tangible outcome.
+   • Remove filler words and keep pacing energetic.
+   • Provide a singular clear Call to Action (CTA).
+
+💬 Want me to write a full video script, brainstorm 10 more angles, or build an editorial calendar? Just ask!`;
+}
+
+// Backward compatible export for any existing legacy usages
+export function executeAITool(toolId: string, values: Record<string, string>, language: 'ar' | 'en' | 'fr' = 'ar'): string {
+  const isAr = language === 'ar';
+  const topic = values.topic || values.scriptTitle || values.hookSubject || values.concept || (isAr ? 'صناعة المحتوى والربح' : 'Content & Growth');
+  const dummyMessages: ChatMessage[] = [
+    {
+      id: 'legacy-init',
+      role: 'user',
+      content: `طلب محتوى حول: ${topic}`,
+      timestamp: Date.now(),
+      quickActionId: toolId,
+    },
+  ];
+  return generateContextualAIResponse(dummyMessages, toolId, language);
+}
+

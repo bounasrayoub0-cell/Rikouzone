@@ -1,44 +1,65 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Component, useEffect, useRef, ErrorInfo, ReactNode } from 'react';
 import { Sparkles } from 'lucide-react';
 
-export const AdsterraNativeBanner: React.FC = () => {
+interface SilentBoundaryProps {
+  children: ReactNode;
+}
+
+interface SilentBoundaryState {
+  hasError: boolean;
+}
+
+class SilentBoundary extends Component<SilentBoundaryProps, SilentBoundaryState> {
+  state: SilentBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): SilentBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.warn('Adsterra Native Banner caught isolated notice:', error.message, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
+const AdsterraNativeBannerInner: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const loadedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || loadedRef.current) return;
+    loadedRef.current = true;
 
-    // Check if the script is already added in this container
-    const existingScript = container.querySelector('script[src*="fb9dcfb2b9721a8695db7a01aa84b72f"]');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.setAttribute('data-cfasync', 'false');
-      script.src = 'https://pl31422700.profitableratecpmnetwork.com/fb9dcfb2b9721a8695db7a01aa84b72f/invoke.js';
+    try {
+      // Check if script is already present
+      const scriptSrc = 'https://pl31422700.profitableratecpmnetwork.com/fb9dcfb2b9721a8695db7a01aa84b72f/invoke.js';
+      const existingScript = container.querySelector(`script[src*="fb9dcfb2b9721a8695db7a01aa84b72f"]`);
+      
+      if (!existingScript) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.setAttribute('data-cfasync', 'false');
+        script.src = scriptSrc;
+        script.onerror = () => {
+          // Silently handle adblock or network loading issues
+        };
 
-      script.onload = () => {
-        setAdLoaded(true);
-      };
-      script.onerror = (e) => {
-        console.warn('Adsterra Native Banner script notice:', e);
-      };
-
-      container.appendChild(script);
+        container.appendChild(script);
+      }
+    } catch (e) {
+      console.warn('Adsterra Native Banner notice:', e);
     }
 
-    // Detect if Adsterra populates content into the container
-    const observer = new MutationObserver(() => {
-      if (container.children.length > 1) {
-        setAdLoaded(true);
-      }
-    });
-
-    observer.observe(container, { childList: true, subtree: true });
-
     return () => {
-      observer.disconnect();
+      // Intentionally do not clear or remove elements to prevent 3rd-party script removeChild race conditions
     };
   }, []);
 
@@ -56,26 +77,37 @@ export const AdsterraNativeBanner: React.FC = () => {
           </span>
         </div>
 
-        {/* Exact target container requested by user */}
-        <div
-          id="container-fb9dcfb2b9721a8695db7a01aa84b72f"
-          ref={containerRef}
-          className="w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] transition-all overflow-hidden text-inherit"
-        >
-          {/* Visual container indicator so it is clearly visible in the preview even if network latency or adblockers delay creative delivery */}
-          {!adLoaded && (
-            <div className="flex flex-col items-center justify-center p-3 text-center space-y-1 select-none">
-              <div className="flex items-center gap-2 text-zinc-300 text-xs font-semibold">
-                <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-                <span>Adsterra Native 4:1 Ad Unit</span>
-              </div>
-              <p className="text-[10px] text-zinc-500 font-mono">
-                container-fb9dcfb2b9721a8695db7a01aa84b72f
-              </p>
+        {/* Ad Container Area */}
+        <div className="relative w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] overflow-hidden">
+          {/* Subtle background placeholder sitting behind the ad slot as an absolute sibling (NOT a child of containerRef) */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center space-y-1 select-none pointer-events-none opacity-40">
+            <div className="flex items-center gap-2 text-zinc-400 text-xs font-medium">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+              <span>مساحة إعلانية مخصصة / Sponsor Space</span>
             </div>
-          )}
+            <p className="text-[10px] text-zinc-600 font-mono">
+              4:1 Native Ad Format
+            </p>
+          </div>
+
+          {/* Exact target container requested by user: KEEP FREE OF REACT JSX CHILDREN */}
+          {/* External scripts mutate its DOM freely without React reconciliation errors */}
+          <div
+            id="container-fb9dcfb2b9721a8695db7a01aa84b72f"
+            ref={containerRef}
+            className="relative z-10 w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] transition-all overflow-hidden text-inherit"
+          />
         </div>
       </div>
     </div>
   );
 };
+
+export const AdsterraNativeBanner: React.FC = () => {
+  return (
+    <SilentBoundary>
+      <AdsterraNativeBannerInner />
+    </SilentBoundary>
+  );
+};
+

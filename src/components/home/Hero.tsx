@@ -251,12 +251,12 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Sparkles className="h-6 w-6 stroke-[2.5]" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-              {isRTL ? 'جرب Rikou AI الذكي (15 أداة)' : 'Launch Rikou AI (15 Tools)'}
+              {isRTL ? 'مساعد Rikou AI الذكي' : 'Rikou AI Assistant'}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
               {isRTL
-                ? 'توليد السيناريوهات، العناوين، الهاشتاقات، وتفكيك الموضوعات فورياً بالذكاء الاصطناعي.'
-                : 'Instant generation of scripts, viral hooks, SEO descriptions, and thumbnails.'}
+                ? 'مساعدك الذكي لصناعة المحتوى والعمل والتعلم مع 15 أداة مدمجة لتوليد السكربتات والأفكار فورياً.'
+                : 'Your AI assistant for content creation, work & learning with 15 built-in tool shortcuts.'}
             </p>
             <div className="mt-4 flex items-center text-xs font-semibold text-amber-400">
               <span>{isRTL ? 'ابدأ التوليد الآن' : 'Generate now'}</span>

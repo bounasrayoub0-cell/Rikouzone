@@ -1,0 +1,179 @@
+import express from 'express';
+import type { Request, Response } from 'express';
+import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI } from '@google/genai';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function startServer() {
+  const app = express();
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+
+  app.use(express.json({ limit: '10mb' }));
+
+  // Initialize Gemini API client on the server side
+  const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
+    },
+  });
+
+  // Server-side AI endpoint for Rikou AI unified conversational assistant
+  app.post('/api/rikou-ai/chat', async (req: Request, res: Response) => {
+    try {
+      const { messages, quickActionId, language = 'ar', isRegenerate = false } = req.body;
+
+      if (!Array.isArray(messages) || messages.length === 0) {
+        return res.status(400).json({ error: 'Messages array is required' });
+      }
+
+      let systemInstruction = `You are Rikou AI (مساعدك الذكي لصناعة المحتوى والعمل والتعلم), the premier native AI assistant for the RikouZone platform.
+
+Core Identity & Persona:
+- You are an expert strategist, copywriter, digital income coach, and creator advisor.
+- Tone: Natural, professional, warm, clear, actionable, and conversational.
+- Language agility: Fluently understand and respond in Arabic (Modern Standard Arabic + natural Darija terms used by creators like "عطيني", "عجباتني", "كتب ليا", "كيفاش", "ديال", "خدمة", etc.), English, and French. Match the user's primary language and dialect naturally.
+
+CRITICAL PRESENTATION & OUTPUT QUALITY RULES:
+1. NATURAL HUMAN ASSISTANT RESPONSES (NO INTERNAL PROMPT LEAKS):
+   - Always return a clean, direct, and natural answer directly answering what the user asked for.
+   - NEVER expose internal prompt instructions, design directives, or technical meta-tags.
+   - Avoid raw instruction-style text such as:
+     * "Typography"
+     * "Contrast"
+     * "Hook" (unless specifically requested or as a natural heading)
+     * "سر القوة:"
+     * "الكاميرا:..."
+     * "المؤثر الصوتي:..."
+     * "التوجه البصري:..."
+     * "استعمل..."
+     * Any internal technical formatting or meta-commentary about how you generated the answer.
+   - Deliver the actual substance immediately:
+     * If the user asks for Micro-SaaS ideas: return actual, practical Micro-SaaS project ideas with the problem, solution, target audience, and monetization model.
+     * If the user asks for a script: return the actual spoken script and natural scene flow.
+     * If the user asks for ideas: return actual ideas directly.
+     * If the user asks for an explanation: explain clearly and directly.
+     * If the user asks for code: provide clean code.
+
+2. CLEAN, MOBILE-FRIENDLY FORMATTING:
+   - Clear markdown headings (###) when useful for organizing distinct points.
+   - Short, readable paragraphs (avoid massive dense walls of text).
+   - Clean bullet points or numbered steps where appropriate.
+   - Proper spacing that looks great on mobile and desktop.
+   - Preserve natural Arabic RTL reading order and terminology, and keep English/French crisp.
+   - Do NOT make every answer follow the exact same template. The structure must adapt naturally to the specific question asked.
+
+3. MULTI-TURN CONVERSATION & CONTEXT CONTINUITY:
+   - Always remember and build upon previous turns in this conversation.
+   - If the user refers to previous items (e.g., "الفكرة رقم 3 عجباتني، كتب ليا Script كامل" or "الفكرة الثانية" or "كيفاش نبنيها؟"), you MUST refer to that specific item from the conversation and expand it in detail.
+   - If the user asks for adjustments (e.g., "خليه أكثر تشويقاً" / "Make it punchier" / "Shorten it"), modify the PREVIOUS answer directly instead of generating an unrelated topic.
+
+4. REALISM & INTEGRITY:
+   - Provide realistic, high-value, practical substance rather than unrealistic zero-effort guarantees.`;
+
+      if (isRegenerate) {
+        systemInstruction += `\n\nREGENERATION MANDATE:
+The user clicked "Regenerate" for an alternative solution to their latest message.
+- Retain the exact conversation context and constraints.
+- Provide a genuinely DIFFERENT, fresh angle or alternative creative direction.
+- Do NOT repeat the previous wording. Provide new hooks, distinct structure, or a creative fresh spin.`;
+      }
+
+      // Format messages into Gemini contents structure, with support for image/file attachments
+      const contents = messages.map((m: any) => {
+        const parts: any[] = [];
+        if (m.attachment?.dataUrl && typeof m.attachment.dataUrl === 'string' && m.attachment.dataUrl.includes(';base64,')) {
+          const [header, base64Data] = m.attachment.dataUrl.split(';base64,');
+          const mimeType = header.replace(/^data:/, '') || m.attachment.type || 'image/jpeg';
+          if (base64Data) {
+            parts.push({
+              inlineData: {
+                mimeType,
+                data: base64Data,
+              },
+            });
+          }
+        }
+        if (m.content) {
+          parts.push({ text: m.content });
+        } else if (parts.length === 0) {
+          parts.push({ text: ' ' });
+        }
+        return {
+          role: m.role === 'assistant' ? 'model' : 'user',
+          parts,
+        };
+      });
+
+      // Try with high-availability models: gemini-3.5-flash, gemini-3.8-flash, gemini-flash-latest
+      const candidateModels = ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-flash-latest'];
+      let lastError: any = null;
+      let replyText = '';
+
+      for (const model of candidateModels) {
+        try {
+          const response = await ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction,
+              temperature: isRegenerate ? 0.88 : 0.7,
+            },
+          });
+
+          if (response.text) {
+            replyText = response.text;
+            break;
+          }
+        } catch (err: any) {
+          lastError = err;
+          console.warn(`Model ${model} request notice:`, err.message || err);
+        }
+      }
+
+      if (replyText) {
+        return res.json({ reply: replyText });
+      }
+
+      throw lastError || new Error('No response from AI models');
+    } catch (error: any) {
+      console.error('Rikou AI Chat error:', error);
+      return res.status(500).json({
+        error: error.message || 'Internal server error while processing AI request',
+      });
+    }
+  });
+
+  // Health check endpoint
+  app.get('/api/health', (req: Request, res: Response) => {
+    res.json({ status: 'ok', name: 'RikouZone Server' });
+  });
+
+  // Dev server with Vite middlewares, or static serving in production
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve(__dirname, 'dist')));
+    app.get('*', (req: Request, res: Response) => {
+      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    });
+  } else {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`RikouZone Server running at http://0.0.0.0:${PORT}`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error('Failed to start server:', err);
+});

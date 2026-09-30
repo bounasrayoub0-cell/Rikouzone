@@ -39,8 +39,8 @@ export const fr = {
     creatorHubDesc: 'Guides de croissance, critères de monétisation et secrets d’algorithmes',
     contentIdeas: 'Banque d’Idées de Contenu',
     contentIdeasDesc: 'Idées structurées avec accroches et plans immédiatement exécutables',
-    rikouAi: 'Suite Intelligente Rikou AI',
-    rikouAiDesc: 'Générez des scripts de vidéo, des titres accrocheurs et des hashtags en quelques secondes',
+    rikouAi: 'Rikou AI',
+    rikouAiDesc: 'Votre assistant IA pour la création de contenu, le travail et l\'apprentissage',
     viewAll: 'Voir Tout',
     exploreNow: 'Explorer Maintenant'
   },
@@ -134,7 +134,20 @@ export const fr = {
     resultHeader: 'Résultat Généré par Rikou AI',
     geminiPrepared: 'Préparé pour une architecture Gemini API sécurisée côté serveur.',
     inputPlaceholder: 'Entrez les détails de votre demande ici...',
-    outputPlaceholder: 'Le contenu généré apparaîtra ici après le clic.'
+    outputPlaceholder: 'Le contenu généré apparaîtra ici après le clic.',
+    newChat: 'Nouvelle conversation',
+    copy: 'Copier',
+    copied: 'Copié ✓',
+    regenerate: 'Régénérer',
+    history: 'Historique',
+    delete: 'Supprimer',
+    deleteAll: 'Tout supprimer',
+    attachFile: 'Joindre une image ou un fichier',
+    removeFile: 'Supprimer la pièce jointe',
+    confirmDelete: 'Supprimer cette conversation ?',
+    confirmDeleteAll: 'Supprimer tout l’historique ?',
+    noHistory: 'Aucune conversation précédente',
+    fileAttached: 'Fichier joint'
   },
   profile: {
     pageTitle: 'Profil Créateur & Objectifs',

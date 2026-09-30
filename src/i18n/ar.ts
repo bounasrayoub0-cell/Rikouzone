@@ -39,8 +39,8 @@ export const ar = {
     creatorHubDesc: 'استراتيجيات التنمية، شروط تحقيق الدخل وأسرار الخوارزميات',
     contentIdeas: 'مكتبة أفكار المحتوى',
     contentIdeasDesc: 'أفكار مدروسة مع سيناريوهات وهياكل قابلة للتطبيق الفوري',
-    rikouAi: 'ذكاء Rikou AI التوليدي',
-    rikouAiDesc: 'مساعدك الذكي لتوليد الأفكار، السكربتات، العناوين والهاشتاقات في ثوانٍ',
+    rikouAi: 'Rikou AI',
+    rikouAiDesc: 'مساعدك الذكي لصناعة المحتوى والعمل والتعلم',
     viewAll: 'عرض الكل',
     exploreNow: 'استكشف الآن'
   },
@@ -134,7 +134,20 @@ export const ar = {
     resultHeader: 'النتيجة المقترحة بواسطة Rikou AI',
     geminiPrepared: 'مهيأ ومربوط ببنية Gemini API الآمنة لتوليد دقيق وسريع.',
     inputPlaceholder: 'أدخل تفاصيل طلبك هنا...',
-    outputPlaceholder: 'ستظهر النتيجة الاحترافية هنا بعد الضغط على زر التوليد.'
+    outputPlaceholder: 'ستظهر النتيجة الاحترافية هنا بعد الضغط على زر التوليد.',
+    newChat: 'محادثة جديدة',
+    copy: 'نسخ',
+    copied: 'تم النسخ ✓',
+    regenerate: 'إعادة التوليد',
+    history: 'سجل المحادثات',
+    delete: 'حذف',
+    deleteAll: 'حذف الكل',
+    attachFile: 'إرفاق صورة أو ملف',
+    removeFile: 'إزالة المرفق',
+    confirmDelete: 'هل تريد حذف هذه المحادثة؟',
+    confirmDeleteAll: 'هل تريد حذف كل سجل المحادثات؟',
+    noHistory: 'لا توجد محادثات سابقة حتى الآن',
+    fileAttached: 'تم إرفاق ملف'
   },
   profile: {
     pageTitle: 'ملفك الشخصي واهتماماتك',

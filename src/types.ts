@@ -173,6 +173,9 @@ export interface AIToolConfig {
   placeholder: string;
   arabicPlaceholder: string;
   frenchPlaceholder: string;
+  promptPrefixAr?: string;
+  promptPrefixEn?: string;
+  promptPrefixFr?: string;
   fields: {
     id: string;
     label: string;
@@ -181,6 +184,31 @@ export interface AIToolConfig {
     placeholder?: string;
     options?: { label: string; value: string }[];
   }[];
+}
+
+export interface ChatAttachment {
+  name: string;
+  type: string;
+  size?: number;
+  dataUrl?: string; // base64 representation
+}
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: number;
+  quickActionId?: string;
+  attachment?: ChatAttachment;
+}
+
+export interface SavedChatSession {
+  id: string;
+  title: string;
+  createdAt: number;
+  updatedAt: number;
+  messages: ChatMessage[];
+  activeQuickActionId?: string | null;
 }
 
 export interface UserProfile {
