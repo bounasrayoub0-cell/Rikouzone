@@ -35,6 +35,10 @@ interface IncomeDetailModalProps {
   onNavigateToWriting?: () => void;
   onNavigateToCopywriting?: () => void;
   onNavigateToVideoEditing?: () => void;
+  onNavigateToGraphicDesign?: () => void;
+  onNavigateToThumbnailDesign?: () => void;
+  onNavigateToWebDev?: () => void;
+  onNavigateToAppDev?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -52,7 +56,11 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToSeoServices,
   onNavigateToWriting,
   onNavigateToCopywriting,
-  onNavigateToVideoEditing
+  onNavigateToVideoEditing,
+  onNavigateToGraphicDesign,
+  onNavigateToThumbnailDesign,
+  onNavigateToWebDev,
+  onNavigateToAppDev,
 }) => {
   const { language, isRTL } = useLanguage();
 
@@ -401,6 +409,118 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
               className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار مونتاج الفيديو الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Graphic Design */}
+        {path.id === 'graphic-design' && onNavigateToGraphicDesign && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار التصميم الجرافيكي والهويات البصرية التفاعلي (11 قسماً شاملاً)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                أساسيات التصميم، أدوات Canva و Figma و Photoshop، بناء الهوية والشعارات، تصاميم السوشيال، بناء البورتفوليو، حاسبة التسعير القابلة للتعديل، وخطة 30 يوماً للمبتدئ.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToGraphicDesign();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار التصميم الجرافيكي الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Thumbnail Design */}
+        {path.id === 'thumbnail-design' && onNavigateToThumbnailDesign && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار تصميم الصور المصغرة لليوتيوب التفاعلي (10 مراحل تطبيقية)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                أساسيات الـ CTR، قواعد التباين واختيار الخطوط، 8 أنواع للصور، خطوات التصميم من الصفر، قوالب جاهزة للنسخ، مولّد أفكار تفاعلي، وفاحص Checklist وتحدي 7 أيام.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToThumbnailDesign();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار تصميم الصور المصغرة الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Web Development */}
+        {path.id === 'web-development' && onNavigateToWebDev && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار تطوير المواقع وصفحات الهبوط التفاعلي (10 وحدات و 7 مشاريع)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                أساسيات الويب، HTML و CSS و JavaScript من الصفر، التجاوب، صفحات الهبوط، Git و GitHub، النشر على Vercel، و 7 مشاريع عملية ودليل العمل الحر.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToWebDev();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار تطوير المواقع الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Mobile App Development */}
+        {path.id === 'app-development' && onNavigateToAppDev && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا المسار بالكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                مسار تطوير تطبيقات الجوال الشامل (13 وحدة و 7 مشاريع حقيقية)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                بناء تطبيقات Android و iOS بـ Flutter و React Native، الاتصال بالـ APIs، قواعد البيانات، الإشعارات، النشر على Google Play و App Store، واستراتيجيات الربح والعمل الحر.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToAppDev();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح مسار تطبيقات الجوال الكامل 🚀
             </button>
           </div>
         )}

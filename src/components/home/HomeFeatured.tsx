@@ -151,6 +151,22 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onNavigate('facebook-monetization');
                       } else if (path.id === 'blogging') {
                         onNavigate('blogging');
+                      } else if (path.id === 'seo-services') {
+                        onNavigate('seo-services');
+                      } else if (path.id === 'freelance-writing') {
+                        onNavigate('freelance-writing');
+                      } else if (path.id === 'copywriting') {
+                        onNavigate('copywriting');
+                      } else if (path.id === 'video-editing') {
+                        onNavigate('video-editing');
+                      } else if (path.id === 'graphic-design') {
+                        onNavigate('graphic-design');
+                      } else if (path.id === 'thumbnail-design') {
+                        onNavigate('thumbnail-design');
+                      } else if (path.id === 'web-development') {
+                        onNavigate('web-development');
+                      } else if (path.id === 'app-development') {
+                        onNavigate('app-development');
                       } else {
                         onSelectPath(path);
                       }

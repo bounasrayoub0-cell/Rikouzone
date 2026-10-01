@@ -604,6 +604,169 @@ export function generateContextualAIResponse(
   const lowerMsg = lastUserMsg.toLowerCase();
   const history = messages.slice(0, -1);
 
+  // 0. Official Identity & Developer / Founder Queries (Strict & Explicit)
+  if (
+    lowerMsg.includes('شكون المطور') ||
+    lowerMsg.includes('شكون مطور') ||
+    lowerMsg.includes('من طورك') ||
+    lowerMsg.includes('من هو مطورك') ||
+    lowerMsg.includes('شكون دارك') ||
+    lowerMsg.includes('شكون صنعك') ||
+    lowerMsg.includes('من صنعك') ||
+    lowerMsg.includes('شكون المؤسس') ||
+    lowerMsg.includes('من المؤسس') ||
+    lowerMsg.includes('مؤسس rikouzone') ||
+    lowerMsg.includes('مؤسس ريكوزون') ||
+    lowerMsg.includes('who developed you') ||
+    lowerMsg.includes('who is your developer') ||
+    lowerMsg.includes('who created you') ||
+    lowerMsg.includes('who is the founder') ||
+    lowerMsg.includes('qui t\'a créé') ||
+    lowerMsg.includes('qui est ton développeur') ||
+    lowerMsg.includes('qui est le fondateur')
+  ) {
+    if (lowerMsg.includes('مؤسس') || lowerMsg.includes('founder') || lowerMsg.includes('fondateur')) {
+      return isAr
+        ? 'مؤسس RikouZone هو **Ayoub Bounasr**.'
+        : isFr
+        ? 'Le fondateur de RikouZone est **Ayoub Bounasr**.'
+        : 'The founder of RikouZone is **Ayoub Bounasr**.';
+    }
+    if (lowerMsg.includes('دارك') || lowerMsg.includes('صنعك') || lowerMsg.includes('created you')) {
+      return isAr
+        ? 'أنا Rikou AI، وتم تطويري بواسطة **Ayoub Bounasr** داخل منصة RikouZone.'
+        : isFr
+        ? 'Je suis Rikou AI, et j\'ai été développé par **Ayoub Bounasr** au sein de la plateforme RikouZone.'
+        : 'I am Rikou AI, and I was developed by **Ayoub Bounasr** within the RikouZone platform.';
+    }
+    return isAr
+      ? 'المطور ديالي هو **Ayoub Bounasr**.'
+      : isFr
+      ? 'Mon développeur est **Ayoub Bounasr**.'
+      : 'My developer is **Ayoub Bounasr**.';
+  }
+
+  // 0.1 Capabilities Query ("شنو كتقدر تدير؟" / "What can you do?")
+  if (
+    lowerMsg.includes('شنو كتقدر تدير') ||
+    lowerMsg.includes('شنو تقدر تدير') ||
+    lowerMsg.includes('شنو كتدير') ||
+    lowerMsg.includes('شنو كتعرف تدير') ||
+    lowerMsg.includes('ماذا تستطيع') ||
+    lowerMsg.includes('ما هي قدراتك') ||
+    lowerMsg.includes('ما هي مهامك') ||
+    lowerMsg.includes('ماذا تفعل') ||
+    lowerMsg.includes('what can you do') ||
+    lowerMsg.includes('que peux-tu faire')
+  ) {
+    return isAr
+      ? `أنا **Rikou AI**، مساعدك الذكي المتخصص داخل منصة RikouZone. أستطيع مساعدتك في:
+
+• **توليد أفكار المحتوى:** ابتكار زوايا وأفكار لفيديوهات YouTube، ريلز، تيك توك، ومنشورات السوشيال ميديا.
+• **كتابة السكربتات:** صياغة نصوص وسيناريوهات احترافية عند طلبك مباشرة.
+• **تحسين المحتوى (SEO & Hooks):** اقتراح خطافات (Hooks) خاطفة، عناوين بنسبة نقر عالية، وهاشتاقات دقيقة.
+• **استراتيجيات العمل والربح الرقمي:** إرشادات عملية للعمل الحر، بناء الهوية، وإطلاق المشاريع المصغرة.
+• **صياغة وتدقيق النصوص:** كتابة نصوص إعلانية ورسائل تواصل مهنية مع العملاء.
+
+شنو هو الموضوع أو المشروع اللي باغي نخدموا عليه دابا؟`
+      : isFr
+      ? `Je suis **Rikou AI**, votre assistant intelligent au sein de RikouZone. Je peux vous aider à :
+
+• **Générer des idées de contenu** pour YouTube, Reels, TikTok et réseaux sociaux.
+• **Rédiger des scripts vidéo** captivants et percutants sur demande.
+• **Optimiser vos contenus (SEO & Hooks)** avec des accroches et des titres à fort taux de clic.
+• **Stratégies de revenus numériques** pour freelances et créateurs.
+• **Rédaction et révision de textes marketing** et propositions clients.
+
+Sur quel projet souhaitez-vous travailler ?`
+      : `I am **Rikou AI**, your dedicated assistant within the RikouZone platform. I can assist you with:
+
+• **Content Ideation:** Brainstorming viral concepts for YouTube, Reels, TikTok, and social media.
+• **Scriptwriting:** Crafting high-retention video scripts and marketing copy on demand.
+• **Content Optimization (SEO & Hooks):** Crafting thumb-stopping hooks, high-CTR titles, and hashtags.
+• **Digital Income Blueprints:** Practical freelancing, branding, and micro-business strategies.
+• **Copywriting & Polish:** Drafting compelling ad copies, proposals, and client pitches.
+
+What project or topic would you like to work on right now?`;
+  }
+
+  // 0.2 Explicit Script Request for SEO (e.g. "كتب لي Script لفيديو عن SEO")
+  if (
+    (lowerMsg.includes('script') || lowerMsg.includes('سكربت') || lowerMsg.includes('سيناريو')) &&
+    (lowerMsg.includes('seo') || lowerMsg.includes('سيو'))
+  ) {
+    return isAr
+      ? `إليك سكريبت فيديو تعليمي سريع وعالي التفاعل عن أساسيات الـ SEO (مدة 60 ثانية):
+
+### المقدمة
+"لو كنت كتعول غير على الإعلانات الممولة باش تجيب مبيعات، فغير توقف الفلوس كيتوقفو الزوار فوراً! اليوم غنوريك كيفاش تجيب زوار مجاناً 24/7 من Google."
+
+### الشرح المباشر
+"السر كيتسمى SEO (تحسين محركات البحث). فاش شي حد كيبحث على مشكل، Google كيبغي يعطيه أحسن إجابة. باش تكون نتا هاديك الإجابة، ركز على 3 خطوات:
+1. استهدف كلمة بحث واضحة كيبحث عليها جمهورك فعلياً.
+2. جاوب على السؤال مباشرة فـ أول 15 ثانية بلا مقدمات باردة.
+3. خلي موقعك خفيف وسريع فـ التصفح من التيليفون."
+
+### الخاتمة
+"احفظ هاد الفيديو عندك، وكتب ليا فـ التعليقات شنو هو مجالك باش نقترح عليك كلمات مفتاحية سهلة تبدا بها!"`
+      : `Here is a punchy, 60-second educational script on SEO basics:
+
+### Hook
+"If you rely solely on paid ads for traffic, the moment your budget runs out, your sales stop. Here is how to get Google to send you free traffic 24/7."
+
+### Core Value
+"It is called SEO (Search Engine Optimization). When people search for a problem, Google wants to recommend the most relevant answer. To be that answer:
+1. Target high-intent, low-competition keywords.
+2. Deliver the answer immediately without filler.
+3. Optimize for fast mobile page speed."
+
+### Call to Action
+"Save this post right now, and drop your niche in the comments so I can give you 3 keywords to target!"`;
+  }
+
+  // 0.3 Conceptual Explanation Query for SEO ("شنو هو SEO؟" / "What is SEO?")
+  if (
+    (lowerMsg.includes('شنو هو') || lowerMsg.includes('ما هو') || lowerMsg.includes('شرح') || lowerMsg.includes('اشرح') || lowerMsg.includes('شنو كيعني') || lowerMsg.includes('what is') || lowerMsg.includes('c\'est quoi')) &&
+    (lowerMsg.includes('seo') || lowerMsg.includes('سيو') || lowerMsg.includes('search engine'))
+  ) {
+    return isAr
+      ? `### ما هو الـ SEO (تحسين محركات البحث)؟
+
+الـ **SEO** (اختصار لـ *Search Engine Optimization*) هو فن واستراتيجية تهيئة موقعك الإلكتروني أو محتواك ليظهر في المراتب الأولى من نتائج البحث المجانية (Organic Search) على Google عندما يبحث الناس عن كلمات ومواضيع مرتبطة بمجالك.
+
+**ركائز الـ SEO الأساسية الثلاث:**
+1. **On-Page SEO (السيو الداخلي):** تحسين المحتوى نفسه، اختيار الكلمات المفتاحية المناسبة، ضبط العناوين (H1, H2)، وتنسيق الروابط الداخلية.
+2. **Technical SEO (السيو التقني):** سرعة تحميل الموقع، التوافق التام مع شاشات الهواتف الذكية، وضمان سهولة قراءة الصفحات من قِبل عناكب البحث.
+3. **Off-Page SEO (السيو الخارجي):** كسب الروابط الخلفية الموثوقة (Backlinks) والإشارات من مواقع أخرى لبناء ثقة ومصداقية الموقع لدى Google.
+
+**الفائدة الأساسية:** جلب عملاء وزوار مهتمين ومستمرين على مدار الساعة بدون الحاجة لدفع سنتيم واحد في الإعلانات الممولة.
+
+واش تحب نشرح ليك كيفاش تطبق الـ SEO على موقعك أو قناتك على اليوتيوب؟`
+      : isFr
+      ? `### Qu'est-ce que le SEO (Search Engine Optimization) ?
+
+Le **SEO** (Référencement Naturel) regroupe l'ensemble des techniques permettant de positionner un site web ou un contenu dans les premiers résultats gratuits des moteurs de recherche comme Google.
+
+**Les 3 piliers du SEO :**
+1. **SEO On-Page :** Optimisation du contenu, choix des mots-clés stratégiques et balisage sémantique.
+2. **SEO Technique :** Vitesse de chargement, adaptabilité mobile et indexabilité par les robots Google.
+3. **SEO Off-Page :** Acquisition de liens retour de qualité (Backlinks) pour accroître l'autorité du domaine.
+
+Souhaitez-vous savoir comment appliquer le SEO à un projet spécifique ?`
+      : `### What is SEO (Search Engine Optimization)?
+
+**SEO** is the process and methodology of optimizing your website or content to rank higher in unpaid, organic search engine results (like Google and YouTube) for relevant user queries.
+
+**The 3 Core Pillars of SEO:**
+1. **On-Page SEO:** High-quality content, targeted keyword placement, header hierarchy, and internal linking.
+2. **Technical SEO:** Fast page load speeds, mobile responsiveness, clean site architecture, and indexability.
+3. **Off-Page SEO:** Earning reputable backlinks and brand mentions to build domain authority.
+
+**Key Benefit:** Long-term, sustainable, free traffic without continuous ad spend.
+
+Would you like tips on how to apply SEO to your specific website or YouTube channel?`;
+  }
+
   // 1. Multi-turn Follow-up: User references a specific Idea (e.g. "الفكرة رقم 3 عجباتني، كتب ليا Script كامل")
   const ideaRefMatch = lastUserMsg.match(/(?:الفكرة\s*(?:رقم\s*)?(\d+)|فكرة\s*(\d+)|idea\s*#?(\d+)|(\d+)\s*عجباتني|عجباتني\s*(\d+))/i);
   if (ideaRefMatch && (lowerMsg.includes('script') || lowerMsg.includes('سكربت') || lowerMsg.includes('كتب') || lowerMsg.includes('سيناريو') || lowerMsg.includes('كامل') || lowerMsg.includes('write'))) {
@@ -1013,32 +1176,33 @@ A forward-looking perspective to keep your content relevant.
 #ContentCreator #OnlineIncome #ViralReels #CreatorEconomy #SideHustle #GrowthHacks #DigitalMarketing #VideoEditing`;
   }
 
-  // 7. General Intelligent Conversational Response
+  // 7. General Conversational / Clarification Response
   return isAr
-    ? `✨ مرحباً بك! لقد استلمت طلبك بخصوص: "${lastUserMsg}"
+    ? `أهلاً بك! بخصوص استفسارك: "${lastUserMsg}"
 
-بصفتي Rikou AI، قمت بتحليل طلبك وصياغة هذه الإرشادات العملية المباشرة:
+يسعدني مساعدتك في هذا الأمر بشكل مباشر وواضح. هل تفضل:
+• **شرحاً مبسطاً وتفصيلياً** للموضوع؟
+• **أفكاراً عملية أو خطوات تنفيذية** يمكنك تطبيقها مباشرة؟
+• **صياغة سكريبت أو نص إعلاني جاهز**؟
 
-1. **الهدف الأساسي**: التركيز على القيمة الفعلية وتفكيك أي تعقيد إلى خطوات بسيطة يمكن تطبيقها في دقائق.
-2. **الاستراتيجية الفورية**: ابدأ دائماً بنموذج عمل أولي بسيط (MVP) واختبر تفاعل الجمهور قبل استثمار وقت طويل في الإعدادات المعقدة.
-3. **أفضل الممارسات**:
-   • اكتب هوك قوي في أول 3 ثوانٍ يحدد بوضوح من هو المشاهد المستهدف.
-   • احذف أي مقدمات طويلة أو مقدمات روتينية لا تضيف قيمة.
-   • اجعل نداء اتخاذ الإجراء (CTA) محدد ومباشر مثل حفظ المنشور أو كتابة كلمة في التعليقات.
+حدد لي ما تفضله أو وضح لي أكثر، وسأقدم لك الإجابة الدقيقة فوراً!`
+    : isFr
+    ? `Bonjour ! Concernant votre demande : "${lastUserMsg}"
 
-💬 إذا أردت أن أكتب لك سكريبت فيديو كامل عن هذا الموضوع، أو أفكار محتوى، أو خطة أسبوعية، فقط أخبرني وسأبدأ فوراً!`
-    : `✨ I have processed your request regarding: "${lastUserMsg}"
+Je suis ravi de vous aider directement. Préférez-vous :
+• Une **explication claire et détaillée** du sujet ?
+• Des **idées concrètes ou un plan d'action** immédiatement applicable ?
+• La **rédaction d'un script ou texte prêt à publier** ?
 
-Here is my direct, actionable recommendation from Rikou AI:
+Précisez ce qui vous convient le mieux et je vous répondrai précisément !`
+    : `Hello! Regarding your inquiry: "${lastUserMsg}"
 
-1. **Core Objective**: Cut straight to high-leverage execution rather than overthinking tools.
-2. **Execution Blueprint**: Test quickly with short-form assets, measure audience retention, and double down on what works.
-3. **Immediate Action Steps**:
-   • Focus on a strong 2-second hook that highlights a tangible outcome.
-   • Remove filler words and keep pacing energetic.
-   • Provide a singular clear Call to Action (CTA).
+I would be happy to assist you directly. Would you prefer:
+• A **clear, direct explanation** of the topic?
+• **Actionable ideas or an execution roadmap**?
+• A **ready-to-use script or tailored copy**?
 
-💬 Want me to write a full video script, brainstorm 10 more angles, or build an editorial calendar? Just ask!`;
+Just let me know what works best for you and I will provide the exact response right away!`;
 }
 
 // Backward compatible export for any existing legacy usages

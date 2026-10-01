@@ -23,6 +23,10 @@ import { SeoServicesView } from './components/seo-services/SeoServicesView';
 import { FreelanceWritingView } from './components/writing/FreelanceWritingView';
 import { CopywritingView } from './components/copywriting/CopywritingView';
 import { VideoEditingView } from './components/video-editing/VideoEditingView';
+import { GraphicDesignView } from './components/graphic-design/GraphicDesignView';
+import { ThumbnailDesignView } from './components/thumbnail-design/ThumbnailDesignView';
+import { WebDevelopmentView } from './components/web-development/WebDevelopmentView';
+import { MobileAppDevelopmentView } from './components/mobile-app/MobileAppDevelopmentView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -238,6 +242,34 @@ function MainApp() {
           />
         )}
 
+        {currentTab === 'graphic-design' && (
+          <GraphicDesignView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'thumbnail-design' && (
+          <ThumbnailDesignView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'web-development' && (
+          <WebDevelopmentView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {currentTab === 'app-development' && (
+          <MobileAppDevelopmentView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
         {currentTab === 'ideas' && (
           <ContentIdeasView
             onToggleSave={handleToggleSave}
@@ -294,6 +326,10 @@ function MainApp() {
         onNavigateToWriting={() => handleNavigate('freelance-writing')}
         onNavigateToCopywriting={() => handleNavigate('copywriting')}
         onNavigateToVideoEditing={() => handleNavigate('video-editing')}
+        onNavigateToGraphicDesign={() => handleNavigate('graphic-design')}
+        onNavigateToThumbnailDesign={() => handleNavigate('thumbnail-design')}
+        onNavigateToWebDev={() => handleNavigate('web-development')}
+        onNavigateToAppDev={() => handleNavigate('app-development')}
       />
 
       <IdeaDetailModal

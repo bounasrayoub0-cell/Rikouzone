@@ -276,6 +276,22 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('facebook-monetization');
                       } else if (path.id === 'blogging' && onNavigate) {
                         onNavigate('blogging');
+                      } else if (path.id === 'seo-services' && onNavigate) {
+                        onNavigate('seo-services');
+                      } else if (path.id === 'freelance-writing' && onNavigate) {
+                        onNavigate('freelance-writing');
+                      } else if (path.id === 'copywriting' && onNavigate) {
+                        onNavigate('copywriting');
+                      } else if (path.id === 'video-editing' && onNavigate) {
+                        onNavigate('video-editing');
+                      } else if (path.id === 'graphic-design' && onNavigate) {
+                        onNavigate('graphic-design');
+                      } else if (path.id === 'thumbnail-design' && onNavigate) {
+                        onNavigate('thumbnail-design');
+                      } else if (path.id === 'web-development' && onNavigate) {
+                        onNavigate('web-development');
+                      } else if (path.id === 'app-development' && onNavigate) {
+                        onNavigate('app-development');
                       } else {
                         setActiveModalPath(path);
                       }
@@ -324,12 +340,20 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('copywriting');
                       } else if (path.id === 'video-editing' && onNavigate) {
                         onNavigate('video-editing');
+                      } else if (path.id === 'graphic-design' && onNavigate) {
+                        onNavigate('graphic-design');
+                      } else if (path.id === 'thumbnail-design' && onNavigate) {
+                        onNavigate('thumbnail-design');
+                      } else if (path.id === 'web-development' && onNavigate) {
+                        onNavigate('web-development');
+                      } else if (path.id === 'app-development' && onNavigate) {
+                        onNavigate('app-development');
                       } else {
                         setActiveModalPath(path);
                       }
                     }}
                     className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing'
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'graphic-design' || path.id === 'thumbnail-design' || path.id === 'web-development' || path.id === 'app-development'
                         ? 'bg-amber-500 text-black hover:bg-amber-400 shadow-md shadow-amber-500/20 font-black'
                         : 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent'
                     }`}
@@ -355,6 +379,14 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         ? (isRTL ? 'افتح مسار الكوبي رايتنج الكامل 🚀' : 'Open Complete Copywriting Path 🚀')
                         : path.id === 'video-editing'
                         ? (isRTL ? 'افتح مسار مونتاج الفيديو الكامل 🚀' : 'Open Complete Video Editing Path 🚀')
+                        : path.id === 'graphic-design'
+                        ? (isRTL ? 'افتح مسار التصميم الجرافيكي الكامل 🚀' : 'Open Complete Graphic Design Path 🚀')
+                        : path.id === 'thumbnail-design'
+                        ? (isRTL ? 'افتح مسار تصميم الصور المصغرة الكامل 🚀' : 'Open Complete Thumbnail Design Path 🚀')
+                        : path.id === 'web-development'
+                        ? (isRTL ? 'افتح مسار تطوير المواقع الكامل 🚀' : 'Open Complete Web Dev Path 🚀')
+                        : path.id === 'app-development'
+                        ? (isRTL ? 'افتح مسار تطبيقات الجوال الكامل 🚀' : 'Open Complete Mobile App Path 🚀')
                         : (isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint')}
                     </span>
                     <ArrowIcon className="h-3.5 w-3.5" />
@@ -383,6 +415,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToWriting={() => onNavigate && onNavigate('freelance-writing')}
         onNavigateToCopywriting={() => onNavigate && onNavigate('copywriting')}
         onNavigateToVideoEditing={() => onNavigate && onNavigate('video-editing')}
+        onNavigateToGraphicDesign={() => onNavigate && onNavigate('graphic-design')}
+        onNavigateToThumbnailDesign={() => onNavigate && onNavigate('thumbnail-design')}
+        onNavigateToWebDev={() => onNavigate && onNavigate('web-development')}
+        onNavigateToAppDev={() => onNavigate && onNavigate('app-development')}
       />
 
     </div>
