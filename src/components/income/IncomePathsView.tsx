@@ -203,8 +203,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       ) : (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredPaths.map((path) => {
-            const title = language === 'ar' ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
-            const desc = language === 'ar' ? (path.arabicShortDescription || path.arabicDescription) : language === 'fr' ? (path.frenchShortDescription || path.frenchDescription) : (path.shortDescription || path.description);
+            const title = (language === 'ar' || language === 'ary') ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
+            const desc = (language === 'ar' || language === 'ary') ? (path.arabicShortDescription || path.arabicDescription) : language === 'fr' ? (path.frenchShortDescription || path.frenchDescription) : (path.shortDescription || path.description);
             const saved = isSaved(path.id);
 
             return (
@@ -247,6 +247,11 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                       {path.id === 'blogging' && (
                         <span className="rounded-lg bg-gradient-to-r from-emerald-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/40 animate-pulse">
                           🔥 مسار تفاعلي (10 مراحل)
+                        </span>
+                      )}
+                      {path.id === 'social-media-management' && (
+                        <span className="rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                          🔥 كورس احترافي (13 وحدة)
                         </span>
                       )}
                     </div>
@@ -292,6 +297,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('web-development');
                       } else if (path.id === 'app-development' && onNavigate) {
                         onNavigate('app-development');
+                      } else if (path.id === 'social-media-management' && onNavigate) {
+                        onNavigate('social-media-management');
+                      } else if (path.id === 'ugc-content' && onNavigate) {
+                        onNavigate('ugc-content');
                       } else {
                         setActiveModalPath(path);
                       }
@@ -348,12 +357,16 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('web-development');
                       } else if (path.id === 'app-development' && onNavigate) {
                         onNavigate('app-development');
+                      } else if (path.id === 'social-media-management' && onNavigate) {
+                        onNavigate('social-media-management');
+                      } else if (path.id === 'ugc-content' && onNavigate) {
+                        onNavigate('ugc-content');
                       } else {
                         setActiveModalPath(path);
                       }
                     }}
                     className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'graphic-design' || path.id === 'thumbnail-design' || path.id === 'web-development' || path.id === 'app-development'
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'graphic-design' || path.id === 'thumbnail-design' || path.id === 'web-development' || path.id === 'app-development' || path.id === 'social-media-management' || path.id === 'ugc-content'
                         ? 'bg-amber-500 text-black hover:bg-amber-400 shadow-md shadow-amber-500/20 font-black'
                         : 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent'
                     }`}
@@ -387,6 +400,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         ? (isRTL ? 'افتح مسار تطوير المواقع الكامل 🚀' : 'Open Complete Web Dev Path 🚀')
                         : path.id === 'app-development'
                         ? (isRTL ? 'افتح مسار تطبيقات الجوال الكامل 🚀' : 'Open Complete Mobile App Path 🚀')
+                        : path.id === 'social-media-management'
+                        ? (isRTL ? 'افتح كورس إدارة الحسابات الكامل 🚀' : 'Open Complete SMM Course 🚀')
+                        : path.id === 'ugc-content'
+                        ? (isRTL ? 'افتح كورس الـ UGC الكامل 🚀' : 'Open Complete UGC Course 🚀')
                         : (isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint')}
                     </span>
                     <ArrowIcon className="h-3.5 w-3.5" />
@@ -419,6 +436,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToThumbnailDesign={() => onNavigate && onNavigate('thumbnail-design')}
         onNavigateToWebDev={() => onNavigate && onNavigate('web-development')}
         onNavigateToAppDev={() => onNavigate && onNavigate('app-development')}
+        onNavigateToSocialMedia={() => onNavigate && onNavigate('social-media-management')}
+        onNavigateToUgc={() => onNavigate && onNavigate('ugc-content')}
       />
 
     </div>

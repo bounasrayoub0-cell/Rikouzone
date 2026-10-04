@@ -38,7 +38,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onCopyText,
   onNavigate
 }) => {
-  const { language, setLanguage, t, isRTL } = useLanguage();
+  const { language, setLanguage, languages, t, isRTL } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const savedPaths = incomePaths.filter((p) => savedIds.includes(p.id));
@@ -56,7 +56,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-tr from-amber-500/30 via-orange-500/25 to-purple-600/20 blur-md opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-2xl border-2 border-amber-500/40 bg-zinc-950 p-1 shadow-xl shadow-amber-500/15">
                 <img
-                  src="/file_00000000833881f4b8703f44bcd07500.png"
+                  src="/file_00000000b1d881f496a6612e6eef85ce.png"
                   onError={(e) => {
                     e.currentTarget.src = '/assets/rz-hero-badge.png';
                   }}
@@ -106,26 +106,36 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           {isRTL ? 'اختر لغة العرض المفضلة. يتم حفظ الاختيار تلقائياً في جهازك.' : 'Select preferred display language. Persisted locally.'}
         </p>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {[
-            { id: 'ar', label: 'العربية (Arabic RTL)', desc: 'اللغة الأساسية والافتراضية للمنصة' },
-            { id: 'en', label: 'English (LTR)', desc: 'Global creator standard interface' },
-            { id: 'fr', label: 'Français (LTR)', desc: 'Interface francophone pour créateurs' },
-          ].map((item) => (
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {languages.map((item) => (
             <button
-              key={item.id}
-              onClick={() => setLanguage(item.id as 'ar' | 'en' | 'fr')}
+              key={item.code}
+              id={`profile-lang-${item.code}`}
+              onClick={() => setLanguage(item.code)}
               className={`rounded-2xl p-4 text-start border transition-all ${
-                language === item.id
-                  ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10'
+                language === item.code
+                  ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
                   : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-white">{item.label}</span>
-                {language === item.id && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="text-2xl shrink-0" role="img" aria-label={item.name}>
+                    {item.flag}
+                  </span>
+                  <div className="min-w-0">
+                    <span className="font-bold text-sm text-white block truncate">{item.nativeName}</span>
+                    <span className="text-[11px] text-zinc-400 truncate block">{item.name}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="rounded bg-zinc-800/80 px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 border border-zinc-700/50">
+                    {item.badge}
+                  </span>
+                  {language === item.code && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
+                </div>
               </div>
-              <p className="mt-1 text-[11px] text-zinc-400">{item.desc}</p>
+              <p className="mt-2 text-[11px] text-zinc-400 line-clamp-1">{item.description}</p>
             </button>
           ))}
         </div>

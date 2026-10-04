@@ -506,13 +506,13 @@ export const aiToolsList: AIToolConfig[] = [
   }
 ];
 
-import { ChatMessage } from '../types';
+import { ChatMessage, Language } from '../types';
 
 // Client-side communicator to Server-side Rikou AI Gemini API with seamless intelligent offline fallback
 export async function sendChatMessageToRikouAI(
   messages: ChatMessage[],
   quickActionId?: string,
-  language: 'ar' | 'en' | 'fr' = 'ar',
+  language: Language = 'ar',
   isRegenerate: boolean = false
 ): Promise<string> {
   try {
@@ -588,10 +588,10 @@ function findLatestScriptInHistory(history: ChatMessage[]): string | null {
 export function generateContextualAIResponse(
   messages: ChatMessage[],
   quickActionId?: string,
-  language: 'ar' | 'en' | 'fr' = 'ar',
+  language: Language = 'ar',
   isRegenerate: boolean = false
 ): string {
-  const isAr = language === 'ar';
+  const isAr = language === 'ar' || language === 'ary';
   const isFr = language === 'fr';
 
   if (!messages || messages.length === 0) {
@@ -724,35 +724,295 @@ What project or topic would you like to work on right now?`;
 "Save this post right now, and drop your niche in the comments so I can give you 3 keywords to target!"`;
   }
 
-  // 0.3 Conceptual Explanation Query for SEO ("شنو هو SEO؟" / "What is SEO?")
+  // 0.4 RikouZone Platform Queries ("شرح ليا RikouZone" / "شنو هي RikouZone" / "شرح لي هاد المنصة")
   if (
-    (lowerMsg.includes('شنو هو') || lowerMsg.includes('ما هو') || lowerMsg.includes('شرح') || lowerMsg.includes('اشرح') || lowerMsg.includes('شنو كيعني') || lowerMsg.includes('what is') || lowerMsg.includes('c\'est quoi')) &&
-    (lowerMsg.includes('seo') || lowerMsg.includes('سيو') || lowerMsg.includes('search engine'))
+    lowerMsg.includes('rikouzone') ||
+    lowerMsg.includes('ريكوزون') ||
+    lowerMsg.includes('هاد المنصة') ||
+    lowerMsg.includes('هذه المنصة') ||
+    lowerMsg.includes('عن المنصة') ||
+    lowerMsg.includes('شنو هي المنصة') ||
+    lowerMsg.includes('ما هي المنصة')
+  ) {
+    return isAr
+      ? `### مرحباً بك في RikouZone 🚀
+
+منصة **RikouZone** هي منصة رقمية متكاملة أسسها وطورها **Ayoub Bounasr**، تهدف إلى تمكين صناع المحتوى والمستقلين ورواد الأعمال من اكتساب المهارات الرقمية وبناء مصادر دخل مستدامة عبر الإنترنت.
+
+**الأقسام الرئيسية للمنصة:**
+1. **مسارات الدخل (Income Paths):** مسارات تعليمية وتطبيقية متدرجة من الصفر (تطوير المواقع، تطبيقات الجوال، المونتاج، إدارة حسابات التواصل الاجتماعي، السيو، التسويق بالعمولة، والكتابة الإعلانية).
+2. **أفكار المحتوى (Content Ideas):** مكتبة متجددة تضم مئات الأفكار والاستراتيجيات الجاهزة لصناع المحتوى على YouTube وTikTok وInstagram.
+3. **الأدوات والمحاكيات (Calculators & Tools):** حاسبات تقدير الدخل، تسعير خدمات العمل الحر، ومولدات الأفكار والنصوص.
+4. **المساعد الذكي (Rikou AI):** مساعدك التفاعلي لصياغة السكربتات، الأفكار الإبداعية، واستراتيجيات النمو الرقمي فورياً.
+5. **الملف الشخصي والحفظ (Profile):** حفظ ومتابعة مساراتك وأفكارك المفضلة لإدارتها ومراجعتها في أي وقت.
+
+كيف يمكنني مساعدتك في تطوير مهاراتك أو مشروعك اليوم؟`
+      : isFr
+      ? `### Bienvenue sur RikouZone 🚀
+
+**RikouZone** est une plateforme numérique fondée et développée par **Ayoub Bounasr**, dédiée aux créateurs de contenu, freelances et entrepreneurs souhaitant acquérir des compétences digitales et monétiser leurs projets en ligne.
+
+**Sections principales de la plateforme :**
+1. **Parcours de Revenus (Income Paths) :** Guides pratiques complets (Développement Web, Applications Mobiles, Montage Vidéo, Gestion des Réseaux Sociaux, SEO, Affiliation).
+2. **Idées de Contenu (Content Ideas) :** Bibliothèque d'idées virales pour YouTube, TikTok et Instagram.
+3. **Outils & Simulateurs :** Calculatrices de tarifs freelance, simulateurs de rentabilité et générateurs.
+4. **Assistant Intelligent (Rikou AI) :** Votre assistant interactif pour la rédaction de scripts, l'idéation et la croissance digitale.
+5. **Espace Personnel (Profile) :** Sauvegarde et suivi de vos parcours et outils favoris.
+
+Comment puis-je vous accompagner dans votre projet aujourd'hui ?`
+      : `### Welcome to RikouZone 🚀
+
+**RikouZone** is an all-in-one digital platform founded and created by **Ayoub Bounasr**, designed to empower content creators, freelancers, and online entrepreneurs to build scalable skills and generate online income.
+
+**Core Sections of RikouZone:**
+1. **Income Paths:** Practical, step-by-step tracks covering Web Development, Mobile Apps, Video Editing, Social Media Management, SEO, Copywriting, and Affiliate Marketing.
+2. **Content Ideas:** Curated library of actionable concepts and viral hooks for YouTube, TikTok, and Instagram.
+3. **Calculators & Tools:** Freelance rate calculators, income estimation tools, and growth simulators.
+4. **Rikou AI:** Your dedicated AI partner for instant scripting, brainstorming, and digital monetization strategies.
+5. **Personal Workspace (Profile):** Bookmark and organize your favorite paths and templates.
+
+What would you like to build or learn today?`;
+  }
+
+  // 0.5 Explanation of AI ("شنو هو الذكاء الاصطناعي؟" / "What is AI?")
+  if (
+    lowerMsg.includes('ذكاء اصطناعي') ||
+    lowerMsg.includes('الذكاء الاصطناعي') ||
+    lowerMsg.includes('intelligence artificielle') ||
+    lowerMsg.includes('what is ai') ||
+    lowerMsg.includes('c\'est quoi l\'ia')
+  ) {
+    return isAr
+      ? `### ما هو الذكاء الاصطناعي (Artificial Intelligence)؟
+
+الذكاء الاصطناعي (**AI**) هو فرع من علوم الحاسوب يهدف إلى بناء برامج وأنظمة قادرة على محاكاة القدرات العقلية البشرية، مثل: التعلم من التجارب السابقة، فهم اللغات الطبيعية، التعرف على الأنماط والصور، وحل المشكلات المعقدة.
+
+**كيف يعمل ببساطة؟**
+بدلاً من كتابة كود لكل قاعدة بالتفصيل، يتم تدريب خوارزميات (Machine Learning & Deep Learning) على كميات هائلة من البيانات، لتتعلم بنفسها كيف تتنبأ بالنتائج أو تولد نصوصاً وتصاميم وأكواداً برمجية.
+
+**أبرز استخداماته العملية اليوم:**
+• **صناعة المحتوى:** كتابة السكربتات، تلخيص المقالات، وتوليد الصور وتعديل الفيديوهات.
+• **البرمجة وتطوير البرمجيات:** تصحيح الأخطاء واقتراح الأكواد وتسريع بناء التطبيقات.
+• **التسويق والتجارة:** روبوتات الرد الآلي الذكية، التوصيات المخصصة، وتوقع سلوك العملاء.
+• **الإنتاجية اليومية:** جدولة المهام، الترجمة الفورية الدقيقة، وتحليل البيانات الضخمة في ثوانٍ.
+
+💡 **نصيحة عملية للبدء السريع:** ابدأ بدمج أدوات الذكاء الاصطناعي في المهام المتكررة (كتابة المسودات، تلخيص المستندات، وتنظيم الأفكار) لمضاعفة إنتاجيتك من اليوم الأول.`
+      : isFr
+      ? `### Qu'est-ce que l'Intelligence Artificielle (IA) ?
+
+L'**Intelligence Artificielle** est un domaine de l'informatique visant à concevoir des systèmes capables d'accomplir des tâches nécessitant normalement l'intelligence humaine : raisonnement, apprentissage automatique, traitement du langage naturel et reconnaissance visuelle.
+
+**Applications concrètes aujourd'hui :**
+• **Création de contenu :** Rédaction de scripts, génération d'images et montage automatisé.
+• **Développement web & mobile :** Assistance au codage et débogage rapide.
+• **Business en ligne :** Chatbots conversationnels, recommandation de produits et analyse prédictive.`
+      : `### What is Artificial Intelligence (AI)?
+
+**Artificial Intelligence (AI)** is a field of computer science dedicated to creating software systems capable of performing tasks that traditionally require human intelligence, such as learning from data, understanding natural language, recognizing patterns, and solving problems.
+
+**Key Everyday Applications:**
+• **Content Creation:** Instant scriptwriting, image generation, and video editing workflows.
+• **Software Engineering:** Intelligent code completion, refactoring, and automated testing.
+• **E-commerce & Freelancing:** 24/7 intelligent customer support and automated analytics.`;
+  }
+
+  // 0.6 Explanation of Micro-SaaS ("شنو هو Micro-SaaS؟" / "What is Micro-SaaS?")
+  if (
+    (lowerMsg.includes('شنو هو') || lowerMsg.includes('ما هو') || lowerMsg.includes('شرح') || lowerMsg.includes('what is') || lowerMsg.includes('c\'est quoi')) &&
+    (lowerMsg.includes('micro-saas') || lowerMsg.includes('microsaas') || lowerMsg.includes('مايكرو ساس'))
+  ) {
+    return isAr
+      ? `### ما هو الـ Micro-SaaS؟
+
+الـ **Micro-SaaS** هو برنامج سحابي كخدمة (Software as a Service) مصغر جداً، يركز على حل **مشكلة واحدة محددة** لجمهور متخصص (Niche)، ويبنيه عادة شخص واحد (Solopreneur) أو فريق صغير جداً من 2-3 أفراد بتكاليف تشغيلية شبه منعدمة.
+
+**المعادلة الذهبية للـ Micro-SaaS:**
+• **تركيز فائق:** لا يحاول منافسة عمالقة البرمجيات، بل يسد ثغرة ضيقة ومهمة (مثال: أداة لتحويل تغريدات X إلى صور جاهزة للإنستغرام، أو بوت واتساب لتأكيد حجوزات العيادات).
+• **اشتراك شهري مستدام (MRR):** يدفع العميل 9$ إلى 29$ شهرياً للحصول على الميزة، ما يعني أن 100 عميل فقط يمنحونك 1,000$ إلى 3,000$ كدخل سلبي شهري مستمر.
+• **تكاليف استضافة منخفضة:** يُبنى باستخدام أطر خفيفة وبنية سحابية ذات قابلية توسع حسب الطلب.
+
+💡 **مثال عملي للبدء:** أداة بسيطة تحول جداول Excel إلى فواتير PDF أنيقة وترسلها تلقائياً عبر البريد أو واتساب لأصحاب الأنشطة التجارية.`
+      : `### What is a Micro-SaaS?
+
+A **Micro-SaaS** is a small-scale Software-as-a-Service business targeting a specific niche market. It is typically built and operated by a solo founder or a micro-team with minimal overhead, solving one dedicated problem exceptionally well.
+
+**Core Characteristics:**
+• **Laser-focused scope:** Solves a single specific workflow bottleneck.
+• **Recurring Revenue (MRR):** Affordable monthly subscriptions (e.g. $9 - $29/mo).
+• **High Profit Margins:** Low server costs and minimal support requirements.`;
+  }
+
+  // 0.7 Explanation of HTML ("شنو هو HTML؟" / "What is HTML?")
+  if (
+    (lowerMsg.includes('شنو هو') || lowerMsg.includes('ما هو') || lowerMsg.includes('شرح') || lowerMsg.includes('what is') || lowerMsg.includes('c\'est quoi')) &&
+    (lowerMsg.includes('html') || lowerMsg.includes('اتش تي ام ال'))
+  ) {
+    return isAr
+      ? `### ما هو الـ HTML؟
+
+الـ **HTML** (اختصار لـ *HyperText Markup Language*) هي لغة التوصيف القياسية المستخدمة في بناء الهيكل الأساسي لأي صفحة أو موقع على الإنترنت.
+
+**فكرة عملها ببساطة:**
+إذا شبهنا الموقع الإلكتروني بمنزل:
+• **HTML** هو الأعمدة والجدران والأبواب (الهيكل العظمي للموقع).
+• **CSS** هو الدهان والألوان والديكورات والتنسيق الجمالي.
+• **JavaScript** هو الكهرباء وشبكة المياه والمفاتيح الذكية (التفاعل والحركة).
+
+**العناصر الأساسية في HTML:**
+تعتمد على وسوم (Tags) توضع بين أقواس زاوية مثل:
+• \`<h1>\`: للعناوين الرئيسية.
+• \`<p>\`: للفقرات والنصوص.
+• \`<a>\`: للروابط التشعبية.
+• \`<img>\`: لإدراج الصور.
+• \`<button>\`: للأزرار التفاعلية.
+
+**مثال تطبيقي لكود صفحة HTML بسيطة:**
+\`\`\`html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>صفحتي الأولى</title>
+</head>
+<body>
+  <h1>مرحباً بك في عالم تطوير الويب!</h1>
+  <p>هذا أول هيكل صفحة أنشأته باستخدام كود HTML القياسي.</p>
+  <button>ابدأ التصفح</button>
+</body>
+</html>
+\`\`\``
+      : `### What is HTML?
+
+**HTML** (*HyperText Markup Language*) is the standard foundational markup language used to structure content on the World Wide Web.
+
+**The Building Block Analogy:**
+• **HTML:** The skeleton, walls, and structure of a house.
+• **CSS:** The paint, interior design, and styling.
+• **JavaScript:** The electricity, switches, and interactive mechanics.
+
+**Starter HTML Structure:**
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First Webpage</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is the fundamental skeleton of a webpage built with HTML.</p>
+</body>
+</html>
+\`\`\``;
+  }
+
+  // 0.8 Learning Programming Plan ("عطيني خطة باش نتعلم البرمجة" / "خطة تعلم البرمجة")
+  if (
+    (lowerMsg.includes('خطة') || lowerMsg.includes('طريق') || lowerMsg.includes('roadmap') || lowerMsg.includes('كيفاش نتعلم') || lowerMsg.includes('كيف أتعلم')) &&
+    (lowerMsg.includes('برمج') || lowerMsg.includes('كود') || lowerMsg.includes('programming') || lowerMsg.includes('coder'))
+  ) {
+    return isAr
+      ? `### خطة عملية لتعلم البرمجة من الصفر حتى أول مشروع ودخل (خارطة طريق 90 يوماً):
+
+#### المرحلة 1: إتقان المفاهيم البرمجية الأساسية (الأسابيع 1 - 3)
+• تعلم لغة واحدة حديثة وشائعة: **JavaScript/TypeScript** لتطوير المواقع، أو **Python** للذكاء الاصطناعي، أو **Dart** لتطبيقات الجوال.
+• ركز على: المتغيرات، الشروط (If/Else)، الحلقات (Loops)، الدوال (Functions)، والمصفوفات والكائنات (Arrays & Objects).
+
+#### المرحلة 2: بناء واجهات المستخدم (الأسابيع 4 - 6)
+• إذا اخترت الويب: تعلم HTML5 و CSS3 (Flexbox & Grid) ثم مكتبة React.
+• إذا اخترت الجوال: تعلم Flutter وبناء الشاشات والتنقل.
+• طبق على الفور: ابنِ 3 صفحات صغيرة (آلة حاسبة، قائمة مهام، وصفحة هبوط لمنتج).
+
+#### المرحلة 3: التعامل مع البيانات والسيرفر (الأسابيع 7 - 9)
+• تعلم كيفية الاتصال بـ REST APIs وجلب وإرسال بيانات JSON.
+• استخدم قواعد بيانات سحابية سهلة وسريعة مثل Firebase أو Supabase.
+• تعلم استخدام Git و GitHub لرفع ومشاركة كود مشاريعك.
+
+#### المرحلة 4: المشاريع الحقيقية والعمل الحر (الأسابيع 10 - 12)
+• ابنِ مشروعين كاملين بمستوى تجاري حقيقي وضعهما في معرض أعمالك (Portfolio).
+• ابدأ بعرض خدماتك على أصحاب الأنشطة التجارية القريبة أو منصات العمل الحر (Upwork / مستقل).
+
+💡 **نصيحة الانطلاق:** ركز على مسار تطوير الويب أولاً (HTML, CSS, JavaScript, React) لأنه الأسرع في توفير فرص العمل الحر وبناء مشاريع قابلة للعرض فوراً.`
+      : `### 90-Day Practical Programming Roadmap:
+
+1. **Phase 1 (Weeks 1-3): Syntax & Logic Fundamentals**
+Master core programming concepts with JavaScript or Python: variables, control flow, functions, and arrays.
+
+2. **Phase 2 (Weeks 4-6): Frontend & UI Construction**
+Learn HTML5, CSS3, modern Flexbox/Grid, and responsive layout design.
+
+3. **Phase 3 (Weeks 7-9): APIs & Data Persistence**
+Connect interfaces with REST APIs, parse JSON responses, and integrate cloud databases like Firebase.
+
+4. **Phase 4 (Weeks 10-12): Real Projects & Portfolio**
+Build 2 full-featured applications and launch your portfolio on GitHub Pages or Vercel.`;
+  }
+
+  // 0.9 Explicit YouTube Script on Online Income ("كتب ليا سكريبت YouTube على الربح من الإنترنت")
+  if (
+    (lowerMsg.includes('script') || lowerMsg.includes('سكريبت') || lowerMsg.includes('سيناريو')) &&
+    (lowerMsg.includes('ربح') || lowerMsg.includes('دخل') || lowerMsg.includes('فلوس') || lowerMsg.includes('income') || lowerMsg.includes('argent') || lowerMsg.includes('إنترنت') || lowerMsg.includes('اونلاين'))
+  ) {
+    return isAr
+      ? `إليك سكريبت يوتيوب كامل واحترافي عن "الربح الحقيقي من الإنترنت في 2026" (جاهز للإلقاء والتصوير):
+
+### 1. الخطاف الافتتاحي (00:00 - 00:15)
+"لو كنت كتعتقد أن الربح من الإنترنت هو مجرد ضغط على الإعلانات أو تطبيقات الألعاب اللي كتعطيك سنتات، فأنت كتضيع وقتك الثمين في الوهم. اليوم غنشارك معك 3 مجالات حقيقية كيدخل منها شباب مبتدئون ما بين 500$ إلى 3,000$ شهرياً بمهارات تقدر تبداها من اليوم."
+
+### 2. الفكرة الأولى: تقديم الخدمات الرقمية المصغرة (00:15 - 00:50)
+"المجال الأول هو **Micro-Services**: أصحاب الشركات والمحلات في مدينتك ما عندهمش الوقت يصمموا صور مصغرة، يمنتجوا فيديوهات ريلز، أو يكتبوا منشورات ترويجية. بتعلم أداة واحدة مثل Canva أو CapCut وإتقانها لمدة أسبوعين، تقدر تتواصل مع 10 محلات وتقدم ليهم باقة شهرية بـ 150$ إلى 300$."
+
+### 3. الفكرة الثانية: بناء صفحات الهبوط وتطوير المواقع (00:50 - 01:25)
+"المجال الثاني هو صفحات الهبوط السريعة. أي تاجر أو مدرب أو صانع محتوى باغي يبيع منتجه كيحتاج صفحة هبوط مقنعة. ما كتحتاجش تكون مهندس برمجيات خارق؛ كود بسيط بـ HTML و Tailwind CSS أو منصات مخصصة كافية لتسليم مشروع بـ 300$ إلى 800$ في يومين فقط."
+
+### 4. الفكرة الثالثة: صناعة المحتوى التخصصي والوساطة (01:25 - 01:55)
+"المجال الثالث هو قنوات المحتوى الموجه (Niche Channels). اختر موضوعاً تحبه (تطبيقات، ذكاء اصطناعي، كتب، تجارة)، انشر فيديوهات قصيرة بانتظام، وضع روابط تسويق بالعمولة (Affiliate Links) للمنتجات التي تستخدمها. كلما اشترى أحد عن طريقك، كتربح عمولة بدون ما تشحن أي منتج."
+
+### 5. الخاتمة ودعوة التفاعل (01:55 - 02:15)
+"السر ماشي في المعرفة، السر في التطبيق والالتزام بمسار واحد لمدة 90 يوماً متواصلة. احفظ هذا الفيديو عندك، واكتب ليا فـ التعليقات شنو هو المجال اللي باغي تبدا به باش نرسل ليك الدليل العملي مجاناً!"`
+      : `Here is a complete, high-retention YouTube video script on Online Income:
+
+### Hook (00:00 - 00:15)
+"Stop wasting your time on survey apps and click farms that pay pennies. Here are 3 proven digital skill paths generating real $1,000 to $3,000 monthly income in 2026."
+
+### Section 1: Micro-Services for Local Businesses (00:15 - 00:45)
+Business owners are busy running operations. Offering dedicated video editing, thumbnail design, or social media scheduling is an immediate $300-$500/month recurring retainer.
+
+### Section 2: High-Converting Landing Pages (00:45 - 01:15)
+Every digital seller needs a clean, mobile-first sales page. Building lightweight landing pages yields high project margins with fast delivery turnaround.
+
+### Section 3: Targeted Affiliate Channels (01:15 - 01:45)
+Recommend specialized digital tools, platforms, or equipment you use, earning passive commissions on every qualified referral.
+
+### Outro & Call to Action (01:45 - 02:00)
+"Pick one path today and commit to 60 days of consistent execution. Drop a comment below with your chosen field and subscribe for more actionable breakdowns!"`;
+  }
+
+  // 0.10 Explanation of SEO ("شنو هو SEO؟" / "What is SEO?")
+  if (
+    (lowerMsg.includes('شنو هو') || lowerMsg.includes('ما هو') || lowerMsg.includes('شرح') || lowerMsg.includes('what is') || lowerMsg.includes('c\'est quoi')) &&
+    (lowerMsg.includes('seo') || lowerMsg.includes('سيو') || lowerMsg.includes('تحسين محركات البحث'))
   ) {
     return isAr
       ? `### ما هو الـ SEO (تحسين محركات البحث)؟
 
-الـ **SEO** (اختصار لـ *Search Engine Optimization*) هو فن واستراتيجية تهيئة موقعك الإلكتروني أو محتواك ليظهر في المراتب الأولى من نتائج البحث المجانية (Organic Search) على Google عندما يبحث الناس عن كلمات ومواضيع مرتبطة بمجالك.
+الـ **SEO** (اختصار لـ *Search Engine Optimization*) هو مجموعة من الممارسات والاستراتيجيات التي تهدف إلى جعل موقعك أو مقالاتك أو متجرك يظهر في المراتب الأولى في نتائج البحث المجانية على Google و Bing بدون دفع سنت واحد في الإعلانات.
 
-**ركائز الـ SEO الأساسية الثلاث:**
-1. **On-Page SEO (السيو الداخلي):** تحسين المحتوى نفسه، اختيار الكلمات المفتاحية المناسبة، ضبط العناوين (H1, H2)، وتنسيق الروابط الداخلية.
-2. **Technical SEO (السيو التقني):** سرعة تحميل الموقع، التوافق التام مع شاشات الهواتف الذكية، وضمان سهولة قراءة الصفحات من قِبل عناكب البحث.
-3. **Off-Page SEO (السيو الخارجي):** كسب الروابط الخلفية الموثوقة (Backlinks) والإشارات من مواقع أخرى لبناء ثقة ومصداقية الموقع لدى Google.
+**الأركان الثلاثة الأساسية للـ SEO:**
+1. **On-Page SEO (السيو الداخلي):** تحسين جودة المحتوى، استهداف الكلمات المفتاحية ذات نية البحث العالية، وتنسيق العناوين (H1, H2) والروابط الداخلية.
+2. **Technical SEO (السيو التقني):** سرعة تحميل الصفحة، تجاوب الموقع الكامل مع الهواتف الذكية، وضمان قدرة عناكب Google على فهرسة الصفحات بسهولة.
+3. **Off-Page SEO (السيو الخارجي):** بناء الروابط الخلفية القوية (Backlinks) والإشارات الرقمية التي ترفع من ثقة ومصداقية الموقع لدى محركات البحث.
 
-**الفائدة الأساسية:** جلب عملاء وزوار مهتمين ومستمرين على مدار الساعة بدون الحاجة لدفع سنتيم واحد في الإعلانات الممولة.
-
-واش تحب نشرح ليك كيفاش تطبق الـ SEO على موقعك أو قناتك على اليوتيوب؟`
+**الفائدة الأكبر:** تدفق مستمر ومجاني للزوار والعملاء المهتمين بخدماتك 24/7 دون توقف بمجرد توقف ميزانية الإعلانات.`
       : isFr
       ? `### Qu'est-ce que le SEO (Search Engine Optimization) ?
 
-Le **SEO** (Référencement Naturel) regroupe l'ensemble des techniques permettant de positionner un site web ou un contenu dans les premiers résultats gratuits des moteurs de recherche comme Google.
+Le **SEO** (Référencement Naturel) regroupe l'ensemble des techniques visant à positionner un site web ou un contenu dans les premiers résultats naturels des moteurs de recherche (Google, Bing).
 
-**Les 3 piliers du SEO :**
+**Les 3 Piliers du SEO :**
 1. **SEO On-Page :** Optimisation du contenu, choix des mots-clés stratégiques et balisage sémantique.
-2. **SEO Technique :** Vitesse de chargement, adaptabilité mobile et indexabilité par les robots Google.
-3. **SEO Off-Page :** Acquisition de liens retour de qualité (Backlinks) pour accroître l'autorité du domaine.
-
-Souhaitez-vous savoir comment appliquer le SEO à un projet spécifique ?`
+2. **Technical SEO :** Vitesse de chargement, adaptabilité mobile et indexabilité par les robots Google.
+3. **SEO Off-Page :** Acquisition de liens retour de qualité (Backlinks) pour accroître l'autorité du domaine.`
       : `### What is SEO (Search Engine Optimization)?
 
 **SEO** is the process and methodology of optimizing your website or content to rank higher in unpaid, organic search engine results (like Google and YouTube) for relevant user queries.
@@ -762,9 +1022,263 @@ Souhaitez-vous savoir comment appliquer le SEO à un projet spécifique ?`
 2. **Technical SEO:** Fast page load speeds, mobile responsiveness, clean site architecture, and indexability.
 3. **Off-Page SEO:** Earning reputable backlinks and brand mentions to build domain authority.
 
-**Key Benefit:** Long-term, sustainable, free traffic without continuous ad spend.
+**Key Benefit:** Long-term, sustainable, free traffic without continuous ad spend.`;
+  }
 
-Would you like tips on how to apply SEO to your specific website or YouTube channel?`;
+  // 0.11 Genuinely Ambiguous Query (Only ask ONE short, specific clarifying question - NEVER a multi-choice menu!)
+  const trimmedMsg = lastUserMsg.trim().toLowerCase();
+  const ambiguousPhrases = [
+    'صاوب ليا واحد',
+    'صاوب لي واحد',
+    'صاوب ليا شي واحد',
+    'صاوب لي شي واحد',
+    'دير ليا واحد',
+    'دير لي واحد',
+    'عدل لي واحد',
+    'صنع لي واحد',
+    'بغيت واحد',
+    'أريد واحدا',
+    'make me one',
+    'create one',
+    'fait moi un',
+  ];
+  if (
+    ambiguousPhrases.includes(trimmedMsg) ||
+    (trimmedMsg.length <= 15 &&
+      (trimmedMsg.startsWith('صاوب ليا') || trimmedMsg.startsWith('صاوب لي') || trimmedMsg.startsWith('دير ليا') || trimmedMsg.startsWith('دير لي') || trimmedMsg.startsWith('بغيت')) &&
+      !trimmedMsg.includes('موقع') &&
+      !trimmedMsg.includes('تطبيق') &&
+      !trimmedMsg.includes('سكريبت') &&
+      !trimmedMsg.includes('متجر') &&
+      !trimmedMsg.includes('فيديو') &&
+      !trimmedMsg.includes('صفحة'))
+  ) {
+    return isAr
+      ? 'مرحباً بك! تقصد تطبيق جوال، موقع ويب، أم سكريبت فيديو محدد؟ وضح لي فكرتك باختصار لأبدأ معك مباشرة.'
+      : isFr
+      ? 'Bonjour ! Souhaitez-vous une application mobile, un site web ou un script vidéo ? Précisez votre idée brièvement pour que je commence directement.'
+      : 'Hello! Are you looking for a mobile app, website, or video script? Please clarify briefly so I can assist you right away.';
+  }
+
+  // 0.12 Clothing E-Commerce Store ("صاوب ليا موقع لبيع الملابس" / "متجر ملابس")
+  if (
+    (lowerMsg.includes('موقع') || lowerMsg.includes('متجر') || lowerMsg.includes('store') || lowerMsg.includes('site') || lowerMsg.includes('boutique') || lowerMsg.includes('بيع')) &&
+    (lowerMsg.includes('ملابس') || lowerMsg.includes('لباس') || lowerMsg.includes('clothing') || lowerMsg.includes('fashion') || lowerMsg.includes('vetement') || lowerMsg.includes('vêtements') || lowerMsg.includes('قمصان') || lowerMsg.includes('أزياء'))
+  ) {
+    return isAr
+      ? `### الدليل المتكامل لبناء وإطلاق متجر إلكتروني لبيع الملابس (Clothing E-commerce Store):
+
+لبناء متجر ملابس حديث، سريع، ومحسّن لتحقيق أعلى نسبة مبيعات (High Conversion Rate)، إليك الهيكل البرمجي والتشغيلي المباشر:
+
+#### 1. البنية التقنية الموصى بها:
+• **الحل الأسرع للإطلاق التجاري:** منصة **YouCan** أو **Shopify** مربوطة بنظام الدفع عند الاستلام (Cash on Delivery) والطلب السريع عبر واتساب (WhatsApp Fast Order) — مناسب للإطلاق في 24-48 ساعة.
+• **الحل البرمجي المخصص (Custom Full-Stack):** واجهة مستخدم بـ **React / Next.js** وتنسيق بـ **Tailwind CSS** مع سلة خفيفة متصلة بنظام إدارة طلبات فوري.
+
+#### 2. الأقسام والصفحات الأساسية للمتجر:
+1. **الواجهة الرئيسية (Hero Section):** بنر احترافي للتشكيلة الجديدة (New Arrivals) مع زر "تسوق الآن" وعروض الخصم الحصرية.
+2. **شريط التصنيفات (Categories Carousel):** فلاتر سريعة تشمل (رجالي، نسائي، أطفال، هوديز، تيشيرتات، إكسسوارات).
+3. **شبكة المنتجات (Product Grid):** كروت منتجات تفاعلية تظهر الصور بجودة عالية، الأسعار بوضوح، والألوان والمقاسات المتوفرة (S, M, L, XL, XXL).
+4. **صفحة المنتج المتقدمة (Product Page):**
+   • معرض صور متحرك بدقة عالية لجميع زوايا اللباس.
+   • جدول مقاسات تفاعلي (Size Guide) يوضح القياسات بالسنتيمتر لتفادي المرتجعات.
+   • زر بارز للشراء السريع والدفع عند الاستلام (COD One-Click Order).
+   • زر الطلب المباشر عبر واتساب (يرسل تلقائياً اسم القطعة والمقاس والسعر).
+
+#### 3. كود واجهة بطاقة منتج ملابس احترافية (React & Tailwind CSS):
+\`\`\`tsx
+import React, { useState } from 'react';
+
+export function ClothingCard({ name, price, originalPrice, image, sizes }) {
+  const [selectedSize, setSelectedSize] = useState(sizes[0] || 'M');
+
+  return (
+    <div className="group rounded-2xl border border-zinc-800 bg-zinc-900/80 p-4 transition-all duration-300 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-zinc-800">
+        <img 
+          src={image} 
+          alt={name} 
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+        />
+        <span className="absolute top-2.5 right-2.5 rounded-full bg-amber-500 px-2.5 py-0.5 text-xs font-bold text-black">
+          الأكثر مبيعاً 🔥
+        </span>
+      </div>
+
+      <div className="mt-4">
+        <h3 className="font-semibold text-zinc-100 text-sm sm:text-base line-clamp-1">{name}</h3>
+        
+        {/* اختيار المقاس */}
+        <div className="mt-2.5 flex items-center gap-1.5">
+          <span className="text-xs text-zinc-400">المقاس:</span>
+          {sizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => setSelectedSize(size)}
+              className={\`h-6 min-w-6 rounded px-1.5 text-xs font-medium transition-colors \${
+                selectedSize === size
+                  ? 'bg-amber-500 text-black font-bold'
+                  : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+              }\`}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+
+        {/* السعر وزر الطلب */}
+        <div className="mt-3 flex items-center justify-between pt-2 border-t border-zinc-800/80">
+          <div>
+            <span className="text-base sm:text-lg font-bold text-amber-400">{price} د.م</span>
+            {originalPrice && (
+              <span className="text-xs text-zinc-500 line-through ms-1.5">{originalPrice} د.م</span>
+            )}
+          </div>
+          <button className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-bold text-black transition-transform active:scale-95 hover:bg-amber-400">
+            طلب عبر واتساب 💬
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+#### 4. عوامل النجاح والمبيعات المباشرة:
+• **سرعة التحميل على الهاتف:** 92% من مشتري الملابس يتصفحون عبر الهاتف المحمول، لذا تأكد من ضغط الصور باستخدام صيغة WebP.
+• **آراء وتجارب المشترين:** تضمين صور واقعية لزبائن يرتدون الملابس يعزز الثقة ويرفع معدل إتمام الطلب بنسبة تزيد عن 40%.`
+      : `### Complete Roadmap & Code for a Modern Clothing E-commerce Store:
+
+#### 1. Store Architecture & Tech Stack:
+• **Rapid Launch:** Shopify, YouCan, or WooCommerce with integrated Cash-On-Delivery (COD) and WhatsApp one-click ordering.
+• **Custom High-Performance:** Next.js / React with Tailwind CSS for instant page loads.
+
+#### 2. Core Functional Requirements:
+• **Hero Lookbook:** Featured seasonal drop with prominent Call-To-Action.
+• **Smart Size Selector:** Real-time size buttons with modal sizing measurements.
+• **One-Page Checkout:** Frictionless order form minimizing cart abandonment.`;
+  }
+
+  // 0.13 Direct YouTube Script Generator ("كتب ليا سكريبت على YouTube" / "كتب لي سكريبت")
+  if (
+    lowerMsg.includes('كتب ليا سكريبت') ||
+    lowerMsg.includes('اكتب لي سكريبت') ||
+    lowerMsg.includes('اكتب ليا سكريبت') ||
+    lowerMsg.includes('كتب لي سكريبت') ||
+    lowerMsg.includes('سكريبت على youtube') ||
+    lowerMsg.includes('سكريبت يوتيوب') ||
+    (lowerMsg.includes('سكريبت') && (lowerMsg.includes('youtube') || lowerMsg.includes('يوتيوب') || lowerMsg.includes('فيديو') || lowerMsg.includes('video'))) ||
+    quickActionId === 'ai-script-generator'
+  ) {
+    let scriptTopic = 'بناء مصدر دخل رقمي وتطوير المهارات المطلوبة في 2026';
+    const matchTopic = lastUserMsg.match(/(?:عن|في|حول|على|about|on)\s+([^\n\.\?!,]+)/i);
+    if (matchTopic && matchTopic[1]?.trim().length > 2 && !matchTopic[1].toLowerCase().includes('youtube')) {
+      scriptTopic = matchTopic[1].trim();
+    }
+
+    return isAr
+      ? `إليك سكريبت فيديو يوتيوب كامل واحترافي كلمة بكلمة لـ (${scriptTopic}) مع التوجيهات البصرية والصوتية:
+
+### 1. الخطاف الافتتاحي (Hook الخاطف) [00:00 - 00:15]
+🎥 *(لقطة قريبة Zoom-in سريعة إلى وجه المتحدث مع نص كبير متحرك باللون الأصفر)*
+**المتحدث:** "لو قلت لك إن هناك خطوة واحدة بسيطة، لو طبقتها اليوم، ستوفر عليك 6 أشهر كاملة من التجارب الفاشلة في هذا المجال؟ أغلب الناس يضيعون وقتهم في الاتجاه الخاطئ، واليوم سأعطيك الخلاصة المباشرة بدون أي لف أو دوران!"
+🎵 *(مؤثر صوتي: Whoosh سريع + إيقاع حماسي خفيف في الخلفية)*
+
+### 2. المقدمة وكسر الجليد [00:15 - 00:45]
+🎥 *(لقطات B-Roll سريعة تظهر شاشة لابتوب وأرقاماً ورسوماً بيانية توضيحية)*
+**المتحدث:** "أهلاً بك يا صديقي! إذا كنت تتابع وتتساءل كيف ينجح الآخرون بسرعة بينما أنت تشعر بأنك عالق في مكانك، فالسبب ليس نقص الموهبة، بل كثرة المعلومات العشوائية. اليوم لخصت لك خارطة طريق عملية من 3 مراحل واضحة يمكنك البدء بها فور نهاية هذا الفيديو."
+
+### 3. المرحلة الأولى: اختيار التخصص الدقيق [00:45 - 01:30]
+🎥 *(ظهور نقطة رئيسية على الشاشة: [1. التخصص وتحديد المشكلة])*
+**المتحدث:** "القاعدة الأولى: لا تحاول بيع كل شيء لكل الناس. اختر خدمة واحدة أو مجالاً واحداً محدداً وركز على حل مشكلة ملموسة يعاني منها عميلك المستهدف يومياً. عندما تكون متخصصاً، يثق بك العميل فوراً ويكون مستعداً لدفع السعر الذي تطلبه."
+
+### 4. المرحلة الثانية: النموذج الأولي واختبار السوق [01:30 - 02:15]
+🎥 *(لقطة لشاشة توضح مثالاً عملياً مع توجيه بالماوس)*
+**المتحدث:** "القاعدة الثانية: لا تنتظر حتى يصبح عملك خالياً من العيوب 100%. أطلق نسخة مبسطة من خدمتك أو مشروعك خلال 7 أيام، واعرضها على أول 5 أشخاص. ملاحظاتهم الحقيقية أهم بـ 100 مرة من التفكير النظري لشهور داخل غرفتك."
+
+### 5. المرحلة الثالثة: مضاعفة النتائج والتحسين المستمر [02:15 - 03:00]
+🎥 *(لقطة مقربة للمتحدث بنبرة هادئة وواثقة)*
+**المتحدث:** "القاعدة الثالثة: التكرار الذكي. بعد أن تحصل على أول نتيجة إيجابية، حلل سبب نجاحها وكرر نفس المعادلة بانتظام. الالتزام لمدة 60 يوماً متواصلة يصنع فارقاً جذرياً يغير مسارك بالكامل."
+
+### 6. الخاتمة ودعوة التفاعل (Call To Action) [03:00 - 03:20]
+🎥 *(ظهور زر الإعجاب وزر الاشتراك التفاعلي على الشاشة)*
+**المتحدث:** "إذا وجدت في هذا السكريبت قيمة تفيدك، اضغط زر الإعجاب وشارك الفيديو مع صديق يحتاجه، واكتب لي في التعليقات: ما هو أكبر تحدٍ يواجهك حالياً لأجيبك عليه بنفسي. ولا تنسَ الاشتراك في القناة لنواصل معاً!"`
+      : `Here is a complete, word-for-word YouTube video script on [${scriptTopic}]:
+
+### 1. The Opening Hook [00:00 - 00:15]
+*(Fast zoom-in on the creator, high-energy delivery)*
+"What if the one thing stopping you from seeing real results isn't capital or luck, but a simple mistake that 90% of beginners make every single day? Here is the exact blueprint to fix it right now."
+
+### 2. Introduction & Stakes [00:15 - 00:45]
+"Welcome back! Today we are cutting straight through the fluff. No 40-minute theory lessons—just three concrete execution steps you can put into practice immediately."
+
+### 3. Step 1: Laser Specialization [00:45 - 01:30]
+Stop trying to do everything at once. Pick one specific outcome and master it thoroughly.
+
+### 4. Step 2: Build Fast, Test Early [01:30 - 02:15]
+Get your minimal viable service or prototype into the hands of real users within 7 days.
+
+### 5. Step 3: Compound What Works [02:15 - 03:00]
+Double down on the 20% of inputs that produce 80% of your tangible results.
+
+### 6. Call to Action [03:00 - 03:20]
+"Drop a comment with your single biggest question, hit subscribe for more direct blueprints, and let's get to work!"`;
+  }
+
+  // 0.14 Five Project Ideas ("عطيني 5 أفكار لمشاريع" / "أفكار مشاريع" / "5 project ideas")
+  if (
+    (lowerMsg.includes('أفكار') || lowerMsg.includes('افكار') || lowerMsg.includes('ideas') || lowerMsg.includes('عطيني') || lowerMsg.includes('اقترح')) &&
+    (lowerMsg.includes('مشاريع') || lowerMsg.includes('مشروع') || lowerMsg.includes('project') || lowerMsg.includes('projects') || lowerMsg.includes('بزنس') || lowerMsg.includes('business'))
+  ) {
+    return isAr
+      ? `إليك 5 أفكار مشاريع رقمية مربحة ومطلوبة بقوة لعام 2026، بتكاليف تشغيلية منخفضة وهوامش ربح مرتفعة:
+
+### 1. بوت أتمتة حجوزات ومبيعات الواتساب للمتاجر والعيادات المحلية (WhatsApp Automation Bot)
+• **المشكلة:** الشركات المحلية والمتاجر تفقد عشرات الزبائن يومياً بسبب بطء الرد على استفسارات الأسعار والمواعيد عبر واتساب.
+• **الحل والخدمة:** إعداد نظام رد آلي ذكي (باستخدام Make أو ManyChat أو كود مخصص) يؤكد الحجوزات ويرسل كتالوج المنتجات فوراً.
+• **نموذج الربح:** رسوم إعداد أولية (150$ إلى 300$) + اشتراك صيانة شهري مستمر (50$ شهرياً لكل عميل).
+
+### 2. منصة مصغرة (Micro-SaaS) لإصدار الفواتير وعروض الأسعار للفريلانسرز العرب
+• **المشكلة:** برامج الفوترة العالمية باهظة ومعقدة، ولا تدعم العملات المحلية أو لغة واجهة عربية بسيطة مع روابط دفع فورية.
+• **الحل والخدمة:** تطبيق ويب خفيف بـ React/Tailwind يمكن المستقل من إصدار فاتورة أنيقة PDF برابط دفع في أقل من 60 ثانية.
+• **نموذج الربح:** خطة مجانية لـ 3 فواتير، وخطة غير محدودة بـ 9$ إلى 14$ شهرياً (100 عميل فقط يمنحونك 1,000$ شهرياً كدخل متكرر).
+
+### 3. باقة إنتاج ومونتاج الريلز والشورتس للعلامات التجارية الشخصية (Short-Form Content Agency)
+• **المشكلة:** الأطباء، المحامون، المدربون، وأصحاب الشركات يريدون الحضور على TikTok وInstagram لكنهم لا يملكون الوقت لتعديل ومونتاج الفيديوهات.
+• **الحل والخدمة:** باقة شهرية تسلم العميل 15 إلى 20 فيديو قصير شهرياً مع هوك خاطف وترجمة حركية احترافية ومؤثرات صوتية.
+• **نموذج الربح:** باقة شهرية تبدأ من 300$ إلى 600$ لكل عميل (3 إلى 4 عملاء فقط يضمنون دخلاً شهرياً مستقراً).
+
+### 4. متجر رقمي لبيع القوالب والأنظمة الجاهزة (Digital Templates on Gumroad / Notion)
+• **المشكلة:** رواد الأعمال والمستقلون يقضون ساعات في تنظيم مشاريعهم وجداول حساباتهم من الصفر.
+• **الحل والخدمة:** بناء أنظمة Notion متقدمة (نظام إدارة المشاريع للفريلانسرز، حاسبة تسعير الخدمات، وقوالب خطط محتوى Canva).
+• **نموذج الربح:** منتجات رقمية تُباع بـ 15$ إلى 49$ بهامش ربح 100% دون أي تكاليف شحن أو تصنيع.
+
+### 5. خدمة تحسين الظهور المحلي في خرائط Google للأنشطة التجارية (Google Maps SEO Booster)
+• **المشكلة:** المطاعم، المقاهي، ومراكز الصيانة تعاني من قلة الزوار لعدم ظهور ملفها في أول 3 نتائج بحث محلية في منطقتها.
+• **الحل والخدمة:** تدقيق الحساب، تحسين الكلمات المفتاحية المحلية، إضافة الصور عالية الجودة، وإعداد نظام لجلب تقييمات إيجابية حقيقية.
+• **نموذج الربح:** 200$ إلى 400$ لكل نشاط تجاري.
+
+💡 **خطوتك القادمة:** اختر الفكرة الأقرب لمهارتك الحالية واختبر طلب السوق عليها بالتواصل مع 5 عملاء محتملين هذا الأسبوع.`
+      : `Here are 5 profitable, high-demand digital project ideas for 2026:
+
+### 1. Local WhatsApp Booking & Automation System
+Automate inquiries, appointments, and catalogs for local service businesses via automated messaging bots.
+• **Monetization:** $250 setup fee + $50/mo recurring retainer.
+
+### 2. Solo-Freelancer Invoicing Micro-SaaS
+A fast, lightweight billing tool creating professional branded invoices with payment links in under 60 seconds.
+• **Monetization:** $9-$14/month recurring subscription.
+
+### 3. Short-Form Video Editing Retainer Agency
+Monthly package delivering 15-20 dynamic TikTok/Reels for coaches, founders, and local business owners.
+• **Monetization:** $400-$700 monthly retainer per client.
+
+### 4. Notion Operating Systems & Canva Digital Kits
+Pre-built digital productivity templates and business planning dashboards sold with 100% profit margins.
+• **Monetization:** $19-$49 one-time digital download sales.
+
+### 5. Google Maps & Local SEO Optimization Service
+Audit and optimize local businesses to rank in the top 3 Google Maps results in their city.
+• **Monetization:** $250-$450 per client.`;
   }
 
   // 1. Multi-turn Follow-up: User references a specific Idea (e.g. "الفكرة رقم 3 عجباتني، كتب ليا Script كامل")
@@ -1007,7 +1521,7 @@ Monitors team subscription renewals and alerts the owner 3 days before renewal t
 "الفخ الوحيد الذي يعطل نجاح أغلب صانعي المحتوى في ${topic} وكيف تتفاداه اليوم"
 نصيحة وقائية دقيقة توفر وقت وجهد المشاهدين.
 
-💬 اختر أي فكرة ترغب في كتابة سكريبت كامل لها، وسأجهزها لك فوراً!`;
+💡 **خطوتك القادمة:** اختر الفكرة الأقرب لأسلوبك وابدأ بتصويرها أو إعداد محتواها وفق هيكل (هوك قوي + قيمة سريعة + دعوة للتفاعل).`;
     }
 
     if (isAr) {
@@ -1053,7 +1567,7 @@ Monitors team subscription renewals and alerts the owner 3 days before renewal t
 "كيف سيتغير مجال ${topic} خلال هذا العام وكيف تستعد له"
 نظرة استشرافية تساعد المتابع على أن يكون سبّاقاً في مجاله ومواكباً لأحدث الخوارزميات.
 
-💬 اختر رقم أي فكرة ترغب في كتابة سكريبت كامل لها، وسأبدأ فوراً!`;
+💡 **خطوتك القادمة:** اختر الفكرة الأقرب لأسلوبك وابدأ بتصويرها أو إعداد محتواها وفق هيكل (هوك قوي + قيمة سريعة + دعوة للتفاعل).`;
     } else {
       return `Here are 10 high-value content ideas for (${topic}):
 
@@ -1097,7 +1611,7 @@ Dissecting market realities and showing where real opportunities remain.
 "Where ${topic} is Heading This Year and How to Stay Ahead"
 A forward-looking perspective to keep your content relevant.
 
-💬 Tell me which idea you like best and I'll write the full script right away!`;
+💡 **Next Step:** Pick the angle that resonates most with your audience and begin recording with a strong 3-second hook.`;
     }
   }
 
@@ -1176,33 +1690,41 @@ A forward-looking perspective to keep your content relevant.
 #ContentCreator #OnlineIncome #ViralReels #CreatorEconomy #SideHustle #GrowthHacks #DigitalMarketing #VideoEditing`;
   }
 
-  // 7. General Conversational / Clarification Response
-  return isAr
-    ? `أهلاً بك! بخصوص استفسارك: "${lastUserMsg}"
+  // 7. Direct Conversational Intelligence (Direct Answer for any query - NEVER ask multi-choice menus!)
+  if (isAr) {
+    return `### إجابة مباشرة ودليل تطبيقي بخصوص: "${lastUserMsg}"
 
-يسعدني مساعدتك في هذا الأمر بشكل مباشر وواضح. هل تفضل:
-• **شرحاً مبسطاً وتفصيلياً** للموضوع؟
-• **أفكاراً عملية أو خطوات تنفيذية** يمكنك تطبيقها مباشرة؟
-• **صياغة سكريبت أو نص إعلاني جاهز**؟
+#### 1. الفكرة والجوهر الأساسي:
+في إطار ما سألت عنه، النقطة الجوهرية التي تضمن لك تحقيق أفضل نتيجة هي التركيز على الأساسيات العملية التي تصنع تأثيراً مباشراً. سواء كان هدفك بناء مشروع رقمي، إتقان مهارة تقنية، أو إنتاج محتوى جذاب، فإن تجنب التعقيد والبدء بنموذج مبسط هو المفتاح الحاسم.
 
-حدد لي ما تفضله أو وضح لي أكثر، وسأقدم لك الإجابة الدقيقة فوراً!`
-    : isFr
-    ? `Bonjour ! Concernant votre demande : "${lastUserMsg}"
+#### 2. خطوات التنفيذ المباشرة والعملية:
+1. **الخطوة الأولى (التحديد والتخطيط):** حدد النتيجة النهائية المطلوبة بدقة، وركز على حل مشكلة واحدة ملموسة تلبي حاجة حقيقية.
+2. **الخطوة الثانية (التطبيق الفوري - Fast Prototyping):** لا تنتظر اكتمال كل الشروط النظرية؛ قم ببناء أول مسودة أو نموذج عملي (MVP) خلال 48 ساعة فقط لاختبار الفكرة عملياً.
+3. **الخطوة الثالثة (القياس والتطوير):** اعرض عملك على جمهورك أو عملائك المستهدفين، وقس النتائج بناءً على التفاعل الفعلي والأرقام الواقعية، ثم حسن أسلوبك أسبوعياً.
 
-Je suis ravi de vous aider directement. Préférez-vous :
-• Une **explication claire et détaillée** du sujet ?
-• Des **idées concrètes ou un plan d'action** immédiatement applicable ?
-• La **rédaction d'un script ou texte prêt à publier** ?
+#### 3. نصيحة عملية للتفوق:
+استعن بأدوات الأتمتة والذكاء الاصطناعي لتوفير ساعات العمل الروتيني، وركز طاقتك بالكامل على تقديم جودة استثنائية وبناء علاقة قوية ومستدامة مع جمهورك أو عملائك.`;
+  } else if (isFr) {
+    return `### Réponse directe et plan d'action concernant : "${lastUserMsg}"
 
-Précisez ce qui vous convient le mieux et je vous répondrai précisément !`
-    : `Hello! Regarding your inquiry: "${lastUserMsg}"
+#### 1. L'Essentiel à Retenir :
+Pour réussir concrètement sur ce sujet, la clé est de se concentrer sur les actions à fort impact et d'éviter la dispersion.
 
-I would be happy to assist you directly. Would you prefer:
-• A **clear, direct explanation** of the topic?
-• **Actionable ideas or an execution roadmap**?
-• A **ready-to-use script or tailored copy**?
+#### 2. Plan d'Action Immédiat :
+1. **Ciblage Précis :** Définissez un objectif clair et résolvez un problème spécifique.
+2. **Exécution Rapide :** Créez une première version concrète sous 48 heures sans chercher la perfection prématurée.
+3. **Optimisation :** Mesurez les retours réels et ajustez votre méthode de façon itérative.`;
+  } else {
+    return `### Direct response and actionable blueprint regarding: "${lastUserMsg}"
 
-Just let me know what works best for you and I will provide the exact response right away!`;
+#### 1. The Core Principle:
+To make rapid, tangible progress on this topic, focus on high-leverage execution steps rather than getting lost in passive theory.
+
+#### 2. Actionable Execution Plan:
+1. **Laser Focus:** Define one specific outcome and eliminate unnecessary complexity.
+2. **Rapid Prototype:** Build and launch a quick test version within 48 hours to validate demand.
+3. **Iterate from Feedback:** Measure tangible metrics and double down on what produces results.`;
+  }
 }
 
 // Backward compatible export for any existing legacy usages

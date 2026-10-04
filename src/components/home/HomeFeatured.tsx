@@ -111,8 +111,8 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {featuredPaths.map((path) => {
-            const title = language === 'ar' ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
-            const desc = language === 'ar' ? path.arabicDescription : language === 'fr' ? path.frenchDescription : path.description;
+            const title = (language === 'ar' || language === 'ary') ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
+            const desc = (language === 'ar' || language === 'ary') ? (path.arabicDescription || path.arabicShortDescription) : language === 'fr' ? (path.frenchDescription || path.frenchShortDescription) : (path.description || path.shortDescription);
             const saved = isSaved(path.id);
 
             return (
@@ -167,6 +167,10 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onNavigate('web-development');
                       } else if (path.id === 'app-development') {
                         onNavigate('app-development');
+                      } else if (path.id === 'social-media-management') {
+                        onNavigate('social-media-management');
+                      } else if (path.id === 'ugc-content') {
+                        onNavigate('ugc-content');
                       } else {
                         onSelectPath(path);
                       }
@@ -213,6 +217,8 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onNavigate('copywriting');
                       } else if (path.id === 'video-editing') {
                         onNavigate('video-editing');
+                      } else if (path.id === 'ugc-content') {
+                        onNavigate('ugc-content');
                       } else {
                         onSelectPath(path);
                       }

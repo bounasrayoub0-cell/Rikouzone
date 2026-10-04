@@ -1,4 +1,6 @@
-export const en = {
+import { TranslationSchema } from './types';
+
+export const en: TranslationSchema = {
   brand: {
     name: 'RikouZone',
     subtitle: 'Creator Platform & Online Income Hub',
@@ -182,6 +184,8 @@ export const en = {
     copied: 'Copied!',
     search: 'Search',
     filter: 'Filter',
-    all: 'All'
+    all: 'All',
+    selectLanguage: 'Select Interface Language',
+    searchLanguage: 'Search language...'
   }
 };

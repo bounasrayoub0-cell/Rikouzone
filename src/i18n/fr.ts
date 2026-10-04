@@ -1,4 +1,6 @@
-export const fr = {
+import { TranslationSchema } from './types';
+
+export const fr: TranslationSchema = {
   brand: {
     name: 'RikouZone',
     subtitle: 'Plateforme des Créateurs et Revenus en Ligne',
@@ -182,6 +184,8 @@ export const fr = {
     copied: 'Copié !',
     search: 'Recherche',
     filter: 'Filtrer',
-    all: 'Tous'
+    all: 'Tous',
+    selectLanguage: 'Choisir la langue de l\'interface',
+    searchLanguage: 'Rechercher une langue...'
   }
 };

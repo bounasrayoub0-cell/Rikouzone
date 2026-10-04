@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
-import { Sparkles, Globe, Bookmark, Flame } from 'lucide-react';
+import { Sparkles, Bookmark, Flame } from 'lucide-react';
+import { LanguageSelector } from '../common/LanguageSelector';
 
 interface HeaderProps {
   currentTab: string;
@@ -25,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
           <div className="relative flex-shrink-0">
             <div className="absolute -inset-0.5 rounded-xl bg-amber-500/30 blur-xs" />
             <img
-              src="/file_00000000833881f4b8703f44bcd07500.png"
+              src="/file_00000000b1d881f496a6612e6eef85ce.png"
               onError={(e) => {
                 e.currentTarget.src = '/assets/rz-hero-badge.png';
               }}
@@ -91,43 +92,8 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
 
         {/* Action Controls: Language Switcher & Saved Bookmarks */}
         <div className="flex items-center gap-2">
-          {/* Quick Language Selector */}
-          <div className="relative flex items-center rounded-xl bg-zinc-900/90 p-1 border border-zinc-800 text-xs">
-            <Globe className="h-3.5 w-3.5 text-zinc-400 mx-1.5 hidden sm:block" />
-            <button
-              id="lang-btn-ar"
-              onClick={() => setLanguage('ar')}
-              className={`px-2 py-1 rounded-lg font-bold transition-all ${
-                language === 'ar'
-                  ? 'bg-amber-500 text-black shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
-              }`}
-            >
-              عربي
-            </button>
-            <button
-              id="lang-btn-en"
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-lg font-bold transition-all ${
-                language === 'en'
-                  ? 'bg-amber-500 text-black shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              id="lang-btn-fr"
-              onClick={() => setLanguage('fr')}
-              className={`px-2 py-1 rounded-lg font-bold transition-all ${
-                language === 'fr'
-                  ? 'bg-amber-500 text-black shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
-              }`}
-            >
-              FR
-            </button>
-          </div>
+          {/* Professional 9-Language Selector */}
+          <LanguageSelector />
 
           {/* Saved Items Button */}
           <button

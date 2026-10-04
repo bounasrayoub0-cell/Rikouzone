@@ -24,6 +24,7 @@ interface ToolsViewProps {
 
 export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI }) => {
   const { language, isRTL } = useLanguage();
+  const isArabicFamily = language === 'ar' || language === 'ary';
 
   const [activeTab, setActiveTab] = useState<'calculators' | 'utilities'>('calculators');
   const [selectedCalcId, setSelectedCalcId] = useState<string>(calculators[0].id);
@@ -152,7 +153,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 max-h-[600px] overflow-y-auto pr-1">
               {calculators.map((calc) => {
                 const isSelected = calc.id === selectedCalcId;
-                const title = language === 'ar' ? calc.arabicTitle : language === 'fr' ? calc.frenchTitle : calc.title;
+                const title = isArabicFamily ? calc.arabicTitle : language === 'fr' ? calc.frenchTitle : calc.title;
 
                 return (
                   <button
@@ -194,10 +195,10 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                   {currentCalc.category}
                 </span>
                 <h2 className="mt-2 text-xl sm:text-2xl font-black text-white">
-                  {language === 'ar' ? currentCalc.arabicTitle : language === 'fr' ? currentCalc.frenchTitle : currentCalc.title}
+                  {isArabicFamily ? currentCalc.arabicTitle : language === 'fr' ? currentCalc.frenchTitle : currentCalc.title}
                 </h2>
                 <p className="mt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-xl">
-                  {language === 'ar' ? currentCalc.arabicDescription : language === 'fr' ? currentCalc.frenchDescription : currentCalc.description}
+                  {isArabicFamily ? currentCalc.arabicDescription : language === 'fr' ? currentCalc.frenchDescription : currentCalc.description}
                 </p>
               </div>
 
@@ -215,7 +216,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
               {currentCalc.inputs.map((input) => {
                 const currentVal = inputValues[input.id] ?? input.defaultValue;
-                const label = language === 'ar' ? input.arabicLabel : language === 'fr' ? input.frenchLabel : input.label;
+                const label = isArabicFamily ? input.arabicLabel : language === 'fr' ? input.frenchLabel : input.label;
 
                 return (
                   <div key={input.id} className="rounded-2xl border border-zinc-800/80 bg-zinc-950/60 p-4">
@@ -274,7 +275,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {results.map((res, idx) => {
-                  const resLabel = language === 'ar' ? res.arabicLabel : language === 'fr' ? res.frenchLabel : res.label;
+                  const resLabel = isArabicFamily ? res.arabicLabel : language === 'fr' ? res.frenchLabel : res.label;
 
                   return (
                     <div

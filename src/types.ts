@@ -1,4 +1,13 @@
-export type Language = 'ar' | 'en' | 'fr';
+export type Language = 
+  | 'ary'  // Moroccan Darija (العربية الدارجة المغربية)
+  | 'ar'   // Modern Standard Arabic (العربية الفصحى)
+  | 'en'   // English
+  | 'fr'   // Français
+  | 'es'   // Español
+  | 'de'   // Deutsch
+  | 'it'   // Italiano
+  | 'pt'   // Português
+  | 'zh';  // Simplified Chinese (简体中文)
 
 export type NavTab = 
   | 'home'

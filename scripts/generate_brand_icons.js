@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Resvg } from '@resvg/resvg-js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+const publicDir = path.join(rootDir, 'public');
+
+// Precise vector reconstruction of the uploaded RikouZone cyber neon RZ icon
+const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
     <!-- Background Radial Glow -->
@@ -266,4 +277,108 @@
       <line x1="0" y1="-14" x2="0" y2="14" stroke="#ffffff" stroke-width="3"/>
     </g>
   </g>
-</svg>
+</svg>`;
+
+async function generateBrandIcons() {
+  console.log('Rendering SVG to multi-resolution PNG assets...');
+
+  // 1. Save SVG
+  const svgPath = path.join(publicDir, 'assets', 'rz-hero-badge.svg');
+  fs.writeFileSync(svgPath, svgContent, 'utf-8');
+  console.log(`Saved SVG: ${svgPath}`);
+
+  // 2. Render 1024x1024 Master High-Res PNG
+  const resvg1024 = new Resvg(svgContent, {
+    fitTo: { mode: 'width', value: 1024 }
+  });
+  const png1024 = resvg1024.render().asPng();
+
+  // Save as uploaded image filename in public
+  fs.writeFileSync(path.join(publicDir, 'file_00000000b1d881f496a6612e6eef85ce.png'), png1024);
+  fs.writeFileSync(path.join(publicDir, 'favicon.png'), png1024);
+  fs.writeFileSync(path.join(publicDir, 'assets', 'rz-hero-badge.png'), png1024);
+  console.log('Saved 1024x1024 brand PNGs.');
+
+  // 3. Render 180x180 Apple Touch Icon
+  const resvg180 = new Resvg(svgContent, {
+    fitTo: { mode: 'width', value: 180 }
+  });
+  const png180 = resvg180.render().asPng();
+  fs.writeFileSync(path.join(publicDir, 'apple-touch-icon.png'), png180);
+  console.log('Saved 180x180 apple-touch-icon.png.');
+
+  // 4. Render 32x32 Favicon
+  const resvg32 = new Resvg(svgContent, {
+    fitTo: { mode: 'width', value: 32 }
+  });
+  const png32 = resvg32.render().asPng();
+  fs.writeFileSync(path.join(publicDir, 'favicon-32x32.png'), png32);
+  console.log('Saved 32x32 favicon-32x32.png.');
+
+  // 5. Render 16x16 Favicon
+  const resvg16 = new Resvg(svgContent, {
+    fitTo: { mode: 'width', value: 16 }
+  });
+  const png16 = resvg16.render().asPng();
+  fs.writeFileSync(path.join(publicDir, 'favicon-16x16.png'), png16);
+  console.log('Saved 16x16 favicon-16x16.png.');
+
+  // 6. Build Multi-Res ICO file containing 16x16 and 32x32 PNGs
+  const icoBuffer = createIcoFromPngs([png16, png32]);
+  fs.writeFileSync(path.join(publicDir, 'favicon.ico'), icoBuffer);
+  console.log('Saved multi-resolution favicon.ico.');
+
+  // 7. Copy to dist if dist exists
+  const distDir = path.join(rootDir, 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.copyFileSync(path.join(publicDir, 'file_00000000b1d881f496a6612e6eef85ce.png'), path.join(distDir, 'file_00000000b1d881f496a6612e6eef85ce.png'));
+    fs.copyFileSync(path.join(publicDir, 'favicon.png'), path.join(distDir, 'favicon.png'));
+    fs.copyFileSync(path.join(publicDir, 'favicon-32x32.png'), path.join(distDir, 'favicon-32x32.png'));
+    fs.copyFileSync(path.join(publicDir, 'favicon-16x16.png'), path.join(distDir, 'favicon-16x16.png'));
+    fs.copyFileSync(path.join(publicDir, 'apple-touch-icon.png'), path.join(distDir, 'apple-touch-icon.png'));
+    fs.copyFileSync(path.join(publicDir, 'favicon.ico'), path.join(distDir, 'favicon.ico'));
+    console.log('Copied all updated icon assets to dist directory.');
+  }
+
+  console.log('All brand icons and favicons generated successfully!');
+}
+
+function createIcoFromPngs(pngBuffers) {
+  // ICO header: 6 bytes
+  // Reserved: 2 bytes (0)
+  // Type: 2 bytes (1 for ICO)
+  // Count: 2 bytes (number of images)
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(pngBuffers.length, 4);
+
+  const dirEntries = [];
+  let offset = 6 + (16 * pngBuffers.length);
+
+  for (const png of pngBuffers) {
+    // Read width and height from PNG IHDR chunk (offset 16 & 20)
+    const width = png.readUInt32BE(16);
+    const height = png.readUInt32BE(20);
+
+    const entry = Buffer.alloc(16);
+    entry.writeUInt8(width >= 256 ? 0 : width, 0); // width
+    entry.writeUInt8(height >= 256 ? 0 : height, 1); // height
+    entry.writeUInt8(0, 2); // color count
+    entry.writeUInt8(0, 3); // reserved
+    entry.writeUInt16LE(1, 4); // color planes
+    entry.writeUInt16LE(32, 6); // bits per pixel
+    entry.writeUInt32LE(png.length, 8); // size of image in bytes
+    entry.writeUInt32LE(offset, 12); // offset of image data
+
+    dirEntries.push(entry);
+    offset += png.length;
+  }
+
+  return Buffer.concat([header, ...dirEntries, ...pngBuffers]);
+}
+
+generateBrandIcons().catch(err => {
+  console.error('Error generating icons:', err);
+  process.exit(1);
+});

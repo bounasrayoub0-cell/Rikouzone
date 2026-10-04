@@ -1,4 +1,6 @@
-export const ar = {
+import { TranslationSchema } from './types';
+
+export const ar: TranslationSchema = {
   brand: {
     name: 'RikouZone',
     subtitle: 'منصة صناع المحتوى والربح من الإنترنت',
@@ -182,6 +184,8 @@ export const ar = {
     copied: 'تم النسخ!',
     search: 'بحث',
     filter: 'تصفية',
-    all: 'الكل'
+    all: 'الكل',
+    selectLanguage: 'اختر لغة الواجهة',
+    searchLanguage: 'ابحث عن لغة...'
   }
 };

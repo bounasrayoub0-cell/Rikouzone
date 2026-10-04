@@ -39,6 +39,8 @@ interface IncomeDetailModalProps {
   onNavigateToThumbnailDesign?: () => void;
   onNavigateToWebDev?: () => void;
   onNavigateToAppDev?: () => void;
+  onNavigateToSocialMedia?: () => void;
+  onNavigateToUgc?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -61,13 +63,15 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToThumbnailDesign,
   onNavigateToWebDev,
   onNavigateToAppDev,
+  onNavigateToSocialMedia,
+  onNavigateToUgc,
 }) => {
   const { language, isRTL } = useLanguage();
 
   if (!path) return null;
 
-  const title = language === 'ar' ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
-  const desc = language === 'ar' 
+  const title = (language === 'ar' || language === 'ary') ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
+  const desc = (language === 'ar' || language === 'ary') 
     ? (path.arabicFullDescription || path.arabicShortDescription) 
     : language === 'fr' 
     ? (path.frenchFullDescription || path.frenchShortDescription) 
@@ -521,6 +525,62 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
               className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار تطبيقات الجوال الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for Social Media Management */}
+        {path.id === 'social-media-management' && onNavigateToSocialMedia && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا القسم إلى كورس احترافي متكامل</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                كورس إدارة حسابات التواصل الاجتماعي الاحترافي (13 وحدة تدريبية و 5 مشاريع عملاء)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، الاستراتيجية، إعداد الحسابات، صناعة الريلز والكاروسيل، أداة تقويم المحتوى التفاعلية، إدارة الأزمات، 5 مشاريع عملاء حقيقية، وباقات وتسعير العمل الحر.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToSocialMedia();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح كورس إدارة الحسابات الكامل 🚀
+            </button>
+          </div>
+        )}
+
+        {/* Upgraded Interactive Learning Path Banner for UGC Content Creation */}
+        {path.id === 'ugc-content' && onNavigateToUgc && (
+          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                <Sparkles className="h-3 w-3" />
+                <span>تمت ترقية هذا القسم إلى كورس احترافي متكامل (12 وحدة)</span>
+              </div>
+              <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
+                كورس صناعة محتوى الـ UGC الشامل وتحقيق أول عميل (بدون متابعين)
+              </h4>
+              <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                الأساسيات، الأنماط العشرة، التصوير بالهاتف، هيكل السكربتات السداسي، بناء بورتفوليو احترافي، التنقيب ومراسلة الشركات، تسعير الباقات وحاسبة الفواتير، العقود القانونية، مونتاج CapCut، وتحدي الـ 7 أيام للانطلاق.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onClose();
+                onNavigateToUgc();
+              }}
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+            >
+              افتح كورس الـ UGC الكامل 🚀
             </button>
           </div>
         )}

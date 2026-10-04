@@ -34,7 +34,7 @@ const HeroBadgeImage: React.FC<{ className?: string }> = ({ className = '' }) =>
 
       {/* The Uploaded Image */}
       <img
-        src="/file_00000000833881f4b8703f44bcd07500.png"
+        src="/file_00000000b1d881f496a6612e6eef85ce.png"
         onError={(e) => {
           e.currentTarget.src = '/assets/rz-hero-badge.png';
         }}

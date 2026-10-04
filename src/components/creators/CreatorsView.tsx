@@ -41,6 +41,8 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
 
   const IconComp = iconMap[activeGuide.icon] || Sparkles;
 
+  const isArabicFamily = language === 'ar' || language === 'ary';
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
       
@@ -65,7 +67,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
         {creatorGuides.map((guide) => {
           const isSelected = guide.id === selectedGuideId;
           const GuideIcon = iconMap[guide.icon] || Sparkles;
-          const name = language === 'ar' ? guide.arabicName : language === 'fr' ? guide.frenchName : guide.name;
+          const name = isArabicFamily ? guide.arabicName : language === 'fr' ? guide.frenchName : guide.name;
 
           return (
             <button
@@ -96,10 +98,10 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
               </div>
               <div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white">
-                  {language === 'ar' ? activeGuide.arabicName : language === 'fr' ? activeGuide.frenchName : activeGuide.name}
+                  {isArabicFamily ? activeGuide.arabicName : language === 'fr' ? activeGuide.frenchName : activeGuide.name}
                 </h2>
                 <p className="mt-1 text-xs sm:text-sm text-zinc-300 font-medium max-w-xl">
-                  {language === 'ar' ? activeGuide.taglineAr : activeGuide.taglineEn}
+                  {isArabicFamily ? activeGuide.taglineAr : activeGuide.taglineEn}
                 </p>
               </div>
             </div>
@@ -122,7 +124,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
             </h3>
 
             <div className="mt-4 space-y-2.5">
-              {(language === 'ar' ? activeGuide.monetization.arabicRequirements : activeGuide.monetization.requirements).map((req, i) => (
+              {(isArabicFamily ? activeGuide.monetization.arabicRequirements : activeGuide.monetization.requirements).map((req, i) => (
                 <div key={i} className="flex items-start gap-3 rounded-xl border border-zinc-800/70 bg-zinc-950/50 p-3">
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-[10px] font-bold text-emerald-400">
                     ✓
@@ -143,7 +145,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
             </h3>
 
             <div className="mt-4 space-y-2.5">
-              {(language === 'ar' ? activeGuide.monetization.arabicPayoutMethods : activeGuide.monetization.payoutMethods).map((method, i) => (
+              {(isArabicFamily ? activeGuide.monetization.arabicPayoutMethods : activeGuide.monetization.payoutMethods).map((method, i) => (
                 <div key={i} className="flex items-center gap-3 rounded-xl border border-zinc-800/70 bg-zinc-950/50 p-3">
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400">
                     $

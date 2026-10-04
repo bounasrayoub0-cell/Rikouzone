@@ -27,6 +27,8 @@ import { GraphicDesignView } from './components/graphic-design/GraphicDesignView
 import { ThumbnailDesignView } from './components/thumbnail-design/ThumbnailDesignView';
 import { WebDevelopmentView } from './components/web-development/WebDevelopmentView';
 import { MobileAppDevelopmentView } from './components/mobile-app/MobileAppDevelopmentView';
+import { SocialMediaManagementView } from './components/social-media/SocialMediaManagementView';
+import { UgcContentCreationView } from './components/ugc/UgcContentCreationView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -270,6 +272,20 @@ function MainApp() {
           />
         )}
 
+        {currentTab === 'social-media-management' && (
+          <SocialMediaManagementView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'ugc-content' || currentTab === 'ugc') && (
+          <UgcContentCreationView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
         {currentTab === 'ideas' && (
           <ContentIdeasView
             onToggleSave={handleToggleSave}
@@ -330,6 +346,7 @@ function MainApp() {
         onNavigateToThumbnailDesign={() => handleNavigate('thumbnail-design')}
         onNavigateToWebDev={() => handleNavigate('web-development')}
         onNavigateToAppDev={() => handleNavigate('app-development')}
+        onNavigateToSocialMedia={() => handleNavigate('social-media-management')}
       />
 
       <IdeaDetailModal

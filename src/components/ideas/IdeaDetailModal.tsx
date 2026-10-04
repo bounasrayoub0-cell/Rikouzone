@@ -34,11 +34,12 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
 
   if (!idea) return null;
 
-  const title = language === 'ar' ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
-  const hook = language === 'ar' ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
-  const desc = language === 'ar' ? idea.arabicDescription : language === 'fr' ? idea.frenchDescription : idea.description;
-  const script = language === 'ar' ? idea.arabicScriptOutline : idea.scriptOutline;
-  const cta = language === 'ar' ? idea.arabicCta : idea.cta;
+  const isArabicFamily = language === 'ar' || language === 'ary';
+  const title = isArabicFamily ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
+  const hook = isArabicFamily ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
+  const desc = isArabicFamily ? idea.arabicDescription : language === 'fr' ? idea.frenchDescription : idea.description;
+  const script = isArabicFamily ? idea.arabicScriptOutline : idea.scriptOutline;
+  const cta = isArabicFamily ? idea.arabicCta : idea.cta;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md animate-in fade-in duration-150">

@@ -199,8 +199,9 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
       ) : (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredIdeas.map((idea) => {
-            const title = language === 'ar' ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
-            const hook = language === 'ar' ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
+            const isArabicFamily = language === 'ar' || language === 'ary';
+            const title = isArabicFamily ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
+            const hook = isArabicFamily ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
             const saved = isSaved(idea.id);
 
             return (
