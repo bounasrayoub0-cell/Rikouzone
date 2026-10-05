@@ -87,14 +87,14 @@ const FormattedAIMessage: React.FC<{ content: string; isRTL: boolean }> = ({ con
     return parts.map((part, idx) => {
       if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
         return (
-          <strong key={idx} className="font-bold text-amber-300">
+          <strong key={idx} className="font-bold text-purple-300">
             {part.slice(2, -2)}
           </strong>
         );
       }
       if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
         return (
-          <code key={idx} className="rounded bg-black/40 px-1.5 py-0.5 font-mono text-xs text-amber-200 border border-zinc-700">
+          <code key={idx} className="rounded bg-purple-950/30 px-1.5 py-0.5 font-mono text-xs text-purple-200 border border-purple-800/30">
             {part.slice(1, -1)}
           </code>
         );
@@ -110,7 +110,7 @@ const FormattedAIMessage: React.FC<{ content: string; isRTL: boolean }> = ({ con
     if (currentList) {
       if (currentList.type === 'bullet') {
         blocks.push(
-          <ul key={`list-${blocks.length}`} className="my-2 space-y-1.5 ps-5 list-disc marker:text-amber-400">
+          <ul key={`list-${blocks.length}`} className="my-2 space-y-1.5 ps-5 list-disc marker:text-purple-400">
             {currentList.items.map((item, idx) => (
               <li key={idx} className="leading-relaxed text-zinc-200">
                 {renderInline(item)}
@@ -120,7 +120,7 @@ const FormattedAIMessage: React.FC<{ content: string; isRTL: boolean }> = ({ con
         );
       } else {
         blocks.push(
-          <ol key={`list-${blocks.length}`} className="my-2 space-y-1.5 ps-5 list-decimal marker:text-amber-400">
+          <ol key={`list-${blocks.length}`} className="my-2 space-y-1.5 ps-5 list-decimal marker:text-purple-400">
             {currentList.items.map((item, idx) => (
               <li key={idx} className="leading-relaxed text-zinc-200">
                 {renderInline(item)}
@@ -161,7 +161,7 @@ const FormattedAIMessage: React.FC<{ content: string; isRTL: boolean }> = ({ con
     if (line.startsWith('## ')) {
       flushList();
       blocks.push(
-        <h3 key={`h3-${idx}`} className="mt-4 mb-2 text-base sm:text-lg font-black text-amber-300">
+        <h3 key={`h3-${idx}`} className="mt-4 mb-2 text-base sm:text-lg font-black text-purple-300">
           {renderInline(line.replace('## ', ''))}
         </h3>
       );
@@ -708,16 +708,16 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
       {/* Unified Hero Header */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-bold text-amber-400 shadow-sm shadow-amber-500/10">
-          <Sparkles className="h-3.5 w-3.5 animate-pulse text-amber-400" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/25 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-300 shadow-sm">
+          <Sparkles className="h-3.5 w-3.5 text-purple-400" />
           <span>{isAr ? 'ذكاء اصطناعي محادثاتي موحد' : isFr ? 'IA Conversationnelle Unifiée' : 'Unified Conversational AI'}</span>
         </div>
         
         <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-          Rikou <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">AI</span>
+          Rikou <span className="bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">AI</span>
         </h1>
 
-        <p className="mt-2 text-base sm:text-lg font-bold text-zinc-200">
+        <p className="mt-2 text-base sm:text-lg font-bold text-zinc-100">
           {isAr
             ? 'مساعدك الذكي لصناعة المحتوى والعمل والتعلم'
             : isFr
@@ -735,19 +735,29 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
       </div>
 
       {/* Main Unified Chat Frame with History Panel Integration */}
-      <div className="relative rounded-3xl border border-zinc-800/90 bg-gradient-to-b from-zinc-950 via-zinc-900/80 to-zinc-950 shadow-2xl backdrop-blur-xl overflow-hidden flex flex-col min-h-[580px] max-h-[820px]">
+      <div className="relative rounded-3xl border border-zinc-800 bg-[#0d0e12] shadow-2xl overflow-hidden flex flex-col min-h-[580px] max-h-[820px]">
         
         {/* Chat Control Bar */}
-        <div className="flex items-center justify-between px-3 sm:px-6 py-3.5 border-b border-zinc-800/80 bg-zinc-950/80 z-20">
+        <div className="flex items-center justify-between px-3 sm:px-6 py-3.5 border-b border-zinc-800/90 bg-[#12131a] z-20">
           <div className="flex items-center gap-2.5">
-            <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-black font-black shadow-md shadow-amber-500/20 shrink-0">
-              <Bot className="h-4 w-4 stroke-[2.5]" />
-              <span className="absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 border border-black animate-pulse" />
+            <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center">
+              <img
+                src="/file_0000000001ac82468f8294920989a3bd.png"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                }}
+                alt="Rikou AI"
+                referrerPolicy="no-referrer"
+                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-purple-500/35 select-none bg-zinc-950"
+                width={36}
+                height={36}
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-zinc-950 animate-pulse" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs sm:text-sm font-black text-white">Rikou AI</span>
-                <span className="rounded-md bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 text-[10px] font-bold text-amber-300">
+                <span className="rounded-md bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400">
                   {isAr ? 'متصل وجاهز' : isFr ? 'En ligne' : 'Online'}
                 </span>
               </div>
@@ -765,17 +775,17 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               onClick={() => setIsHistoryOpen(!isHistoryOpen)}
               className={`flex items-center gap-1.5 rounded-xl border px-2.5 sm:px-3 py-1.5 text-xs font-bold transition-all active:scale-95 ${
                 isHistoryOpen
-                  ? 'border-amber-500 bg-amber-500/20 text-amber-300'
-                  : 'border-zinc-800 bg-zinc-900/90 text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-800'
+                  ? 'border-purple-500/50 bg-purple-500/15 text-purple-300'
+                  : 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:text-white hover:border-purple-500/30 hover:bg-zinc-800'
               }`}
               title={isAr ? 'سجل المحادثات' : isFr ? 'Historique' : 'Chat History'}
             >
-              <History className="h-3.5 w-3.5 text-amber-400" />
+              <History className="h-3.5 w-3.5 text-purple-400" />
               <span className="hidden sm:inline">
                 {isAr ? 'سجل المحادثات' : isFr ? 'Historique' : 'History'}
               </span>
               {savedSessions.length > 0 && (
-                <span className="rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 px-1.5 py-0.2 text-[10px] font-bold">
+                <span className="rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-300 px-1.5 py-0.2 text-[10px] font-bold">
                   {savedSessions.length}
                 </span>
               )}
@@ -785,7 +795,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             <button
               id="rikou-new-chat-btn"
               onClick={handleNewChat}
-              className="flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 to-orange-500/15 px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-amber-300 hover:text-black hover:bg-amber-500 hover:border-amber-400 transition-all active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 rounded-xl border border-purple-500/30 bg-purple-950/40 px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-purple-200 hover:text-white hover:bg-purple-600 hover:border-purple-500 transition-all active:scale-95 shadow-sm"
               title={isAr ? 'محادثة جديدة' : isFr ? 'Nouvelle conversation' : 'New Chat'}
             >
               <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -806,12 +816,12 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             />
 
             {/* History Panel Content */}
-            <div className={`relative z-10 w-full sm:w-80 md:w-96 bg-zinc-950 border-${isRTL ? 'l' : 'r'} border-zinc-800 flex flex-col h-full shadow-2xl animate-in slide-in-from-${isRTL ? 'right' : 'left'} duration-200`}>
+            <div className={`relative z-10 w-full sm:w-80 md:w-96 bg-[#0f1015] border-${isRTL ? 'l' : 'r'} border-zinc-800 flex flex-col h-full shadow-2xl animate-in slide-in-from-${isRTL ? 'right' : 'left'} duration-200`}>
               
               {/* History Header */}
-              <div className="flex items-center justify-between p-4 border-b border-zinc-800 bg-zinc-900/60">
+              <div className="flex items-center justify-between p-4 border-b border-zinc-800 bg-[#14151c]">
                 <div className="flex items-center gap-2">
-                  <History className="h-4 w-4 text-amber-400" />
+                  <History className="h-4 w-4 text-purple-400" />
                   <span className="text-sm font-black text-white">
                     {isAr ? 'سجل المحادثات' : isFr ? 'Historique des conversations' : 'Conversation History'}
                   </span>
@@ -825,7 +835,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               </div>
 
               {/* History Search & Clear All */}
-              <div className="p-3 border-b border-zinc-800/80 bg-zinc-950 space-y-2">
+              <div className="p-3 border-b border-zinc-800/80 bg-[#0f1015] space-y-2">
                 <div className="relative">
                   <Search className="absolute top-2.5 start-3 h-3.5 w-3.5 text-zinc-500" />
                   <input
@@ -833,7 +843,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                     value={historySearch}
                     onChange={(e) => setHistorySearch(e.target.value)}
                     placeholder={isAr ? 'بحث في المحادثات...' : isFr ? 'Rechercher...' : 'Search conversations...'}
-                    className="w-full rounded-xl border border-zinc-800 bg-zinc-900/90 py-2 ps-9 pe-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500"
+                    className="w-full rounded-xl border border-zinc-800 bg-[#161720] py-2 ps-9 pe-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50"
                   />
                   {historySearch && (
                     <button
@@ -847,7 +857,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
                 {savedSessions.length > 0 && (
                   <div className="flex items-center justify-between text-[11px] pt-1 px-1">
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-400">
                       {isAr ? `${savedSessions.length} محادثات مسجلة` : `${savedSessions.length} saved chats`}
                     </span>
                     <button
@@ -885,15 +895,15 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                         onClick={() => handleSelectSession(session)}
                         className={`group relative flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
                           isSelected
-                            ? 'border-amber-500/70 bg-amber-500/10 shadow-md shadow-amber-500/10'
-                            : 'border-zinc-800/80 bg-zinc-900/50 hover:border-zinc-700 hover:bg-zinc-900'
+                            ? 'border-purple-500/40 bg-purple-950/25 shadow-sm'
+                            : 'border-zinc-800/80 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900/80'
                         }`}
                       >
                         <div className="flex-1 min-w-0 pe-2">
-                          <h4 className="text-xs font-bold text-zinc-200 group-hover:text-amber-300 truncate transition-colors">
+                          <h4 className="text-xs font-bold text-zinc-200 group-hover:text-purple-300 truncate transition-colors">
                             {session.title}
                           </h4>
-                          <div className="mt-1 flex items-center gap-2 text-[10px] text-zinc-500">
+                          <div className="mt-1 flex items-center gap-2 text-[10px] text-zinc-400">
                             <span>{dateFormatted}</span>
                             <span>•</span>
                             <span>
@@ -917,10 +927,10 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               </div>
 
               {/* Drawer Bottom Start New Chat Shortcut */}
-              <div className="p-3 border-t border-zinc-800 bg-zinc-950">
+              <div className="p-3 border-t border-zinc-800 bg-[#0f1015]">
                 <button
                   onClick={handleNewChat}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 py-2.5 text-xs font-black text-black shadow-md hover:scale-[1.01] active:scale-95 transition-all"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-purple-600 hover:bg-purple-500 py-2.5 text-xs font-black text-white shadow-md active:scale-95 transition-all"
                 >
                   <Plus className="h-4 w-4 stroke-[2.5]" />
                   <span>{isAr ? 'بدء محادثة جديدة' : isFr ? 'Nouvelle conversation' : 'Start New Chat'}</span>
@@ -937,8 +947,20 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           {/* Empty Chat Welcome State */}
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center py-6 sm:py-10 text-center max-w-xl mx-auto space-y-5 animate-in fade-in duration-300">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-400 to-orange-500 text-black shadow-xl shadow-amber-500/20">
-                <Sparkles className="h-8 w-8 stroke-[2.2]" />
+              {/* Official Rikou AI Center Avatar */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute -inset-1 rounded-full bg-purple-600/25 blur-md" />
+                <img
+                  src="/file_0000000001ac82468f8294920989a3bd.png"
+                  onError={(e) => {
+                    e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                  }}
+                  alt="Rikou AI Official Avatar"
+                  referrerPolicy="no-referrer"
+                  className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-2 border-purple-500/40 shadow-lg select-none bg-zinc-950"
+                  width={96}
+                  height={96}
+                />
               </div>
 
               <div>
@@ -964,9 +986,9 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                       setInputPrompt(s.prompt);
                       handleSendMessage(s.prompt);
                     }}
-                    className="flex items-center gap-2.5 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-3 text-start transition-all hover:border-amber-500/50 hover:bg-zinc-800/80 active:scale-[0.98] group"
+                    className="flex items-center gap-2.5 rounded-2xl border border-zinc-800 bg-[#13141c] p-3 text-start transition-all hover:border-purple-500/40 hover:bg-[#181924] active:scale-[0.98] group"
                   >
-                    <span className="text-xs sm:text-sm font-semibold text-zinc-300 group-hover:text-amber-300 transition-colors line-clamp-2">
+                    <span className="text-xs sm:text-sm font-semibold text-zinc-300 group-hover:text-purple-300 transition-colors line-clamp-2">
                       {isAr ? s.labelAr : isFr ? s.labelFr : s.labelEn}
                     </span>
                   </button>
@@ -988,23 +1010,43 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               >
                 {/* Assistant Avatar */}
                 {!isUser && (
-                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-black shadow-md shadow-amber-500/20 mt-1">
-                    <Sparkles className="h-4 w-4 stroke-[2.5]" />
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center mt-1">
+                    <img
+                      src="/file_0000000001ac82468f8294920989a3bd.png"
+                      onError={(e) => {
+                        e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                      }}
+                      alt="Rikou AI"
+                      referrerPolicy="no-referrer"
+                      className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-purple-500/35 select-none bg-zinc-950"
+                      width={36}
+                      height={36}
+                    />
                   </div>
                 )}
 
                 {/* Message Body */}
                 <div className={`max-w-[92%] sm:max-w-[82%] rounded-3xl p-4 sm:p-5 transition-all ${
                   isUser
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold shadow-lg shadow-amber-500/10'
-                    : 'border border-zinc-800/90 bg-zinc-900/90 text-zinc-100 shadow-xl'
+                    ? 'bg-purple-600 text-white font-medium shadow-md shadow-purple-950/40 border border-purple-500/30'
+                    : 'border border-zinc-800/90 bg-[#12131a] text-zinc-100 shadow-md'
                 }`}>
                   
                   {/* Top Bar for Assistant Message: Header, Copy & Regenerate Buttons */}
                   {!isUser && (
                     <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-zinc-800/80 text-[11px] font-bold text-zinc-400 gap-2">
-                      <span className="flex items-center gap-1.5 text-amber-400 font-medium">
-                        <Bot className="h-3.5 w-3.5" />
+                      <span className="flex items-center gap-1.5 text-purple-400 font-bold">
+                        <img
+                          src="/file_0000000001ac82468f8294920989a3bd.png"
+                          onError={(e) => {
+                            e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                          }}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="h-4 w-4 rounded-full object-cover border border-purple-500/30 select-none"
+                          width={16}
+                          height={16}
+                        />
                         <span>Rikou AI</span>
                       </span>
 
@@ -1012,7 +1054,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                         {/* 2. COPY AI RESPONSE BUTTON */}
                         <button
                           onClick={() => handleCopyMessage(msg.id, msg.content)}
-                          className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-amber-500 hover:text-black text-zinc-300 transition-all active:scale-95"
+                          className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-purple-600 hover:text-white text-zinc-300 transition-all active:scale-95"
                           title={isAr ? 'نسخ' : isFr ? 'Copier' : 'Copy'}
                         >
                           {copiedId === msg.id ? (
@@ -1036,7 +1078,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                         <button
                           onClick={() => handleRegenerate(index)}
                           disabled={isGenerating}
-                          className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-amber-500 hover:text-black text-zinc-300 transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-purple-600 hover:text-white text-zinc-300 transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
                           title={isAr ? 'إعادة التوليد' : isFr ? 'Régénérer' : 'Regenerate'}
                         >
                           <RotateCw className={`h-3 w-3 ${isGenerating ? 'animate-spin' : ''}`} />
@@ -1073,7 +1115,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
                   {/* Message Content */}
                   {isUser ? (
-                    <div className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap text-black font-semibold">
+                    <div className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap text-white font-medium">
                       {msg.content}
                     </div>
                   ) : (
@@ -1082,9 +1124,9 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
                   {/* Contextual Follow-Up Quick Chips (Only under latest AI response) */}
                   {!isUser && followUps.length > 0 && (
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80">
+                    <div className="mt-4 pt-3 border-t border-zinc-800">
                       <div className="text-[11px] font-bold text-zinc-400 mb-2 flex items-center gap-1.5">
-                        <Flame className="h-3.5 w-3.5 text-amber-400" />
+                        <Flame className="h-3.5 w-3.5 text-purple-400" />
                         <span>{isAr ? 'اقتراحات للمتابعة والتطوير:' : isFr ? 'Actions suggérées :' : 'Next Action Suggestions:'}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -1095,7 +1137,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                               setInputPrompt(fu.prompt);
                               handleSendMessage(fu.prompt);
                             }}
-                            className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-[11px] font-bold text-amber-300 hover:bg-amber-500 hover:text-black hover:border-amber-400 transition-all active:scale-95"
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-purple-500/25 bg-purple-950/30 px-3 py-1.5 text-[11px] font-bold text-purple-300 hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all active:scale-95"
                           >
                             <span>{fu.label}</span>
                             <ChevronRight className="h-3 w-3 rtl:rotate-180" />
@@ -1108,7 +1150,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
                 {/* User Avatar */}
                 {isUser && (
-                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-2xl bg-zinc-800 border border-zinc-700 text-zinc-300 mt-1">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-2xl bg-zinc-800 border border-zinc-700 text-zinc-300 mt-1 shadow-sm">
                     <UserIcon className="h-4 w-4" />
                   </div>
                 )}
@@ -1119,16 +1161,24 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           {/* Typing/Generating Indicator */}
           {isGenerating && (
             <div className="flex gap-2.5 sm:gap-4 items-start animate-in fade-in duration-150">
-              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-black shadow-md shadow-amber-500/20">
-                <Sparkles className="h-4 w-4 animate-spin" />
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-purple-500/30 bg-zinc-950 overflow-hidden">
+                <img
+                  src="/file_0000000001ac82468f8294920989a3bd.png"
+                  onError={(e) => {
+                    e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                  }}
+                  alt=""
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover"
+                />
               </div>
-              <div className="rounded-3xl border border-zinc-800 bg-zinc-900/90 px-4 sm:px-5 py-3 sm:py-4 text-xs text-zinc-400 flex items-center gap-2.5">
+              <div className="rounded-3xl border border-zinc-800 bg-[#14151e] px-4 sm:px-5 py-3 sm:py-4 text-xs text-zinc-300 flex items-center gap-2.5 shadow-md">
                 <span className="flex gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                 </span>
-                <span className="font-semibold text-zinc-300">
+                <span className="font-semibold text-purple-200">
                   {isAr 
                     ? 'Rikou AI يقوم بالتفكير وصياغة الرد...' 
                     : isFr
@@ -1145,13 +1195,13 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
         {/* Floating / Bottom Chat Input Dock */}
         <div 
           ref={chatInputContainerRef}
-          className="border-t border-zinc-800/80 bg-zinc-950/90 p-2.5 sm:p-4 backdrop-blur-xl relative"
+          className="border-t border-zinc-800/80 bg-[#101117] p-2.5 sm:p-4 backdrop-blur-xl relative"
         >
           {/* Active Quick Action Indicator Banner */}
           {activeTool && (
-            <div className="mb-2.5 flex items-center justify-between rounded-xl bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 text-xs text-amber-300 animate-in fade-in duration-150">
+            <div className="mb-2.5 flex items-center justify-between rounded-xl bg-purple-950/40 border border-purple-500/30 px-3 py-1.5 text-xs text-purple-300 animate-in fade-in duration-150">
               <div className="flex items-center gap-2 truncate">
-                <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-ping" />
+                <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-ping" />
                 <span className="font-bold">
                   {isAr ? `إجراء مفعّل: ${activeTool.arabicTitle}` : isFr ? `Action : ${activeTool.frenchTitle}` : `Active Action: ${activeTool.title}`}
                 </span>
@@ -1174,10 +1224,10 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   <img
                     src={attachment.dataUrl}
                     alt={attachment.name}
-                    className="h-8 w-8 rounded-lg object-cover border border-amber-500/40"
+                    className="h-8 w-8 rounded-lg object-cover border border-purple-500/30"
                   />
                 ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-800 text-amber-400">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-800 text-purple-400">
                     <File className="h-4 w-4" />
                   </div>
                 )}
@@ -1200,14 +1250,14 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           )}
 
           {/* Input Box with 📎 Attachment Button and Send Button */}
-          <div className="relative flex items-end gap-1.5 rounded-2xl border border-zinc-800 bg-zinc-900/90 p-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition-all shadow-inner">
+          <div className="relative flex items-end gap-1.5 rounded-2xl border border-zinc-800 bg-[#161720] p-1.5 focus-within:border-purple-500/60 focus-within:ring-1 focus-within:ring-purple-500/20 transition-all shadow-inner">
             
             {/* 7. ATTACHMENT BUTTON (📎) */}
             <button
               type="button"
               id="rikou-attachment-btn"
               onClick={() => fileInputRef.current?.click()}
-              className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 transition-all active:scale-95 shrink-0"
+              className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-zinc-400 hover:text-purple-300 hover:bg-zinc-800 transition-all active:scale-95 shrink-0"
               title={isAr ? 'إرفاق صورة أو ملف (📎)' : isFr ? 'Joindre une image ou un fichier' : 'Attach image or file'}
             >
               <Paperclip className="h-4 w-4" />
@@ -1237,11 +1287,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 id="rikou-ai-send-btn"
                 onClick={() => handleSendMessage()}
                 disabled={(!inputPrompt.trim() && !attachment) || isGenerating}
-                className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black shadow-md shadow-amber-500/25 transition-all hover:scale-105 active:scale-95 disabled:opacity-30 disabled:scale-100 disabled:cursor-not-allowed"
+                className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black shadow-md shadow-purple-900/40 hover:scale-105 active:scale-95 disabled:opacity-30 disabled:scale-100 disabled:cursor-not-allowed transition-all"
                 title={isAr ? 'إرسال الطلب (Enter)' : isFr ? 'Envoyer (Enter)' : 'Send request (Enter)'}
               >
                 {isGenerating ? (
-                  <Sparkles className="h-4 w-4 animate-spin text-black" />
+                  <Sparkles className="h-4 w-4 animate-spin text-white" />
                 ) : (
                   <Send className="h-4 w-4 rtl:rotate-180" />
                 )}
@@ -1253,7 +1303,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             <span>
               {isAr ? 'اضغط Enter للإرسال، و Shift+Enter لسطر جديد' : isFr ? 'Entrée pour envoyer, Maj+Entrée pour nouvelle ligne' : 'Press Enter to send, Shift+Enter for new line'}
             </span>
-            <span className="font-semibold text-amber-500/80">
+            <span className="font-semibold text-purple-400/80">
               RikouZone Engine
             </span>
           </div>
@@ -1267,8 +1317,8 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
-              <Sparkles className="h-4 w-4 text-amber-400" />
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400">
+              <Sparkles className="h-4 w-4 text-purple-400" />
               <span>{isAr ? 'إجراءات وأدوات سريعة داخل Rikou AI' : isFr ? 'Actions Rapides & Raccourcis Rikou AI' : 'Quick Actions & Tool Shortcuts'}</span>
             </div>
             <h2 className="mt-1 text-xl sm:text-2xl font-black text-white">
@@ -1293,8 +1343,8 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   onClick={() => setActiveCategory(cat.id)}
                   className={`whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all shrink-0 ${
                     isActive
-                      ? 'bg-amber-500 text-black shadow-md shadow-amber-500/20'
-                      : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-purple-500/30 hover:text-white'
                   }`}
                 >
                   {isAr ? cat.labelAr : isFr ? cat.labelFr : cat.labelEn}
@@ -1319,15 +1369,15 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 onClick={() => handleSelectQuickAction(tool)}
                 className={`group relative cursor-pointer rounded-2xl border p-4 sm:p-5 transition-all backdrop-blur-sm ${
                   isSelected
-                    ? 'border-amber-500 bg-amber-500/10 shadow-lg shadow-amber-500/10'
-                    : 'border-zinc-800/90 bg-zinc-900/60 hover:border-amber-500/50 hover:bg-zinc-900/90 hover:shadow-md'
+                    ? 'border-purple-500/50 bg-purple-950/20 shadow-md'
+                    : 'border-zinc-800/80 bg-[#12131a] hover:border-purple-500/30 hover:bg-[#161722] hover:shadow-md'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${
                     isSelected
-                      ? 'bg-amber-500 text-black shadow-md shadow-amber-500/30'
-                      : 'bg-zinc-800 text-amber-400 group-hover:bg-amber-500 group-hover:text-black'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'bg-zinc-800 text-purple-400 group-hover:bg-purple-600 group-hover:text-white'
                   }`}>
                     <IconComp className="h-5 w-5 stroke-[2.2]" />
                   </div>
@@ -1337,7 +1387,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   </span>
                 </div>
 
-                <h3 className="mt-3.5 text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+                <h3 className="mt-3.5 text-sm sm:text-base font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-1">
                   {title}
                 </h3>
 
@@ -1345,7 +1395,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   {desc}
                 </p>
 
-                <div className="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-xs font-bold text-amber-400 group-hover:text-amber-300">
+                <div className="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-xs font-bold text-purple-400 group-hover:text-purple-300">
                   <span>{isAr ? 'تجهيز في المحادثة' : isFr ? 'Préparer dans le chat' : 'Load into Chat'}</span>
                   <CornerDownLeft className="h-3.5 w-3.5 rtl:rotate-90 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                 </div>

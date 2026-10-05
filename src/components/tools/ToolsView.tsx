@@ -99,7 +99,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3.5 py-1 text-xs font-bold text-yellow-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-bold text-blue-400">
           <Calculator className="h-4 w-4" />
           <span>{isRTL ? '17 حاسبة رقمية وأدوات محتوى فورية' : '17 Calculators & Creator Utilities'}</span>
         </div>
@@ -120,7 +120,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             onClick={() => setActiveTab('calculators')}
             className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
               activeTab === 'calculators'
-                ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -131,7 +131,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             onClick={() => setActiveTab('utilities')}
             className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
               activeTab === 'utilities'
-                ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -162,17 +162,17 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                     onClick={() => handleSelectCalculator(calc)}
                     className={`flex items-start text-start gap-3 rounded-2xl p-3.5 transition-all border ${
                       isSelected
-                        ? 'border-amber-500/60 bg-amber-500/10 text-white shadow-md shadow-amber-500/5'
+                        ? 'border-blue-500/60 bg-blue-500/10 text-white shadow-md shadow-blue-500/5'
                         : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                     }`}
                   >
                     <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl font-bold text-xs ${
-                      isSelected ? 'bg-amber-500 text-black' : 'bg-zinc-800 text-zinc-400'
+                      isSelected ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-400'
                     }`}>
                       <Calculator className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className={`text-xs sm:text-sm font-bold line-clamp-1 ${isSelected ? 'text-amber-300' : 'text-zinc-200'}`}>
+                      <div className={`text-xs sm:text-sm font-bold line-clamp-1 ${isSelected ? 'text-blue-300' : 'text-zinc-200'}`}>
                         {title}
                       </div>
                       <div className="text-[11px] text-zinc-500 line-clamp-1 mt-0.5">
@@ -191,7 +191,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             {/* Top Details */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
               <div>
-                <span className="rounded-lg bg-amber-500/10 px-2.5 py-1 text-xs font-bold text-amber-400 border border-amber-500/20 uppercase">
+                <span className="rounded-lg bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-400 border border-blue-500/20 uppercase">
                   {currentCalc.category}
                 </span>
                 <h2 className="mt-2 text-xl sm:text-2xl font-black text-white">
@@ -204,7 +204,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
 
               <button
                 onClick={handleResetInputs}
-                className="flex items-center gap-1.5 self-start sm:self-auto rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs font-bold text-zinc-400 hover:text-white hover:border-zinc-700 transition-all"
+                className="flex items-center gap-1.5 self-start sm:self-auto rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs font-bold text-zinc-400 hover:text-white hover:border-blue-500 transition-all"
                 title={isRTL ? 'إعادة تعيين القيم' : 'Reset Inputs'}
               >
                 <RotateCcw className="h-3.5 w-3.5" />
@@ -225,7 +225,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                         {label}
                       </label>
                       {input.suffix && (
-                        <span className="text-[10px] font-bold text-amber-400/80">
+                        <span className="text-[10px] font-bold text-blue-400/80">
                           {input.suffix}
                         </span>
                       )}
@@ -239,7 +239,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                         step={input.step || 1}
                         value={currentVal}
                         onChange={(e) => handleInputChange(input.id, parseFloat(e.target.value))}
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-2.5 px-3 text-sm font-bold text-white focus:border-amber-500 focus:outline-none"
+                        className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-2.5 px-3 text-sm font-bold text-white focus:border-blue-500 focus:outline-none"
                       />
                     </div>
 
@@ -252,7 +252,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                         step={input.step || 1}
                         value={currentVal}
                         onChange={(e) => handleInputChange(input.id, parseFloat(e.target.value))}
-                        className="mt-3 w-full accent-amber-500 cursor-pointer"
+                        className="mt-3 w-full accent-blue-500 cursor-pointer"
                       />
                     )}
 
@@ -267,8 +267,8 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             </div>
 
             {/* Results Display Area */}
-            <div className="mt-8 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-zinc-950 to-zinc-950 p-6">
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-400">
+            <div className="mt-8 rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-zinc-950 to-zinc-950 p-6">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400">
                 <TrendingUp className="h-4 w-4" />
                 <span>{isRTL ? 'النتائج المحسوبة بدقة رياضية:' : 'Calculated Metrics:'}</span>
               </div>
@@ -282,7 +282,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                       key={idx}
                       className={`rounded-2xl p-4 border transition-all ${
                         res.highlight
-                          ? 'border-amber-500/50 bg-amber-500/15 shadow-lg shadow-amber-500/10'
+                          ? 'border-blue-500/50 bg-blue-500/15 shadow-lg shadow-blue-500/10'
                           : 'border-zinc-800/80 bg-zinc-900/50'
                       }`}
                     >
@@ -290,7 +290,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                         {resLabel}
                       </div>
                       <div className={`mt-2 text-2xl sm:text-3xl font-black ${
-                        res.highlight ? 'text-amber-300' : 'text-white'
+                        res.highlight ? 'text-blue-300' : 'text-white'
                       }`}>
                         {res.value}
                       </div>
@@ -311,7 +311,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                 </span>
                 <button
                   onClick={() => onCopyText(results.map(r => `${r.label}: ${r.value}`).join(' | '), isRTL ? 'تم نسخ النتائج!' : 'Results copied!')}
-                  className="flex items-center gap-1 text-amber-400 hover:underline font-bold"
+                  className="flex items-center gap-1 text-blue-400 hover:underline font-bold"
                 >
                   <Copy className="h-3.5 w-3.5" />
                   <span>{isRTL ? 'نسخ النتائج' : 'Copy Results'}</span>
@@ -346,7 +346,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                 value={utilityTopic}
                 onChange={(e) => setUtilityTopic(e.target.value)}
                 placeholder={isRTL ? 'مثال: فري فاير، مونتاج الهاتف، الربح من الدروب شيبينغ...' : 'e.g. Free Fire tips, Mobile editing, E-commerce'}
-                className="mt-2 w-full rounded-xl border border-zinc-800 bg-zinc-950 py-3 px-4 text-sm text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-zinc-800 bg-zinc-950 py-3 px-4 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
               />
             </div>
 
@@ -354,7 +354,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
               <button
                 onClick={() => handleRunQuickUtility('hook-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 py-3 px-3 text-xs font-bold text-black hover:scale-102 transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3 px-3 text-xs font-bold text-white hover:scale-102 transition-all shadow-md shadow-blue-500/20"
               >
                 <Zap className="h-4 w-4" />
                 <span>{isRTL ? 'توليد هوك (Hooks)' : 'Generate Hooks'}</span>
@@ -362,39 +362,39 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
 
               <button
                 onClick={() => handleRunQuickUtility('title-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-amber-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
               >
-                <Sparkles className="h-4 w-4 text-amber-400" />
+                <Sparkles className="h-4 w-4 text-blue-400" />
                 <span>{isRTL ? 'عناوين يوتيوب' : 'YouTube Titles'}</span>
               </button>
 
               <button
                 onClick={() => handleRunQuickUtility('hashtag-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-amber-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
               >
-                <Hash className="h-4 w-4 text-orange-400" />
+                <Hash className="h-4 w-4 text-blue-400" />
                 <span>{isRTL ? 'هاشتاقات ذكية' : 'Hashtags'}</span>
               </button>
 
               <button
                 onClick={() => handleRunQuickUtility('content-ideas-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-amber-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
               >
-                <Lightbulb className="h-4 w-4 text-yellow-400" />
+                <Lightbulb className="h-4 w-4 text-blue-400" />
                 <span>{isRTL ? 'فكرة محتوى سريعة' : 'Quick Idea'}</span>
               </button>
             </div>
 
             {/* Output Canvas */}
             {utilityOutput && (
-              <div className="mt-6 rounded-2xl border border-amber-500/30 bg-zinc-950 p-5">
+              <div className="mt-6 rounded-2xl border border-blue-500/30 bg-zinc-950 p-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
                     {isRTL ? 'النتيجة المولدة:' : 'Generated Output:'}
                   </span>
                   <button
                     onClick={() => onCopyText(utilityOutput, isRTL ? 'تم نسخ المحتوى!' : 'Copied!')}
-                    className="flex items-center gap-1 text-xs font-bold text-amber-400 hover:underline"
+                    className="flex items-center gap-1 text-xs font-bold text-blue-400 hover:underline"
                   >
                     <Copy className="h-3.5 w-3.5" />
                     <span>{isRTL ? 'نسخ النص' : 'Copy Text'}</span>

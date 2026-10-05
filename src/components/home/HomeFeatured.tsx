@@ -263,8 +263,8 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
         <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/30 p-6 sm:p-8 backdrop-blur-xl">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-orange-400 uppercase tracking-wider">
-                <Flame className="h-4 w-4 text-orange-500" />
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
+                <Flame className="h-4 w-4 text-amber-500" />
                 <span>{isRTL ? 'أفكار وهندسة الخطافات الفيروسية' : 'Viral Hooks & Content Library'}</span>
               </div>
               <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">
@@ -273,7 +273,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             </div>
             <button
               onClick={() => onNavigate('ideas')}
-              className="inline-flex items-center gap-2 text-sm font-bold text-orange-400 hover:text-orange-300 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors"
             >
               <span>{isRTL ? 'تصفح كل الأفكار (160+)' : 'Browse 160+ ideas'}</span>
               <ArrowIcon className="h-4 w-4" />
@@ -288,14 +288,14 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
               return (
                 <div
                   key={idea.id}
-                  className="flex flex-col justify-between rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 hover:border-orange-500/40 transition-all"
+                  className="flex flex-col justify-between rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 hover:border-amber-500/40 transition-all"
                 >
                   <div>
                     <div className="flex items-center justify-between text-xs">
                       <span className="rounded-md bg-zinc-800/80 px-2 py-0.5 font-bold text-zinc-300">
                         {idea.platform}
                       </span>
-                      <span className="font-semibold text-orange-400">
+                      <span className="font-semibold text-amber-400">
                         {idea.niche}
                       </span>
                     </div>

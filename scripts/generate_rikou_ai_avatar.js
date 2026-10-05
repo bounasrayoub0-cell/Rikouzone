@@ -1,0 +1,252 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Resvg } from '@resvg/resvg-js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+const publicDir = path.join(rootDir, 'public');
+const assetsDir = path.join(publicDir, 'assets');
+
+if (!fs.existsSync(assetsDir)) {
+  fs.mkdirSync(assetsDir, { recursive: true });
+}
+
+// Ultra-precise vector recreation of the official Rikou AI avatar uploaded by user
+const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Background Radial Gradient -->
+    <radialGradient id="spaceBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0a0d24"/>
+      <stop offset="50%" stop-color="#060714"/>
+      <stop offset="100%" stop-color="#030409"/>
+    </radialGradient>
+
+    <!-- Outer Circular Neon Ring Gradient (Cyan to Purple to Neon Pink) -->
+    <linearGradient id="neonRingGrad" x1="10%" y1="90%" x2="90%" y2="10%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="30%" stop-color="#3a86ff"/>
+      <stop offset="60%" stop-color="#8338ec"/>
+      <stop offset="85%" stop-color="#ff007f"/>
+      <stop offset="100%" stop-color="#ff3399"/>
+    </linearGradient>
+
+    <!-- Planetary Orbital Ring Gradient -->
+    <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0080ff" stop-opacity="0.3"/>
+      <stop offset="25%" stop-color="#00d4ff" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#00f5ff" stop-opacity="1"/>
+      <stop offset="75%" stop-color="#00c8ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#3a86ff" stop-opacity="0.4"/>
+    </linearGradient>
+
+    <!-- Robot White Helmet Shading -->
+    <linearGradient id="helmetGrad" x1="30%" y1="10%" x2="70%" y2="90%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#eaeffa"/>
+      <stop offset="100%" stop-color="#b4c2de"/>
+    </linearGradient>
+
+    <!-- Dark Mechanical Neck / Accents -->
+    <linearGradient id="darkMechGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#242838"/>
+      <stop offset="50%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#0d0e17"/>
+    </linearGradient>
+
+    <!-- Cyan Glow Filter for Eyes, Core and Rings -->
+    <filter id="intenseCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="blur1"/>
+      <feGaussianBlur stdDeviation="8" result="blur2"/>
+      <feGaussianBlur stdDeviation="3" result="sharp"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="sharp"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Soft Ambient Halo Filter for Ring -->
+    <filter id="ringAmbientGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Star Glow -->
+    <filter id="starGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Clip Path for Inside the Circular Outer Ring -->
+    <clipPath id="circleFrame">
+      <circle cx="512" cy="512" r="425"/>
+    </clipPath>
+  </defs>
+
+  <!-- Canvas Deep Space Dark Background -->
+  <rect width="1024" height="1024" fill="url(#spaceBg)"/>
+
+  <!-- Subtle Ambient Glow inside Center -->
+  <circle cx="512" cy="512" r="380" fill="#0055ff" opacity="0.08" filter="url(#ringAmbientGlow)"/>
+
+  <!-- 4-Point Stars in Background -->
+  <g filter="url(#starGlow)">
+    <!-- Top-Right Star -->
+    <path d="M 790 270 Q 790 285 805 285 Q 790 285 790 300 Q 790 285 775 285 Q 790 285 790 270 Z" fill="#00f2fe"/>
+    <!-- Bottom-Left Star -->
+    <path d="M 195 615 Q 195 627 207 627 Q 195 627 195 639 Q 195 627 183 627 Q 195 627 195 615 Z" fill="#00f2fe"/>
+  </g>
+
+  <!-- Orbital Ring Back Section (Behind Robot Head & Neck) -->
+  <g transform="rotate(-16 512 550)">
+    <ellipse cx="512" cy="550" rx="410" ry="85" fill="none" stroke="url(#orbitGrad)" stroke-width="26" opacity="0.8" filter="url(#intenseCyanGlow)"/>
+    <ellipse cx="512" cy="550" rx="410" ry="85" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.9"/>
+  </g>
+
+  <!-- Robot Character Group -->
+  <g id="robotBody">
+    <!-- Chest / Torso Base Armor -->
+    <path d="M 330 730 C 330 670 410 635 512 635 C 614 635 694 670 694 730 C 720 780 750 850 780 930 C 660 960 364 960 244 930 C 274 850 304 780 330 730 Z" 
+          fill="url(#helmetGrad)"/>
+
+    <!-- Dark Mechanical Joints on Shoulders -->
+    <path d="M 280 750 C 290 690 340 660 380 650 L 330 790 C 295 785 285 765 280 750 Z" fill="url(#darkMechGrad)"/>
+    <path d="M 744 750 C 734 690 684 660 644 650 L 694 790 C 729 785 739 765 744 750 Z" fill="url(#darkMechGrad)"/>
+
+    <!-- Blue Shoulder Seam Glowing Accents -->
+    <path d="M 345 740 Q 375 790 415 825" stroke="#00f0ff" stroke-width="10" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
+    <path d="M 679 740 Q 649 790 609 825" stroke="#00f0ff" stroke-width="10" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
+
+    <!-- Center Chest Power Core / Reactor -->
+    <circle cx="512" cy="805" r="54" fill="#0d1124" stroke="#1c2541" stroke-width="8"/>
+    <!-- Outer Reactor Glowing Ring -->
+    <circle cx="512" cy="805" r="44" fill="none" stroke="#00f0ff" stroke-width="14" filter="url(#intenseCyanGlow)"/>
+    <!-- Inner Core Bright Cyan Center -->
+    <circle cx="512" cy="805" r="24" fill="#00d4ff" filter="url(#intenseCyanGlow)"/>
+    <circle cx="512" cy="805" r="14" fill="#ffffff"/>
+
+    <!-- Collar / Neck Base -->
+    <path d="M 430 615 C 430 585 470 575 512 575 C 554 575 594 585 594 615 L 584 650 C 540 660 484 660 440 650 Z" fill="url(#darkMechGrad)"/>
+
+    <!-- Robot Head Outer White Helmet Shell -->
+    <g id="headShell">
+      <!-- Main Helmet Dome -->
+      <path d="M 285 410 C 285 240 375 160 512 160 C 649 160 739 240 739 410 C 739 540 665 625 512 625 C 359 625 285 540 285 410 Z" 
+            fill="url(#helmetGrad)"/>
+
+      <!-- Top Crown Glowing Neon Cyan Stripe Accents -->
+      <path d="M 512 165 C 500 210 495 260 495 300" stroke="#00f0ff" stroke-width="16" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
+      <path d="M 512 165 C 524 210 529 260 529 300" stroke="#00f0ff" stroke-width="16" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
+      <path d="M 430 200 C 420 240 415 270 410 300" stroke="#0080ff" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M 594 200 C 604 240 609 270 614 300" stroke="#0080ff" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
+
+      <!-- Large Round Headphone / Ear Discs (Left & Right) -->
+      <!-- Left Ear Cup -->
+      <g>
+        <ellipse cx="270" cy="420" rx="65" ry="95" fill="url(#helmetGrad)"/>
+        <ellipse cx="265" cy="420" rx="50" ry="78" fill="url(#darkMechGrad)"/>
+        <ellipse cx="260" cy="420" rx="35" ry="60" fill="none" stroke="#00f0ff" stroke-width="12" filter="url(#intenseCyanGlow)"/>
+        <ellipse cx="258" cy="420" rx="18" ry="35" fill="#00e5ff" opacity="0.9"/>
+      </g>
+
+      <!-- Right Ear Cup -->
+      <g>
+        <ellipse cx="754" cy="420" rx="65" ry="95" fill="url(#helmetGrad)"/>
+        <ellipse cx="759" cy="420" rx="50" ry="78" fill="url(#darkMechGrad)"/>
+        <ellipse cx="764" cy="420" rx="35" ry="60" fill="none" stroke="#00f0ff" stroke-width="12" filter="url(#intenseCyanGlow)"/>
+        <ellipse cx="766" cy="420" rx="18" ry="35" fill="#00e5ff" opacity="0.9"/>
+      </g>
+
+      <!-- Glossy Black Visor Frame / Border -->
+      <path d="M 330 420 C 330 325 395 305 512 305 C 629 305 694 325 694 420 C 694 515 629 555 512 555 C 395 555 330 515 330 420 Z" 
+            fill="#121626" stroke="#252b45" stroke-width="6"/>
+
+      <!-- Visor Dark Screen Display -->
+      <path d="M 342 420 C 342 335 402 318 512 318 C 622 318 682 335 682 420 C 682 505 622 542 512 542 C 402 542 342 505 342 420 Z" 
+            fill="#060812"/>
+
+      <!-- Visor Specular Curved Highlight Reflection (Glass look) -->
+      <path d="M 370 355 C 410 332 460 325 512 325 C 564 325 614 332 654 355 C 634 345 570 338 512 338 C 454 338 390 345 370 355 Z" 
+            fill="#ffffff" opacity="0.25"/>
+
+      <!-- Happy Smiling Neon Cyan Eyes (^ ^) -->
+      <!-- Left Eye: Thick curved smiling arch -->
+      <path d="M 395 470 C 405 405 470 405 480 470" 
+            fill="none" stroke="#00f5ff" stroke-width="28" stroke-linecap="round" filter="url(#intenseCyanGlow)"/>
+      <path d="M 395 470 C 405 405 470 405 480 470" 
+            fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+
+      <!-- Right Eye: Thick curved smiling arch -->
+      <path d="M 544 470 C 554 405 619 405 629 470" 
+            fill="none" stroke="#00f5ff" stroke-width="28" stroke-linecap="round" filter="url(#intenseCyanGlow)"/>
+      <path d="M 544 470 C 554 405 619 405 629 470" 
+            fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Orbital Ring Front Section (Appears over chest/shoulders) -->
+  <g transform="rotate(-16 512 550)" clip-path="url(#frontOrbitClip)">
+    <!-- Subtle front orbit glow arc -->
+    <path d="M 120 550 A 410 85 0 0 0 904 550" fill="none" stroke="url(#orbitGrad)" stroke-width="28" filter="url(#intenseCyanGlow)"/>
+    <path d="M 120 550 A 410 85 0 0 0 904 550" fill="none" stroke="#ffffff" stroke-width="6"/>
+  </g>
+
+  <!-- Big Neon Circular Outer Ring (The signature framing circle) -->
+  <circle cx="512" cy="512" r="425" fill="none" stroke="url(#neonRingGrad)" stroke-width="32" filter="url(#ringAmbientGlow)" opacity="0.6"/>
+  <circle cx="512" cy="512" r="425" fill="none" stroke="url(#neonRingGrad)" stroke-width="22"/>
+  <circle cx="512" cy="512" r="425" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.75"/>
+</svg>
+`;
+
+async function generateAvatar() {
+  console.log('Rendering Rikou AI official avatar...');
+
+  // Save the SVG file
+  const svgPath = path.join(assetsDir, 'rikou-ai-avatar.svg');
+  fs.writeFileSync(svgPath, svgContent);
+  console.log(`Saved SVG to ${svgPath}`);
+
+  // Render 1024x1024 master PNG
+  const resvg1024 = new Resvg(svgContent, {
+    fitTo: { mode: 'width', value: 1024 }
+  });
+  const png1024 = resvg1024.render().asPng();
+
+  // 1. Save to official uploaded image filename in public directory
+  const targetUploadedPath = path.join(publicDir, 'file_0000000001ac82468f8294920989a3bd.png');
+  fs.writeFileSync(targetUploadedPath, png1024);
+  console.log(`Saved PNG to ${targetUploadedPath}`);
+
+  // 2. Save named asset for clean referencing
+  const namedAssetPath = path.join(assetsDir, 'rikou-ai-avatar.png');
+  fs.writeFileSync(namedAssetPath, png1024);
+  console.log(`Saved named PNG to ${namedAssetPath}`);
+
+  // 3. Copy to dist if dist exists
+  const distDir = path.join(rootDir, 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'file_0000000001ac82468f8294920989a3bd.png'), png1024);
+    const distAssetsDir = path.join(distDir, 'assets');
+    if (!fs.existsSync(distAssetsDir)) fs.mkdirSync(distAssetsDir, { recursive: true });
+    fs.writeFileSync(path.join(distAssetsDir, 'rikou-ai-avatar.png'), png1024);
+    fs.writeFileSync(path.join(distAssetsDir, 'rikou-ai-avatar.svg'), svgContent);
+    console.log('Synchronized avatar to dist/ directory.');
+  }
+
+  console.log('Rikou AI Avatar generated and deployed successfully!');
+}
+
+generateAvatar().catch(err => {
+  console.error('Failed to generate avatar:', err);
+  process.exit(1);
+});

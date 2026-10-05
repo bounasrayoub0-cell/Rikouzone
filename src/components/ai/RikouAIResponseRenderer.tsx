@@ -60,7 +60,7 @@ function renderFormattedInlineText(text: string): React.ReactNode {
     if (token.startsWith('**') && token.endsWith('**')) {
       const boldText = token.slice(2, -2);
       parts.push(
-        <strong key={match.index} className="font-bold text-amber-300/90 hover:text-amber-200 transition-colors">
+        <strong key={match.index} className="font-bold text-purple-300 hover:text-purple-200 transition-colors">
           {boldText}
         </strong>
       );
@@ -69,7 +69,7 @@ function renderFormattedInlineText(text: string): React.ReactNode {
       parts.push(
         <code
           key={match.index}
-          className="rounded bg-zinc-800/90 border border-zinc-700/60 px-1.5 py-0.5 text-xs text-amber-300 font-mono"
+          className="rounded bg-purple-950/30 border border-purple-800/30 px-1.5 py-0.5 text-xs text-purple-200 font-mono"
         >
           {codeText}
         </code>
@@ -103,15 +103,15 @@ const CodeBlock: React.FC<{ language: string; code: string }> = ({ language, cod
   };
 
   return (
-    <div className="my-3 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 shadow-lg text-left" dir="ltr">
-      <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/80 px-3.5 py-2 text-[11px] text-zinc-400">
+    <div className="my-3 overflow-hidden rounded-2xl border border-zinc-800 bg-[#0d0e12] shadow-md text-left" dir="ltr">
+      <div className="flex items-center justify-between border-b border-zinc-800/80 bg-[#14151c] px-3.5 py-2 text-[11px] text-zinc-400">
         <div className="flex items-center gap-1.5 font-mono">
-          <Terminal className="h-3.5 w-3.5 text-amber-400" />
+          <Terminal className="h-3.5 w-3.5 text-purple-400" />
           <span>{language || 'code'}</span>
         </div>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] text-zinc-300 hover:bg-zinc-800 hover:text-amber-300 transition-colors"
+          className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] text-zinc-400 hover:bg-purple-500/15 hover:text-purple-300 transition-colors"
         >
           {copied ? (
             <>
@@ -199,8 +199,8 @@ export const RikouAIResponseRenderer: React.FC<RikouAIResponseRendererProps> = (
                     <h4
                       className={`font-black tracking-tight text-white flex items-center gap-2 ${
                         level <= 2
-                          ? 'text-sm sm:text-base text-amber-400 pb-1 border-b border-amber-500/20 mb-2'
-                          : 'text-xs sm:text-sm text-amber-300 font-bold mb-1.5'
+                          ? 'text-sm sm:text-base text-purple-300 pb-1 border-b border-purple-500/20 mb-2'
+                          : 'text-xs sm:text-sm text-purple-400 font-bold mb-1.5'
                       }`}
                     >
                       <span>{renderFormattedInlineText(headingText)}</span>
@@ -219,7 +219,7 @@ export const RikouAIResponseRenderer: React.FC<RikouAIResponseRendererProps> = (
                 return (
                   <div
                     key={pIdx}
-                    className="my-3 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-3.5 sm:p-4 text-xs sm:text-sm text-amber-200/90 shadow-sm"
+                    className="my-3 rounded-2xl border border-purple-500/20 bg-purple-950/20 p-3.5 sm:p-4 text-xs sm:text-sm text-purple-100/90 shadow-sm"
                   >
                     {renderParagraphContent(trimmedPara)}
                   </div>
@@ -253,7 +253,7 @@ function renderParagraphContent(paraText: string): React.ReactNode {
       const cleanLine = trimmedLine.replace(/^[•\*\-]\s+/, '');
       return (
         <div key={idx} className="flex items-start gap-2.5 my-1 text-zinc-300">
-          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" />
           <span className="flex-1 leading-relaxed">
             {renderFormattedInlineText(cleanLine)}
           </span>
@@ -265,8 +265,8 @@ function renderParagraphContent(paraText: string): React.ReactNode {
     const numMatch = trimmedLine.match(/^(\d+)[\.\)]\s+(.+)$/);
     if (numMatch) {
       return (
-        <div key={idx} className="flex items-start gap-2.5 my-1.5 text-zinc-200">
-          <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-amber-500/10 border border-amber-500/30 text-[11px] font-black text-amber-400">
+        <div key={idx} className="flex items-start gap-2.5 my-1.5 text-zinc-100">
+          <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-purple-500/10 border border-purple-500/25 text-[11px] font-black text-purple-300">
             {numMatch[1]}
           </span>
           <span className="flex-1 leading-relaxed">

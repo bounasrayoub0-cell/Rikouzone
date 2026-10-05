@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { Sparkles, Bookmark, Flame } from 'lucide-react';
 import { LanguageSelector } from '../common/LanguageSelector';
+import { ThemeSwitcher } from '../common/ThemeSwitcher';
 
 interface HeaderProps {
   currentTab: string;
@@ -55,12 +56,12 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
           {[
-            { id: 'home', label: t.nav.home },
-            { id: 'income', label: t.nav.income },
-            { id: 'ideas', label: t.nav.ideas },
-            { id: 'tools', label: t.nav.tools },
-            { id: 'ai', label: t.nav.ai, badge: 'AI' },
-            { id: 'creators', label: t.nav.creators },
+            { id: 'home', label: t.nav.home, activeText: 'text-amber-400', activeBg: 'bg-amber-500/10', underline: 'bg-amber-400' },
+            { id: 'income', label: t.nav.income, activeText: 'text-emerald-400', activeBg: 'bg-emerald-500/10', underline: 'bg-emerald-400' },
+            { id: 'ideas', label: t.nav.ideas, activeText: 'text-purple-400', activeBg: 'bg-purple-500/10', underline: 'bg-purple-400' },
+            { id: 'tools', label: t.nav.tools, activeText: 'text-blue-400', activeBg: 'bg-blue-500/10', underline: 'bg-blue-400' },
+            { id: 'ai', label: t.nav.ai, badge: 'AI', activeText: 'text-purple-400', activeBg: 'bg-purple-500/10', underline: 'bg-purple-400' },
+            { id: 'creators', label: t.nav.creators, activeText: 'text-indigo-400', activeBg: 'bg-indigo-500/10', underline: 'bg-indigo-400' },
           ].map((item) => {
             const isActive = currentTab === item.id;
             return (
@@ -70,28 +71,31 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
                 onClick={() => onNavigate(item.id)}
                 className={`relative px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
                   isActive
-                    ? 'text-amber-400 bg-amber-500/10 font-bold'
+                    ? `${item.activeText} ${item.activeBg} font-bold`
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
                   {item.label}
                   {item.badge && (
-                    <span className="rounded bg-gradient-to-r from-amber-500 to-orange-500 px-1 py-0.2 text-[9px] font-black text-black">
+                    <span className="rounded bg-gradient-to-r from-purple-500 to-indigo-500 px-1 py-0.2 text-[9px] font-black text-white">
                       {item.badge}
                     </span>
                   )}
                 </span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
+                  <span className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${item.underline}`} />
                 )}
               </button>
             );
           })}
         </nav>
 
-        {/* Action Controls: Language Switcher & Saved Bookmarks */}
-        <div className="flex items-center gap-2">
+        {/* Action Controls: Theme Switcher, Language Switcher & Saved Bookmarks */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Light / Dark Mode Toggle */}
+          <ThemeSwitcher />
+
           {/* Professional 9-Language Selector */}
           <LanguageSelector />
 
@@ -101,14 +105,14 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
             onClick={() => onNavigate('profile')}
             className={`relative flex h-10 items-center gap-2 rounded-xl px-3 text-sm font-semibold transition-all border ${
               currentTab === 'profile'
-                ? 'border-amber-500/50 bg-amber-500/15 text-amber-400'
+                ? 'border-sky-500/50 bg-sky-500/15 text-sky-400'
                 : 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:border-zinc-700 hover:text-white'
             }`}
           >
-            <Bookmark className={`h-4 w-4 ${savedCount > 0 ? 'text-amber-400 fill-amber-400/20' : ''}`} />
+            <Bookmark className={`h-4 w-4 ${savedCount > 0 ? 'text-sky-400 fill-sky-400/20' : ''}`} />
             <span className="hidden sm:inline">{isRTL ? 'المحفوظات' : 'Saved'}</span>
             {savedCount > 0 && (
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-black">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-[10px] font-black text-black">
                 {savedCount}
               </span>
             )}

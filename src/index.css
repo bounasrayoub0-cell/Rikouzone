@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --font-cairo: 'Cairo', system-ui, sans-serif;
@@ -14,9 +16,17 @@
   [dir="ltr"] {
     font-family: var(--font-sans);
   }
+
+  /* Smooth transition for theme switching */
+  html.dark *,
+  html.light * {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
-/* Custom dark scrollbar */
+/* Custom dark scrollbar (Default) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -30,6 +40,17 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #F59E0B;
+}
+
+/* Light mode scrollbar */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Subtle glow utilities */
@@ -47,4 +68,184 @@
 
 .card-gradient-border {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(249, 115, 22, 0.1) 100%);
+}
+
+/* ============================================================
+   LIGHT MODE STYLING ENGINE
+   Clean, Modern, Eye-friendly (Preserves All Section Accent Colors)
+   ============================================================ */
+
+html.light {
+  color-scheme: light;
+}
+
+/* Base Body & Main Canvas */
+html.light body,
+html.light #root,
+html.light .min-h-screen {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Deep Dark Neutral Containers -> Clean Light Surfaces */
+html.light .bg-zinc-950,
+html.light .bg-zinc-900,
+html.light .bg-zinc-900\/90,
+html.light .bg-zinc-900\/80,
+html.light .bg-zinc-900\/70,
+html.light .bg-zinc-900\/60,
+html.light .bg-zinc-900\/50,
+html.light .bg-zinc-900\/40,
+html.light .bg-zinc-900\/30 {
+  background-color: #ffffff !important;
+}
+
+/* Subtle Card Backdrops & Elevated Panels */
+html.light .bg-zinc-950\/60,
+html.light .bg-zinc-950\/70,
+html.light .bg-zinc-950\/80,
+html.light .bg-zinc-800,
+html.light .bg-zinc-800\/90,
+html.light .bg-zinc-800\/80,
+html.light .bg-zinc-800\/70 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Header & Bottom Nav Translucency */
+html.light header.bg-zinc-950\/80 {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+}
+html.light .fixed.bottom-0.bg-zinc-950\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+html.light footer.bg-zinc-950 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Neutral Dark Borders -> Crisp Light Gray Borders */
+html.light .border-zinc-800,
+html.light .border-zinc-800\/90,
+html.light .border-zinc-800\/80,
+html.light .border-zinc-800\/70,
+html.light .border-zinc-800\/60,
+html.light .border-zinc-900,
+html.light .border-zinc-700,
+html.light .border-zinc-700\/80,
+html.light .border-zinc-700\/50 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Hover States for Cards & Neutral Buttons */
+html.light .hover\:bg-zinc-900\/90:hover,
+html.light .hover\:bg-zinc-900:hover,
+html.light .hover\:bg-zinc-800\/80:hover,
+html.light .hover\:bg-zinc-800:hover {
+  background-color: #f8fafc !important;
+}
+
+html.light .hover\:border-zinc-700:hover {
+  border-color: #cbd5e1 !important;
+}
+
+/* Neutral Typography: High contrast dark text in Light Mode */
+html.light .text-white {
+  color: #0f172a !important;
+}
+html.light .text-zinc-100 {
+  color: #0f172a !important;
+}
+html.light .text-zinc-200 {
+  color: #1e293b !important;
+}
+html.light .text-zinc-300 {
+  color: #334155 !important;
+}
+html.light .text-zinc-400 {
+  color: #475569 !important;
+}
+html.light .text-zinc-500 {
+  color: #64748b !important;
+}
+
+/* Form Inputs, Selects, and Textareas */
+html.light input[type="text"],
+html.light input[type="number"],
+html.light textarea,
+html.light select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Modals Backdrops & Overlays */
+html.light .fixed.inset-0.bg-black\/80 {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+}
+
+/* PRESERVE WHITE TEXT ON SATURATED DARK BUTTONS & BADGES */
+html.light .bg-purple-600,
+html.light .bg-purple-600 *,
+html.light .bg-purple-500,
+html.light .bg-purple-500 *,
+html.light .bg-blue-600,
+html.light .bg-blue-600 *,
+html.light .bg-blue-500,
+html.light .bg-blue-500 *,
+html.light .bg-rose-500,
+html.light .bg-rose-500 *,
+html.light .bg-rose-600,
+html.light .bg-rose-600 *,
+html.light .bg-emerald-600,
+html.light .bg-emerald-600 *,
+html.light button.bg-purple-600,
+html.light button.bg-blue-600,
+html.light .bg-black.text-white,
+html.light .bg-gradient-to-r.from-purple-500.to-indigo-500 * {
+  color: #ffffff !important;
+}
+
+/* PRESERVE BLACK TEXT ON AMBER & EMERALD SOLID BUTTONS */
+html.light .bg-amber-500,
+html.light .bg-amber-500 *,
+html.light .bg-emerald-500,
+html.light .bg-emerald-500 *,
+html.light .text-black {
+  color: #000000 !important;
+}
+
+/* Rikou AI Light Mode Adaptation */
+html.light div[data-section="rikou-ai-section"],
+html.light .bg-\[\#0d0e12\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .bg-\[\#12131a\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .bg-\[\#0f1015\] {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .bg-\[\#13141c\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-\[\#181924\]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-\[\#101117\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
 }

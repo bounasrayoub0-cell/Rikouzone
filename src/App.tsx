@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LanguageProvider } from './i18n/LanguageContext';
+import { ThemeProvider } from './theme/ThemeContext';
 import { Header } from './components/layout/Header';
 import { BottomNavigation } from './components/layout/BottomNavigation';
 import { Footer } from './components/layout/Footer';
@@ -375,7 +376,9 @@ export default function App() {
   return (
     <ErrorBoundary>
       <LanguageProvider>
-        <MainApp />
+        <ThemeProvider>
+          <MainApp />
+        </ThemeProvider>
       </LanguageProvider>
     </ErrorBoundary>
   );

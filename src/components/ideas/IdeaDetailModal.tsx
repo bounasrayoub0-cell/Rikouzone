@@ -48,20 +48,20 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow Accent */}
-        <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 -z-10 h-40 w-80 rounded-full bg-orange-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 -z-10 h-40 w-80 rounded-full bg-purple-600/20 blur-3xl" />
 
         {/* Header */}
         <div className="flex items-start justify-between gap-4 border-b border-zinc-800/80 pb-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="rounded-lg bg-orange-500/10 px-2.5 py-0.5 text-xs font-bold text-orange-400 border border-orange-500/20">
+              <span className="rounded-lg bg-purple-500/10 px-2.5 py-0.5 text-xs font-bold text-purple-400 border border-purple-500/20">
                 {idea.platform}
               </span>
               <span className="rounded-lg bg-zinc-800 px-2.5 py-0.5 text-xs font-semibold text-zinc-300">
                 {idea.niche}
               </span>
               {idea.facelessPossibility && (
-                <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/20">
+                <span className="inline-flex items-center gap-1 rounded-lg bg-purple-500/10 px-2 py-0.5 text-[11px] font-bold text-purple-300 border border-purple-500/20">
                   <UserX className="h-3 w-3" />
                   {isRTL ? 'محتوى بدون وجه (Faceless)' : 'Faceless Friendly'}
                 </span>
@@ -78,11 +78,11 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
               onClick={() => onToggleSave(idea.id)}
               className={`rounded-xl p-2.5 border transition-all ${
                 isSaved 
-                  ? 'border-orange-500/50 bg-orange-500/20 text-orange-400' 
+                  ? 'border-purple-500/50 bg-purple-500/20 text-purple-400' 
                   : 'border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-white'
               }`}
             >
-              <Bookmark className={`h-5 w-5 ${isSaved ? 'fill-orange-400' : ''}`} />
+              <Bookmark className={`h-5 w-5 ${isSaved ? 'fill-purple-400' : ''}`} />
             </button>
             <button
               onClick={onClose}
@@ -94,15 +94,15 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
         </div>
 
         {/* Viral Hook Box */}
-        <div className="mt-5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-orange-500/10 p-4">
+        <div className="mt-5 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+            <span className="text-xs font-black uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
               <Sparkles className="h-4 w-4" />
               <span>{isRTL ? 'الخطاف الافتتاحي (Hook) لمنع التمرير:' : 'High-Retention Opening Hook:'}</span>
             </span>
             <button
               onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك بنجاح!' : 'Hook copied!')}
-              className="flex items-center gap-1.5 rounded-lg bg-amber-500 px-2.5 py-1 text-xs font-bold text-black hover:bg-amber-400 transition-all"
+              className="flex items-center gap-1.5 rounded-lg bg-purple-600 px-2.5 py-1 text-xs font-bold text-white hover:bg-purple-500 transition-all"
             >
               <Copy className="h-3.5 w-3.5" />
               <span>{isRTL ? 'نسخ الهوك' : 'Copy Hook'}</span>
@@ -121,7 +121,7 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
           </div>
           <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-2.5">
             <span className="text-zinc-500">{isRTL ? 'إمكانية الانتشار:' : 'Viral Potential:'}</span>
-            <div className="font-black text-orange-400 mt-0.5 capitalize">
+            <div className="font-black text-purple-400 mt-0.5 capitalize">
               {idea.viralPotential === 'explosive' ? (isRTL ? 'متفجرة جداً' : 'Explosive') : (isRTL ? 'عالية' : 'High')}
             </div>
           </div>
@@ -134,7 +134,7 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
         {/* Step-by-Step Script Structure */}
         <div className="mt-5">
           <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-            <Layers className="h-4 w-4 text-orange-400" />
+            <Layers className="h-4 w-4 text-purple-400" />
             <span>{isRTL ? 'هيكل السيناريو والمونتاج المقترح:' : 'Script Outline & Pacing:'}</span>
           </h3>
           <div className="mt-2.5 space-y-2">
@@ -143,7 +143,7 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
                 key={idx}
                 className="flex items-start gap-3 rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-3"
               >
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-orange-500/20 text-xs font-bold text-orange-400">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-purple-500/20 text-xs font-bold text-purple-400">
                   {idx + 1}
                 </div>
                 <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">
@@ -158,12 +158,12 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
         <div className="mt-5 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-4">
           <div className="flex items-center justify-between">
             <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-              <MessageSquare className="h-4 w-4 text-amber-400" />
+              <MessageSquare className="h-4 w-4 text-purple-400" />
               <span>{isRTL ? 'نداء التفاعل النهائي (Call to Action):' : 'Closing CTA Formula:'}</span>
             </h4>
             <button
               onClick={() => onCopyText(cta, isRTL ? 'تم نسخ الـ CTA!' : 'CTA copied!')}
-              className="text-[11px] font-bold text-amber-400 hover:underline"
+              className="text-[11px] font-bold text-purple-400 hover:underline"
             >
               {isRTL ? 'نسخ' : 'Copy'}
             </button>
@@ -186,7 +186,7 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
         <div className="mt-6 pt-4 border-t border-zinc-800 flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="rounded-xl bg-amber-500 px-6 py-2.5 text-xs font-bold text-black hover:bg-amber-400 transition-all"
+            className="rounded-xl bg-purple-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-purple-500 transition-all"
           >
             {isRTL ? 'إغلاق' : 'Close'}
           </button>

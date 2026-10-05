@@ -86,7 +86,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-bold text-orange-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-400">
           <Flame className="h-4 w-4" />
           <span>{isRTL ? 'مكتبة تضم أكثر من 160 فكرة وسكربت' : '160+ Viral Content Ideas & Scripts'}</span>
         </div>
@@ -112,7 +112,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isRTL ? 'ابحث في الأفكار والهوكات (مثال: فري فاير، ذكاء اصطناعي، بدون وجه)...' : 'Search ideas, hooks, or topics...'}
-            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
           />
         </div>
 
@@ -127,7 +127,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                 onClick={() => setSelectedPlatform(plat.id)}
                 className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
                   isActive
-                    ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-black shadow-md shadow-orange-500/20'
+                    ? 'bg-purple-600 text-white shadow-md shadow-purple-900/30'
                     : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
                 }`}
               >
@@ -145,7 +145,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             <select
               value={selectedNiche}
               onChange={(e) => setSelectedNiche(e.target.value)}
-              className="rounded-xl border border-zinc-800 bg-zinc-900 py-1.5 px-3 text-xs text-white focus:border-amber-500 focus:outline-none"
+              className="rounded-xl border border-zinc-800 bg-zinc-900 py-1.5 px-3 text-xs text-white focus:border-purple-500 focus:outline-none"
             >
               <option value="all">{isRTL ? 'جميع التخصصات (23 نيتش)' : 'All Niches (23)'}</option>
               {niches.map((n) => (
@@ -158,7 +158,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
               onClick={() => setFacelessOnly(!facelessOnly)}
               className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-bold transition-all ${
                 facelessOnly
-                  ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300'
+                  ? 'border-purple-500 bg-purple-500/20 text-purple-300'
                   : 'border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -191,7 +191,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
               setSelectedNiche('all');
               setFacelessOnly(false);
             }}
-            className="mt-4 rounded-xl bg-orange-500 px-4 py-2 text-xs font-bold text-black"
+            className="mt-4 rounded-xl bg-purple-600 px-4 py-2 text-xs font-bold text-white hover:bg-purple-500 transition-all"
           >
             {isRTL ? 'إعادة ضبط كل الفلاتر' : 'Reset All Filters'}
           </button>
@@ -207,20 +207,20 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             return (
               <div
                 key={idea.id}
-                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:border-orange-500/40 hover:bg-zinc-900/90"
+                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:border-purple-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-purple-900/10"
               >
                 <div>
                   {/* Top Badges */}
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="rounded-lg bg-orange-500/10 px-2.5 py-0.5 font-bold text-orange-400 border border-orange-500/20">
+                      <span className="rounded-lg bg-purple-500/10 px-2.5 py-0.5 font-bold text-purple-400 border border-purple-500/20">
                         {idea.platform}
                       </span>
                       <span className="rounded-lg bg-zinc-800 px-2 py-0.5 text-[11px] font-semibold text-zinc-300">
                         {idea.niche}
                       </span>
                       {idea.facelessPossibility && (
-                        <span className="inline-flex items-center gap-1 rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400">
+                        <span className="inline-flex items-center gap-1 rounded bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-300 border border-purple-500/20">
                           <UserX className="h-3 w-3" />
                           Faceless
                         </span>
@@ -229,30 +229,30 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
 
                     <button
                       onClick={() => onToggleSave(idea.id, 'idea')}
-                      className="rounded-lg p-1 text-zinc-500 hover:text-orange-400"
+                      className="rounded-lg p-1 text-zinc-500 hover:text-purple-400 transition-colors"
                       title={isRTL ? 'حفظ' : 'Bookmark'}
                     >
-                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-orange-400 text-orange-400' : ''}`} />
+                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-purple-400 text-purple-400' : ''}`} />
                     </button>
                   </div>
 
                   {/* Title */}
                   <h3 
                     onClick={() => setActiveIdeaModal(idea)}
-                    className="mt-3 text-base font-bold text-white group-hover:text-orange-300 transition-colors cursor-pointer line-clamp-2"
+                    className="mt-3 text-base font-bold text-white group-hover:text-purple-300 transition-colors cursor-pointer line-clamp-2"
                   >
                     {title}
                   </h3>
 
                   {/* Hook Box */}
-                  <div className="mt-3 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-3">
+                  <div className="mt-3 rounded-2xl border border-purple-500/25 bg-purple-500/5 p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
                         {isRTL ? '⚡ الهوك الافتتاحي (Hook):' : '⚡ Hook:'}
                       </span>
                       <button
                         onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك!' : 'Hook copied!')}
-                        className="flex items-center gap-1 rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-200 hover:bg-amber-500 hover:text-black transition-all"
+                        className="flex items-center gap-1 rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-200 hover:bg-purple-600 hover:text-white transition-all"
                         title={isRTL ? 'نسخ الهوك' : 'Copy'}
                       >
                         <Copy className="h-3 w-3" />
@@ -270,14 +270,14 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                   <div className="flex items-center gap-3 text-xs text-zinc-400">
                     <span>{idea.duration}</span>
                     <span className="text-zinc-600">•</span>
-                    <span className="capitalize text-orange-400 font-medium">
+                    <span className="capitalize text-purple-400 font-medium">
                       {idea.viralPotential === 'explosive' ? (isRTL ? 'انتشار ناري 🔥' : 'Explosive') : (isRTL ? 'عالي جداً' : 'Very High')}
                     </span>
                   </div>
 
                   <button
                     onClick={() => setActiveIdeaModal(idea)}
-                    className="rounded-xl border border-zinc-700 bg-zinc-800/70 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-orange-500 hover:text-black hover:border-transparent transition-all"
+                    className="rounded-xl border border-zinc-700 bg-zinc-800/70 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-purple-600 hover:text-white hover:border-transparent transition-all"
                   >
                     {isRTL ? 'السكربت والـ CTA' : 'Script & CTA'}
                   </button>

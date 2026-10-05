@@ -86,13 +86,13 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative Top Accent Glow */}
-        <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 -z-10 h-40 w-80 rounded-full bg-amber-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 -z-10 h-40 w-80 rounded-full bg-emerald-500/20 blur-3xl" />
 
         {/* Top Header Bar */}
         <div className="flex items-start justify-between gap-4 border-b border-zinc-800/80 pb-5">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="rounded-lg bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-400 border border-amber-500/20">
+              <span className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20">
                 {path.category}
               </span>
               <span className={`rounded-lg px-2.5 py-1 text-xs font-bold ${
@@ -121,12 +121,12 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
               onClick={() => onToggleSave(path.id)}
               className={`rounded-xl p-2.5 border transition-all ${
                 isSaved 
-                  ? 'border-amber-500/50 bg-amber-500/20 text-amber-400' 
+                  ? 'border-emerald-500/50 bg-emerald-500/20 text-emerald-400' 
                   : 'border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-white'
               }`}
               title={isRTL ? 'حفظ المسار' : 'Bookmark'}
             >
-              <Bookmark className={`h-5 w-5 ${isSaved ? 'fill-amber-400' : ''}`} />
+              <Bookmark className={`h-5 w-5 ${isSaved ? 'fill-emerald-400' : ''}`} />
             </button>
             <button
               onClick={onClose}
@@ -139,9 +139,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Affiliate Marketing */}
         {path.id === 'affiliate-marketing' && onNavigateToAffiliate && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -158,7 +158,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToAffiliate();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح المسار التدريبي الكامل 🚀
             </button>
@@ -167,9 +167,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for TikTok Affiliate */}
         {path.id === 'tiktok-affiliate' && onNavigateToTikTokAffiliate && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -186,7 +186,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToTikTokAffiliate();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار أفلييت تيك توك 🚀
             </button>
@@ -195,9 +195,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for YouTube Monetization */}
         {path.id === 'youtube-monetization' && onNavigateToYouTube && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -214,7 +214,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToYouTube();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار يوتيوب الكامل 🚀
             </button>
@@ -223,9 +223,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Instagram Monetization */}
         {path.id === 'instagram-monetization' && onNavigateToInstagram && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -242,7 +242,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToInstagram();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار انستغرام الكامل 🚀
             </button>
@@ -270,7 +270,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToFacebook();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار فيسبوك الكامل 🚀
             </button>
@@ -298,7 +298,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToBlogging();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار المدونات والسيو الكامل 🚀
             </button>
@@ -307,9 +307,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for SEO Services */}
         {path.id === 'seo-services' && onNavigateToSeoServices && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -326,7 +326,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToSeoServices();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
             >
               افتح مسار خدمات السيو الكامل 🚀
             </button>
@@ -335,9 +335,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Freelance Writing */}
         {path.id === 'freelance-writing' && onNavigateToWriting && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -354,7 +354,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToWriting();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار كتابة المحتوى الكامل 🚀
             </button>
@@ -363,9 +363,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Copywriting */}
         {path.id === 'copywriting' && onNavigateToCopywriting && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -382,7 +382,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToCopywriting();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار الكوبي رايتنج الكامل 🚀
             </button>
@@ -391,9 +391,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Video Editing */}
         {path.id === 'video-editing' && onNavigateToVideoEditing && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -410,7 +410,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToVideoEditing();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار مونتاج الفيديو الكامل 🚀
             </button>
@@ -419,9 +419,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Graphic Design */}
         {path.id === 'graphic-design' && onNavigateToGraphicDesign && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -438,7 +438,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToGraphicDesign();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار التصميم الجرافيكي الكامل 🚀
             </button>
@@ -447,9 +447,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Thumbnail Design */}
         {path.id === 'thumbnail-design' && onNavigateToThumbnailDesign && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -466,7 +466,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToThumbnailDesign();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار تصميم الصور المصغرة الكامل 🚀
             </button>
@@ -475,9 +475,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Web Development */}
         {path.id === 'web-development' && onNavigateToWebDev && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -494,7 +494,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToWebDev();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار تطوير المواقع الكامل 🚀
             </button>
@@ -503,9 +503,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Mobile App Development */}
         {path.id === 'app-development' && onNavigateToAppDev && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا المسار بالكامل</span>
               </div>
@@ -522,7 +522,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToAppDev();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح مسار تطبيقات الجوال الكامل 🚀
             </button>
@@ -531,9 +531,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for Social Media Management */}
         {path.id === 'social-media-management' && onNavigateToSocialMedia && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا القسم إلى كورس احترافي متكامل</span>
               </div>
@@ -550,7 +550,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToSocialMedia();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح كورس إدارة الحسابات الكامل 🚀
             </button>
@@ -559,9 +559,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
         {/* Upgraded Interactive Learning Path Banner for UGC Content Creation */}
         {path.id === 'ugc-content' && onNavigateToUgc && (
-          <div className="mt-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
                 <Sparkles className="h-3 w-3" />
                 <span>تمت ترقية هذا القسم إلى كورس احترافي متكامل (12 وحدة)</span>
               </div>
@@ -578,7 +578,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                 onClose();
                 onNavigateToUgc();
               }}
-              className="shrink-0 w-full sm:w-auto rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-black text-black hover:bg-amber-400 transition-all shadow-md shadow-amber-500/25 active:scale-95 cursor-pointer"
+              className="shrink-0 w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-black text-black hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95 cursor-pointer"
             >
               افتح كورس الـ UGC الكامل 🚀
             </button>
@@ -594,10 +594,10 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-4">
             <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400">
-              <DollarSign className="h-4 w-4 text-amber-400" />
+              <DollarSign className="h-4 w-4 text-emerald-400" />
               <span>{isRTL ? 'الدخل الشهري المتوقع' : 'Potential Monthly Income'}</span>
             </div>
-            <div className="mt-1 text-lg sm:text-xl font-black text-amber-300">
+            <div className="mt-1 text-lg sm:text-xl font-black text-emerald-400">
               {path.estimatedIncomeRange}
             </div>
           </div>
@@ -627,7 +627,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
         {path.stepByStep && path.stepByStep.length > 0 && (
           <div className="mt-6">
             <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Layers className="h-4 w-4 text-amber-400" />
+              <Layers className="h-4 w-4 text-emerald-400" />
               <span>{isRTL ? 'خريطة العمل خطوة بخطوة:' : 'Step-by-Step Action Plan:'}</span>
             </h3>
 
@@ -637,7 +637,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
                   key={step.stepNumber}
                   className="flex items-start gap-3.5 rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-3.5"
                 >
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-amber-500/20 text-xs font-black text-amber-400">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-xs font-black text-emerald-400">
                     {step.stepNumber}
                   </div>
                   <div>
@@ -675,7 +675,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
             </h4>
             <div className="mt-2.5 flex flex-wrap gap-1.5">
               {[...path.tools, ...path.platforms].map((t, idx) => (
-                <span key={idx} className="rounded-lg bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-300 border border-amber-500/20">
+                <span key={idx} className="rounded-lg bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-300 border border-emerald-500/20">
                   {t}
                 </span>
               ))}
@@ -731,7 +731,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
         <div className="mt-6 pt-4 border-t border-zinc-800 flex items-center justify-between gap-3">
           <button
             onClick={() => onCopyText(`${title}\n${path.estimatedIncomeRange}\n${desc}`, isRTL ? 'تم نسخ ملخص المسار!' : 'Summary copied!')}
-            className="flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:underline"
+            className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:underline"
           >
             <Copy className="h-4 w-4" />
             <span>{isRTL ? 'نسخ ملخص المسار' : 'Copy Summary'}</span>
@@ -739,7 +739,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="rounded-xl bg-amber-500 px-6 py-2.5 text-xs font-bold text-black hover:bg-amber-400 transition-all"
+            className="rounded-xl bg-emerald-500 px-6 py-2.5 text-xs font-bold text-black hover:bg-emerald-400 transition-all"
           >
             {isRTL ? 'إغلاق' : 'Close'}
           </button>

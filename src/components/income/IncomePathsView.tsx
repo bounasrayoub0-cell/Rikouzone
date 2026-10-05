@@ -83,7 +83,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       
       {/* Header Banner */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-bold text-amber-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-400">
           <TrendingUp className="h-4 w-4" />
           <span>{isRTL ? 'دليل المسارات المالية الرقمية 2026' : '35 Digital Income Blueprints'}</span>
         </div>
@@ -109,7 +109,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isRTL ? 'ابحث في المجالات (مثال: مونتاج، فري فاير، دروب شيبينغ، ذكاء اصطناعي)...' : 'Search paths (e.g. Editing, Free Fire, Dropshipping, AI)...'}
-            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           {searchQuery && (
             <button
@@ -132,7 +132,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
                   isActive
-                    ? 'bg-amber-500 text-black shadow-md shadow-amber-500/20'
+                    ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/20'
                     : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
                 }`}
               >
@@ -154,7 +154,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   onClick={() => setSelectedDifficulty(lvl)}
                   className={`rounded-lg px-2.5 py-1 font-semibold transition-all ${
                     selectedDifficulty === lvl
-                      ? 'bg-zinc-800 text-amber-400 border border-amber-500/30'
+                      ? 'bg-zinc-800 text-emerald-400 border border-emerald-500/30'
                       : 'text-zinc-500 hover:text-zinc-300'
                   }`}
                 >
@@ -195,7 +195,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               setSelectedCategory('all');
               setSelectedDifficulty('all');
             }}
-            className="mt-4 rounded-xl bg-amber-500 px-4 py-2 text-xs font-bold text-black"
+            className="mt-4 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-bold text-black"
           >
             {isRTL ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}
           </button>
@@ -211,46 +211,46 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               <div
                 key={path.id}
                 id={`income-card-${path.id}`}
-                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:border-amber-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-amber-500/5"
+                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:border-emerald-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-emerald-500/5"
               >
                 <div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="rounded-lg bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-400 border border-amber-500/20">
+                      <span className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20">
                         {path.category}
                       </span>
                       {path.id === 'affiliate-marketing' && (
-                        <span className="rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (10 وحدات)
                         </span>
                       )}
                       {path.id === 'tiktok-affiliate' && (
-                        <span className="rounded-lg bg-gradient-to-r from-rose-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (10 أقسام)
                         </span>
                       )}
                       {path.id === 'youtube-monetization' && (
-                        <span className="rounded-lg bg-gradient-to-r from-red-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (10 أقسام)
                         </span>
                       )}
                       {path.id === 'instagram-monetization' && (
-                        <span className="rounded-lg bg-gradient-to-r from-pink-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (10 أقسام)
                         </span>
                       )}
                       {path.id === 'facebook-monetization' && (
-                        <span className="rounded-lg bg-gradient-to-r from-blue-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-blue-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (7 مراحل)
                         </span>
                       )}
                       {path.id === 'blogging' && (
-                        <span className="rounded-lg bg-gradient-to-r from-emerald-500/20 to-amber-500/20 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 مسار تفاعلي (10 مراحل)
                         </span>
                       )}
                       {path.id === 'social-media-management' && (
-                        <span className="rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 px-2.5 py-1 text-[11px] font-black text-amber-300 border border-amber-500/40 animate-pulse">
+                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 كورس احترافي (13 وحدة)
                         </span>
                       )}
@@ -260,10 +260,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         e.stopPropagation();
                         onToggleSave(path.id, 'income');
                       }}
-                      className="rounded-lg p-1.5 text-zinc-500 hover:text-amber-400 hover:bg-zinc-800/80 transition-colors"
+                      className="rounded-lg p-1.5 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-800/80 transition-colors"
                       title={isRTL ? 'حفظ' : 'Bookmark'}
                     >
-                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-amber-400 text-amber-400' : ''}`} />
+                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-emerald-400 text-emerald-400' : ''}`} />
                     </button>
                   </div>
 
@@ -305,7 +305,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         setActiveModalPath(path);
                       }
                     }}
-                    className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors cursor-pointer"
+                    className="mt-4 text-lg font-bold text-white group-hover:text-emerald-300 transition-colors cursor-pointer"
                   >
                     {title}
                   </h3>
@@ -319,7 +319,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   <div className="grid grid-cols-2 gap-2 text-xs mb-4">
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
                       <div className="text-zinc-500 font-medium">{isRTL ? 'الدخل الشهري' : 'Potential'}</div>
-                      <div className="text-sm font-black text-amber-400 mt-0.5">{path.potentialMonthlyIncome || path.estimatedIncomeRange}</div>
+                      <div className="text-sm font-black text-emerald-400 mt-0.5">{path.potentialMonthlyIncome || path.estimatedIncomeRange}</div>
                     </div>
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
                       <div className="text-zinc-500 font-medium">{isRTL ? 'وقت التعلم' : 'Learning'}</div>
@@ -367,8 +367,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                     }}
                     className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
                       path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'graphic-design' || path.id === 'thumbnail-design' || path.id === 'web-development' || path.id === 'app-development' || path.id === 'social-media-management' || path.id === 'ugc-content'
-                        ? 'bg-amber-500 text-black hover:bg-amber-400 shadow-md shadow-amber-500/20 font-black'
-                        : 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-black group-hover:border-transparent'
+                        ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
+                        : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
                     }`}
                   >
                     <span>

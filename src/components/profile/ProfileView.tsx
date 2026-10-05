@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { useTheme } from '../../theme/ThemeContext';
 import { IncomePath, ContentIdea } from '../../types';
 import { incomePaths } from '../../data/incomePaths';
 import { contentIdeas } from '../../data/contentIdeas';
@@ -16,7 +17,9 @@ import {
   Sparkles,
   Flame,
   ArrowRight,
-  ArrowLeft
+  ArrowLeft,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface ProfileViewProps {
@@ -39,6 +42,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onNavigate
 }) => {
   const { language, setLanguage, languages, t, isRTL } = useLanguage();
+  const { theme, setTheme, isDark } = useTheme();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const savedPaths = incomePaths.filter((p) => savedIds.includes(p.id));
@@ -53,8 +57,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="flex items-center gap-4">
             {/* Main Profile Avatar with Uploaded Image */}
             <div className="relative group flex-shrink-0">
-              <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-tr from-amber-500/30 via-orange-500/25 to-purple-600/20 blur-md opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-2xl border-2 border-amber-500/40 bg-zinc-950 p-1 shadow-xl shadow-amber-500/15">
+              <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-tr from-sky-500/30 via-cyan-500/20 to-blue-600/20 blur-md opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
+              <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-2xl border-2 border-sky-500/40 bg-zinc-950 p-1 shadow-xl shadow-sky-500/15">
                 <img
                   src="/file_00000000b1d881f496a6612e6eef85ce.png"
                   onError={(e) => {
@@ -73,7 +77,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 <h1 className="text-xl sm:text-2xl font-black text-white">
                   {isRTL ? 'صانع محتوى RikouZone' : 'RikouZone Creator'}
                 </h1>
-                <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold text-amber-400 border border-amber-500/20">
+                <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-bold text-sky-400 border border-sky-500/20">
                   FREE TIER
                 </span>
               </div>
@@ -85,21 +89,86 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
           <div className="flex items-center gap-2">
             <div className="rounded-2xl border border-zinc-800 bg-zinc-950/80 p-3 text-center min-w-24">
-              <div className="text-lg font-black text-amber-400 font-sans">{savedPaths.length}</div>
+              <div className="text-lg font-black text-sky-400 font-sans">{savedPaths.length}</div>
               <div className="text-[10px] font-semibold text-zinc-400">{isRTL ? 'مسارات محفوظة' : 'Saved Paths'}</div>
             </div>
             <div className="rounded-2xl border border-zinc-800 bg-zinc-950/80 p-3 text-center min-w-24">
-              <div className="text-lg font-black text-orange-400 font-sans">{savedIdeas.length}</div>
+              <div className="text-lg font-black text-sky-400 font-sans">{savedIdeas.length}</div>
               <div className="text-[10px] font-semibold text-zinc-400">{isRTL ? 'أفكار محفوظة' : 'Saved Ideas'}</div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Preferences Section: Appearance Mode (Dark / Light) */}
+      <div className="mt-8 rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
+        <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
+          {isDark ? <Moon className="h-4 w-4 text-sky-400" /> : <Sun className="h-4 w-4 text-sky-400" />}
+          <span>{isRTL ? 'مظهر المنصة (Theme Mode)' : 'Appearance Mode'}</span>
+        </h2>
+        <p className="mt-1 text-xs text-zinc-400">
+          {isRTL ? 'التبديل بين الوضع الداكن والوضع الفاتح مع حفظ اختيارك تلقائياً.' : 'Switch between Dark and Light mode. Persisted automatically.'}
+        </p>
+
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
+          <button
+            onClick={() => setTheme('dark')}
+            className={`rounded-2xl p-4 text-start border transition-all cursor-pointer ${
+              theme === 'dark'
+                ? 'border-sky-500 bg-sky-500/10 text-white shadow-md shadow-sky-500/10 ring-1 ring-sky-500/40'
+                : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-800 text-sky-400">
+                  <Moon className="h-5 w-5" />
+                </div>
+                <div>
+                  <span className="font-bold text-sm text-white block">
+                    {isRTL ? 'الوضع الداكن' : 'Dark Mode'}
+                  </span>
+                  <span className="text-[11px] text-zinc-400 block">
+                    {isRTL ? 'الوضع الافتراضي المريح للعين' : 'Classic Dark Theme'}
+                  </span>
+                </div>
+              </div>
+              {theme === 'dark' && <CheckCircle2 className="h-5 w-5 text-sky-400" />}
+            </div>
+          </button>
+
+          <button
+            onClick={() => setTheme('light')}
+            className={`rounded-2xl p-4 text-start border transition-all cursor-pointer ${
+              theme === 'light'
+                ? 'border-sky-500 bg-sky-500/10 text-white shadow-md shadow-sky-500/10 ring-1 ring-sky-500/40'
+                : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-800 text-amber-400">
+                  <Sun className="h-5 w-5" />
+                </div>
+                <div>
+                  <span className="font-bold text-sm text-white block">
+                    {isRTL ? 'الوضع الفاتح' : 'Light Mode'}
+                  </span>
+                  <span className="text-[11px] text-zinc-400 block">
+                    {isRTL ? 'واجهة بيضاء ناصعة وأنيقة' : 'Clean & Bright Theme'}
+                  </span>
+                </div>
+              </div>
+              {theme === 'light' && <CheckCircle2 className="h-5 w-5 text-sky-400" />}
+            </div>
+          </button>
+        </div>
+      </div>
+
       {/* Preferences Section: Language Choice */}
       <div className="mt-8 rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
         <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
-          <Globe className="h-4 w-4 text-amber-400" />
+          <Globe className="h-4 w-4 text-sky-400" />
           <span>{isRTL ? 'لغة الواجهة (Language Settings)' : 'Interface Language'}</span>
         </h2>
         <p className="mt-1 text-xs text-zinc-400">
@@ -114,7 +183,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               onClick={() => setLanguage(item.code)}
               className={`rounded-2xl p-4 text-start border transition-all ${
                 language === item.code
-                  ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
+                  ? 'border-sky-500 bg-sky-500/10 text-white shadow-md shadow-sky-500/10 ring-1 ring-sky-500/40'
                   : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
               }`}
             >
@@ -132,7 +201,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <span className="rounded bg-zinc-800/80 px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 border border-zinc-700/50">
                     {item.badge}
                   </span>
-                  {language === item.code && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
+                  {language === item.code && <CheckCircle2 className="h-4 w-4 text-sky-400" />}
                 </div>
               </div>
               <p className="mt-2 text-[11px] text-zinc-400 line-clamp-1">{item.description}</p>
@@ -145,7 +214,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       <div className="mt-8 space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <Bookmark className="h-5 w-5 text-amber-400 fill-amber-400/20" />
+            <Bookmark className="h-5 w-5 text-sky-400 fill-sky-400/20" />
             <span>{isRTL ? 'العناصر المحفوظة في المفضلة' : 'Saved Bookmarks'}</span>
             <span className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs text-zinc-300">
               {savedIds.length}
@@ -177,13 +246,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="mt-4 flex justify-center gap-3">
               <button
                 onClick={() => onNavigate('income')}
-                className="rounded-xl bg-amber-500 px-4 py-2 text-xs font-bold text-black hover:bg-amber-400"
+                className="rounded-xl bg-sky-500 px-4 py-2 text-xs font-bold text-black hover:bg-sky-400 transition-all"
               >
                 {isRTL ? 'استكشف طرق الربح' : 'Browse Paths'}
               </button>
               <button
                 onClick={() => onNavigate('ideas')}
-                className="rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-bold text-white hover:border-amber-500"
+                className="rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-bold text-white hover:border-sky-500 hover:text-sky-300 transition-all"
               >
                 {isRTL ? 'أفكار المحتوى' : 'Browse Ideas'}
               </button>
@@ -195,7 +264,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {/* Saved Income Paths */}
             {savedPaths.length > 0 && (
               <div>
-                <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <h3 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <TrendingUp className="h-4 w-4" />
                   <span>{isRTL ? 'مسارات الدخل المحفوظة' : 'Saved Income Paths'} ({savedPaths.length})</span>
                 </h3>
@@ -207,13 +276,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     return (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-amber-500/40 transition-all"
+                        className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-sky-500/40 transition-all"
                       >
                         <div className="min-w-0 flex-1">
-                          <span className="text-[10px] font-bold text-amber-400 uppercase">{p.category}</span>
+                          <span className="text-[10px] font-bold text-sky-400 uppercase">{p.category}</span>
                           <h4 
                             onClick={() => onSelectPath(p)}
-                            className="text-sm font-bold text-white hover:text-amber-300 cursor-pointer line-clamp-1"
+                            className="text-sm font-bold text-white hover:text-sky-300 cursor-pointer line-clamp-1"
                           >
                             {title}
                           </h4>
@@ -223,13 +292,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => onSelectPath(p)}
-                            className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-amber-500 hover:text-black transition-all"
+                            className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-sky-500 hover:text-black transition-all"
                           >
                             {isRTL ? 'عرض' : 'View'}
                           </button>
                           <button
                             onClick={() => onToggleSave(p.id, 'income')}
-                            className="rounded-lg p-1.5 text-zinc-500 hover:text-rose-400"
+                            className="rounded-lg p-1.5 text-zinc-500 hover:text-rose-400 transition-colors"
                             title={isRTL ? 'إزالة من المفضلة' : 'Remove'}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -245,7 +314,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {/* Saved Content Ideas */}
             {savedIdeas.length > 0 && (
               <div>
-                <h3 className="text-xs font-bold text-orange-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <h3 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <Lightbulb className="h-4 w-4" />
                   <span>{isRTL ? 'أفكار المحتوى المحفوظة' : 'Saved Content Ideas'} ({savedIdeas.length})</span>
                 </h3>
@@ -258,21 +327,21 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     return (
                       <div
                         key={i.id}
-                        className="flex flex-col justify-between rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-orange-500/40 transition-all"
+                        className="flex flex-col justify-between rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-sky-500/40 transition-all"
                       >
                         <div>
                           <div className="flex items-center justify-between text-xs">
-                            <span className="font-bold text-orange-400">{i.platform}</span>
+                            <span className="font-bold text-sky-400">{i.platform}</span>
                             <button
                               onClick={() => onToggleSave(i.id, 'idea')}
-                              className="text-zinc-500 hover:text-rose-400 p-1"
+                              className="text-zinc-500 hover:text-rose-400 p-1 transition-colors"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </button>
                           </div>
                           <h4 
                             onClick={() => onSelectIdea(i)}
-                            className="mt-1 text-sm font-bold text-white hover:text-orange-300 cursor-pointer line-clamp-1"
+                            className="mt-1 text-sm font-bold text-white hover:text-sky-300 cursor-pointer line-clamp-1"
                           >
                             {title}
                           </h4>
@@ -284,14 +353,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         <div className="mt-3 pt-2 border-t border-zinc-800/80 flex items-center justify-between">
                           <button
                             onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك!' : 'Hook copied!')}
-                            className="flex items-center gap-1 text-[11px] font-bold text-amber-400 hover:underline"
+                            className="flex items-center gap-1 text-[11px] font-bold text-sky-400 hover:underline"
                           >
                             <Copy className="h-3 w-3" />
                             <span>{isRTL ? 'نسخ الهوك' : 'Copy Hook'}</span>
                           </button>
                           <button
                             onClick={() => onSelectIdea(i)}
-                            className="rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-bold text-zinc-200 hover:bg-orange-500 hover:text-black transition-all"
+                            className="rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-bold text-zinc-200 hover:bg-sky-500 hover:text-black transition-all"
                           >
                             {isRTL ? 'السكربت' : 'Script'}
                           </button>

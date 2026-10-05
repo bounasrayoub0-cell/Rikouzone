@@ -21,8 +21,8 @@ interface HeroProps {
 
 const HeroBadgeImage: React.FC<{ className?: string }> = ({ className = '' }) => (
   <div className={`relative group ${className}`}>
-    {/* Ambient Glow matching Gold/Orange Theme */}
-    <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-amber-500/25 via-orange-500/20 to-purple-600/20 blur-xl opacity-80 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
+    {/* Ambient Glow matching Gold/Amber Theme */}
+    <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-amber-500/25 via-amber-400/20 to-orange-500/20 blur-xl opacity-80 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
     
     {/* Premium Rounded Card Container */}
     <div className="relative rounded-3xl border border-amber-500/30 bg-gradient-to-b from-zinc-900/95 via-zinc-950/95 to-black p-2.5 sm:p-3.5 backdrop-blur-xl shadow-2xl shadow-amber-500/10 transition-transform duration-300 group-hover:scale-[1.02]">
