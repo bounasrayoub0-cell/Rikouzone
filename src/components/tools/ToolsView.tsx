@@ -101,10 +101,10 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-bold text-blue-400">
           <Calculator className="h-4 w-4" />
-          <span>{isRTL ? '17 حاسبة رقمية وأدوات محتوى فورية' : '17 Calculators & Creator Utilities'}</span>
+          <span>{isRTL ? '17 حاسبة رقمية وأداة تطبيقية' : '17 Calculators & Creator Utilities'}</span>
         </div>
         <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
-          {isRTL ? 'حاسبات الأرباح ومقاييس النمو' : 'Creator Earnings & Analytics Engine'}
+          {isRTL ? 'الأدوات الرقمية وحاسبات الأداء والنمو' : 'Digital Tools & Growth Analytics'}
         </h1>
         <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
           {isRTL

@@ -24,7 +24,6 @@ import {
   DollarSign, 
   Calendar, 
   Film,
-  Bot,
   User as UserIcon,
   X,
   Paperclip,
@@ -742,13 +741,13 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           <div className="flex items-center gap-2.5">
             <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center">
               <img
-                src="/file_0000000001ac82468f8294920989a3bd.png"
+                src="/file_00000000790481f48f32726a32633267.png"
                 onError={(e) => {
                   e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                 }}
                 alt="Rikou AI"
                 referrerPolicy="no-referrer"
-                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-purple-500/35 select-none bg-zinc-950"
+                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-amber-500/35 select-none bg-zinc-950"
                 width={36}
                 height={36}
               />
@@ -949,17 +948,17 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             <div className="flex flex-col items-center justify-center py-6 sm:py-10 text-center max-w-xl mx-auto space-y-5 animate-in fade-in duration-300">
               {/* Official Rikou AI Center Avatar */}
               <div className="relative flex items-center justify-center">
-                <div className="absolute -inset-1 rounded-full bg-purple-600/25 blur-md" />
+                <div className="absolute -inset-3 rounded-3xl bg-amber-500/20 blur-2xl pointer-events-none" />
                 <img
-                  src="/file_0000000001ac82468f8294920989a3bd.png"
+                  src="/file_00000000790481f48f32726a32633267.png"
                   onError={(e) => {
                     e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                   }}
                   alt="Rikou AI Official Avatar"
                   referrerPolicy="no-referrer"
-                  className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-2 border-purple-500/40 shadow-lg select-none bg-zinc-950"
-                  width={96}
-                  height={96}
+                  className="relative h-32 w-32 sm:h-44 sm:w-44 md:h-48 md:w-48 rounded-3xl object-cover border-2 border-amber-500/40 shadow-2xl shadow-amber-500/15 select-none bg-zinc-950 transition-transform duration-300 hover:scale-105"
+                  width={192}
+                  height={192}
                 />
               </div>
 
@@ -1012,13 +1011,13 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 {!isUser && (
                   <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center mt-1">
                     <img
-                      src="/file_0000000001ac82468f8294920989a3bd.png"
+                      src="/file_00000000790481f48f32726a32633267.png"
                       onError={(e) => {
                         e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                       }}
                       alt="Rikou AI"
                       referrerPolicy="no-referrer"
-                      className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-purple-500/35 select-none bg-zinc-950"
+                      className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-amber-500/35 select-none bg-zinc-950"
                       width={36}
                       height={36}
                     />
@@ -1035,15 +1034,15 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   {/* Top Bar for Assistant Message: Header, Copy & Regenerate Buttons */}
                   {!isUser && (
                     <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-zinc-800/80 text-[11px] font-bold text-zinc-400 gap-2">
-                      <span className="flex items-center gap-1.5 text-purple-400 font-bold">
+                      <span className="flex items-center gap-1.5 text-amber-400 font-bold">
                         <img
-                          src="/file_0000000001ac82468f8294920989a3bd.png"
+                          src="/file_00000000790481f48f32726a32633267.png"
                           onError={(e) => {
                             e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                           }}
                           alt=""
                           referrerPolicy="no-referrer"
-                          className="h-4 w-4 rounded-full object-cover border border-purple-500/30 select-none"
+                          className="h-4 w-4 rounded-full object-cover border border-amber-500/30 select-none"
                           width={16}
                           height={16}
                         />
@@ -1161,9 +1160,9 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           {/* Typing/Generating Indicator */}
           {isGenerating && (
             <div className="flex gap-2.5 sm:gap-4 items-start animate-in fade-in duration-150">
-              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-purple-500/30 bg-zinc-950 overflow-hidden">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-amber-500/30 bg-zinc-950 overflow-hidden">
                 <img
-                  src="/file_0000000001ac82468f8294920989a3bd.png"
+                  src="/file_00000000790481f48f32726a32633267.png"
                   onError={(e) => {
                     e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                   }}

@@ -20,19 +20,34 @@ export interface TranslationSchema {
     welcome: string;
     badge: string;
     title: string;
+    titleHighlight: string;
     description: string;
     exploreIncome: string;
+    tryAi: string;
+    browseIdeas: string;
     creatorTools: string;
     statPaths: string;
     statIdeas: string;
     statTools: string;
     statAi: string;
+    featurePractical: string;
+    featureTools: string;
+    featureGaming: string;
     feature1Title: string;
     feature1Desc: string;
     feature2Title: string;
     feature2Desc: string;
     feature3Title: string;
     feature3Desc: string;
+    feature4Title: string;
+    feature4Desc: string;
+  };
+  stats: {
+    paths: string;
+    ideas: string;
+    tools: string;
+    ai: string;
+    freeSuite: string;
   };
   sections: {
     incomeOpportunities: string;
@@ -45,6 +60,13 @@ export interface TranslationSchema {
     rikouAiDesc: string;
     viewAll: string;
     exploreNow: string;
+    browseAllPaths: string;
+    browseAllIdeas: string;
+    browseAllTools: string;
+    tryTool: string;
+    startLearning: string;
+    openChat: string;
+    quickActions: string;
   };
   income: {
     pageTitle: string;
@@ -79,6 +101,16 @@ export interface TranslationSchema {
     sortEasy: string;
     sortCost: string;
     emptyState: string;
+    monthlyPotential: string;
+    learningCurve: string;
+    startupCapital: string;
+    requiredSkills: string;
+    recommendedTools: string;
+    targetPlatforms: string;
+    realisticWarning: string;
+    copySummary: string;
+    interactiveTrackBadge: string;
+    openFullCourse: string;
   };
   creators: {
     pageTitle: string;
@@ -95,6 +127,8 @@ export interface TranslationSchema {
     bestFormats: string;
     gearAndTools: string;
     algorithmHacks: string;
+    avgRpm: string;
+    payoutMethods: string;
   };
   tools: {
     pageTitle: string;
@@ -105,6 +139,9 @@ export interface TranslationSchema {
     reset: string;
     resultTitle: string;
     formulaNote: string;
+    selectCalc: string;
+    resultsEstimated: string;
+    inputsTitle: string;
   };
   ideas: {
     pageTitle: string;
@@ -125,6 +162,9 @@ export interface TranslationSchema {
     copyHook: string;
     copied: string;
     facelessBadge: string;
+    openingHookTitle: string;
+    scriptStructureTitle: string;
+    closingCtaTitle: string;
   };
   ai: {
     pageTitle: string;
@@ -150,6 +190,19 @@ export interface TranslationSchema {
     confirmDeleteAll: string;
     noHistory: string;
     fileAttached: string;
+    online: string;
+    welcomeTitle: string;
+    welcomeSubtitle: string;
+    quickActionsTitle: string;
+    quickActionsSubtitle: string;
+    prepareInChat: string;
+    nextSteps: string;
+    send: string;
+    enterHint: string;
+    ready: string;
+    dismiss: string;
+    activeAction: string;
+    thinking: string;
   };
   profile: {
     pageTitle: string;
@@ -165,6 +218,33 @@ export interface TranslationSchema {
     noSavedPaths: string;
     noSavedIdeas: string;
     noSavedTools: string;
+    appearanceMode: string;
+    appearanceDesc: string;
+    darkMode: string;
+    darkModeDesc: string;
+    lightMode: string;
+    lightModeDesc: string;
+    clearAll: string;
+    clearConfirm: string;
+    savedPathsCount: string;
+    savedIdeasCount: string;
+  };
+  footer: {
+    description: string;
+    exploreTitle: string;
+    toolsTitle: string;
+    disclaimer: string;
+    rightsReserved: string;
+    foundedBy: string;
+  };
+  toasts: {
+    savedIncome: string;
+    removedIncome: string;
+    savedIdea: string;
+    removedIdea: string;
+    clearedAll: string;
+    copySuccess: string;
+    copyError: string;
   };
   common: {
     close: string;
@@ -187,6 +267,8 @@ export interface TranslationSchema {
     all: string;
     selectLanguage: string;
     searchLanguage: string;
+    sponsored: string;
+    sponsorSpace: string;
   };
 }
 

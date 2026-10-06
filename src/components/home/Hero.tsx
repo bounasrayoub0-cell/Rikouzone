@@ -72,36 +72,22 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 backdrop-blur-md shadow-lg shadow-amber-500/5">
               <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-xs font-bold text-amber-300">
-                {isRTL ? 'الإصدار الشامل لصناع المحتوى 2026' : 'The 2026 Creator & Digital Wealth Suite'}
+                {t.hero.badge}
               </span>
               <Sparkles className="h-3.5 w-3.5 text-amber-400" />
             </div>
 
             {/* Primary Headline */}
             <h1 className="mt-5 text-3xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.25]">
-              {isRTL ? (
-                <>
-                  انطلق في صناعة المحتوى و{' '}
-                  <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
-                    الربح الحقيقي
-                  </span>{' '}
-                  من الإنترنت
-                </>
-              ) : (
-                <>
-                  Dominate Content Creation & Unlock{' '}
-                  <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
-                    Digital Wealth
-                  </span>
-                </>
-              )}
+              {t.hero.title.replace(t.hero.titleHighlight, '').trim()}{' '}
+              <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                {t.hero.titleHighlight}
+              </span>
             </h1>
 
             {/* Subtitle */}
             <p className="mt-4 text-base sm:text-lg text-zinc-400 font-medium leading-relaxed max-w-2xl">
-              {isRTL
-                ? 'بوابتك المتكاملة لاكتشاف 35 طريقة دخل مجربة، ومكتبة تضم أكثر من 160 فكرة محتوى فيروسي، و17 حاسبة رقمية دقيقة، ومساعد ذكاء اصطناعي فائق مصمم لصناع المحتوى العرب.'
-                : 'Your all-in-one hub with 35 vetted income paths, 160+ high-retention content ideas, 17 precision calculators, and tailored AI tools engineered for creators.'}
+              {t.hero.description}
             </p>
 
             {/* Mobile Image Placement (Naturally between Hero text and CTA buttons) */}
@@ -117,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 className="w-full sm:w-auto flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 px-7 py-3.5 text-base font-bold text-zinc-950 shadow-xl shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-95"
               >
                 <TrendingUp className="h-5 w-5 stroke-[2.5]" />
-                <span>{isRTL ? 'استكشف طرق الربح (35 مجالا)' : 'Explore Income Paths (35+)'}</span>
+                <span>{t.hero.exploreIncome}</span>
                 <ArrowIcon className="h-4 w-4 stroke-[2.5]" />
               </button>
 
@@ -127,7 +113,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 className="w-full sm:w-auto flex items-center justify-center gap-2.5 rounded-2xl border border-amber-500/40 bg-zinc-900/90 px-6 py-3.5 text-base font-bold text-amber-300 backdrop-blur-md transition-all hover:bg-zinc-800/90 hover:border-amber-400 active:scale-95"
               >
                 <Sparkles className="h-5 w-5 text-amber-400" />
-                <span>{isRTL ? 'جرب Rikou AI الذكي' : 'Launch Rikou AI'}</span>
+                <span>{t.hero.tryAi}</span>
               </button>
 
               <button
@@ -136,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-950/70 px-5 py-3.5 text-sm font-semibold text-zinc-300 hover:text-white hover:border-zinc-700 transition-all"
               >
                 <Lightbulb className="h-4 w-4 text-amber-400" />
-                <span>{isRTL ? 'أفكار المحتوى' : 'Content Ideas'}</span>
+                <span>{t.hero.browseIdeas}</span>
               </button>
             </div>
 
@@ -144,15 +130,15 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-5 sm:gap-6 text-xs text-zinc-400 font-medium">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                {isRTL ? '100% واقعي ومجرب' : '100% Battle-Tested'}
+                {t.hero.featurePractical}
               </span>
               <span className="flex items-center gap-1.5">
                 <Zap className="h-4 w-4 text-amber-400" />
-                {isRTL ? 'أدوات تفاعلية مجانية' : 'Instant Free Calculations'}
+                {t.hero.featureTools}
               </span>
               <span className="flex items-center gap-1.5">
                 <Flame className="h-4 w-4 text-orange-400" />
-                {isRTL ? 'تغطية خاصة للألعاب وصناع الفيديو' : 'Gaming & Creator Hub'}
+                {t.hero.featureGaming}
               </span>
             </div>
 
@@ -181,15 +167,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <TrendingUp className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-              {isRTL ? '35 طريقة دخل حقيقية' : '35 Income Pathways'}
+              {t.hero.feature1Title}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
-              {isRTL
-                ? 'تفاصيل الدخل الشهري المتوقع، وقت التعلم، مستوى الصعوبة، ومتطلبات البدء لكل مجال.'
-                : 'Earnings ceiling, ramp-up time, tools, and tactical step-by-step roadmap.'}
+              {t.hero.feature1Desc}
             </p>
             <div className="mt-4 flex items-center text-xs font-semibold text-amber-400">
-              <span>{isRTL ? 'تصفح كل المسارات' : 'View all paths'}</span>
+              <span>{t.sections.browseAllPaths}</span>
               <ArrowIcon className="h-3.5 w-3.5 mx-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
             </div>
           </div>
@@ -204,15 +188,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Lightbulb className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-orange-300 transition-colors">
-              {isRTL ? '160+ فكرة محتوى فيروسية' : '160+ Viral Ideas'}
+              {t.hero.feature2Title}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
-              {isRTL
-                ? 'أفكار مع الخطاف الصادم، هيكل السكربت، ونداء الإجراء لتيك توك ويوتيوب وانستغرام.'
-                : 'Hooks, script outlines, and CTAs across TikTok, YouTube, Reels, and Gaming.'}
+              {t.hero.feature2Desc}
             </p>
             <div className="mt-4 flex items-center text-xs font-semibold text-orange-400">
-              <span>{isRTL ? 'استكشف الأفكار والسكربتات' : 'Explore scripts'}</span>
+              <span>{t.sections.browseAllIdeas}</span>
               <ArrowIcon className="h-3.5 w-3.5 mx-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
             </div>
           </div>
@@ -227,15 +209,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Calculator className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-yellow-300 transition-colors">
-              {isRTL ? '17 حاسبة وأداة رقمية' : '17 Digital Calculators'}
+              {t.hero.feature3Title}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
-              {isRTL
-                ? 'احسب أرباح يوتيوب وتيك توك، معدل التفاعل، CPM، ROAS، وهدفك المالي الشهري.'
-                : 'Compute YouTube RPM, TikTok views, CTR, affiliate commissions, and goals.'}
+              {t.hero.feature3Desc}
             </p>
             <div className="mt-4 flex items-center text-xs font-semibold text-yellow-400">
-              <span>{isRTL ? 'افتح الحاسبات الرياضية' : 'Open calculators'}</span>
+              <span>{t.sections.browseAllTools}</span>
               <ArrowIcon className="h-3.5 w-3.5 mx-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
             </div>
           </div>
@@ -251,15 +231,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Sparkles className="h-6 w-6 stroke-[2.5]" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-              {isRTL ? 'مساعد Rikou AI الذكي' : 'Rikou AI Assistant'}
+              {t.hero.feature4Title}
             </h3>
             <p className="mt-1.5 text-xs text-zinc-400 line-clamp-2">
-              {isRTL
-                ? 'مساعدك الذكي لصناعة المحتوى والعمل والتعلم مع 15 أداة مدمجة لتوليد السكربتات والأفكار فورياً.'
-                : 'Your AI assistant for content creation, work & learning with 15 built-in tool shortcuts.'}
+              {t.hero.feature4Desc}
             </p>
             <div className="mt-4 flex items-center text-xs font-semibold text-amber-400">
-              <span>{isRTL ? 'ابدأ التوليد الآن' : 'Generate now'}</span>
+              <span>{t.sections.exploreNow}</span>
               <ArrowIcon className="h-3.5 w-3.5 mx-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
             </div>
           </div>

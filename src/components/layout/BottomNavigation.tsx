@@ -58,11 +58,11 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                 onClick={() => onNavigate(item.id)}
                 className="relative -top-3.5 flex flex-col items-center group"
               >
-                <div className={`relative flex h-12 w-12 items-center justify-center rounded-full p-0.5 bg-gradient-to-tr from-violet-600 via-purple-600 to-indigo-600 shadow-md shadow-purple-900/30 ${
-                  isActive ? 'ring-2 ring-purple-400 ring-offset-2 ring-offset-zinc-950 scale-105 shadow-purple-500/25' : 'hover:scale-105'
+                <div className={`relative flex h-12 w-12 items-center justify-center rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 shadow-md shadow-amber-900/30 ${
+                  isActive ? 'ring-2 ring-amber-400 ring-offset-2 ring-offset-zinc-950 scale-105 shadow-amber-500/25' : 'hover:scale-105'
                 } transition-all duration-200`}>
                   <img
-                    src="/file_0000000001ac82468f8294920989a3bd.png"
+                    src="/file_00000000790481f48f32726a32633267.png"
                     onError={(e) => {
                       e.currentTarget.src = '/assets/rikou-ai-avatar.png';
                     }}
@@ -74,7 +74,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                   />
                 </div>
                 <span className={`mt-0.5 text-[10px] font-black ${
-                  isActive ? 'text-purple-400' : 'text-zinc-400'
+                  isActive ? 'text-amber-400' : 'text-zinc-400'
                 }`}>
                   AI
                 </span>

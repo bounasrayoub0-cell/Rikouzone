@@ -52,7 +52,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-amber-400 font-sans">35+</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'طرق ربح معتمدة' : 'Income Pathways'}
+                {isRTL ? 'مسارات تعلّم معتمدة' : 'Learning Pathways'}
               </div>
             </div>
 
@@ -66,7 +66,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-amber-300 font-sans">17</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'حاسبة أرباح ونمو' : 'Precision Calculators'}
+                {isRTL ? 'أداة وحاسبة رقمية' : 'Digital Calculators'}
               </div>
             </div>
 
@@ -80,7 +80,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div className="col-span-2 sm:col-span-4 lg:col-span-1 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 flex flex-col justify-center">
               <div className="text-xl sm:text-2xl font-black text-amber-400 font-sans">100%</div>
               <div className="mt-1 text-xs font-semibold text-zinc-300">
-                {isRTL ? 'مجاني بدون اشتراك' : 'Free Community Suite'}
+                {isRTL ? 'منصة تعليمية مجانية' : 'Free Learning Suite'}
               </div>
             </div>
 
@@ -94,17 +94,17 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
               <TrendingUp className="h-4 w-4" />
-              <span>{isRTL ? 'مسارات الدخل المميزة' : 'Featured Income Paths'}</span>
+              <span>{isRTL ? 'مسارات التعلم المميزة' : 'Featured Learning Paths'}</span>
             </div>
             <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">
-              {isRTL ? 'أكثر المجالات طلباً وربحية لعام 2026' : 'Top In-Demand Monetization Blueprints'}
+              {isRTL ? 'أهم المسارات والمهارات الرقمية لعام 2026' : 'Top Practical Learning Paths for 2026'}
             </h2>
           </div>
           <button
             onClick={() => onNavigate('income')}
             className="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors"
           >
-            <span>{isRTL ? 'عرض جميع الطرق (35)' : 'Browse all 35 paths'}</span>
+            <span>{isRTL ? 'عرض جميع المسارات (35)' : 'Browse all 35 paths'}</span>
             <ArrowIcon className="h-4 w-4" />
           </button>
         </div>

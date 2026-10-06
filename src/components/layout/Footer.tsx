@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
-import { Flame, ShieldCheck, Heart } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (tab: string) => void;
@@ -18,8 +18,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-black shadow-lg shadow-amber-500/20">
-                <Flame className="h-5 w-5 stroke-[2.5]" />
+              <div className="relative h-9 w-9 flex-shrink-0">
+                <img
+                  src="/file_00000000b1d881f496a6612e6eef85ce.png"
+                  onError={(e) => {
+                    e.currentTarget.src = '/assets/rz-hero-badge.png';
+                  }}
+                  alt="RikouZone Logo"
+                  referrerPolicy="no-referrer"
+                  className="h-9 w-9 rounded-xl object-contain select-none shadow-md shadow-amber-500/15"
+                  width={36}
+                  height={36}
+                />
               </div>
               <span className="text-xl font-black tracking-tight text-white font-sans">
                 Rikou<span className="text-amber-400">Zone</span>
@@ -27,8 +37,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
             <p className="text-xs sm:text-sm text-zinc-400 max-w-md leading-relaxed">
               {t.brand.subtitle} — {isRTL
-                ? 'الدليل والمنظومة المتكاملة لتمكين صناع المحتوى ورواد الأعمال الرقميين في العالم العربي بالبيانات الحقيقية والأدوات العملية.'
-                : 'The premier hub for content creators and online entrepreneurs with verified blueprints and precision tools.'}
+                ? 'المنظومة التعليمية المتكاملة لتطوير مهارات صناع المحتوى والمتعلمين في العالم العربي بالمناهج التطبيقية والأدوات العملية.'
+                : 'The comprehensive digital learning platform empowering creators and learners with practical roadmaps and modern tools.'}
             </p>
           </div>
 
@@ -98,7 +108,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Rikou<span className="text-amber-400">Zone</span>
             </div>
             <div className="text-xs text-zinc-400 font-medium">
-              منصة صناع المحتوى والربح من الإنترنت
+              {t.brand.subtitle}
             </div>
             <div className="text-xs text-zinc-400 font-medium mt-0.5">
               Founded by <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">Ayoub Bounasr</span>

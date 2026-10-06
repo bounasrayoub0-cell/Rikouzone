@@ -75,14 +75,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-black text-white">
-                  {isRTL ? 'صانع محتوى RikouZone' : 'RikouZone Creator'}
+                  {isRTL ? 'حسابي في RikouZone' : 'My RikouZone Account'}
                 </h1>
                 <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-bold text-sky-400 border border-sky-500/20">
                   FREE TIER
                 </span>
               </div>
               <p className="mt-1 text-xs sm:text-sm text-zinc-400">
-                {isRTL ? 'إدارة التفضيلات والمحتوى المحفوظ في المتصفح محلياً' : 'Local preferences & bookmarked blueprints'}
+                {isRTL ? 'إدارة التفضيلات والمسارات التعليمية المحفوظة محلياً' : 'Local preferences & bookmarked learning paths'}
               </p>
             </div>
           </div>
@@ -240,15 +240,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             </h3>
             <p className="mt-1 text-xs text-zinc-400">
               {isRTL
-                ? 'اضغط على أيقونة الإشارة المرجعية بجانب أي مسار دخل أو فكرة لحفظها هنا.'
-                : 'Click the bookmark icon on any income path or content idea to save it here.'}
+                ? 'اضغط على أيقونة الإشارة المرجعية بجانب أي مسار تعلّم أو فكرة لحفظها هنا.'
+                : 'Click the bookmark icon on any learning path or content idea to save it here.'}
             </p>
             <div className="mt-4 flex justify-center gap-3">
               <button
                 onClick={() => onNavigate('income')}
                 className="rounded-xl bg-sky-500 px-4 py-2 text-xs font-bold text-black hover:bg-sky-400 transition-all"
               >
-                {isRTL ? 'استكشف طرق الربح' : 'Browse Paths'}
+                {isRTL ? 'استكشف مسارات التعلم' : 'Browse Learning Paths'}
               </button>
               <button
                 onClick={() => onNavigate('ideas')}
@@ -266,7 +266,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div>
                 <h3 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <TrendingUp className="h-4 w-4" />
-                  <span>{isRTL ? 'مسارات الدخل المحفوظة' : 'Saved Income Paths'} ({savedPaths.length})</span>
+                  <span>{isRTL ? 'مسارات التعلم المحفوظة' : 'Saved Learning Paths'} ({savedPaths.length})</span>
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

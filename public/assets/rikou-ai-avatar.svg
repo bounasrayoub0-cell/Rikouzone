@@ -1,192 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- Background Radial Gradient -->
-    <radialGradient id="spaceBg" cx="50%" cy="50%" r="70%">
-      <stop offset="0%" stop-color="#0a0d24"/>
-      <stop offset="50%" stop-color="#060714"/>
-      <stop offset="100%" stop-color="#030409"/>
+    <!-- Background Gradient for Gold Squircle -->
+    <radialGradient id="goldBg" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#fed64d"/>
+      <stop offset="40%" stop-color="#fbb024"/>
+      <stop offset="75%" stop-color="#e27c00"/>
+      <stop offset="100%" stop-color="#b85500"/>
     </radialGradient>
 
-    <!-- Outer Circular Neon Ring Gradient (Cyan to Purple to Neon Pink) -->
-    <linearGradient id="neonRingGrad" x1="10%" y1="90%" x2="90%" y2="10%">
-      <stop offset="0%" stop-color="#00f0ff"/>
-      <stop offset="30%" stop-color="#3a86ff"/>
-      <stop offset="60%" stop-color="#8338ec"/>
-      <stop offset="85%" stop-color="#ff007f"/>
-      <stop offset="100%" stop-color="#ff3399"/>
+    <!-- Squircle Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff080"/>
+      <stop offset="50%" stop-color="#ffa500"/>
+      <stop offset="100%" stop-color="#e65100"/>
     </linearGradient>
 
-    <!-- Planetary Orbital Ring Gradient -->
-    <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0080ff" stop-opacity="0.3"/>
-      <stop offset="25%" stop-color="#00d4ff" stop-opacity="0.9"/>
-      <stop offset="50%" stop-color="#00f5ff" stop-opacity="1"/>
-      <stop offset="75%" stop-color="#00c8ff" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#3a86ff" stop-opacity="0.4"/>
-    </linearGradient>
-
-    <!-- Robot White Helmet Shading -->
-    <linearGradient id="helmetGrad" x1="30%" y1="10%" x2="70%" y2="90%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="60%" stop-color="#eaeffa"/>
-      <stop offset="100%" stop-color="#b4c2de"/>
-    </linearGradient>
-
-    <!-- Dark Mechanical Neck / Accents -->
-    <linearGradient id="darkMechGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#242838"/>
-      <stop offset="50%" stop-color="#141724"/>
-      <stop offset="100%" stop-color="#0d0e17"/>
-    </linearGradient>
-
-    <!-- Cyan Glow Filter for Eyes, Core and Rings -->
-    <filter id="intenseCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="16" result="blur1"/>
-      <feGaussianBlur stdDeviation="8" result="blur2"/>
-      <feGaussianBlur stdDeviation="3" result="sharp"/>
+    <!-- Neon Glow Filter -->
+    <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur1"/>
+      <feGaussianBlur stdDeviation="3" result="blur2"/>
       <feMerge>
         <feMergeNode in="blur1"/>
         <feMergeNode in="blur2"/>
-        <feMergeNode in="sharp"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Soft Ambient Halo Filter for Ring -->
-    <filter id="ringAmbientGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="28" result="blur"/>
+    <filter id="orangeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur1"/>
+      <feGaussianBlur stdDeviation="3" result="blur2"/>
       <feMerge>
-        <feMergeNode in="blur"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Star Glow -->
-    <filter id="starGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Clip Path for Inside the Circular Outer Ring -->
-    <clipPath id="circleFrame">
-      <circle cx="512" cy="512" r="425"/>
+    <!-- Clip Path inside Squircle -->
+    <clipPath id="squircleClip">
+      <rect x="88" y="88" width="848" height="848" rx="205" ry="205"/>
     </clipPath>
   </defs>
 
-  <!-- Canvas Deep Space Dark Background -->
-  <rect width="1024" height="1024" fill="url(#spaceBg)"/>
+  <!-- Outer Squircle with Golden Border -->
+  <rect x="88" y="88" width="848" height="848" rx="205" ry="205" fill="url(#goldBg)" stroke="url(#borderGrad)" stroke-width="12"/>
 
-  <!-- Subtle Ambient Glow inside Center -->
-  <circle cx="512" cy="512" r="380" fill="#0055ff" opacity="0.08" filter="url(#ringAmbientGlow)"/>
+  <!-- Content clipped inside Squircle -->
+  <g clip-path="url(#squircleClip)">
+    <!-- Base Shadow Behind Character -->
+    <ellipse cx="512" cy="550" rx="340" ry="380" fill="#000000" opacity="0.18"/>
 
-  <!-- 4-Point Stars in Background -->
-  <g filter="url(#starGlow)">
-    <!-- Top-Right Star -->
-    <path d="M 790 270 Q 790 285 805 285 Q 790 285 790 300 Q 790 285 775 285 Q 790 285 790 270 Z" fill="#00f2fe"/>
-    <!-- Bottom-Left Star -->
-    <path d="M 195 615 Q 195 627 207 627 Q 195 627 195 639 Q 195 627 183 627 Q 195 627 195 615 Z" fill="#00f2fe"/>
-  </g>
+    <!-- Armor / Torso Background Base -->
+    <path d="M 160 980 C 160 830 280 730 420 700 L 512 730 L 604 700 C 744 730 864 830 864 980 Z" fill="#090b12"/>
 
-  <!-- Orbital Ring Back Section (Behind Robot Head & Neck) -->
-  <g transform="rotate(-16 512 550)">
-    <ellipse cx="512" cy="550" rx="410" ry="85" fill="none" stroke="url(#orbitGrad)" stroke-width="26" opacity="0.8" filter="url(#intenseCyanGlow)"/>
-    <ellipse cx="512" cy="550" rx="410" ry="85" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.9"/>
-  </g>
+    <!-- Shoulders and Armor Facets -->
+    <path d="M 220 950 L 320 800 L 440 760 L 380 950 Z" fill="#141824" stroke="#1f2638" stroke-width="3"/>
+    <path d="M 804 950 L 704 800 L 584 760 L 644 950 Z" fill="#141824" stroke="#1f2638" stroke-width="3"/>
 
-  <!-- Robot Character Group -->
-  <g id="robotBody">
-    <!-- Chest / Torso Base Armor -->
-    <path d="M 330 730 C 330 670 410 635 512 635 C 614 635 694 670 694 730 C 720 780 750 850 780 930 C 660 960 364 960 244 930 C 274 850 304 780 330 730 Z" 
-          fill="url(#helmetGrad)"/>
-
-    <!-- Dark Mechanical Joints on Shoulders -->
-    <path d="M 280 750 C 290 690 340 660 380 650 L 330 790 C 295 785 285 765 280 750 Z" fill="url(#darkMechGrad)"/>
-    <path d="M 744 750 C 734 690 684 660 644 650 L 694 790 C 729 785 739 765 744 750 Z" fill="url(#darkMechGrad)"/>
-
-    <!-- Blue Shoulder Seam Glowing Accents -->
-    <path d="M 345 740 Q 375 790 415 825" stroke="#00f0ff" stroke-width="10" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
-    <path d="M 679 740 Q 649 790 609 825" stroke="#00f0ff" stroke-width="10" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
-
-    <!-- Center Chest Power Core / Reactor -->
-    <circle cx="512" cy="805" r="54" fill="#0d1124" stroke="#1c2541" stroke-width="8"/>
-    <!-- Outer Reactor Glowing Ring -->
-    <circle cx="512" cy="805" r="44" fill="none" stroke="#00f0ff" stroke-width="14" filter="url(#intenseCyanGlow)"/>
-    <!-- Inner Core Bright Cyan Center -->
-    <circle cx="512" cy="805" r="24" fill="#00d4ff" filter="url(#intenseCyanGlow)"/>
-    <circle cx="512" cy="805" r="14" fill="#ffffff"/>
-
-    <!-- Collar / Neck Base -->
-    <path d="M 430 615 C 430 585 470 575 512 575 C 554 575 594 585 594 615 L 584 650 C 540 660 484 660 440 650 Z" fill="url(#darkMechGrad)"/>
-
-    <!-- Robot Head Outer White Helmet Shell -->
-    <g id="headShell">
-      <!-- Main Helmet Dome -->
-      <path d="M 285 410 C 285 240 375 160 512 160 C 649 160 739 240 739 410 C 739 540 665 625 512 625 C 359 625 285 540 285 410 Z" 
-            fill="url(#helmetGrad)"/>
-
-      <!-- Top Crown Glowing Neon Cyan Stripe Accents -->
-      <path d="M 512 165 C 500 210 495 260 495 300" stroke="#00f0ff" stroke-width="16" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
-      <path d="M 512 165 C 524 210 529 260 529 300" stroke="#00f0ff" stroke-width="16" stroke-linecap="round" fill="none" filter="url(#intenseCyanGlow)"/>
-      <path d="M 430 200 C 420 240 415 270 410 300" stroke="#0080ff" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
-      <path d="M 594 200 C 604 240 609 270 614 300" stroke="#0080ff" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
-
-      <!-- Large Round Headphone / Ear Discs (Left & Right) -->
-      <!-- Left Ear Cup -->
-      <g>
-        <ellipse cx="270" cy="420" rx="65" ry="95" fill="url(#helmetGrad)"/>
-        <ellipse cx="265" cy="420" rx="50" ry="78" fill="url(#darkMechGrad)"/>
-        <ellipse cx="260" cy="420" rx="35" ry="60" fill="none" stroke="#00f0ff" stroke-width="12" filter="url(#intenseCyanGlow)"/>
-        <ellipse cx="258" cy="420" rx="18" ry="35" fill="#00e5ff" opacity="0.9"/>
-      </g>
-
-      <!-- Right Ear Cup -->
-      <g>
-        <ellipse cx="754" cy="420" rx="65" ry="95" fill="url(#helmetGrad)"/>
-        <ellipse cx="759" cy="420" rx="50" ry="78" fill="url(#darkMechGrad)"/>
-        <ellipse cx="764" cy="420" rx="35" ry="60" fill="none" stroke="#00f0ff" stroke-width="12" filter="url(#intenseCyanGlow)"/>
-        <ellipse cx="766" cy="420" rx="18" ry="35" fill="#00e5ff" opacity="0.9"/>
-      </g>
-
-      <!-- Glossy Black Visor Frame / Border -->
-      <path d="M 330 420 C 330 325 395 305 512 305 C 629 305 694 325 694 420 C 694 515 629 555 512 555 C 395 555 330 515 330 420 Z" 
-            fill="#121626" stroke="#252b45" stroke-width="6"/>
-
-      <!-- Visor Dark Screen Display -->
-      <path d="M 342 420 C 342 335 402 318 512 318 C 622 318 682 335 682 420 C 682 505 622 542 512 542 C 402 542 342 505 342 420 Z" 
-            fill="#060812"/>
-
-      <!-- Visor Specular Curved Highlight Reflection (Glass look) -->
-      <path d="M 370 355 C 410 332 460 325 512 325 C 564 325 614 332 654 355 C 634 345 570 338 512 338 C 454 338 390 345 370 355 Z" 
-            fill="#ffffff" opacity="0.25"/>
-
-      <!-- Happy Smiling Neon Cyan Eyes (^ ^) -->
-      <!-- Left Eye: Thick curved smiling arch -->
-      <path d="M 395 470 C 405 405 470 405 480 470" 
-            fill="none" stroke="#00f5ff" stroke-width="28" stroke-linecap="round" filter="url(#intenseCyanGlow)"/>
-      <path d="M 395 470 C 405 405 470 405 480 470" 
-            fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
-
-      <!-- Right Eye: Thick curved smiling arch -->
-      <path d="M 544 470 C 554 405 619 405 629 470" 
-            fill="none" stroke="#00f5ff" stroke-width="28" stroke-linecap="round" filter="url(#intenseCyanGlow)"/>
-      <path d="M 544 470 C 554 405 619 405 629 470" 
-            fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+    <!-- Glowing Armor Vents (Amber/Orange) -->
+    <g filter="url(#orangeGlow)">
+      <!-- Left Collar Vent -->
+      <polygon points="340,860 380,845 390,875 350,890" fill="#ff9900"/>
+      <polygon points="370,895 410,880 418,905 380,920" fill="#ffaa00"/>
+      <!-- Right Collar Vent -->
+      <polygon points="684,860 644,845 634,875 674,890" fill="#ff9900"/>
+      <polygon points="654,895 614,880 606,905 644,920" fill="#ffaa00"/>
+      <!-- Center Chest Vent -->
+      <polygon points="480,870 512,850 544,870 512,885" fill="#ff8c00"/>
+      <polygon points="490,895 512,880 534,895 512,905" fill="#ffb700"/>
     </g>
-  </g>
 
-  <!-- Orbital Ring Front Section (Appears over chest/shoulders) -->
-  <g transform="rotate(-16 512 550)" clip-path="url(#frontOrbitClip)">
-    <!-- Subtle front orbit glow arc -->
-    <path d="M 120 550 A 410 85 0 0 0 904 550" fill="none" stroke="url(#orbitGrad)" stroke-width="28" filter="url(#intenseCyanGlow)"/>
-    <path d="M 120 550 A 410 85 0 0 0 904 550" fill="none" stroke="#ffffff" stroke-width="6"/>
-  </g>
+    <!-- Glowing Blue Cyber Circuit Lines on Armor -->
+    <g filter="url(#blueGlow)">
+      <path d="M 330 790 L 380 840 L 380 950" stroke="#00f0ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M 694 790 L 644 840 L 644 950" stroke="#00f0ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M 450 780 L 480 830 L 480 950" stroke="#00d4ff" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M 574 780 L 544 830 L 544 950" stroke="#00d4ff" stroke-width="7" fill="none" stroke-linecap="round"/>
+    </g>
 
-  <!-- Big Neon Circular Outer Ring (The signature framing circle) -->
-  <circle cx="512" cy="512" r="425" fill="none" stroke="url(#neonRingGrad)" stroke-width="32" filter="url(#ringAmbientGlow)" opacity="0.6"/>
-  <circle cx="512" cy="512" r="425" fill="none" stroke="url(#neonRingGrad)" stroke-width="22"/>
-  <circle cx="512" cy="512" r="425" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.75"/>
+    <!-- Neck & Cybernetic Throat Section -->
+    <path d="M 415 570 C 415 650 435 730 460 760 L 564 760 C 589 730 609 650 609 570 Z" fill="#0d101a"/>
+    <!-- Throat Segments -->
+    <path d="M 435 600 L 512 630 L 589 600 L 579 660 L 512 680 L 445 660 Z" fill="#171c2a" stroke="#252d42" stroke-width="3"/>
+    <path d="M 445 670 L 512 690 L 579 670 L 569 725 L 512 745 L 455 725 Z" fill="#1a2030" stroke="#2a344a" stroke-width="3"/>
+
+    <!-- Neck Blue Neon Strips -->
+    <g filter="url(#blueGlow)">
+      <path d="M 470 605 L 470 730" stroke="#00f0ff" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 554 605 L 554 730" stroke="#00f0ff" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 512 635 L 512 740" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+    </g>
+
+    <!-- Neck Orange Accents -->
+    <g filter="url(#orangeGlow)">
+      <circle cx="452" cy="710" r="7" fill="#ff9f1c"/>
+      <circle cx="572" cy="710" r="7" fill="#ff9f1c"/>
+    </g>
+
+    <!-- Head & Face Base Skin -->
+    <path d="M 360 400 C 360 550 430 655 512 655 C 594 655 664 550 664 400 C 664 280 594 220 512 220 C 430 220 360 280 360 400 Z" fill="#e8b896"/>
+    <!-- Face Shadows and Contours -->
+    <path d="M 370 420 C 370 540 430 640 512 640 C 480 620 440 550 420 450 Z" fill="#d49a75" opacity="0.6"/>
+    <path d="M 654 420 C 654 540 594 640 512 640 C 544 620 584 550 604 450 Z" fill="#d49a75" opacity="0.6"/>
+    <!-- Chin and Jawline Structure -->
+    <path d="M 460 610 C 485 635 539 635 564 610 C 545 628 479 628 460 610 Z" fill="#be7d56"/>
+
+    <!-- Cybernetic Blue Strips along Jawline and Temples -->
+    <g filter="url(#blueGlow)">
+      <path d="M 358 355 L 362 445 L 378 515 L 430 585 L 470 615" stroke="#00f0ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M 666 355 L 662 445 L 646 515 L 594 585 L 554 615" stroke="#00f0ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Comm Earpieces / Cyber Implants (Left and Right) -->
+    <!-- Left Earpiece -->
+    <ellipse cx="320" cy="410" rx="36" ry="60" fill="#0c0e17" stroke="#1f2438" stroke-width="5"/>
+    <g filter="url(#orangeGlow)">
+      <circle cx="320" cy="410" r="22" fill="none" stroke="#ff9f1c" stroke-width="9"/>
+      <circle cx="320" cy="410" r="10" fill="#ffb703"/>
+    </g>
+    <!-- Right Earpiece -->
+    <ellipse cx="704" cy="410" rx="36" ry="60" fill="#0c0e17" stroke="#1f2438" stroke-width="5"/>
+    <g filter="url(#orangeGlow)">
+      <circle cx="704" cy="410" r="22" fill="none" stroke="#ff9f1c" stroke-width="9"/>
+      <circle cx="704" cy="410" r="10" fill="#ffb703"/>
+    </g>
+
+    <!-- Nose -->
+    <path d="M 505 380 L 498 495 L 485 520 L 512 525 L 539 520 L 526 495 L 519 380 Z" fill="#dfa27f"/>
+    <!-- Nose Shadow and Nostrils -->
+    <path d="M 495 515 C 502 525 522 525 529 515 C 522 520 502 520 495 515 Z" fill="#9e5837"/>
+    <ellipse cx="492" cy="516" rx="4" ry="3" fill="#6a351f"/>
+    <ellipse cx="532" cy="516" rx="4" ry="3" fill="#6a351f"/>
+
+    <!-- Lips -->
+    <path d="M 465 565 C 485 558 539 558 559 565 C 539 572 485 572 465 565 Z" fill="#ba6868"/>
+    <path d="M 475 566 C 495 569 529 569 549 566 C 535 583 489 583 475 566 Z" fill="#a85252"/>
+    <line x1="466" y1="565" x2="558" y2="565" stroke="#703030" stroke-width="2"/>
+
+    <!-- Eyes (Glowing Cyan / Sapphire) -->
+    <!-- Eyebrows -->
+    <path d="M 400 375 C 430 355 465 365 480 375" stroke="#10131d" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="M 624 375 C 594 355 559 365 544 375" stroke="#10131d" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+    <!-- Eye Sockets -->
+    <!-- Left Eye -->
+    <path d="M 405 408 C 425 392 460 395 478 412 C 458 424 425 422 405 408 Z" fill="#ffffff"/>
+    <g filter="url(#blueGlow)">
+      <circle cx="442" cy="410" r="16" fill="#00f0ff"/>
+      <circle cx="442" cy="410" r="9" fill="#0080ff"/>
+      <circle cx="442" cy="410" r="4" fill="#04122c"/>
+      <circle cx="445" cy="407" r="3" fill="#ffffff"/>
+    </g>
+    <!-- Right Eye -->
+    <path d="M 619 408 C 599 392 564 395 546 412 C 566 424 599 422 619 408 Z" fill="#ffffff"/>
+    <g filter="url(#blueGlow)">
+      <circle cx="582" cy="410" r="16" fill="#00f0ff"/>
+      <circle cx="582" cy="410" r="9" fill="#0080ff"/>
+      <circle cx="582" cy="410" r="4" fill="#04122c"/>
+      <circle cx="585" cy="407" r="3" fill="#ffffff"/>
+    </g>
+
+    <!-- Voluminous Styled Modern Hair -->
+    <!-- Hair Base Mass -->
+    <path d="M 330 330 C 320 220 380 120 512 110 C 644 120 704 220 694 330 C 670 260 620 200 512 195 C 404 200 354 260 330 330 Z" fill="#0d111b"/>
+    <!-- Textured Hair Locks & Strands -->
+    <path d="M 360 300 C 380 180 470 120 520 120 C 570 120 650 170 670 290 C 630 220 570 180 500 180 C 430 180 380 230 360 300 Z" fill="#161c2c"/>
+    <!-- Top Swept Volume -->
+    <path d="M 410 170 C 450 110 540 100 580 130 C 610 160 590 200 560 210 C 520 190 460 170 410 170 Z" fill="#1e263c"/>
+    <path d="M 440 210 C 480 150 530 140 570 170 C 540 190 490 200 440 210 Z" fill="#28334e"/>
+    <!-- Forehead Hair Strands -->
+    <path d="M 430 270 C 460 240 500 240 520 270 C 480 255 450 255 430 270 Z" fill="#141926"/>
+    <path d="M 500 270 C 530 235 570 240 590 275 C 560 255 530 255 500 270 Z" fill="#141926"/>
+  </g>
 </svg>

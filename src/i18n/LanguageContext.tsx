@@ -80,28 +80,76 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const localize = useCallback((item: Record<string, any> | null | undefined, field: string): string => {
     if (!item) return '';
 
-    // Specialized language mapping
+    const cap = capitalize(field);
+
     if (language === 'ary') {
-      if (item[`darija${capitalize(field)}`]) return item[`darija${capitalize(field)}`];
-      if (item[`arabic${capitalize(field)}`]) return item[`arabic${capitalize(field)}`];
-    } else if (language === 'ar') {
-      if (item[`arabic${capitalize(field)}`]) return item[`arabic${capitalize(field)}`];
-    } else if (language === 'fr') {
-      if (item[`french${capitalize(field)}`]) return item[`french${capitalize(field)}`];
-    } else if (language === 'es') {
-      if (item[`spanish${capitalize(field)}`]) return item[`spanish${capitalize(field)}`];
-    } else if (language === 'de') {
-      if (item[`german${capitalize(field)}`]) return item[`german${capitalize(field)}`];
-    } else if (language === 'it') {
-      if (item[`italian${capitalize(field)}`]) return item[`italian${capitalize(field)}`];
-    } else if (language === 'pt') {
-      if (item[`portuguese${capitalize(field)}`]) return item[`portuguese${capitalize(field)}`];
-    } else if (language === 'zh') {
-      if (item[`chinese${capitalize(field)}`]) return item[`chinese${capitalize(field)}`];
+      return (
+        item[`darija${cap}`] ||
+        item[`arabic${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'ar') {
+      return (
+        item[`arabic${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'fr') {
+      return (
+        item[`french${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'es') {
+      return (
+        item[`spanish${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'de') {
+      return (
+        item[`german${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'it') {
+      return (
+        item[`italian${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'pt') {
+      return (
+        item[`portuguese${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
+    }
+    if (language === 'zh') {
+      return (
+        item[`chinese${cap}`] ||
+        item[field] ||
+        item[`english${cap}`] ||
+        ''
+      );
     }
 
-    // Default fallback to requested field or english field
-    return item[field] || item[`english${capitalize(field)}`] || '';
+    // Default English / fallback
+    return item[field] || item[`english${cap}`] || item[`arabic${cap}`] || '';
   }, [language]);
 
   const value = useMemo(() => ({

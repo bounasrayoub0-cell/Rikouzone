@@ -85,15 +85,15 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-400">
           <TrendingUp className="h-4 w-4" />
-          <span>{isRTL ? 'دليل المسارات المالية الرقمية 2026' : '35 Digital Income Blueprints'}</span>
+          <span>{isRTL ? 'دليل مسارات التعلم والمهارات الرقمية 2026' : '35 Practical Learning Paths 2026'}</span>
         </div>
         <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
-          {isRTL ? 'استكشف طرق الربح الحقيقية من الإنترنت' : 'Explore High-Yield Online Income Paths'}
+          {isRTL ? 'مسارات التعلم واكتساب المهارات الرقمية' : 'Explore Practical Learning Paths & Skills'}
         </h1>
         <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
           {isRTL
-            ? '35 مجالاً رقمياً واقعياً ومفصلاً بالكامل مع متطلبات البدء، الأرباح المتوقعة، وخطط العمل العملية بدون وعود وهمية.'
-            : 'Detailed execution roadmaps, learning curves, startup budgets, and pitfalls to avoid for 35 distinct digital careers.'}
+            ? '35 مساراً تعليمياً وتطبيقياً مفصلاً بالكامل مع متطلبات البدء، مراحل التعلم، والأدوات المقترحة لاكتساب مهارات رقمية حقيقية.'
+            : 'Detailed learning roadmaps, required skills, tools, and tactical step-by-step guidance for 35 high-demand digital specializations.'}
         </p>
       </div>
 

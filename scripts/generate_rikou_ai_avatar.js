@@ -209,41 +209,37 @@ const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
 `;
 
 async function generateAvatar() {
-  console.log('Rendering Rikou AI official avatar...');
+  console.log('Synchronizing official Rikou AI avatar...');
 
-  // Save the SVG file
-  const svgPath = path.join(assetsDir, 'rikou-ai-avatar.svg');
-  fs.writeFileSync(svgPath, svgContent);
-  console.log(`Saved SVG to ${svgPath}`);
-
-  // Render 1024x1024 master PNG
-  const resvg1024 = new Resvg(svgContent, {
-    fitTo: { mode: 'width', value: 1024 }
-  });
-  const png1024 = resvg1024.render().asPng();
-
-  // 1. Save to official uploaded image filename in public directory
-  const targetUploadedPath = path.join(publicDir, 'file_0000000001ac82468f8294920989a3bd.png');
-  fs.writeFileSync(targetUploadedPath, png1024);
-  console.log(`Saved PNG to ${targetUploadedPath}`);
-
-  // 2. Save named asset for clean referencing
+  const officialUploadedPath = path.join(publicDir, 'file_00000000790481f48f32726a32633267.png');
   const namedAssetPath = path.join(assetsDir, 'rikou-ai-avatar.png');
-  fs.writeFileSync(namedAssetPath, png1024);
-  console.log(`Saved named PNG to ${namedAssetPath}`);
 
-  // 3. Copy to dist if dist exists
-  const distDir = path.join(rootDir, 'dist');
-  if (fs.existsSync(distDir)) {
-    fs.writeFileSync(path.join(distDir, 'file_0000000001ac82468f8294920989a3bd.png'), png1024);
-    const distAssetsDir = path.join(distDir, 'assets');
-    if (!fs.existsSync(distAssetsDir)) fs.mkdirSync(distAssetsDir, { recursive: true });
-    fs.writeFileSync(path.join(distAssetsDir, 'rikou-ai-avatar.png'), png1024);
-    fs.writeFileSync(path.join(distAssetsDir, 'rikou-ai-avatar.svg'), svgContent);
-    console.log('Synchronized avatar to dist/ directory.');
+  if (fs.existsSync(officialUploadedPath)) {
+    const pngBuffer = fs.readFileSync(officialUploadedPath);
+    fs.writeFileSync(namedAssetPath, pngBuffer);
+    fs.writeFileSync(path.join(publicDir, 'file_00000000ebb081f4829a4b268bdb5124.png'), pngBuffer);
+    console.log(`Synchronized official avatar PNG to ${namedAssetPath}`);
+
+    const distDir = path.join(rootDir, 'dist');
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(path.join(distDir, 'file_00000000790481f48f32726a32633267.png'), pngBuffer);
+      fs.writeFileSync(path.join(distDir, 'file_00000000ebb081f4829a4b268bdb5124.png'), pngBuffer);
+      const distAssetsDir = path.join(distDir, 'assets');
+      if (!fs.existsSync(distAssetsDir)) fs.mkdirSync(distAssetsDir, { recursive: true });
+      fs.writeFileSync(path.join(distAssetsDir, 'rikou-ai-avatar.png'), pngBuffer);
+      console.log('Synchronized official avatar to dist/ directory.');
+    }
+  } else {
+    // Fallback if raw image is absent
+    const svgPath = path.join(assetsDir, 'rikou-ai-avatar.svg');
+    fs.writeFileSync(svgPath, svgContent);
+    const resvg1024 = new Resvg(svgContent, { fitTo: { mode: 'width', value: 1024 } });
+    const png1024 = resvg1024.render().asPng();
+    fs.writeFileSync(officialUploadedPath, png1024);
+    fs.writeFileSync(namedAssetPath, png1024);
   }
 
-  console.log('Rikou AI Avatar generated and deployed successfully!');
+  console.log('Rikou AI Avatar synchronized and deployed successfully!');
 }
 
 generateAvatar().catch(err => {
