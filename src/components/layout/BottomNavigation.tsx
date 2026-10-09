@@ -76,7 +76,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                 <span className={`mt-0.5 text-[10px] font-black ${
                   isActive ? 'text-amber-400' : 'text-zinc-400'
                 }`}>
-                  AI
+                  {item.label}
                 </span>
               </button>
             );

@@ -36,16 +36,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </span>
             </div>
             <p className="text-xs sm:text-sm text-zinc-400 max-w-md leading-relaxed">
-              {t.brand.subtitle} — {isRTL
-                ? 'المنظومة التعليمية المتكاملة لتطوير مهارات صناع المحتوى والمتعلمين في العالم العربي بالمناهج التطبيقية والأدوات العملية.'
-                : 'The comprehensive digital learning platform empowering creators and learners with practical roadmaps and modern tools.'}
+              {t.brand.subtitle} — {t.footer.brandDescription}
             </p>
           </div>
 
           {/* Quick Nav 1 */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-3">
-              {isRTL ? 'الأقسام الرئيسية' : 'Explore'}
+              {t.footer.exploreTitle}
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
@@ -69,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Quick Nav 2 */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-3">
-              {isRTL ? 'الأدوات والذكاء' : 'Tools & AI'}
+              {t.footer.toolsTitle}
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
@@ -97,9 +95,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-1.5 text-zinc-400">
             <ShieldCheck className="h-4 w-4 text-emerald-500 flex-shrink-0" />
             <span>
-              {isRTL
-                ? 'جميع الأرقام والاستراتيجيات مبنية على دراسات وإحصاءات صناعة المحتوى الواقعية لعام 2026.'
-                : 'Built for practical execution. All estimates reflect real 2026 industry benchmarks.'}
+              {t.footer.disclaimer || t.footer.statsSummary}
             </span>
           </div>
 
@@ -111,10 +107,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {t.brand.subtitle}
             </div>
             <div className="text-xs text-zinc-400 font-medium mt-0.5">
-              Founded by <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">Ayoub Bounasr</span>
+              <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">{t.footer.foundedBy || t.footer.founderCredit}</span>
             </div>
             <div className="text-[11px] text-zinc-500 mt-1 font-normal">
-              © 2026 RikouZone. All rights reserved
+              {t.footer.rightsReserved}
             </div>
           </div>
         </div>

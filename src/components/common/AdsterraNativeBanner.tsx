@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useRef, ErrorInfo, ReactNode } from 'react';
 import { Sparkles } from 'lucide-react';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface SilentBoundaryProps {
   children: ReactNode;
@@ -29,6 +30,7 @@ class SilentBoundary extends Component<SilentBoundaryProps, SilentBoundaryState>
 }
 
 const AdsterraNativeBannerInner: React.FC = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const loadedRef = useRef<boolean>(false);
 
@@ -70,7 +72,7 @@ const AdsterraNativeBannerInner: React.FC = () => {
         <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/60 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">
           <span className="flex items-center gap-1.5 text-amber-400/90 font-medium">
             <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-            <span>إعلان مميز / Sponsored Partner</span>
+            <span>{t.common.sponsoredPartner}</span>
           </span>
           <span className="rounded bg-zinc-800/80 px-2 py-0.5 text-[9px] text-zinc-400 font-mono border border-zinc-700/50">
             4:1 Native Banner
@@ -83,7 +85,7 @@ const AdsterraNativeBannerInner: React.FC = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center space-y-1 select-none pointer-events-none opacity-40">
             <div className="flex items-center gap-2 text-zinc-400 text-xs font-medium">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-              <span>مساحة إعلانية مخصصة / Sponsor Space</span>
+              <span>{t.common.sponsorSpace}</span>
             </div>
             <p className="text-[10px] text-zinc-600 font-mono">
               4:1 Native Ad Format

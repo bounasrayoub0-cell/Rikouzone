@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AIToolConfig, ChatMessage, ChatAttachment, SavedChatSession } from '../../types';
 import { aiToolsList, sendChatMessageToRikouAI } from '../../data/aiTools';
@@ -217,8 +217,8 @@ const FormattedAIMessage: React.FC<{ content: string; isRTL: boolean }> = ({ con
 };
 
 export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToolId }) => {
-  const { language, isRTL, t } = useLanguage();
-  const isAr = language === 'ar';
+  const { language, isRTL, t, localizeTool } = useLanguage();
+  const isArabicFamily = language === 'ar' || language === 'ary';
   const isFr = language === 'fr';
 
   // Saved chat sessions management
@@ -292,7 +292,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
         const firstUser = messages.find((m) => m.role === 'user');
         const autoTitle = firstUser 
           ? (firstUser.content.slice(0, 38).trim() + (firstUser.content.length > 38 ? '...' : ''))
-          : (isAr ? 'محادثة بدون عنوان' : isFr ? 'Conversation' : 'New Conversation');
+          : t.ai.conversation;
 
         setSavedSessions((prev) => {
           const existingIdx = prev.findIndex((s) => s.id === currentSessionId);
@@ -331,7 +331,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
     } catch (e) {
       console.warn('Failed to sync session storage:', e);
     }
-  }, [messages, currentSessionId, activeQuickActionId, isAr, isFr]);
+  }, [messages, currentSessionId, activeQuickActionId, language, t.ai.conversation]);
 
   // Handle initialToolId change
   useEffect(() => {
@@ -339,11 +339,16 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
       const tool = aiToolsList.find((t) => t.id === initialToolId);
       if (tool) {
         setActiveQuickActionId(tool.id);
-        const prefix = isAr ? (tool.promptPrefixAr || tool.arabicPlaceholder) : isFr ? (tool.promptPrefixFr || tool.frenchPlaceholder) : (tool.promptPrefixEn || tool.placeholder);
+        const loc = localizeTool(tool);
+        const prefix = isArabicFamily 
+          ? (tool.promptPrefixAr || tool.arabicPlaceholder || loc.title) 
+          : isFr 
+          ? (tool.promptPrefixFr || tool.frenchPlaceholder || loc.title) 
+          : (tool.promptPrefixEn || tool.placeholder || loc.title);
         setInputPrompt(prefix || '');
       }
     }
-  }, [initialToolId, isAr, isFr]);
+  }, [initialToolId, language, isArabicFamily, isFr, localizeTool]);
 
   // Scroll to bottom on new messages
   const scrollToBottom = () => {
@@ -406,13 +411,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
   // Delete all conversations with confirmation
   const handleDeleteAllSessions = () => {
-    const confirmText = isAr 
-      ? 'هل أنت متأكد من حذف جميع المحادثات السابقة نهائياً؟'
-      : isFr 
-      ? 'Êtes-vous sûr de vouloir supprimer tout l’historique des conversations ?'
-      : 'Are you sure you want to delete all conversation history?';
-
-    if (window.confirm(confirmText)) {
+    if (window.confirm(t.ai.confirmDeleteAll)) {
       setSavedSessions([]);
       try {
         localStorage.removeItem('rikou_ai_saved_sessions');
@@ -423,7 +422,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
   // 2. COPY AI RESPONSE: Copy ONLY assistant content and show feedback
   const handleCopyMessage = (msgId: string, content: string) => {
-    onCopyText(content, isAr ? 'تم نسخ الرد بنجاح!' : isFr ? 'Réponse copiée avec succès !' : 'Response copied successfully!');
+    onCopyText(content, t.ai.responseCopied);
     setCopiedId(msgId);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -477,7 +476,12 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
   // 6. QUICK ACTIONS: Select and prepare in chat
   const handleSelectQuickAction = (tool: AIToolConfig) => {
     setActiveQuickActionId(tool.id);
-    const prefix = isAr ? (tool.promptPrefixAr || tool.arabicPlaceholder) : isFr ? (tool.promptPrefixFr || tool.frenchPlaceholder) : (tool.promptPrefixEn || tool.placeholder);
+    const loc = localizeTool(tool);
+    const prefix = isArabicFamily 
+      ? (tool.promptPrefixAr || tool.arabicPlaceholder || loc.title) 
+      : isFr 
+      ? (tool.promptPrefixFr || tool.frenchPlaceholder || loc.title) 
+      : (tool.promptPrefixEn || tool.placeholder || loc.title);
     setInputPrompt(prefix || '');
 
     // Focus input and scroll to it smoothly
@@ -496,7 +500,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
     // Max 10MB limit safety
     if (file.size > 10 * 1024 * 1024) {
-      alert(isAr ? 'حجم الملف كبير جداً (الحد الأقصى 10MB)' : 'File size too large (max 10MB)');
+      alert(t.ai.fileTooLarge || 'File size too large (max 10MB)');
       return;
     }
 
@@ -527,7 +531,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       role: 'user',
-      content: text || (isAr ? 'تحليل الملف المرفق' : 'Analyze attached file'),
+      content: text || t.ai.analyzeFile,
       timestamp: Date.now(),
       quickActionId: activeQuickActionId || undefined,
       attachment: attachment || undefined,
@@ -561,11 +565,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
       const fallbackMsg: ChatMessage = {
         id: `ai-err-${Date.now()}`,
         role: 'assistant',
-        content: isAr
-          ? 'نعتذر، حدث ضغط مؤقت في المعالجة. يرجى إعادة المحاولة وسأكون جاهزاً للإجابة فوراً!'
-          : isFr
-          ? 'Désolé, un problème temporaire est survenu. Veuillez réessayer pour obtenir votre réponse immédiatement.'
-          : 'Sorry, a temporary processing issue occurred. Please retry and I will assist you right away!',
+        content: t.ai.networkError || (isArabicFamily ? 'سمح ليا، كاين ضغط مؤقت فالخادم. عاود جرب دابا وغادي نجاوبك فوراً!' : 'Sorry, a temporary processing issue occurred. Please retry and I will assist you right away!'),
         timestamp: Date.now(),
       };
       setMessages([...newMessages, fallbackMsg]);
@@ -587,106 +587,354 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
     return s.title.toLowerCase().includes(historySearch.toLowerCase());
   });
 
-  // Starter prompts when chat is empty
-  const starterPrompts = [
-    {
-      labelAr: '💡 10 أفكار لفيديوهات YouTube عن الربح من الإنترنت',
-      labelEn: '💡 10 YouTube video ideas on making money online',
-      labelFr: '💡 10 idées de vidéos YouTube sur les revenus en ligne',
-      prompt: isAr 
-        ? 'عطيني 10 أفكار لفيديوهات YouTube عن الربح من الإنترنت'
-        : 'Give me 10 YouTube video ideas on making money online',
-      toolId: 'ai-content-ideas',
-    },
-    {
-      labelAr: '🎬 سكريبت فيديو ريلز 45 ثانية عن المونتاج',
-      labelEn: '🎬 45s Reel script about video editing',
-      labelFr: '🎬 Script de Reel 45s sur le montage vidéo',
-      prompt: isAr
-        ? 'كتب ليا سكريبت ريلز 45 ثانية سريع وممتع عن مونتاج الفيديوهات للمبتدئين'
-        : 'Write a fast and punchy 45-second Reel script about video editing for beginners',
-      toolId: 'ai-script-generator',
-    },
-    {
-      labelAr: '⚡ 5 خطافات (Hooks) خاطفة لمحتوى التجارة الإلكترونية',
-      labelEn: '⚡ 5 thumb-stopping hooks for e-commerce',
-      labelFr: '⚡ 5 accroches (hooks) percutantes pour le e-commerce',
-      prompt: isAr
-        ? 'عطيني 5 هوكات افتتاحية صادمة تمنع التمرير لفيديو عن التجارة الإلكترونية'
-        : 'Give me 5 high-converting opening hooks for an e-commerce video',
-      toolId: 'ai-hook-generator',
-    },
-    {
-      labelAr: '🚀 10 عناوين يوتيوب ذات نسبة نقر عالية (CTR)',
-      labelEn: '🚀 10 high-CTR YouTube titles for gaming or tech',
-      labelFr: '🚀 10 titres YouTube à fort taux de clic',
-      prompt: isAr
-        ? 'اقترح لي 10 عناوين يوتيوب ذات نسبة نقر عالية جداً لفيديو جديد'
-        : 'Suggest 10 high-CTR YouTube video titles',
-      toolId: 'youtube-title-generator',
-    },
-  ];
+  // Starter prompts when chat is empty - localized for all 9 languages
+  const starterPrompts = useMemo(() => {
+    const promptsMap: Record<string, { label: string; prompt: string }[]> = {
+      ary: [
+        {
+          label: '💡 10 ديال أفكار فيديوهات YouTube مربحة لـ 2026',
+          prompt: 'عطيني 10 ديال الأفكار لفيديوهات YouTube مربحة ومطلوبة دابا فـ 2026'
+        },
+        {
+          label: '🎬 سكريبت ريلز 45 ثانية على المونطاج للمبتدئين',
+          prompt: 'كتب ليا سكريبت ريلز 45 ثانية سريع وممتع عن مونتاج الفيديوهات للمبتدئين'
+        },
+        {
+          label: '⚡ 5 هوكات واعرين للتجارة الإلكترونية',
+          prompt: 'عطيني 5 هوكات افتتاحية واعرين لفيديو كيهضر على التجارة الإلكترونية'
+        },
+        {
+          label: '🚀 10 عناوين يوتيوب بنسبة نقر طالعة (CTR)',
+          prompt: 'اقترح عليا 10 عناوين يوتيوب كيجيبو نقرات كثار لفيديو جديد'
+        }
+      ],
+      ar: [
+        {
+          label: '💡 10 أفكار لفيديوهات YouTube عن الربح من الإنترنت',
+          prompt: 'عطيني 10 أفكار لفيديوهات YouTube عن الربح من الإنترنت'
+        },
+        {
+          label: '🎬 سكريبت فيديو ريلز 45 ثانية عن المونتاج',
+          prompt: 'اكتب لي سيناريو ريلز سريع مدته 45 ثانية عن مونتاج الفيديو للمبتدئين'
+        },
+        {
+          label: '⚡ 5 خطافات (Hooks) خاطفة لمحتوى التجارة الإلكترونية',
+          prompt: 'عطيني 5 هوكات افتتاحية صادمة تمنع التمرير لفيديو عن التجارة الإلكترونية'
+        },
+        {
+          label: '🚀 10 عناوين يوتيوب ذات نسبة نقر عالية (CTR)',
+          prompt: 'اقترح لي 10 عناوين يوتيوب ذات نسبة نقر عالية جداً لفيديو جديد'
+        }
+      ],
+      fr: [
+        {
+          label: '💡 10 idées de vidéos YouTube sur les revenus en ligne',
+          prompt: 'Donne-moi 10 idées de vidéos YouTube sur les revenus en ligne'
+        },
+        {
+          label: '🎬 Script de Reel 45s sur le montage vidéo',
+          prompt: 'Rédige un script de Reel de 45 secondes dynamique sur le montage vidéo'
+        },
+        {
+          label: '⚡ 5 accroches (hooks) percutantes pour le e-commerce',
+          prompt: 'Donne-moi 5 accroches captivantes pour une vidéo e-commerce'
+        },
+        {
+          label: '🚀 10 titres YouTube à fort taux de clic (CTR)',
+          prompt: 'Propose 10 titres YouTube à fort CTR pour une vidéo captivante'
+        }
+      ],
+      es: [
+        {
+          label: '💡 10 ideas de videos de YouTube sobre ingresos online',
+          prompt: 'Dame 10 ideas de videos de YouTube sobre ganar dinero online en 2026'
+        },
+        {
+          label: '🎬 Guión de Reel de 45s sobre edición de video',
+          prompt: 'Escribe un guión dinámico de Reel de 45 segundos sobre edición de video para principiantes'
+        },
+        {
+          label: '⚡ 5 ganchos irresistibles para comercio electrónico',
+          prompt: 'Dame 5 ganchos de apertura de alta conversión para un video de comercio electrónico'
+        },
+        {
+          label: '🚀 10 títulos de YouTube con alto CTR',
+          prompt: 'Sugiere 10 títulos de YouTube con alto porcentaje de clics para un nuevo video'
+        }
+      ],
+      de: [
+        {
+          label: '💡 10 YouTube-Videoideen über Online-Einkommen',
+          prompt: 'Gib mir 10 YouTube-Videoideen über Online-Geldverdienen im Jahr 2026'
+        },
+        {
+          label: '🎬 45-Sekunden-Reel-Skript über Videobearbeitung',
+          prompt: 'Schreibe ein dynamisches 45-Sekunden-Reel-Skript über Videoschnitt für Einsteiger'
+        },
+        {
+          label: '⚡ 5 fesselnde Hooks für E-Commerce',
+          prompt: 'Gib mir 5 hochkonvertierende Eröffnungs-Hooks für ein E-Commerce-Video'
+        },
+        {
+          label: '🚀 10 klickstarke YouTube-Titel mit hoher CTR',
+          prompt: 'Schlage 10 YouTube-Titel mit hoher Klickrate für ein neues Video vor'
+        }
+      ],
+      it: [
+        {
+          label: '💡 10 idee di video YouTube sui guadagni online',
+          prompt: 'Dammi 10 idee per video YouTube su come guadagnare online nel 2026'
+        },
+        {
+          label: '🎬 Script Reel da 45s sul montaggio video',
+          prompt: 'Scrivi uno script dinamico per Reel da 45 secondi sul montaggio video per principianti'
+        },
+        {
+          label: '⚡ 5 ganci ad alta conversione per e-commerce',
+          prompt: 'Dammi 5 ganci di apertura irresistibili per un video sull\'e-commerce'
+        },
+        {
+          label: '🚀 10 titoli YouTube ad alto CTR',
+          prompt: 'Suggerisci 10 titoli YouTube ad alto tasso di clic per un nuovo video'
+        }
+      ],
+      pt: [
+        {
+          label: '💡 10 ideias de vídeos do YouTube sobre renda online',
+          prompt: 'Dê-me 10 ideias de vídeos do YouTube sobre como ganhar dinheiro online em 2026'
+        },
+        {
+          label: '🎬 Roteiro de Reel de 45s sobre edição de vídeo',
+          prompt: 'Escreva um roteiro dinâmico de Reel de 45 segundos sobre edição de vídeo para iniciantes'
+        },
+        {
+          label: '⚡ 5 ganchos irresistíveis para e-commerce',
+          prompt: 'Dê-me 5 ganchos de abertura de alta conversão para um vídeo de e-commerce'
+        },
+        {
+          label: '🚀 10 títulos do YouTube com alto CTR',
+          prompt: 'Sugira 10 títulos do YouTube com alta taxa de cliques para um novo vídeo'
+        }
+      ],
+      zh: [
+        {
+          label: '💡 10个2026年高收益YouTube视频内容创意',
+          prompt: '请给我10个关于2026年在线变现与内容创作的高价值YouTube视频创意'
+        },
+        {
+          label: '🎬 45秒短视频剪辑教程脚本',
+          prompt: '请为新手编写一个快节奏、吸引人的45秒短视频剪辑教程脚本'
+        },
+        {
+          label: '⚡ 5个电商带货高转化黄金开头钩子 (Hooks)',
+          prompt: '请为电商带货视频提供5个防止用户划走的强吸引力黄金开头钩子'
+        },
+        {
+          label: '🚀 10个高点击率 (High CTR) YouTube视频标题',
+          prompt: '请为新视频推荐10个极具吸引力、高点击率的YouTube视频标题'
+        }
+      ],
+      en: [
+        {
+          label: '💡 10 YouTube video ideas on making money online',
+          prompt: 'Give me 10 YouTube video ideas on making money online'
+        },
+        {
+          label: '🎬 45s Reel script about video editing',
+          prompt: 'Write a fast and punchy 45-second Reel script about video editing for beginners'
+        },
+        {
+          label: '⚡ 5 thumb-stopping hooks for e-commerce',
+          prompt: 'Give me 5 high-converting opening hooks for an e-commerce video'
+        },
+        {
+          label: '🚀 10 high-CTR YouTube titles for gaming or tech',
+          prompt: 'Suggest 10 high-CTR YouTube video titles'
+        }
+      ]
+    };
+    const list = promptsMap[language] || promptsMap.en;
+    const toolIds = ['ai-content-ideas', 'ai-script-generator', 'ai-hook-generator', 'youtube-title-generator'];
+    return list.map((item, idx) => ({
+      ...item,
+      toolId: toolIds[idx] || 'ai-content-ideas'
+    }));
+  }, [language]);
 
   // Derive contextual follow-up suggestions based on the latest AI message
   const getFollowUpSuggestions = (lastMsg: string) => {
     const lower = lastMsg.toLowerCase();
     const suggestions: { label: string; prompt: string }[] = [];
 
-    if (lower.includes('فكرة') || lower.includes('1️⃣') || lower.includes('ideas')) {
-      suggestions.push({
-        label: isAr ? '🎬 سكريبت الفكرة رقم 3' : isFr ? '🎬 Script Idée #3' : '🎬 Script for Idea #3',
-        prompt: isAr ? 'الفكرة رقم 3 عجباتني، كتب ليا Script كامل' : 'Idea #3 looks great, write the full script',
-      });
-      suggestions.push({
-        label: isAr ? '🎬 سكريبت الفكرة رقم 1' : isFr ? '🎬 Script Idée #1' : '🎬 Script for Idea #1',
-        prompt: isAr ? 'الفكرة رقم 1 ممتازة، اكتب لي سكريبت فيديو كامل عنها' : 'Idea #1 is great, write a full script for it',
-      });
-      suggestions.push({
-        label: isAr ? '🚀 اقترح عناوين يوتيوب لهذه الأفكار' : isFr ? '🚀 Titres YouTube pour ces idées' : '🚀 Suggest titles for these ideas',
-        prompt: isAr ? 'اقترح لي عناوين يوتيوب جذابة وعالية النقر لهذه الأفكار' : 'Suggest high-CTR YouTube titles for these ideas',
-      });
+    const getLocalizedSuggestion = (key: string): { label: string; prompt: string } => {
+      const dict: Record<string, Record<string, { label: string; prompt: string }>> = {
+        scriptIdea3: {
+          ary: { label: '🎬 سكريبت الفكرة رقم 3', prompt: 'الفكرة رقم 3 عجباتني، كتب ليا سكريبت كامل عليها' },
+          ar: { label: '🎬 سكريبت الفكرة رقم 3', prompt: 'الفكرة رقم 3 ممتازة، اكتب لي سكريبت كامل عنها' },
+          en: { label: '🎬 Script for Idea #3', prompt: 'Idea #3 looks great, write the full script' },
+          fr: { label: '🎬 Script Idée #3', prompt: 'L\'idée 3 est top, rédige le script complet' },
+          es: { label: '🎬 Guión para la Idea #3', prompt: 'La idea 3 es genial, redacta el guión completo' },
+          de: { label: '🎬 Skript für Idee #3', prompt: 'Idee #3 sieht super aus, schreibe das komplette Skript' },
+          it: { label: '🎬 Script per Idea #3', prompt: 'L\'idea #3 è ottima, scrivi lo script completo' },
+          pt: { label: '🎬 Roteiro para a Ideia #3', prompt: 'A ideia 3 é ótima, escreva o roteiro completo' },
+          zh: { label: '🎬 撰写第3个创意的完整脚本', prompt: '第3个创意很棒，请为它编写一份完整的视频脚本' }
+        },
+        scriptIdea1: {
+          ary: { label: '🎬 سكريبت الفكرة رقم 1', prompt: 'الفكرة رقم 1 زوينة، كتب ليا سكريبت كامل عليها' },
+          ar: { label: '🎬 سكريبت الفكرة رقم 1', prompt: 'الفكرة رقم 1 ممتازة، اكتب لي سكريبت فيديو كامل عنها' },
+          en: { label: '🎬 Script for Idea #1', prompt: 'Idea #1 is great, write a full script for it' },
+          fr: { label: '🎬 Script Idée #1', prompt: 'Rédige le script complet de l\'idée 1' },
+          es: { label: '🎬 Guión para la Idea #1', prompt: 'La idea 1 es excelente, escribe el guión completo' },
+          de: { label: '🎬 Skript für Idee #1', prompt: 'Idee #1 ist toll, schreibe ein komplettes Skript dazu' },
+          it: { label: '🎬 Script per Idea #1', prompt: 'L\'idea #1 è fantastica, scrivi lo script per questa idea' },
+          pt: { label: '🎬 Roteiro para a Ideia #1', prompt: 'A ideia 1 é excelente, faça um roteiro completo dela' },
+          zh: { label: '🎬 撰写第1个创意的完整脚本', prompt: '第1个创意非常好，请为它撰写详细的视频拍摄脚本' }
+        },
+        youtubeTitles: {
+          ary: { label: '🚀 عناوين يوتيوب لهاد الأفكار', prompt: 'عطيني عناوين يوتيوب زوينين لهاد الأفكار' },
+          ar: { label: '🚀 اقترح عناوين يوتيوب لهذه الأفكار', prompt: 'اقترح لي عناوين يوتيوب جذابة وعالية النقر لهذه الأفكار' },
+          en: { label: '🚀 Suggest titles for these ideas', prompt: 'Suggest high-CTR YouTube titles for these ideas' },
+          fr: { label: '🚀 Titres YouTube pour ces idées', prompt: 'Propose des titres YouTube accrocheurs pour ces idées' },
+          es: { label: '🚀 Títulos de YouTube sugeridos', prompt: 'Sugiere títulos de YouTube con alto CTR para estas ideas' },
+          de: { label: '🚀 YouTube-Titel für diese Ideen', prompt: 'Schlage klickstarke YouTube-Titel für diese Ideen vor' },
+          it: { label: '🚀 Titoli YouTube per queste idee', prompt: 'Suggerisci titoli YouTube ad alto CTR per queste idee' },
+          pt: { label: '🚀 Títulos do YouTube para estas ideias', prompt: 'Sugira títulos do YouTube com alto CTR para essas ideias' },
+          zh: { label: '🚀 为这些创意推荐爆款标题', prompt: '请为这些创意推荐10个高点击率的YouTube视频标题' }
+        },
+        moreSuspense: {
+          ary: { label: '🔥 خليه أكثر حماس وتشويق', prompt: 'عاود صياغة هاد السكربت وخليه أكثر تشويقاً' },
+          ar: { label: '🔥 اجعله أكثر تشويقاً وحماساً', prompt: 'اجعله أكثر تشويقاً وحماساً مع رفع وتيرة الإثارة' },
+          en: { label: '🔥 Make it more suspenseful', prompt: 'Make it more suspenseful and high-stakes' },
+          fr: { label: '🔥 Rendre plus captivant', prompt: 'Rends ce script plus percutant et captivant' },
+          es: { label: '🔥 Hacerlo más emocionante', prompt: 'Reescribe este guión haciéndolo más intrigante y emocionante' },
+          de: { label: '🔥 Spannender gestalten', prompt: 'Mache dieses Skript packender und spannungsgeladener' },
+          it: { label: '🔥 Rendilo più coinvolgente', prompt: 'Riscrivi questo script rendendolo più avvincente e dinamico' },
+          pt: { label: '🔥 Tornar mais envolvente', prompt: 'Reescreva este roteiro deixando-o mais empolgante e com suspense' },
+          zh: { label: '🔥 增强悬念与情绪张力', prompt: '请重写这个脚本，加快节奏并增强戏剧悬念和吸引力' }
+        },
+        shorten30s: {
+          ary: { label: '⏱️ قصّرو لـ 30 ثانية', prompt: 'قصّر هاد السكربت في 30 ثانية لتيك توك' },
+          ar: { label: '⏱️ اختصره لـ 30 ثانية', prompt: 'اجعله أقصر ومكثفاً في 30 ثانية لتيك توك' },
+          en: { label: '⏱️ Shorten to 30s', prompt: 'Make it shorter and punchy for 30s TikTok' },
+          fr: { label: '⏱️ Raccourcir à 30s', prompt: 'Raccourcis ce script à 30 secondes pour TikTok' },
+          es: { label: '⏱️ Acortar a 30s', prompt: 'Acorta este guión a 30 segundos contundentes para TikTok' },
+          de: { label: '⏱️ Auf 30s kürzen', prompt: 'Kürze dieses Skript auf 30 Sekunden für TikTok' },
+          it: { label: '⏱️ Riduci a 30s', prompt: 'Accorcia questo script a 30 secondi incisivi per TikTok' },
+          pt: { label: '⏱️ Reduzir para 30s', prompt: 'Encurte este roteiro para 30 segundos rápidos para o TikTok' },
+          zh: { label: '⏱️ 精简压缩至30秒', prompt: '请将此脚本精简至30秒，适合TikTok与短视频快节奏呈现' }
+        },
+        captionHashtags: {
+          ary: { label: '📱 كابشن وهاشتاغات', prompt: 'اكتب ليا كابشن وهاشتاغات واعرين للنشر' },
+          ar: { label: '📱 اكتب كابشن وهاشتاقات', prompt: 'اكتب لي كابشن تفاعلي وهاشتاقات مناسبة لنشر هذا الفيديو' },
+          en: { label: '📱 Caption & hashtags', prompt: 'Write an engaging caption and hashtags for this script' },
+          fr: { label: '📱 Légende & hashtags', prompt: 'Rédige une légende engageante avec des hashtags pertinents' },
+          es: { label: '📱 Pie de foto y hashtags', prompt: 'Escribe un copy atractivo y hashtags para publicar este video' },
+          de: { label: '📱 Caption & Hashtags', prompt: 'Schreibe eine ansprechende Caption und Hashtags für diesen Beitrag' },
+          it: { label: '📱 Caption e hashtag', prompt: 'Scrivi una didascalia accattivante e hashtag mirati per questo post' },
+          pt: { label: '📱 Legenda e hashtags', prompt: 'Escreva uma legenda atraente e hashtags virais para esta publicação' },
+          zh: { label: '📱 文案与爆款标签', prompt: '请为这个视频脚本编写高互动率文案及相关热门标签' }
+        },
+        moreAngles: {
+          ary: { label: '💡 زوايا وأفكار أخرى', prompt: 'عطيني زوايا أخرى مبتكرة لنفس الموضوع' },
+          ar: { label: '💡 اقترح أفكاراً وزوايا إضافية', prompt: 'اقترح لي زوايا أخرى مبتكرة لنفس الموضوع' },
+          en: { label: '💡 Give more creative angles', prompt: 'Give me more creative angles on this topic' },
+          fr: { label: '💡 Autres angles créatifs', prompt: 'Donne-moi d\'autres angles créatifs sur ce sujet' },
+          es: { label: '💡 Más ángulos creativos', prompt: 'Dame más ángulos y enfoques creativos sobre este tema' },
+          de: { label: '💡 Weitere kreative Blickwinkel', prompt: 'Gib mir weitere kreative Perspektiven zu diesem Thema' },
+          it: { label: '💡 Altre prospettive creative', prompt: 'Forniscimi ulteriori angolazioni creative su questo tema' },
+          pt: { label: '💡 Mais ângulos criativos', prompt: 'Dê-me mais abordagens e ângulos criativos sobre este tema' },
+          zh: { label: '💡 探索更多切入角度', prompt: '请为这个主题提供更多不同切入角度与创意延展' }
+        },
+        fiveHooks: {
+          ary: { label: '⚡ 5 هوكات افتتاحية', prompt: 'عطيني 5 هوكات قوية تمنع التمرير' },
+          ar: { label: '⚡ 5 خطافات افتتاحية صادمة', prompt: 'عطيني 5 هوكات قوية ومثيرة للفضول لنفس هذا الموضوع' },
+          en: { label: '⚡ Give me 5 viral hooks', prompt: 'Give me 5 punchy hooks for this topic' },
+          fr: { label: '⚡ 5 accroches percutantes', prompt: 'Donne-moi 5 accroches percutantes pour ce thème' },
+          es: { label: '⚡ 5 ganchos de alto impacto', prompt: 'Dame 5 ganchos iniciales magnéticos para este tema' },
+          de: { label: '⚡ 5 starke Eröffnungs-Hooks', prompt: 'Gib mir 5 wirkungsvolle Hooks für dieses Thema' },
+          it: { label: '⚡ 5 hook accattivanti', prompt: 'Dammi 5 ganci d\'apertura irresistibili su questo argomento' },
+          pt: { label: '⚡ 5 ganchos de abertura', prompt: 'Dê-me 5 ganchos fortes para prender a atenção neste tema' },
+          zh: { label: '⚡ 5个高留存黄金开头', prompt: '请针对该主题提供5个高留存、防止用户划走的黄金开头' }
+        }
+      };
+
+      const item = dict[key];
+      return item?.[language] || item?.en || { label: '', prompt: '' };
+    };
+
+    if (lower.includes('فكرة') || lower.includes('1️⃣') || lower.includes('ideas') || lower.includes('idées') || lower.includes('ideation')) {
+      suggestions.push(getLocalizedSuggestion('scriptIdea3'));
+      suggestions.push(getLocalizedSuggestion('scriptIdea1'));
+      suggestions.push(getLocalizedSuggestion('youtubeTitles'));
     }
 
     if (lower.includes('سيناريو') || lower.includes('script') || lower.includes('[00:')) {
-      suggestions.push({
-        label: isAr ? '🔥 خليه أكثر تشويقاً وحماساً' : isFr ? '🔥 Rendre plus captivant' : '🔥 Make it more suspenseful',
-        prompt: isAr ? 'خليه أكثر تشويقاً وحماساً مع رفع وتيرة الإثارة' : 'Make it more suspenseful and high-stakes',
-      });
-      suggestions.push({
-        label: isAr ? '⏱️ خليه أقصر (30 ثانية)' : isFr ? '⏱️ Raccourcir à 30s' : '⏱️ Shorten to 30s',
-        prompt: isAr ? 'خليه أقصر ومكثف في 30 ثانية لتيك توك' : 'Make it shorter and punchy for 30s TikTok',
-      });
-      suggestions.push({
-        label: isAr ? '📱 اكتب كابشن وهاشتاقات لهاد السكربت' : isFr ? '📱 Légende & hashtags' : '📱 Caption & hashtags for this',
-        prompt: isAr ? 'اكتب لي كابشن تفاعلي وهاشتاقات مناسبة لنشر هذا الفيديو' : 'Write an engaging caption and hashtags for this script',
-      });
+      suggestions.push(getLocalizedSuggestion('moreSuspense'));
+      suggestions.push(getLocalizedSuggestion('shorten30s'));
+      suggestions.push(getLocalizedSuggestion('captionHashtags'));
     }
 
     if (suggestions.length === 0) {
-      suggestions.push({
-        label: isAr ? '💡 اقترح أفكاراً إضافية' : isFr ? '💡 Autres angles' : '💡 Give more angles',
-        prompt: isAr ? 'اقترح لي زوايا أخرى مبتكرة لنفس الموضوع' : 'Give me more creative angles on this',
-      });
-      suggestions.push({
-        label: isAr ? '⚡ أعطني 5 هوكات افتتاحية' : isFr ? '⚡ 5 accroches' : '⚡ Give me 5 hooks',
-        prompt: isAr ? 'عطيني 5 هوكات قوية ومثيرة للفضول لنفس هذا الموضوع' : 'Give me 5 punchy hooks for this topic',
-      });
+      suggestions.push(getLocalizedSuggestion('moreAngles'));
+      suggestions.push(getLocalizedSuggestion('fiveHooks'));
     }
 
-    return suggestions.slice(0, 3);
+    return suggestions.filter(s => Boolean(s.label)).slice(0, 3);
   };
 
-  const categories = [
-    { id: 'all', labelAr: 'الكل (15 أداة)', labelEn: 'All Tools (15)', labelFr: 'Tous (15)' },
-    { id: 'Ideation', labelAr: 'الأفكار والمفاهيم', labelEn: 'Ideation', labelFr: 'Idéation' },
-    { id: 'Scripting', labelAr: 'السيناريو والكتابة', labelEn: 'Scripting', labelFr: 'Scripts' },
-    { id: 'Optimization', labelAr: 'الخطافات والعناوين', labelEn: 'Optimization', labelFr: 'Optimisation' },
-    { id: 'Social Media', labelAr: 'منصات التواصل', labelEn: 'Social Media', labelFr: 'Réseaux Sociaux' },
-    { id: 'SEO', labelAr: 'السيو والأرشفة', labelEn: 'SEO', labelFr: 'SEO' },
-    { id: 'Writing', labelAr: 'إعادة الصياغة', labelEn: 'Writing', labelFr: 'Rédaction' },
-    { id: 'Design', labelAr: 'الصور والتصميم', labelEn: 'Design', labelFr: 'Design' },
-    { id: 'E-commerce', labelAr: 'الأفيلييت والتجارة', labelEn: 'E-commerce', labelFr: 'E-commerce' },
-  ];
+  const categoryLabels: Record<string, Record<string, string>> = {
+    all: {
+      ary: 'الكل (15 أداة)', ar: 'الكل (15 أداة)', en: 'All Tools (15)', fr: 'Tous (15)',
+      es: 'Todas (15)', de: 'Alle (15)', it: 'Tutti (15)', pt: 'Todas (15)', zh: '全部 (15)'
+    },
+    Ideation: {
+      ary: 'الأفكار والمفاهيم', ar: 'الأفكار والمفاهيم', en: 'Ideation', fr: 'Idéation',
+      es: 'Ideación', de: 'Ideenfindung', it: 'Ideazione', pt: 'Ideação', zh: '创意构思'
+    },
+    Scripting: {
+      ary: 'السيناريو والكتابة', ar: 'السيناريو والكتابة', en: 'Scripting', fr: 'Scripts',
+      es: 'Guiones', de: 'Skripte', it: 'Sceneggiatura', pt: 'Roteiros', zh: '脚本编写'
+    },
+    Optimization: {
+      ary: 'الهوكات والعناوين', ar: 'الخطافات والعناوين', en: 'Optimization', fr: 'Optimisation',
+      es: 'Optimización', de: 'Optimierung', it: 'Ottimizzazione', pt: 'Otimização', zh: '优化与标题'
+    },
+    'Social Media': {
+      ary: 'منصات التواصل', ar: 'منصات التواصل', en: 'Social Media', fr: 'Réseaux Sociaux',
+      es: 'Redes Sociales', de: 'Social Media', it: 'Social Media', pt: 'Redes Sociais', zh: '社交媒体'
+    },
+    SEO: {
+      ary: 'السيو والأرشفة', ar: 'السيو والأرشفة', en: 'SEO', fr: 'SEO',
+      es: 'SEO', de: 'SEO', it: 'SEO', pt: 'SEO', zh: '搜索引擎优化'
+    },
+    Writing: {
+      ary: 'إعادة الصياغة', ar: 'إعادة الصياغة', en: 'Writing', fr: 'Rédaction',
+      es: 'Redacción', de: 'Texterstellung', it: 'Scrittura', pt: 'Redação', zh: '文案撰写'
+    },
+    Design: {
+      ary: 'الصور والتصميم', ar: 'الصور والتصميم', en: 'Design', fr: 'Design',
+      es: 'Diseño', de: 'Design', it: 'Design', pt: 'Design', zh: '视觉与设计'
+    },
+    'E-commerce': {
+      ary: 'الأفيلييت والتجارة', ar: 'الأفيلييت والتجارة', en: 'E-commerce', fr: 'E-commerce',
+      es: 'Comercio Electrónico', de: 'E-Commerce', it: 'E-commerce', pt: 'Comércio Eletrônico', zh: '电商与联盟'
+    },
+  };
+
+  const categories = useMemo(() => [
+    { id: 'all' },
+    { id: 'Ideation' },
+    { id: 'Scripting' },
+    { id: 'Optimization' },
+    { id: 'Social Media' },
+    { id: 'SEO' },
+    { id: 'Writing' },
+    { id: 'Design' },
+    { id: 'E-commerce' },
+  ].map(cat => ({
+    id: cat.id,
+    label: categoryLabels[cat.id]?.[language] || categoryLabels[cat.id]?.['en'] || cat.id
+  })), [language]);
 
   const filteredTools = aiToolsList.filter((t) => {
     if (activeCategory === 'all') return true;
@@ -709,7 +957,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/25 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-300 shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-purple-400" />
-          <span>{isAr ? 'ذكاء اصطناعي محادثاتي موحد' : isFr ? 'IA Conversationnelle Unifiée' : 'Unified Conversational AI'}</span>
+          <span>{t.ai.unifiedTitle}</span>
         </div>
         
         <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
@@ -717,19 +965,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
         </h1>
 
         <p className="mt-2 text-base sm:text-lg font-bold text-zinc-100">
-          {isAr
-            ? 'مساعدك الذكي لصناعة المحتوى والعمل والتعلم'
-            : isFr
-            ? 'Votre assistant intelligent pour la création de contenu, le travail et l\'apprentissage'
-            : 'Your AI Assistant for Content Creation, Work & Learning'}
+          {t.ai.pageSubtitle}
         </p>
 
         <p className="mt-2 text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-          {isAr
-            ? 'محادثة ذكية تفهم سياقك خطوة بخطوة. اطلب أي فكرة، سكريبت، عنوان، أو كابشن، واطلب التعديل والتطوير في نفس المحادثة بكل سلاسة.'
-            : isFr
-            ? 'Assistant intelligent multi-tours qui mémorise votre contexte. Brainstormez, générez des scripts complets, affinez vos accroches en continu.'
-            : 'Multi-turn intelligent assistant that remembers context. Brainstorm ideas, draft full scripts, refine hooks, and adapt formats seamlessly.'}
+          {t.ai.howCanIHelpDesc}
         </p>
       </div>
 
@@ -757,11 +997,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               <div className="flex items-center gap-2">
                 <span className="text-xs sm:text-sm font-black text-white">Rikou AI</span>
                 <span className="rounded-md bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400">
-                  {isAr ? 'متصل وجاهز' : isFr ? 'En ligne' : 'Online'}
+                  {t.ai.online}
                 </span>
               </div>
               <p className="text-[10px] text-zinc-400 hidden sm:block">
-                {isAr ? 'يفهم الدارجة، العربية الفصحى، الإنجليزية والفرنسية' : isFr ? 'Comprend Arabe, Darija, Français et Anglais' : 'Supports Arabic, Darija, English & French'}
+                {t.ai.multilingualSupport}
               </p>
             </div>
           </div>
@@ -777,11 +1017,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   ? 'border-purple-500/50 bg-purple-500/15 text-purple-300'
                   : 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:text-white hover:border-purple-500/30 hover:bg-zinc-800'
               }`}
-              title={isAr ? 'سجل المحادثات' : isFr ? 'Historique' : 'Chat History'}
+              title={t.ai.history}
             >
               <History className="h-3.5 w-3.5 text-purple-400" />
               <span className="hidden sm:inline">
-                {isAr ? 'سجل المحادثات' : isFr ? 'Historique' : 'History'}
+                {t.ai.history}
               </span>
               {savedSessions.length > 0 && (
                 <span className="rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-300 px-1.5 py-0.2 text-[10px] font-bold">
@@ -795,11 +1035,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               id="rikou-new-chat-btn"
               onClick={handleNewChat}
               className="flex items-center gap-1.5 rounded-xl border border-purple-500/30 bg-purple-950/40 px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-purple-200 hover:text-white hover:bg-purple-600 hover:border-purple-500 transition-all active:scale-95 shadow-sm"
-              title={isAr ? 'محادثة جديدة' : isFr ? 'Nouvelle conversation' : 'New Chat'}
+              title={t.ai.newChat}
             >
               <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
               <span>
-                {isAr ? 'محادثة جديدة' : isFr ? 'Nouvelle conversation' : 'New Chat'}
+                {t.ai.newChat}
               </span>
             </button>
           </div>
@@ -822,7 +1062,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 <div className="flex items-center gap-2">
                   <History className="h-4 w-4 text-purple-400" />
                   <span className="text-sm font-black text-white">
-                    {isAr ? 'سجل المحادثات' : isFr ? 'Historique des conversations' : 'Conversation History'}
+                    {t.ai.history}
                   </span>
                 </div>
                 <button
@@ -841,7 +1081,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                     type="text"
                     value={historySearch}
                     onChange={(e) => setHistorySearch(e.target.value)}
-                    placeholder={isAr ? 'بحث في المحادثات...' : isFr ? 'Rechercher...' : 'Search conversations...'}
+                    placeholder={t.ai.searchConversations}
                     className="w-full rounded-xl border border-zinc-800 bg-[#161720] py-2 ps-9 pe-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50"
                   />
                   {historySearch && (
@@ -857,13 +1097,13 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 {savedSessions.length > 0 && (
                   <div className="flex items-center justify-between text-[11px] pt-1 px-1">
                     <span className="text-zinc-400">
-                      {isAr ? `${savedSessions.length} محادثات مسجلة` : `${savedSessions.length} saved chats`}
+                      {savedSessions.length} {t.ai.conversation}
                     </span>
                     <button
                       onClick={handleDeleteAllSessions}
                       className="text-red-400 hover:text-red-300 font-semibold hover:underline"
                     >
-                      {isAr ? 'حذف الكل' : isFr ? 'Tout supprimer' : 'Delete All'}
+                      {t.ai.deleteAll}
                     </button>
                   </div>
                 )}
@@ -876,15 +1116,26 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                     <History className="h-8 w-8 mx-auto text-zinc-700" />
                     <p>
                       {historySearch 
-                        ? (isAr ? 'لا توجد نتائج مطابقة' : 'No matching conversations')
-                        : (isAr ? 'لا توجد محادثات سابقة حتى الآن' : isFr ? 'Aucune conversation précédente' : 'No previous conversations yet')}
+                        ? t.ai.noResults
+                        : t.ai.noHistory}
                     </p>
                   </div>
                 ) : (
                   filteredSessions.map((session) => {
                     const isSelected = session.id === currentSessionId;
+                    const dateLocaleMap: Record<string, string> = {
+                      ary: 'ar-MA',
+                      ar: 'ar-SA',
+                      fr: 'fr-FR',
+                      es: 'es-ES',
+                      de: 'de-DE',
+                      it: 'it-IT',
+                      pt: 'pt-PT',
+                      zh: 'zh-CN',
+                      en: 'en-US'
+                    };
                     const dateFormatted = new Date(session.updatedAt).toLocaleDateString(
-                      isAr ? 'ar-MA' : isFr ? 'fr-FR' : 'en-US',
+                      dateLocaleMap[language] || 'en-US',
                       { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }
                     );
 
@@ -906,7 +1157,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                             <span>{dateFormatted}</span>
                             <span>•</span>
                             <span>
-                              {session.messages.length} {isAr ? 'رسائل' : 'messages'}
+                              {session.messages.length} {t.ai.conversation}
                             </span>
                           </div>
                         </div>
@@ -915,7 +1166,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                         <button
                           onClick={(e) => handleDeleteSession(e, session.id)}
                           className="shrink-0 p-1.5 rounded-lg text-zinc-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
-                          title={isAr ? 'حذف هذه المحادثة' : isFr ? 'Supprimer' : 'Delete'}
+                          title={t.ai.delete}
                         >
                           <Trash2 className="h-3.5 w-3.5" />
                         </button>
@@ -932,7 +1183,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   className="w-full flex items-center justify-center gap-2 rounded-xl bg-purple-600 hover:bg-purple-500 py-2.5 text-xs font-black text-white shadow-md active:scale-95 transition-all"
                 >
                   <Plus className="h-4 w-4 stroke-[2.5]" />
-                  <span>{isAr ? 'بدء محادثة جديدة' : isFr ? 'Nouvelle conversation' : 'Start New Chat'}</span>
+                  <span>{t.ai.newChat}</span>
                 </button>
               </div>
 
@@ -964,20 +1215,16 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
               <div>
                 <h3 className="text-xl sm:text-2xl font-black text-white">
-                  {isAr ? 'كيف يمكنني مساعدتك الآن؟' : isFr ? 'Comment puis-je vous aider aujourd\'hui ?' : 'How can I assist you today?'}
+                  {t.ai.howCanIHelp}
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                  {isAr
-                    ? 'اكتب أي فكرة أو سؤال مباشرة، أو اختر أحد الأمثلة السريعة بالأسفل للبدء فوراً:'
-                    : isFr
-                    ? 'Posez n\'importe quelle question directement, ou choisissez une suggestion rapide :'
-                    : 'Ask anything directly, or pick one of the quick suggestions below to start immediately:'}
+                  {t.ai.howCanIHelpDesc}
                 </p>
               </div>
 
               {/* Starter Quick Suggestions */}
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
-                {starterPrompts.map((s, idx) => (
+                {starterPrompts.map((s: { label: string; prompt: string; toolId?: string }, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => {
@@ -988,7 +1235,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                     className="flex items-center gap-2.5 rounded-2xl border border-zinc-800 bg-[#13141c] p-3 text-start transition-all hover:border-purple-500/40 hover:bg-[#181924] active:scale-[0.98] group"
                   >
                     <span className="text-xs sm:text-sm font-semibold text-zinc-300 group-hover:text-purple-300 transition-colors line-clamp-2">
-                      {isAr ? s.labelAr : isFr ? s.labelFr : s.labelEn}
+                      {s.label}
                     </span>
                   </button>
                 ))}
@@ -1054,20 +1301,20 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                         <button
                           onClick={() => handleCopyMessage(msg.id, msg.content)}
                           className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-purple-600 hover:text-white text-zinc-300 transition-all active:scale-95"
-                          title={isAr ? 'نسخ' : isFr ? 'Copier' : 'Copy'}
+                          title={t.ai.copy}
                         >
                           {copiedId === msg.id ? (
                             <>
                               <Check className="h-3 w-3 text-emerald-400" />
                               <span className="text-[10px] text-emerald-400 font-bold">
-                                {isAr ? 'تم النسخ ✓' : isFr ? 'Copié ✓' : 'Copied ✓'}
+                                {t.ai.copied}
                               </span>
                             </>
                           ) : (
                             <>
                               <Copy className="h-3 w-3" />
                               <span className="text-[10px]">
-                                {isAr ? 'نسخ' : isFr ? 'Copier' : 'Copy'}
+                                {t.ai.copy}
                               </span>
                             </>
                           )}
@@ -1078,11 +1325,11 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                           onClick={() => handleRegenerate(index)}
                           disabled={isGenerating}
                           className="flex items-center gap-1 rounded-lg px-2 py-1 bg-zinc-800/80 hover:bg-purple-600 hover:text-white text-zinc-300 transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-                          title={isAr ? 'إعادة التوليد' : isFr ? 'Régénérer' : 'Regenerate'}
+                          title={t.ai.regenerate}
                         >
                           <RotateCw className={`h-3 w-3 ${isGenerating ? 'animate-spin' : ''}`} />
                           <span className="text-[10px]">
-                            {isAr ? 'إعادة التوليد' : isFr ? 'Régénérer' : 'Regenerate'}
+                            {t.ai.regenerate}
                           </span>
                         </button>
                       </div>
@@ -1118,7 +1365,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                       {msg.content}
                     </div>
                   ) : (
-                    <RikouAIResponseRenderer content={msg.content} isRtl={isAr} />
+                    <RikouAIResponseRenderer content={msg.content} isRtl={isRTL} />
                   )}
 
                   {/* Contextual Follow-Up Quick Chips (Only under latest AI response) */}
@@ -1126,7 +1373,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                     <div className="mt-4 pt-3 border-t border-zinc-800">
                       <div className="text-[11px] font-bold text-zinc-400 mb-2 flex items-center gap-1.5">
                         <Flame className="h-3.5 w-3.5 text-purple-400" />
-                        <span>{isAr ? 'اقتراحات للمتابعة والتطوير:' : isFr ? 'Actions suggérées :' : 'Next Action Suggestions:'}</span>
+                        <span>{t.ai.nextActionSuggestions}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {followUps.map((fu, fIdx) => (
@@ -1178,11 +1425,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                   <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                 </span>
                 <span className="font-semibold text-purple-200">
-                  {isAr 
-                    ? 'Rikou AI يقوم بالتفكير وصياغة الرد...' 
-                    : isFr
-                    ? 'Rikou AI réfléchit et prépare la réponse...'
-                    : 'Rikou AI is thinking and formulating response...'}
+                  {t.ai.thinking}
                 </span>
               </div>
             </div>
@@ -1202,13 +1445,13 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               <div className="flex items-center gap-2 truncate">
                 <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-ping" />
                 <span className="font-bold">
-                  {isAr ? `إجراء مفعّل: ${activeTool.arabicTitle}` : isFr ? `Action : ${activeTool.frenchTitle}` : `Active Action: ${activeTool.title}`}
+                  {`${t.ai.activeActionLabel}: ${localizeTool(activeTool).title}`}
                 </span>
               </div>
               <button
                 onClick={() => setActiveQuickActionId(null)}
                 className="text-zinc-400 hover:text-white p-0.5 rounded-md hover:bg-zinc-800 transition-colors"
-                title={isAr ? 'إلغاء التفعيل' : 'Dismiss'}
+                title={t.ai.dismiss}
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -1233,7 +1476,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 <div className="truncate">
                   <p className="font-bold truncate text-white">{attachment.name}</p>
                   <p className="text-[10px] text-zinc-400">
-                    {attachment.size ? `${(attachment.size / 1024).toFixed(1)} KB` : (isAr ? 'جاهز للتحليل' : 'Ready')}
+                    {attachment.size ? `${(attachment.size / 1024).toFixed(1)} KB` : t.ai.ready}
                   </p>
                 </div>
               </div>
@@ -1241,7 +1484,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 type="button"
                 onClick={handleRemoveAttachment}
                 className="p-1 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-zinc-800 transition-colors"
-                title={isAr ? 'إزالة الملف' : 'Remove'}
+                title={t.ai.removeFile}
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1257,7 +1500,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               id="rikou-attachment-btn"
               onClick={() => fileInputRef.current?.click()}
               className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-zinc-400 hover:text-purple-300 hover:bg-zinc-800 transition-all active:scale-95 shrink-0"
-              title={isAr ? 'إرفاق صورة أو ملف (📎)' : isFr ? 'Joindre une image ou un fichier' : 'Attach image or file'}
+              title={t.ai.attachFile}
             >
               <Paperclip className="h-4 w-4" />
             </button>
@@ -1269,13 +1512,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
               value={inputPrompt}
               onChange={(e) => setInputPrompt(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={
-                isAr
-                  ? 'اكتب طلبك لـ Rikou AI هنا (مثال: عطيني 10 أفكار، كتب ليا سكريبت، خليه أكثر تشويقاً)...'
-                  : isFr
-                  ? 'Écrivez votre demande à Rikou AI ici (ex: 10 idées, rédige un script, rends-le plus captivant)...'
-                  : 'Type your request here (e.g., 10 video ideas, write full script, make it punchier)...'
-              }
+              placeholder={t.ai.inputPlaceholder}
               className="flex-1 bg-transparent px-2 py-2 sm:py-2.5 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none resize-none max-h-40 leading-relaxed"
               disabled={isGenerating}
             />
@@ -1287,7 +1524,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 onClick={() => handleSendMessage()}
                 disabled={(!inputPrompt.trim() && !attachment) || isGenerating}
                 className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black shadow-md shadow-purple-900/40 hover:scale-105 active:scale-95 disabled:opacity-30 disabled:scale-100 disabled:cursor-not-allowed transition-all"
-                title={isAr ? 'إرسال الطلب (Enter)' : isFr ? 'Envoyer (Enter)' : 'Send request (Enter)'}
+                title={t.ai.send}
               >
                 {isGenerating ? (
                   <Sparkles className="h-4 w-4 animate-spin text-white" />
@@ -1300,7 +1537,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
           <div className="mt-2 flex items-center justify-between px-1 text-[11px] text-zinc-500">
             <span>
-              {isAr ? 'اضغط Enter للإرسال، و Shift+Enter لسطر جديد' : isFr ? 'Entrée pour envoyer, Maj+Entrée pour nouvelle ligne' : 'Press Enter to send, Shift+Enter for new line'}
+              {t.ai.pressEnterToSend}
             </span>
             <span className="font-semibold text-purple-400/80">
               RikouZone Engine
@@ -1318,23 +1555,19 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400">
               <Sparkles className="h-4 w-4 text-purple-400" />
-              <span>{isAr ? 'إجراءات وأدوات سريعة داخل Rikou AI' : isFr ? 'Actions Rapides & Raccourcis Rikou AI' : 'Quick Actions & Tool Shortcuts'}</span>
+              <span>{t.ai.quickActionsBarTitle}</span>
             </div>
             <h2 className="mt-1 text-xl sm:text-2xl font-black text-white">
-              {isAr ? 'الـ 15 أداة كإجراءات سريعة ومباشرة' : isFr ? '15 Actions Rapides intégrées dans Rikou AI' : '15 Quick Actions inside Rikou AI'}
+              {t.ai.quickActionsTitle}
             </h2>
             <p className="mt-0.5 text-xs sm:text-sm text-zinc-400">
-              {isAr
-                ? 'انقر على أي إجراء لتجهيز الأمر فوراً في نفس المحادثة أعلاه دون الانتقال لأي صفحة منفصلة.'
-                : isFr
-                ? 'Cliquez sur une action pour préparer automatiquement la consigne dans le chat ci-dessus.'
-                : 'Click any action to automatically prepare the instruction in the chat above.'}
+              {t.ai.quickActionsBarSubtitle}
             </p>
           </div>
 
           {/* Category Filter Pills (Mobile Scrollable) */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none max-w-full">
-            {categories.slice(0, 5).map((cat) => {
+            {categories.slice(0, 5).map((cat: { id: string; label: string }) => {
               const isActive = activeCategory === cat.id;
               return (
                 <button
@@ -1346,7 +1579,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                       : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-purple-500/30 hover:text-white'
                   }`}
                 >
-                  {isAr ? cat.labelAr : isFr ? cat.labelFr : cat.labelEn}
+                  {cat.label}
                 </button>
               );
             })}
@@ -1358,8 +1591,9 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
           {filteredTools.map((tool) => {
             const IconComp = iconMap[tool.iconName] || Sparkles;
             const isSelected = activeQuickActionId === tool.id;
-            const title = isAr ? tool.arabicTitle : isFr ? tool.frenchTitle : tool.title;
-            const desc = isAr ? tool.arabicDescription : isFr ? tool.frenchDescription : tool.description;
+            const loc = localizeTool(tool);
+            const title = loc.title;
+            const desc = loc.desc;
 
             return (
               <div
@@ -1395,7 +1629,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 </p>
 
                 <div className="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-xs font-bold text-purple-400 group-hover:text-purple-300">
-                  <span>{isAr ? 'تجهيز في المحادثة' : isFr ? 'Préparer dans le chat' : 'Load into Chat'}</span>
+                  <span>{t.ai.loadInChat}</span>
                   <CornerDownLeft className="h-3.5 w-3.5 rtl:rotate-90 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                 </div>
               </div>

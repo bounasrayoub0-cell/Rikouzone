@@ -45,7 +45,7 @@ export const UgcContentCreationView: React.FC<UgcContentCreationViewProps> = ({
   onNavigate,
   onCopyText
 }) => {
-  const { isRTL } = useLanguage();
+  const { isRTL, t } = useLanguage();
   const ArrowBackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   // Active module selection
@@ -193,7 +193,7 @@ ${genFormat === 'problem-solution'
           className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 text-xs sm:text-sm font-bold text-zinc-300 hover:border-amber-500/50 hover:text-white transition-all active:scale-95"
         >
           <ArrowBackIcon className="h-4 w-4 text-amber-400" />
-          <span>{isRTL ? 'العودة لمسارات الدخل' : 'Back to Income Paths'}</span>
+          <span>{t.nav.income}</span>
         </button>
 
         <div className="flex items-center gap-2">

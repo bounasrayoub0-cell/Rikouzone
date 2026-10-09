@@ -53,7 +53,7 @@ interface ThumbnailDesignViewProps {
 }
 
 export const ThumbnailDesignView: React.FC<ThumbnailDesignViewProps> = ({ onNavigate, onCopyText }) => {
-  const { isRTL } = useLanguage();
+  const { isRTL, t } = useLanguage();
   const ArrowBackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   // Active Main Tab
@@ -222,7 +222,7 @@ export const ThumbnailDesignView: React.FC<ThumbnailDesignViewProps> = ({ onNavi
               className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <ArrowBackIcon className="h-4 w-4" />
-              <span>مسارات الدخل</span>
+              <span>{t.nav.income}</span>
             </button>
             <span className="text-zinc-600">/</span>
             <span className="text-amber-400 font-bold">تصميم الصور المصغرة لليوتيوب (Thumbnail Design)</span>

@@ -13,11 +13,9 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   showLabel = false 
 }) => {
   const { theme, toggleTheme, isDark } = useTheme();
-  const { isRTL } = useLanguage();
+  const { t } = useLanguage();
 
-  const titleText = isDark 
-    ? (isRTL ? 'التبديل إلى الوضع الفاتح (Light Mode)' : 'Switch to Light Mode')
-    : (isRTL ? 'التبديل إلى الوضع الداكن (Dark Mode)' : 'Switch to Dark Mode');
+  const titleText = isDark ? t.profile.lightMode : t.profile.darkMode;
 
   return (
     <button
@@ -42,9 +40,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
 
       {showLabel && (
         <span className="text-xs font-bold">
-          {isDark
-            ? (isRTL ? 'الوضع الفاتح' : 'Light Mode')
-            : (isRTL ? 'الوضع الداكن' : 'Dark Mode')}
+          {isDark ? t.profile.lightMode : t.profile.darkMode}
         </span>
       )}
     </button>

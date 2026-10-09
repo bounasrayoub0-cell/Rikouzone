@@ -25,6 +25,7 @@ import { CopywritingAvatarGenerator } from './CopywritingAvatarGenerator';
 import { CopywritingSwipeFileView } from './CopywritingSwipeFileView';
 import { CopywritingBeforeAfterTool } from './CopywritingBeforeAfterTool';
 import { CopywritingProjectView } from './CopywritingProjectView';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface CopywritingViewProps {
   onNavigate: (tab: string) => void;
@@ -34,6 +35,7 @@ interface CopywritingViewProps {
 const STORAGE_KEY_LESSONS = 'copywriting_completed_lessons_v1';
 
 export const CopywritingView: React.FC<CopywritingViewProps> = ({ onNavigate, onCopyText }) => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'stages' | 'frameworks' | 'avatar' | 'swipe-file' | 'before-after' | 'project-quiz'>('stages');
   const [activeLessonId, setActiveLessonId] = useState<string>(copywritingCurriculum[0].id);
 
@@ -96,7 +98,7 @@ export const CopywritingView: React.FC<CopywritingViewProps> = ({ onNavigate, on
             className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-amber-400 transition-colors cursor-pointer"
           >
             <ArrowRight className="h-4 w-4" />
-            <span>العودة لكافة مسارات الدخل</span>
+            <span>{t.nav.income}</span>
           </button>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400">

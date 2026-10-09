@@ -41,7 +41,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onCopyText,
   onNavigate
 }) => {
-  const { language, setLanguage, languages, t, isRTL } = useLanguage();
+  const { language, setLanguage, languages, t, isRTL, localizePath, localizeIdea } = useLanguage();
   const { theme, setTheme, isDark } = useTheme();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
@@ -75,14 +75,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-black text-white">
-                  {isRTL ? 'حسابي في RikouZone' : 'My RikouZone Account'}
+                  {t.profile.accountTitle || t.profile.pageTitle}
                 </h1>
                 <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-bold text-sky-400 border border-sky-500/20">
                   FREE TIER
                 </span>
               </div>
               <p className="mt-1 text-xs sm:text-sm text-zinc-400">
-                {isRTL ? 'إدارة التفضيلات والمسارات التعليمية المحفوظة محلياً' : 'Local preferences & bookmarked learning paths'}
+                {t.profile.accountDesc || t.profile.pageSubtitle}
               </p>
             </div>
           </div>
@@ -90,11 +90,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="flex items-center gap-2">
             <div className="rounded-2xl border border-zinc-800 bg-zinc-950/80 p-3 text-center min-w-24">
               <div className="text-lg font-black text-sky-400 font-sans">{savedPaths.length}</div>
-              <div className="text-[10px] font-semibold text-zinc-400">{isRTL ? 'مسارات محفوظة' : 'Saved Paths'}</div>
+              <div className="text-[10px] font-semibold text-zinc-400">{t.profile.savedPathsCount || t.profile.savedPathsTab}</div>
             </div>
             <div className="rounded-2xl border border-zinc-800 bg-zinc-950/80 p-3 text-center min-w-24">
               <div className="text-lg font-black text-sky-400 font-sans">{savedIdeas.length}</div>
-              <div className="text-[10px] font-semibold text-zinc-400">{isRTL ? 'أفكار محفوظة' : 'Saved Ideas'}</div>
+              <div className="text-[10px] font-semibold text-zinc-400">{t.profile.savedIdeasCount || t.profile.savedIdeasTab}</div>
             </div>
           </div>
         </div>
@@ -104,10 +104,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       <div className="mt-8 rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
         <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
           {isDark ? <Moon className="h-4 w-4 text-sky-400" /> : <Sun className="h-4 w-4 text-sky-400" />}
-          <span>{isRTL ? 'مظهر المنصة (Theme Mode)' : 'Appearance Mode'}</span>
+          <span>{t.profile.appearanceMode}</span>
         </h2>
         <p className="mt-1 text-xs text-zinc-400">
-          {isRTL ? 'التبديل بين الوضع الداكن والوضع الفاتح مع حفظ اختيارك تلقائياً.' : 'Switch between Dark and Light mode. Persisted automatically.'}
+          {t.profile.appearanceDesc}
         </p>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
@@ -126,10 +126,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
                 <div>
                   <span className="font-bold text-sm text-white block">
-                    {isRTL ? 'الوضع الداكن' : 'Dark Mode'}
+                    {t.profile.darkMode}
                   </span>
                   <span className="text-[11px] text-zinc-400 block">
-                    {isRTL ? 'الوضع الافتراضي المريح للعين' : 'Classic Dark Theme'}
+                    {t.profile.darkModeDesc}
                   </span>
                 </div>
               </div>
@@ -152,10 +152,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
                 <div>
                   <span className="font-bold text-sm text-white block">
-                    {isRTL ? 'الوضع الفاتح' : 'Light Mode'}
+                    {t.profile.lightMode}
                   </span>
                   <span className="text-[11px] text-zinc-400 block">
-                    {isRTL ? 'واجهة بيضاء ناصعة وأنيقة' : 'Clean & Bright Theme'}
+                    {t.profile.lightModeDesc}
                   </span>
                 </div>
               </div>
@@ -169,10 +169,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       <div className="mt-8 rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
         <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
           <Globe className="h-4 w-4 text-sky-400" />
-          <span>{isRTL ? 'لغة الواجهة (Language Settings)' : 'Interface Language'}</span>
+          <span>{t.profile.languageSection}</span>
         </h2>
         <p className="mt-1 text-xs text-zinc-400">
-          {isRTL ? 'اختر لغة العرض المفضلة. يتم حفظ الاختيار تلقائياً في جهازك.' : 'Select preferred display language. Persisted locally.'}
+          {t.common.selectLanguage}
         </p>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -215,7 +215,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <Bookmark className="h-5 w-5 text-sky-400 fill-sky-400/20" />
-            <span>{isRTL ? 'العناصر المحفوظة في المفضلة' : 'Saved Bookmarks'}</span>
+            <span>{t.profile.pageTitle}</span>
             <span className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs text-zinc-300">
               {savedIds.length}
             </span>
@@ -227,7 +227,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               className="flex items-center gap-1 text-xs text-rose-400 hover:text-rose-300 font-semibold"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              <span>{isRTL ? 'مسح الكل' : 'Clear all'}</span>
+              <span>{t.profile.clearAll}</span>
             </button>
           )}
         </div>
@@ -236,25 +236,23 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="rounded-3xl border border-zinc-800 bg-zinc-900/30 p-10 text-center">
             <Bookmark className="mx-auto h-10 w-10 text-zinc-700" />
             <h3 className="mt-3 text-base font-bold text-white">
-              {isRTL ? 'لا توجد عناصر محفوظة حتى الآن' : 'No saved items yet'}
+              {t.profile.noSavedTitle}
             </h3>
             <p className="mt-1 text-xs text-zinc-400">
-              {isRTL
-                ? 'اضغط على أيقونة الإشارة المرجعية بجانب أي مسار تعلّم أو فكرة لحفظها هنا.'
-                : 'Click the bookmark icon on any learning path or content idea to save it here.'}
+              {t.profile.noSavedDesc}
             </p>
             <div className="mt-4 flex justify-center gap-3">
               <button
                 onClick={() => onNavigate('income')}
                 className="rounded-xl bg-sky-500 px-4 py-2 text-xs font-bold text-black hover:bg-sky-400 transition-all"
               >
-                {isRTL ? 'استكشف مسارات التعلم' : 'Browse Learning Paths'}
+                {t.income.browseAllPathsBtn || t.income.pageTitle}
               </button>
               <button
                 onClick={() => onNavigate('ideas')}
                 className="rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-bold text-white hover:border-sky-500 hover:text-sky-300 transition-all"
               >
-                {isRTL ? 'أفكار المحتوى' : 'Browse Ideas'}
+                {t.ideas.pageTitle}
               </button>
             </div>
           </div>
@@ -266,12 +264,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div>
                 <h3 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <TrendingUp className="h-4 w-4" />
-                  <span>{isRTL ? 'مسارات التعلم المحفوظة' : 'Saved Learning Paths'} ({savedPaths.length})</span>
+                  <span>{t.profile.savedLearningPaths} ({savedPaths.length})</span>
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {savedPaths.map((p) => {
-                    const title = language === 'ar' ? p.arabicTitle : language === 'fr' ? p.frenchTitle : p.title;
+                    const loc = localizePath(p);
 
                     return (
                       <div
@@ -284,7 +282,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                             onClick={() => onSelectPath(p)}
                             className="text-sm font-bold text-white hover:text-sky-300 cursor-pointer line-clamp-1"
                           >
-                            {title}
+                            {loc.title}
                           </h4>
                           <span className="text-xs font-semibold text-zinc-400">{p.potentialMonthlyIncome || p.estimatedIncomeRange}</span>
                         </div>
@@ -294,12 +292,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                             onClick={() => onSelectPath(p)}
                             className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-sky-500 hover:text-black transition-all"
                           >
-                            {isRTL ? 'عرض' : 'View'}
+                            {t.income.viewDetails}
                           </button>
                           <button
                             onClick={() => onToggleSave(p.id, 'income')}
                             className="rounded-lg p-1.5 text-zinc-500 hover:text-rose-400 transition-colors"
-                            title={isRTL ? 'إزالة من المفضلة' : 'Remove'}
+                            title={t.common.remove}
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -316,13 +314,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div>
                 <h3 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <Lightbulb className="h-4 w-4" />
-                  <span>{isRTL ? 'أفكار المحتوى المحفوظة' : 'Saved Content Ideas'} ({savedIdeas.length})</span>
+                  <span>{t.profile.savedContentIdeas} ({savedIdeas.length})</span>
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {savedIdeas.map((i) => {
-                    const title = language === 'ar' ? i.arabicTitle : language === 'fr' ? i.frenchTitle : i.title;
-                    const hook = language === 'ar' ? i.arabicHook : language === 'fr' ? i.frenchHook : i.hook;
+                    const loc = localizeIdea(i);
 
                     return (
                       <div
@@ -343,26 +340,26 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                             onClick={() => onSelectIdea(i)}
                             className="mt-1 text-sm font-bold text-white hover:text-sky-300 cursor-pointer line-clamp-1"
                           >
-                            {title}
+                            {loc.title}
                           </h4>
                           <p className="mt-1 text-xs text-zinc-400 italic line-clamp-1">
-                            "{hook}"
+                            "{loc.hook}"
                           </p>
                         </div>
 
                         <div className="mt-3 pt-2 border-t border-zinc-800/80 flex items-center justify-between">
                           <button
-                            onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك!' : 'Hook copied!')}
+                            onClick={() => onCopyText(loc.hook, t.ideas.hookCopied)}
                             className="flex items-center gap-1 text-[11px] font-bold text-sky-400 hover:underline"
                           >
                             <Copy className="h-3 w-3" />
-                            <span>{isRTL ? 'نسخ الهوك' : 'Copy Hook'}</span>
+                            <span>{t.ideas.copyHook}</span>
                           </button>
                           <button
                             onClick={() => onSelectIdea(i)}
                             className="rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-bold text-zinc-200 hover:bg-sky-500 hover:text-black transition-all"
                           >
-                            {isRTL ? 'السكربت' : 'Script'}
+                            {t.ideas.scriptOutline}
                           </button>
                         </div>
                       </div>

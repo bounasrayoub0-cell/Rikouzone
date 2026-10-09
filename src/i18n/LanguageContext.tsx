@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
-import { Language } from '../types';
+import { Language, IncomePath, ContentIdea } from '../types';
 import { TranslationSchema, LanguageMeta, SUPPORTED_LANGUAGES } from './types';
+import { getLocalizedPath, getLocalizedIdea, getLocalizedTool, getLocalizedGuide } from './dataLocalizer';
 import { ary } from './ary';
 import { ar } from './ar';
 import { en } from './en';
@@ -20,6 +21,10 @@ interface LanguageContextType {
   languages: LanguageMeta[];
   currentMeta: LanguageMeta;
   localize: (item: Record<string, any> | null | undefined, field: string) => string;
+  localizePath: (path: IncomePath | null | undefined) => { title: string; shortDesc: string; category: string };
+  localizeIdea: (idea: ContentIdea | null | undefined) => { title: string; hook: string; desc: string; cta: string };
+  localizeTool: (tool: any) => { title: string; desc: string };
+  localizeGuide: (guide: any) => { name: string; tagline: string };
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -152,16 +157,41 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return item[field] || item[`english${cap}`] || item[`arabic${cap}`] || '';
   }, [language]);
 
+  const localizePath = useCallback((path: IncomePath | null | undefined) => {
+    return getLocalizedPath(path, language);
+  }, [language]);
+
+  const localizeIdea = useCallback((idea: ContentIdea | null | undefined) => {
+    return getLocalizedIdea(idea, language);
+  }, [language]);
+
+  const localizeTool = useCallback((tool: any) => {
+    return getLocalizedTool(tool, language);
+  }, [language]);
+
+  const localizeGuide = useCallback((guide: any) => {
+    return getLocalizedGuide(guide, language);
+  }, [language]);
+
+  const safeT = useMemo(() => {
+    const raw = translations[language] || translations.ar;
+    return createFallbackProxy(raw, translations.ar, translations.en);
+  }, [language]);
+
   const value = useMemo(() => ({
     language,
     setLanguage,
     dir,
     isRTL,
-    t: translations[language] || translations.ar,
+    t: safeT,
     languages: SUPPORTED_LANGUAGES,
     currentMeta,
-    localize
-  }), [language, setLanguage, dir, isRTL, currentMeta, localize]);
+    localize,
+    localizePath,
+    localizeIdea,
+    localizeTool,
+    localizeGuide
+  }), [language, setLanguage, dir, isRTL, safeT, currentMeta, localize, localizePath, localizeIdea, localizeTool, localizeGuide]);
 
   return (
     <LanguageContext.Provider value={value}>
@@ -169,6 +199,39 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
+
+function createFallbackProxy<T extends object>(target: T, fallback: any, defaultFallback: any): T {
+  return new Proxy(target, {
+    get(obj: any, prop: string | symbol) {
+      if (typeof prop === 'symbol') return obj[prop];
+      const val = obj[prop];
+      if (val !== undefined && val !== null && val !== '') {
+        if (typeof val === 'object' && !Array.isArray(val)) {
+          const subFallback = fallback ? fallback[prop] : undefined;
+          const subDefault = defaultFallback ? defaultFallback[prop] : undefined;
+          return createFallbackProxy(val, subFallback, subDefault);
+        }
+        return val;
+      }
+      const fbVal = fallback ? fallback[prop] : undefined;
+      if (fbVal !== undefined && fbVal !== null && fbVal !== '') {
+        if (typeof fbVal === 'object' && !Array.isArray(fbVal)) {
+          const subDefault = defaultFallback ? defaultFallback[prop] : undefined;
+          return createFallbackProxy(fbVal, subDefault, subDefault);
+        }
+        return fbVal;
+      }
+      const defVal = defaultFallback ? defaultFallback[prop] : undefined;
+      if (defVal !== undefined && defVal !== null && defVal !== '') {
+        if (typeof defVal === 'object' && !Array.isArray(defVal)) {
+          return createFallbackProxy(defVal, {}, {});
+        }
+        return defVal;
+      }
+      return typeof prop === 'string' ? prop : '';
+    }
+  });
+}
 
 function capitalize(str: string): string {
   if (!str) return '';

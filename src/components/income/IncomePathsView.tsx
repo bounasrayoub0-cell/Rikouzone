@@ -32,7 +32,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
   selectedPathId,
   onNavigate
 }) => {
-  const { language, isRTL } = useLanguage();
+  const { language, isRTL, t, localizePath } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,16 +45,16 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
     return null;
   });
 
-  const categories = [
-    { id: 'all', labelAr: 'الكل (35)', labelEn: 'All (35)' },
-    { id: 'Content Creation', labelAr: 'صناعة المحتوى', labelEn: 'Content Creation' },
-    { id: 'Freelancing', labelAr: 'العمل الحر والخدمات', labelEn: 'Freelancing' },
-    { id: 'E-commerce', labelAr: 'التجارة الإلكترونية', labelEn: 'E-commerce' },
-    { id: 'Marketing', labelAr: 'التسويق الرقمي', labelEn: 'Marketing' },
-    { id: 'Tech & AI', labelAr: 'التقنية والذكاء الاصطناعي', labelEn: 'Tech & AI' },
-    { id: 'Gaming', labelAr: 'الألعاب والجيمنج', labelEn: 'Gaming' },
-    { id: 'Micro Services', labelAr: 'الخدمات المصغرة', labelEn: 'Micro Services' }
-  ];
+  const categories = useMemo(() => [
+    { id: 'all', label: t.income.categoriesList.all },
+    { id: 'Content Creation', label: t.income.categoriesList.contentCreation },
+    { id: 'Freelancing', label: t.income.categoriesList.freelancing },
+    { id: 'E-commerce', label: t.income.categoriesList.ecommerce },
+    { id: 'Marketing', label: t.income.categoriesList.marketing },
+    { id: 'Tech & AI', label: t.income.categoriesList.techAi },
+    { id: 'Gaming', label: t.income.categoriesList.gaming },
+    { id: 'Micro Services', label: t.income.categoriesList.microServices }
+  ], [t]);
 
   const filteredPaths = useMemo(() => {
     return incomePaths.filter((path) => {
@@ -69,14 +69,15 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       // Search query
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
-        const inTitle = (path.title || '').toLowerCase().includes(query) || (path.arabicTitle || '').toLowerCase().includes(query);
-        const inDesc = (path.shortDescription || path.description || '').toLowerCase().includes(query) || (path.arabicShortDescription || path.arabicDescription || '').toLowerCase().includes(query);
+        const loc = localizePath(path);
+        const inTitle = (loc.title || '').toLowerCase().includes(query) || (path.title || '').toLowerCase().includes(query) || (path.arabicTitle || '').toLowerCase().includes(query);
+        const inDesc = (loc.shortDesc || '').toLowerCase().includes(query) || (path.shortDescription || path.description || '').toLowerCase().includes(query) || (path.arabicShortDescription || '').toLowerCase().includes(query);
         const inSkills = (path.requiredSkills || []).some(s => s.toLowerCase().includes(query));
         if (!inTitle && !inDesc && !inSkills) return false;
       }
       return true;
     });
-  }, [searchQuery, selectedCategory, selectedDifficulty]);
+  }, [searchQuery, selectedCategory, selectedDifficulty, localizePath]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
@@ -85,15 +86,13 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-400">
           <TrendingUp className="h-4 w-4" />
-          <span>{isRTL ? 'دليل مسارات التعلم والمهارات الرقمية 2026' : '35 Practical Learning Paths 2026'}</span>
+          <span>{t.income.categoryHeader}</span>
         </div>
         <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
-          {isRTL ? 'مسارات التعلم واكتساب المهارات الرقمية' : 'Explore Practical Learning Paths & Skills'}
+          {t.income.pageTitle}
         </h1>
         <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
-          {isRTL
-            ? '35 مساراً تعليمياً وتطبيقياً مفصلاً بالكامل مع متطلبات البدء، مراحل التعلم، والأدوات المقترحة لاكتساب مهارات رقمية حقيقية.'
-            : 'Detailed learning roadmaps, required skills, tools, and tactical step-by-step guidance for 35 high-demand digital specializations.'}
+          {t.income.pageSubtitle}
         </p>
       </div>
 
@@ -108,7 +107,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={isRTL ? 'ابحث في المجالات (مثال: مونتاج، فري فاير، دروب شيبينغ، ذكاء اصطناعي)...' : 'Search paths (e.g. Editing, Free Fire, Dropshipping, AI)...'}
+            placeholder={t.income.searchPlaceholder}
             className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           {searchQuery && (
@@ -116,7 +115,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               onClick={() => setSearchQuery('')}
               className="absolute top-3.5 left-4 rtl:left-4 rtl:right-auto ltr:right-4 ltr:left-auto text-xs text-zinc-400 hover:text-white"
             >
-              {isRTL ? 'مسح' : 'Clear'}
+              {t.common.clear}
             </button>
           )}
         </div>
@@ -136,7 +135,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                     : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
                 }`}
               >
-                {isRTL ? cat.labelAr : cat.labelEn}
+                {cat.label}
               </button>
             );
           })}
@@ -146,34 +145,31 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         <div className="flex items-center justify-between border-t border-zinc-800/80 pt-4 text-xs">
           <div className="flex items-center gap-2 text-zinc-400">
             <SlidersHorizontal className="h-4 w-4" />
-            <span>{isRTL ? 'مستوى الصعوبة:' : 'Difficulty:'}</span>
+            <span>{t.income.difficultyLevel}</span>
             <div className="flex gap-1">
-              {['all', 'beginner', 'intermediate', 'advanced'].map((lvl) => (
+              {[
+                { id: 'all', label: t.common.all },
+                { id: 'beginner', label: t.common.beginner },
+                { id: 'intermediate', label: t.common.intermediate },
+                { id: 'advanced', label: t.common.advanced }
+              ].map((lvl) => (
                 <button
-                  key={lvl}
-                  onClick={() => setSelectedDifficulty(lvl)}
+                  key={lvl.id}
+                  onClick={() => setSelectedDifficulty(lvl.id)}
                   className={`rounded-lg px-2.5 py-1 font-semibold transition-all ${
-                    selectedDifficulty === lvl
+                    selectedDifficulty === lvl.id
                       ? 'bg-zinc-800 text-emerald-400 border border-emerald-500/30'
                       : 'text-zinc-500 hover:text-zinc-300'
                   }`}
                 >
-                  {lvl === 'all'
-                    ? (isRTL ? 'الكل' : 'All')
-                    : lvl === 'beginner'
-                    ? (isRTL ? 'مبتدئ' : 'Beginner')
-                    : lvl === 'intermediate'
-                    ? (isRTL ? 'متوسط' : 'Intermediate')
-                    : (isRTL ? 'متقدم' : 'Advanced')}
+                  {lvl.label}
                 </button>
               ))}
             </div>
           </div>
 
           <div className="text-zinc-500 font-medium">
-            {isRTL
-              ? `عرض ${filteredPaths.length} من أصل ${incomePaths.length} مسار`
-              : `Showing ${filteredPaths.length} of ${incomePaths.length} paths`}
+            {`${t.income.showing} ${filteredPaths.length} ${t.income.of} ${incomePaths.length} ${t.income.paths}`}
           </div>
         </div>
 
@@ -184,10 +180,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         <div className="mt-12 rounded-3xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
           <Sparkles className="mx-auto h-10 w-10 text-zinc-600" />
           <h3 className="mt-4 text-lg font-bold text-white">
-            {isRTL ? 'لم يتم العثور على نتائج مطابقة' : 'No matching paths found'}
+            {t.common.notFound}
           </h3>
           <p className="mt-1 text-sm text-zinc-400">
-            {isRTL ? 'جرب البحث بكلمة أخرى أو إعادة تعيين الفلاتر.' : 'Try adjusting your search terms or clearing filters.'}
+            {t.common.notFoundDesc}
           </p>
           <button
             onClick={() => {
@@ -197,14 +193,13 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
             }}
             className="mt-4 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-bold text-black"
           >
-            {isRTL ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}
+            {t.common.resetFilters}
           </button>
         </div>
       ) : (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredPaths.map((path) => {
-            const title = (language === 'ar' || language === 'ary') ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
-            const desc = (language === 'ar' || language === 'ary') ? (path.arabicShortDescription || path.arabicDescription) : language === 'fr' ? (path.frenchShortDescription || path.frenchDescription) : (path.shortDescription || path.description);
+            const { title, shortDesc: desc, category } = localizePath(path);
             const saved = isSaved(path.id);
 
             return (
@@ -217,41 +212,17 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20">
-                        {path.category}
+                        {category}
                       </span>
-                      {path.id === 'affiliate-marketing' && (
+                      {[
+                        'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
+                        'instagram-monetization', 'facebook-monetization', 'blogging', 
+                        'social-media-management', 'ugc-content', 'video-editing', 
+                        'copywriting', 'freelance-writing', 'seo-services', 
+                        'graphic-design', 'thumbnail-design', 'web-development', 'app-development'
+                      ].includes(path.id) && (
                         <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (10 وحدات)
-                        </span>
-                      )}
-                      {path.id === 'tiktok-affiliate' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (10 أقسام)
-                        </span>
-                      )}
-                      {path.id === 'youtube-monetization' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (10 أقسام)
-                        </span>
-                      )}
-                      {path.id === 'instagram-monetization' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (10 أقسام)
-                        </span>
-                      )}
-                      {path.id === 'facebook-monetization' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (7 مراحل)
-                        </span>
-                      )}
-                      {path.id === 'blogging' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 مسار تفاعلي (10 مراحل)
-                        </span>
-                      )}
-                      {path.id === 'social-media-management' && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
-                          🔥 كورس احترافي (13 وحدة)
+                          🔥 {t.income.trackUpgradedBadge}
                         </span>
                       )}
                     </div>
@@ -261,7 +232,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onToggleSave(path.id, 'income');
                       }}
                       className="rounded-lg p-1.5 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-800/80 transition-colors"
-                      title={isRTL ? 'حفظ' : 'Bookmark'}
+                      title={saved ? t.income.saved : t.income.savePath}
                     >
                       <Bookmark className={`h-4 w-4 ${saved ? 'fill-emerald-400 text-emerald-400' : ''}`} />
                     </button>
@@ -318,12 +289,12 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 <div className="mt-6 pt-4 border-t border-zinc-800/80">
                   <div className="grid grid-cols-2 gap-2 text-xs mb-4">
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
-                      <div className="text-zinc-500 font-medium">{isRTL ? 'الدخل الشهري' : 'Potential'}</div>
+                      <div className="text-zinc-500 font-medium">{t.income.monthlyPotential}</div>
                       <div className="text-sm font-black text-emerald-400 mt-0.5">{path.potentialMonthlyIncome || path.estimatedIncomeRange}</div>
                     </div>
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
-                      <div className="text-zinc-500 font-medium">{isRTL ? 'وقت التعلم' : 'Learning'}</div>
-                      <div className="text-sm font-bold text-zinc-200 mt-0.5">{path.timeToLearn || (isRTL ? path.arabicTimeToFirstIncome : path.timeToFirstIncome)}</div>
+                      <div className="text-zinc-500 font-medium">{t.income.learningTime}</div>
+                      <div className="text-sm font-bold text-zinc-200 mt-0.5">{path.timeToLearn || (language === 'ar' || language === 'ary' ? path.arabicTimeToFirstIncome : path.timeToFirstIncome)}</div>
                     </div>
                   </div>
 
@@ -361,50 +332,44 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         onNavigate('social-media-management');
                       } else if (path.id === 'ugc-content' && onNavigate) {
                         onNavigate('ugc-content');
+                      } else if (path.id === 'ai-content-services' && onNavigate) {
+                        onNavigate('ai-content-services');
+                      } else if (path.id === 'ai-automation-services' && onNavigate) {
+                        onNavigate('ai-automation-services');
+                      } else if (path.id === 'selling-digital-products' && onNavigate) {
+                        onNavigate('selling-digital-products');
+                      } else if (path.id === 'selling-templates' && onNavigate) {
+                        onNavigate('selling-templates');
                       } else {
                         setActiveModalPath(path);
                       }
                     }}
                     className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'graphic-design' || path.id === 'thumbnail-design' || path.id === 'web-development' || path.id === 'app-development' || path.id === 'social-media-management' || path.id === 'ugc-content'
+                      [
+                        'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
+                        'instagram-monetization', 'facebook-monetization', 'blogging', 
+                        'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
+                        'graphic-design', 'thumbnail-design', 'web-development', 
+                        'app-development', 'social-media-management', 'ugc-content',
+                        'ai-content-services', 'ai-automation-services', 'selling-digital-products',
+                        'selling-templates'
+                      ].includes(path.id)
                         ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
                         : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
                     }`}
                   >
                     <span>
-                      {path.id === 'affiliate-marketing'
-                        ? (isRTL ? 'افتح مسار التسويق بالعمولة الكامل 🚀' : 'Open Complete Affiliate Path 🚀')
-                        : path.id === 'tiktok-affiliate'
-                        ? (isRTL ? 'افتح مسار أفلييت تيك توك الكامل 🚀' : 'Open TikTok Affiliate Path 🚀')
-                        : path.id === 'youtube-monetization'
-                        ? (isRTL ? 'افتح مسار يوتيوب الكامل 🚀' : 'Open Complete YouTube Path 🚀')
-                        : path.id === 'instagram-monetization'
-                        ? (isRTL ? 'افتح مسار إنستغرام الكامل 🚀' : 'Open Complete Instagram Path 🚀')
-                        : path.id === 'facebook-monetization'
-                        ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Complete Facebook Path 🚀')
-                        : path.id === 'blogging'
-                        ? (isRTL ? 'افتح مسار المدونات والسيو الكامل 🚀' : 'Open Complete Blogging & SEO Path 🚀')
-                        : path.id === 'seo-services'
-                        ? (isRTL ? 'افتح مسار خدمات السيو الكامل 🚀' : 'Open Complete SEO Services Path 🚀')
-                        : path.id === 'freelance-writing'
-                        ? (isRTL ? 'افتح مسار كتابة المحتوى الكامل 🚀' : 'Open Complete Freelance Writing Path 🚀')
-                        : path.id === 'copywriting'
-                        ? (isRTL ? 'افتح مسار الكوبي رايتنج الكامل 🚀' : 'Open Complete Copywriting Path 🚀')
-                        : path.id === 'video-editing'
-                        ? (isRTL ? 'افتح مسار مونتاج الفيديو الكامل 🚀' : 'Open Complete Video Editing Path 🚀')
-                        : path.id === 'graphic-design'
-                        ? (isRTL ? 'افتح مسار التصميم الجرافيكي الكامل 🚀' : 'Open Complete Graphic Design Path 🚀')
-                        : path.id === 'thumbnail-design'
-                        ? (isRTL ? 'افتح مسار تصميم الصور المصغرة الكامل 🚀' : 'Open Complete Thumbnail Design Path 🚀')
-                        : path.id === 'web-development'
-                        ? (isRTL ? 'افتح مسار تطوير المواقع الكامل 🚀' : 'Open Complete Web Dev Path 🚀')
-                        : path.id === 'app-development'
-                        ? (isRTL ? 'افتح مسار تطبيقات الجوال الكامل 🚀' : 'Open Complete Mobile App Path 🚀')
-                        : path.id === 'social-media-management'
-                        ? (isRTL ? 'افتح كورس إدارة الحسابات الكامل 🚀' : 'Open Complete SMM Course 🚀')
-                        : path.id === 'ugc-content'
-                        ? (isRTL ? 'افتح كورس الـ UGC الكامل 🚀' : 'Open Complete UGC Course 🚀')
-                        : (isRTL ? 'عرض الدليل الشامل والخطوات' : 'Open Complete Blueprint')}
+                      {[
+                        'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
+                        'instagram-monetization', 'facebook-monetization', 'blogging', 
+                        'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
+                        'graphic-design', 'thumbnail-design', 'web-development', 
+                        'app-development', 'social-media-management', 'ugc-content',
+                        'ai-content-services', 'ai-automation-services', 'selling-digital-products',
+                        'selling-templates'
+                      ].includes(path.id)
+                        ? t.income.openFullCourse
+                        : t.income.viewDetails}
                     </span>
                     <ArrowIcon className="h-3.5 w-3.5" />
                   </button>
@@ -438,6 +403,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToAppDev={() => onNavigate && onNavigate('app-development')}
         onNavigateToSocialMedia={() => onNavigate && onNavigate('social-media-management')}
         onNavigateToUgc={() => onNavigate && onNavigate('ugc-content')}
+        onNavigateToAiContent={() => onNavigate && onNavigate('ai-content-services')}
+        onNavigateToAiAutomation={() => onNavigate && onNavigate('ai-automation-services')}
+        onNavigateToDigitalProducts={() => onNavigate && onNavigate('selling-digital-products')}
+        onNavigateToTemplates={() => onNavigate && onNavigate('selling-templates')}
       />
 
     </div>

@@ -1,4 +1,4 @@
-import { AIToolConfig } from '../types';
+import { AIToolConfig, Language } from '../types';
 
 export const aiToolsList: AIToolConfig[] = [
   {
@@ -506,7 +506,7 @@ export const aiToolsList: AIToolConfig[] = [
   }
 ];
 
-import { ChatMessage, Language } from '../types';
+import { ChatMessage } from '../types';
 
 // Client-side communicator to Server-side Rikou AI Gemini API with seamless intelligent offline fallback
 export async function sendChatMessageToRikouAI(
@@ -591,13 +591,20 @@ export function generateContextualAIResponse(
   language: Language = 'ar',
   isRegenerate: boolean = false
 ): string {
+  const isAry = language === 'ary';
   const isAr = language === 'ar' || language === 'ary';
   const isFr = language === 'fr';
 
   if (!messages || messages.length === 0) {
-    return isAr
-      ? 'مرحباً بك! أنا Rikou AI، كيف أساعدك اليوم في صناعة المحتوى أو الربح أو كتابة السكربتات؟'
-      : 'Hello! I am Rikou AI. How can I help you today with content creation, scripting, or digital growth?';
+    if (isAry) return 'مرحباً بيك! أنا Rikou AI، كيفاش نقدر نعاونك دابا فـ صناعة المحتوى، الربح من النت، ولا كتابة السكربتات؟';
+    if (language === 'ar') return 'مرحباً بك! أنا Rikou AI، كيف أساعدك اليوم في صناعة المحتوى أو الربح أو كتابة السكربتات؟';
+    if (language === 'fr') return 'Bonjour ! Je suis Rikou AI, comment puis-je vous aider aujourd\'hui ?';
+    if (language === 'es') return '¡Hola! Soy Rikou AI. ¿Cómo puedo ayudarte hoy con la creación de contenido o ingresos digitales?';
+    if (language === 'de') return 'Hallo! Ich bin Rikou AI. Wie kann ich dir heute bei der Content-Erstellung oder beim digitalen Einkommen helfen?';
+    if (language === 'it') return 'Ciao! Sono Rikou AI. Come posso aiutarti oggi con la creazione di contenuti o la crescita digitale?';
+    if (language === 'pt') return 'Olá! Sou o Rikou AI. Como posso te ajudar hoje com criação de conteúdo ou renda online?';
+    if (language === 'zh') return '你好！我是 Rikou AI，今天有什么可以在内容创作、视频脚本或在线变现方面为您效劳的吗？';
+    return 'Hello! I am Rikou AI. How can I help you today with content creation, scripting, or digital growth?';
   }
 
   const lastUserMsg = messages[messages.length - 1]?.content.trim() || '';
@@ -626,24 +633,36 @@ export function generateContextualAIResponse(
     lowerMsg.includes('qui est le fondateur')
   ) {
     if (lowerMsg.includes('مؤسس') || lowerMsg.includes('founder') || lowerMsg.includes('fondateur')) {
-      return isAr
-        ? 'مؤسس RikouZone هو **Ayoub Bounasr**.'
-        : isFr
-        ? 'Le fondateur de RikouZone est **Ayoub Bounasr**.'
-        : 'The founder of RikouZone is **Ayoub Bounasr**.';
+      if (isAry) return 'المؤسس ديال RikouZone هو **Ayoub Bounasr**.';
+      if (language === 'ar') return 'مؤسس RikouZone هو **Ayoub Bounasr**.';
+      if (language === 'fr') return 'Le fondateur de RikouZone est **Ayoub Bounasr**.';
+      if (language === 'es') return 'El fundador de RikouZone es **Ayoub Bounasr**.';
+      if (language === 'de') return 'Der Gründer von RikouZone ist **Ayoub Bounasr**.';
+      if (language === 'it') return 'Il fondatore di RikouZone è **Ayoub Bounasr**.';
+      if (language === 'pt') return 'O fundador da RikouZone é **Ayoub Bounasr**.';
+      if (language === 'zh') return 'RikouZone 的创始人是 **Ayoub Bounasr**。';
+      return 'The founder of RikouZone is **Ayoub Bounasr**.';
     }
     if (lowerMsg.includes('دارك') || lowerMsg.includes('صنعك') || lowerMsg.includes('created you')) {
-      return isAr
-        ? 'أنا Rikou AI، وتم تطويري بواسطة **Ayoub Bounasr** داخل منصة RikouZone.'
-        : isFr
-        ? 'Je suis Rikou AI, et j\'ai été développé par **Ayoub Bounasr** au sein de la plateforme RikouZone.'
-        : 'I am Rikou AI, and I was developed by **Ayoub Bounasr** within the RikouZone platform.';
+      if (isAry) return 'أنا Rikou AI، وصاوبني **Ayoub Bounasr** داخل منصة RikouZone.';
+      if (language === 'ar') return 'أنا Rikou AI، وتم تطويري بواسطة **Ayoub Bounasr** داخل منصة RikouZone.';
+      if (language === 'fr') return 'Je suis Rikou AI, et j\'ai été développé par **Ayoub Bounasr** au sein de la plateforme RikouZone.';
+      if (language === 'es') return 'Soy Rikou AI, y fui desarrollado por **Ayoub Bounasr** en la plataforma RikouZone.';
+      if (language === 'de') return 'Ich bin Rikou AI und wurde von **Ayoub Bounasr** auf der Plattform RikouZone entwickelt.';
+      if (language === 'it') return 'Sono Rikou AI e sono stato sviluppato da **Ayoub Bounasr** sulla piattaforma RikouZone.';
+      if (language === 'pt') return 'Eu sou o Rikou AI, desenvolvido por **Ayoub Bounasr** na plataforma RikouZone.';
+      if (language === 'zh') return '我是 Rikou AI，由 **Ayoub Bounasr** 在 RikouZone 平台开发。';
+      return 'I am Rikou AI, and I was developed by **Ayoub Bounasr** within the RikouZone platform.';
     }
-    return isAr
-      ? 'المطور ديالي هو **Ayoub Bounasr**.'
-      : isFr
-      ? 'Mon développeur est **Ayoub Bounasr**.'
-      : 'My developer is **Ayoub Bounasr**.';
+    if (isAry) return 'المطور ديالي هو **Ayoub Bounasr**.';
+    if (language === 'ar') return 'المطور الخاص بي هو **Ayoub Bounasr**.';
+    if (language === 'fr') return 'Mon développeur est **Ayoub Bounasr**.';
+    if (language === 'es') return 'Mi desarrollador es **Ayoub Bounasr**.';
+    if (language === 'de') return 'Mein Entwickler ist **Ayoub Bounasr**.';
+    if (language === 'it') return 'Il mio sviluppatore è **Ayoub Bounasr**.';
+    if (language === 'pt') return 'Meu desenvolvedor é **Ayoub Bounasr**.';
+    if (language === 'zh') return '我的开发者是 **Ayoub Bounasr**。';
+    return 'My developer is **Ayoub Bounasr**.';
   }
 
   // 0.1 Capabilities Query ("شنو كتقدر تدير؟" / "What can you do?")
@@ -1728,8 +1747,8 @@ To make rapid, tangible progress on this topic, focus on high-leverage execution
 }
 
 // Backward compatible export for any existing legacy usages
-export function executeAITool(toolId: string, values: Record<string, string>, language: 'ar' | 'en' | 'fr' = 'ar'): string {
-  const isAr = language === 'ar';
+export function executeAITool(toolId: string, values: Record<string, string>, language: Language = 'ar'): string {
+  const isAr = language === 'ar' || language === 'ary';
   const topic = values.topic || values.scriptTitle || values.hookSubject || values.concept || (isAr ? 'صناعة المحتوى والربح' : 'Content & Growth');
   const dummyMessages: ChatMessage[] = [
     {

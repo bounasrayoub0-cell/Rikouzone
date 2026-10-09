@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LanguageProvider } from './i18n/LanguageContext';
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
 import { ThemeProvider } from './theme/ThemeContext';
 import { Header } from './components/layout/Header';
 import { BottomNavigation } from './components/layout/BottomNavigation';
@@ -30,6 +30,10 @@ import { WebDevelopmentView } from './components/web-development/WebDevelopmentV
 import { MobileAppDevelopmentView } from './components/mobile-app/MobileAppDevelopmentView';
 import { SocialMediaManagementView } from './components/social-media/SocialMediaManagementView';
 import { UgcContentCreationView } from './components/ugc/UgcContentCreationView';
+import { AiContentServicesView } from './components/ai-content/AiContentServicesView';
+import { AiAutomationAgencyView } from './components/ai-automation/AiAutomationAgencyView';
+import { DigitalProductsView } from './components/digital-products/DigitalProductsView';
+import { SellingTemplatesView } from './components/templates/SellingTemplatesView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -37,6 +41,7 @@ import AdBanner from "./components/common/AdBanner";
 const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
 
 function MainApp() {
+  const { t } = useLanguage();
   const [currentTab, setCurrentTab] = useState<string>('home');
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
@@ -77,10 +82,10 @@ function MainApp() {
   const handleToggleSave = (id: string, type: 'income' | 'idea') => {
     setSavedIds((prev) => {
       if (prev.includes(id)) {
-        showToast(type === 'income' ? 'تمت إزالة المسار من المفضلة' : 'تمت إزالة الفكرة من المفضلة', 'info');
+        showToast(type === 'income' ? t.toasts.removedIncome : t.toasts.removedIdea, 'info');
         return prev.filter((item) => item !== id);
       } else {
-        showToast(type === 'income' ? 'تم حفظ المسار في المفضلة بنجاح!' : 'تم حفظ الفكرة في المفضلة بنجاح!', 'success');
+        showToast(type === 'income' ? t.toasts.savedIncome : t.toasts.savedIdea, 'success');
         return [...prev, id];
       }
     });
@@ -90,7 +95,7 @@ function MainApp() {
 
   const handleClearAllSaved = () => {
     setSavedIds([]);
-    showToast('تم مسح جميع العناصر المحفوظة بنجاح', 'info');
+    showToast(t.toasts.clearedAll, 'info');
   };
 
   const handleCopyText = (text: string, label: string) => {
@@ -124,10 +129,10 @@ function MainApp() {
       if (successful) {
         showToast(label, 'success');
       } else {
-        showToast('تعذر النسخ تلقائياً', 'error');
+        showToast(t.toasts.copyError, 'error');
       }
     } catch {
-      showToast('تعذر النسخ تلقائياً', 'error');
+      showToast(t.toasts.copyError, 'error');
     }
   };
 
@@ -287,6 +292,34 @@ function MainApp() {
           />
         )}
 
+        {(currentTab === 'ai-content-services' || currentTab === 'ai-content') && (
+          <AiContentServicesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'ai-automation-services' || currentTab === 'ai-automation' || currentTab === 'aaa') && (
+          <AiAutomationAgencyView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'selling-digital-products' || currentTab === 'digital-products' || currentTab === 'ebooks') && (
+          <DigitalProductsView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'selling-templates' || currentTab === 'templates' || currentTab === 'notion-canva-templates') && (
+          <SellingTemplatesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
         {currentTab === 'ideas' && (
           <ContentIdeasView
             onToggleSave={handleToggleSave}
@@ -348,6 +381,11 @@ function MainApp() {
         onNavigateToWebDev={() => handleNavigate('web-development')}
         onNavigateToAppDev={() => handleNavigate('app-development')}
         onNavigateToSocialMedia={() => handleNavigate('social-media-management')}
+        onNavigateToUgc={() => handleNavigate('ugc-content')}
+        onNavigateToAiContent={() => handleNavigate('ai-content-services')}
+        onNavigateToAiAutomation={() => handleNavigate('ai-automation-services')}
+        onNavigateToDigitalProducts={() => handleNavigate('selling-digital-products')}
+        onNavigateToTemplates={() => handleNavigate('selling-templates')}
       />
 
       <IdeaDetailModal

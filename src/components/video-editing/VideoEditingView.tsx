@@ -23,6 +23,7 @@ import { VideoSoftwareSelector } from './VideoSoftwareSelector';
 import { VideoBeforeAfterPlayer } from './VideoBeforeAfterPlayer';
 import { VideoExportPresetsTool } from './VideoExportPresetsTool';
 import { VideoProjectAndRoadmapView } from './VideoProjectAndRoadmapView';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface VideoEditingViewProps {
   onNavigate: (tab: string) => void;
@@ -32,6 +33,7 @@ interface VideoEditingViewProps {
 const STORAGE_KEY_VIDEO_LESSONS = 'video_editing_completed_lessons_v1';
 
 export const VideoEditingView: React.FC<VideoEditingViewProps> = ({ onNavigate, onCopyText }) => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'stages' | 'timeline' | 'software' | 'before-after' | 'presets' | 'project-quiz'>('stages');
   const [activeLessonId, setActiveLessonId] = useState<string>(videoEditingCurriculum[0].id);
 
@@ -92,7 +94,7 @@ export const VideoEditingView: React.FC<VideoEditingViewProps> = ({ onNavigate, 
             className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-amber-400 transition-colors cursor-pointer"
           >
             <ArrowRight className="h-4 w-4" />
-            <span>العودة لكافة مسارات الدخل</span>
+            <span>{t.nav.income}</span>
           </button>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400">

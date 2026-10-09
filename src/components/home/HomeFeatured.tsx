@@ -35,7 +35,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
   isSaved,
   onCopyText
 }) => {
-  const { language, isRTL } = useLanguage();
+  const { language, isRTL, t, localizePath, localizeIdea } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const featuredPaths = incomePaths.slice(0, 4);
@@ -52,35 +52,35 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-amber-400 font-sans">35+</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'مسارات تعلّم معتمدة' : 'Learning Pathways'}
+                {t.stats.paths}
               </div>
             </div>
 
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-orange-400 font-sans">160+</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'فكرة محتوى وسكربت' : 'Viral Scripts & Hooks'}
+                {t.stats.ideas}
               </div>
             </div>
 
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-amber-300 font-sans">17</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'أداة وحاسبة رقمية' : 'Digital Calculators'}
+                {t.stats.tools}
               </div>
             </div>
 
             <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/60 p-4">
               <div className="text-2xl sm:text-3xl font-black text-amber-500 font-sans">15</div>
               <div className="mt-1 text-xs font-semibold text-zinc-400">
-                {isRTL ? 'أداة Rikou AI' : 'AI Creator Tools'}
+                {t.stats.ai}
               </div>
             </div>
 
             <div className="col-span-2 sm:col-span-4 lg:col-span-1 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 flex flex-col justify-center">
               <div className="text-xl sm:text-2xl font-black text-amber-400 font-sans">100%</div>
               <div className="mt-1 text-xs font-semibold text-zinc-300">
-                {isRTL ? 'منصة تعليمية مجانية' : 'Free Learning Suite'}
+                {t.stats.freeSuite}
               </div>
             </div>
 
@@ -94,25 +94,24 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
               <TrendingUp className="h-4 w-4" />
-              <span>{isRTL ? 'مسارات التعلم المميزة' : 'Featured Learning Paths'}</span>
+              <span>{t.sections.incomeOpportunities}</span>
             </div>
             <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">
-              {isRTL ? 'أهم المسارات والمهارات الرقمية لعام 2026' : 'Top Practical Learning Paths for 2026'}
+              {t.income.topPathsTitle}
             </h2>
           </div>
           <button
             onClick={() => onNavigate('income')}
             className="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors"
           >
-            <span>{isRTL ? 'عرض جميع المسارات (35)' : 'Browse all 35 paths'}</span>
+            <span>{t.income.browseAllPathsBtn}</span>
             <ArrowIcon className="h-4 w-4" />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {featuredPaths.map((path) => {
-            const title = (language === 'ar' || language === 'ary') ? path.arabicTitle : language === 'fr' ? path.frenchTitle : path.title;
-            const desc = (language === 'ar' || language === 'ary') ? (path.arabicDescription || path.arabicShortDescription) : language === 'fr' ? (path.frenchDescription || path.frenchShortDescription) : (path.description || path.shortDescription);
+            const { title, shortDesc, category } = localizePath(path);
             const saved = isSaved(path.id);
 
             return (
@@ -123,7 +122,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="rounded-lg bg-amber-500/10 px-2.5 py-1 text-[11px] font-bold text-amber-400 border border-amber-500/20">
-                      {path.category}
+                      {category}
                     </span>
                     <button
                       onClick={(e) => {
@@ -131,7 +130,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onToggleSave(path.id, 'income');
                       }}
                       className="rounded-lg p-1.5 text-zinc-500 hover:text-amber-400 hover:bg-zinc-800/80 transition-colors"
-                      title={isRTL ? 'حفظ في المفضلة' : 'Save'}
+                      title={t.common.save}
                     >
                       <Bookmark className={`h-4 w-4 ${saved ? 'fill-amber-400 text-amber-400' : ''}`} />
                     </button>
@@ -181,18 +180,18 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                   </h3>
                   
                   <p className="mt-2 text-xs text-zinc-400 line-clamp-2 leading-relaxed">
-                    {desc}
+                    {shortDesc}
                   </p>
                 </div>
 
                 <div className="mt-5 pt-4 border-t border-zinc-800/70">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-500">{isRTL ? 'الدخل الشهري:' : 'Potential:'}</span>
-                    <span className="font-black text-amber-400">{path.potentialMonthlyIncome}</span>
+                    <span className="text-zinc-500">{t.income.incomeRange}</span>
+                    <span className="font-black text-amber-400">{path.potentialMonthlyIncome || path.estimatedIncomeRange}</span>
                   </div>
                   <div className="mt-1 flex items-center justify-between text-xs">
-                    <span className="text-zinc-500">{isRTL ? 'وقت التعلم:' : 'Learning Curve:'}</span>
-                    <span className="font-semibold text-zinc-300">{path.timeToLearn}</span>
+                    <span className="text-zinc-500">{t.income.timeToIncome}</span>
+                    <span className="font-semibold text-zinc-300">{path.timeToLearn || path.timeToFirstIncome}</span>
                   </div>
 
                   <button
@@ -229,27 +228,9 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         : 'bg-zinc-800/80 text-zinc-200 hover:bg-amber-500 hover:text-black'
                     }`}
                   >
-                    {path.id === 'affiliate-marketing'
-                      ? (isRTL ? 'افتح المسار التدريبي الكامل 🚀' : 'Open Complete Path 🚀')
-                      : path.id === 'tiktok-affiliate'
-                      ? (isRTL ? 'افتح مسار أفلييت تيك توك 🚀' : 'Open TikTok Affiliate 🚀')
-                      : path.id === 'youtube-monetization'
-                      ? (isRTL ? 'افتح مسار يوتيوب الكامل 🚀' : 'Open YouTube Path 🚀')
-                      : path.id === 'instagram-monetization'
-                      ? (isRTL ? 'افتح مسار إنستغرام الكامل 🚀' : 'Open Instagram Path 🚀')
-                      : path.id === 'facebook-monetization'
-                      ? (isRTL ? 'افتح مسار فيسبوك الكامل 🚀' : 'Open Facebook Path 🚀')
-                      : path.id === 'blogging'
-                      ? (isRTL ? 'افتح مسار المدونات والسيو 🚀' : 'Open Blogging & SEO 🚀')
-                      : path.id === 'seo-services'
-                      ? (isRTL ? 'افتح مسار خدمات السيو الكامل 🚀' : 'Open Complete SEO Services 🚀')
-                      : path.id === 'freelance-writing'
-                      ? (isRTL ? 'افتح مسار كتابة المحتوى الكامل 🚀' : 'Open Complete Freelance Writing 🚀')
-                      : path.id === 'copywriting'
-                      ? (isRTL ? 'افتح مسار الكوبي رايتنج الكامل 🚀' : 'Open Complete Copywriting 🚀')
-                      : path.id === 'video-editing'
-                      ? (isRTL ? 'افتح مسار مونتاج الفيديو الكامل 🚀' : 'Open Complete Video Editing 🚀')
-                      : (isRTL ? 'عرض الدليل الكامل والخطوات' : 'View Full Blueprint')}
+                    {path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing'
+                      ? t.income.openFullCourse
+                      : t.income.viewDetails}
                   </button>
                 </div>
               </div>
@@ -265,25 +246,24 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div>
               <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
                 <Flame className="h-4 w-4 text-amber-500" />
-                <span>{isRTL ? 'أفكار وهندسة الخطافات الفيروسية' : 'Viral Hooks & Content Library'}</span>
+                <span>{t.ideas.libraryBadge}</span>
               </div>
               <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">
-                {isRTL ? 'جاهزة للنشر والتصوير فوراً' : 'Ready to Shoot & Publish'}
+                {t.ideas.readyToPublish}
               </h2>
             </div>
             <button
               onClick={() => onNavigate('ideas')}
               className="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors"
             >
-              <span>{isRTL ? 'تصفح كل الأفكار (160+)' : 'Browse 160+ ideas'}</span>
+              <span>{t.sections.browseAllIdeas}</span>
               <ArrowIcon className="h-4 w-4" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featuredIdeas.map((idea) => {
-              const title = language === 'ar' ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
-              const hook = language === 'ar' ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
+              const { title, hook } = localizeIdea(idea);
 
               return (
                 <div
@@ -308,15 +288,15 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                     <div className="mt-3 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
-                          {isRTL ? '⚡ الهوك الافتتاحي (Hook):' : '⚡ Opening Hook:'}
+                          {t.sections.openingHookCallout}
                         </span>
                         <button
-                          onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك!' : 'Hook copied!')}
+                          onClick={() => onCopyText(hook, t.sections.hookCopiedFeedback)}
                           className="flex items-center gap-1 rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-300 hover:text-white"
-                          title={isRTL ? 'نسخ الهوك' : 'Copy hook'}
+                          title={t.sections.copyHookBtn}
                         >
                           <Copy className="h-3 w-3" />
-                          <span>{isRTL ? 'نسخ' : 'Copy'}</span>
+                          <span>{t.common.copy}</span>
                         </button>
                       </div>
                       <p className="mt-1.5 text-xs font-semibold text-zinc-200 line-clamp-2 italic">
@@ -329,7 +309,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                     onClick={() => onSelectIdea(idea)}
                     className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-zinc-800 py-2 text-xs font-bold text-zinc-300 hover:border-amber-500 hover:text-amber-400 transition-all"
                   >
-                    <span>{isRTL ? 'عرض تفاصيل السكربت والـ CTA' : 'View Script & Outline'}</span>
+                    <span>{t.sections.viewScriptOutline}</span>
                   </button>
                 </div>
               );
@@ -345,15 +325,13 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-orange-500/20 px-3 py-1 text-xs font-bold text-orange-400 border border-orange-500/30">
                 <Gamepad2 className="h-4 w-4" />
-                <span>{isRTL ? 'قسم متخصص لصناع محتوى فري فاير والألعاب' : 'Free Fire & Gaming Creators'}</span>
+                <span>{t.sections.gamingBannerTag}</span>
               </div>
               <h3 className="mt-3 text-2xl sm:text-3xl font-black text-white">
-                {isRTL ? 'احترف صناعة محتوى فري فاير وضاعف مشاهداتك' : 'Master Free Fire Content & Explode Your Views'}
+                {t.sections.gamingBannerTitle}
               </h3>
               <p className="mt-2 text-sm text-zinc-300 leading-relaxed">
-                {isRTL
-                  ? 'أسرار الوان تاب بالـ Beat Sync، إعدادات الحساسية DPI للهواتف الشعبية، رومات التحدي، وطريقة التقديم لبرنامج شراكة جارينا الرسمي (V-Badge).'
-                  : 'Beat-sync montage secrets, DPI setups for budget phones, custom room showdowns, and official Garena partnership requirements.'}
+                {t.sections.gamingBannerDesc}
               </p>
             </div>
 
@@ -363,13 +341,13 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                 className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-3.5 text-sm font-bold text-black shadow-lg shadow-orange-500/20 hover:scale-105 transition-all"
               >
                 <Flame className="h-4 w-4" />
-                <span>{isRTL ? 'دخول دليل فري فاير' : 'Open Free Fire Guide'}</span>
+                <span>{t.sections.gamingBannerBtnGuide}</span>
               </button>
               <button
                 onClick={() => onNavigate('ideas')}
                 className="flex items-center justify-center gap-2 rounded-2xl border border-zinc-700 bg-zinc-900/80 px-5 py-3.5 text-sm font-bold text-zinc-200 hover:text-white transition-all"
               >
-                <span>{isRTL ? 'أفكار فري فاير (20+)' : 'Free Fire Ideas'}</span>
+                <span>{t.sections.gamingBannerBtnIdeas}</span>
               </button>
             </div>
           </div>

@@ -50,7 +50,7 @@ export const SocialMediaManagementView: React.FC<SocialMediaManagementViewProps>
   onNavigate,
   onCopyText
 }) => {
-  const { isRTL } = useLanguage();
+  const { isRTL, t } = useLanguage();
   const ArrowBackIcon = isRTL ? ArrowRight : ArrowLeft;
   const ArrowNextIcon = isRTL ? ArrowLeft : ArrowRight;
 
@@ -175,7 +175,7 @@ export const SocialMediaManagementView: React.FC<SocialMediaManagementViewProps>
           className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2 text-xs font-bold text-zinc-300 hover:text-white hover:border-zinc-700 transition-all cursor-pointer"
         >
           <ArrowBackIcon className="h-4 w-4" />
-          <span>العودة إلى مسارات الدخل</span>
+          <span>{t.nav.income}</span>
         </button>
 
         <div className="flex items-center gap-2">

@@ -45,6 +45,7 @@ import { WritingPricingCalculator } from './WritingPricingCalculator';
 import { WritingBeforeAfterComparator } from './WritingBeforeAfterComparator';
 import { WritingPortfolioBuilder } from './WritingPortfolioBuilder';
 import { WritingFinalQuiz } from './WritingFinalQuiz';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface FreelanceWritingViewProps {
   onNavigate: (tab: string) => void;
@@ -55,6 +56,7 @@ const WRITING_COMPLETED_LESSONS_KEY = 'rikouzone_writing_completed_lessons';
 const WRITING_ROADMAP_TASKS_KEY = 'rikouzone_writing_roadmap_tasks';
 
 export const FreelanceWritingView: React.FC<FreelanceWritingViewProps> = ({ onNavigate, onCopyText }) => {
+  const { t } = useLanguage();
   // Navigation tabs
   const [activeTab, setActiveTab] = useState<
     'stages' | 'services-niches' | 'pricing' | 'before-after' | 'portfolio-builder' | 'templates' | 'roadmap' | 'quiz'
@@ -147,7 +149,7 @@ export const FreelanceWritingView: React.FC<FreelanceWritingViewProps> = ({ onNa
             className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-amber-400 transition-colors"
           >
             <ArrowRight className="h-4 w-4" />
-            <span>العودة لكافة مسارات الدخل</span>
+            <span>{t.nav.income}</span>
           </button>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400">

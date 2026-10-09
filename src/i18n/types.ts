@@ -67,6 +67,15 @@ export interface TranslationSchema {
     startLearning: string;
     openChat: string;
     quickActions: string;
+    gamingBannerTag: string;
+    gamingBannerTitle: string;
+    gamingBannerDesc: string;
+    gamingBannerBtnGuide: string;
+    gamingBannerBtnIdeas: string;
+    viewScriptOutline: string;
+    openingHookCallout: string;
+    copyHookBtn: string;
+    hookCopiedFeedback: string;
   };
   income: {
     pageTitle: string;
@@ -111,6 +120,29 @@ export interface TranslationSchema {
     copySummary: string;
     interactiveTrackBadge: string;
     openFullCourse: string;
+    categoryHeader: string;
+    trackUpgradedBadge: string;
+    facelessPossible: string;
+    beginnerFriendly: string;
+    stepByStepTitle: string;
+    advantagesTitle: string;
+    challengesTitle: string;
+    realityCheckTitle: string;
+    topPathsTitle: string;
+    browseAllPathsBtn: string;
+    difficultyLevel: string;
+    learningTime: string;
+    openPathCourse: string;
+    categoriesList: {
+      all: string;
+      contentCreation: string;
+      freelancing: string;
+      ecommerce: string;
+      marketing: string;
+      techAi: string;
+      gaming: string;
+      microServices: string;
+    };
   };
   creators: {
     pageTitle: string;
@@ -129,6 +161,13 @@ export interface TranslationSchema {
     algorithmHacks: string;
     avgRpm: string;
     payoutMethods: string;
+    growthTacticsTitle: string;
+    topFormatsTitle: string;
+    monetizationPolicies: string;
+    payoutChannels: string;
+    avgRpmLabel: string;
+    nextStep: string;
+    nextStepDesc: string;
   };
   tools: {
     pageTitle: string;
@@ -142,6 +181,15 @@ export interface TranslationSchema {
     selectCalc: string;
     resultsEstimated: string;
     inputsTitle: string;
+    calculatorsCount: string;
+    utilitiesCount: string;
+    topicPlaceholder: string;
+    generateHooks: string;
+    youtubeTitles: string;
+    smartHashtags: string;
+    quickIdea: string;
+    generatedOutput: string;
+    copyText: string;
   };
   ideas: {
     pageTitle: string;
@@ -165,6 +213,13 @@ export interface TranslationSchema {
     openingHookTitle: string;
     scriptStructureTitle: string;
     closingCtaTitle: string;
+    libraryBadge: string;
+    readyToPublish: string;
+    openingHookCallout: string;
+    copyHookBtn: string;
+    hookCopied: string;
+    ctaFormulaTitle: string;
+    ctaCopied: string;
   };
   ai: {
     pageTitle: string;
@@ -203,6 +258,25 @@ export interface TranslationSchema {
     dismiss: string;
     activeAction: string;
     thinking: string;
+    unifiedTitle: string;
+    chatStatus: string;
+    multilingualSupport: string;
+    howCanIHelp: string;
+    howCanIHelpDesc: string;
+    conversation: string;
+    searchConversations: string;
+    fileTooLarge: string;
+    analyzeFile: string;
+    responseCopied: string;
+    nextActionSuggestions: string;
+    activeActionLabel: string;
+    pressEnterToSend: string;
+    quickActionsBarTitle: string;
+    quickActionsBarSubtitle: string;
+    loadInChat: string;
+    askAnything: string;
+    noResults: string;
+    networkError: string;
   };
   profile: {
     pageTitle: string;
@@ -228,6 +302,12 @@ export interface TranslationSchema {
     clearConfirm: string;
     savedPathsCount: string;
     savedIdeasCount: string;
+    accountTitle: string;
+    accountDesc: string;
+    savedLearningPaths: string;
+    savedContentIdeas: string;
+    noSavedTitle: string;
+    noSavedDesc: string;
   };
   footer: {
     description: string;
@@ -236,6 +316,9 @@ export interface TranslationSchema {
     disclaimer: string;
     rightsReserved: string;
     foundedBy: string;
+    brandDescription: string;
+    statsSummary: string;
+    founderCredit: string;
   };
   toasts: {
     savedIncome: string;
@@ -269,6 +352,14 @@ export interface TranslationSchema {
     searchLanguage: string;
     sponsored: string;
     sponsorSpace: string;
+    savedItems: string;
+    view: string;
+    copy: string;
+    sponsoredPartner: string;
+    freeTier: string;
+    resetFilters: string;
+    notFound: string;
+    notFoundDesc: string;
   };
 }
 

@@ -79,10 +79,22 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
             {/* Primary Headline */}
             <h1 className="mt-5 text-3xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.25]">
-              {t.hero.title.replace(t.hero.titleHighlight, '').trim()}{' '}
-              <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
-                {t.hero.titleHighlight}
-              </span>
+              {t.hero.title.includes(t.hero.titleHighlight) ? (
+                <>
+                  {t.hero.title.slice(0, t.hero.title.indexOf(t.hero.titleHighlight))}
+                  <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                    {t.hero.titleHighlight}
+                  </span>
+                  {t.hero.title.slice(t.hero.title.indexOf(t.hero.titleHighlight) + t.hero.titleHighlight.length)}
+                </>
+              ) : (
+                <>
+                  {t.hero.title}{' '}
+                  <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                    {t.hero.titleHighlight}
+                  </span>
+                </>
+              )}
             </h1>
 
             {/* Subtitle */}

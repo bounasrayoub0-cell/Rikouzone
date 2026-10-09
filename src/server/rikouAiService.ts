@@ -118,6 +118,22 @@ export async function processRikouAIChat(
   }
 
   let systemInstruction = RIKOU_SYSTEM_INSTRUCTION;
+  if (body.language) {
+    const langInstructions: Record<string, string> = {
+      ary: '\n\nLANGUAGE INSTRUCTION: The user interface is in Moroccan Darija (الدارجة المغربية). Respond in natural, authentic, everyday Moroccan Darija (darija maghribiya) using Arabic script with clear, empowering tone.',
+      ar: '\n\nLANGUAGE INSTRUCTION: The user interface is in Modern Standard Arabic (العربية الفصحى). Respond in clear, professional, and elegant Modern Standard Arabic.',
+      fr: '\n\nLANGUAGE INSTRUCTION: The user interface is in French (Français). Respond in natural, fluent, and professional French.',
+      en: '\n\nLANGUAGE INSTRUCTION: The user interface is in English. Respond in fluent, professional, and clear English.',
+      es: '\n\nLANGUAGE INSTRUCTION: The user interface is in Spanish (Español). Respond in natural, fluent, and professional Spanish.',
+      de: '\n\nLANGUAGE INSTRUCTION: The user interface is in German (Deutsch). Respond in natural, fluent, and professional German.',
+      it: '\n\nLANGUAGE INSTRUCTION: The user interface is in Italian (Italiano). Respond in natural, fluent, and professional Italian.',
+      pt: '\n\nLANGUAGE INSTRUCTION: The user interface is in Portuguese (Português). Respond in natural, fluent, and professional Portuguese.',
+      zh: '\n\nLANGUAGE INSTRUCTION: The user interface is in Simplified Chinese (简体中文). Respond in natural, fluent, and professional Simplified Chinese.',
+    };
+    if (langInstructions[body.language]) {
+      systemInstruction += langInstructions[body.language];
+    }
+  }
   if (isRegenerate) {
     systemInstruction += `\n\nREGENERATION MANDATE:
 The user clicked "Regenerate" for an alternative response.

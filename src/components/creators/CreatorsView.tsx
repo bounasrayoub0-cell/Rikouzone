@@ -33,15 +33,15 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
 };
 
 export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, onNavigateToTools }) => {
-  const { language, isRTL } = useLanguage();
+  const { language, isRTL, t, localizeGuide } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [selectedGuideId, setSelectedGuideId] = useState<string>(creatorGuides[0].id);
   const activeGuide: CreatorPlatformGuide = creatorGuides.find((g) => g.id === selectedGuideId) || creatorGuides[0];
 
   const IconComp = iconMap[activeGuide.icon] || Sparkles;
-
   const isArabicFamily = language === 'ar' || language === 'ary';
+  const localizedActiveGuide = localizeGuide(activeGuide);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
@@ -50,15 +50,13 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-bold text-orange-400">
           <Gamepad2 className="h-4 w-4" />
-          <span>{isRTL ? 'أكاديمية صناع المحتوى والمنصات' : 'Creator Growth & Monetization Academy'}</span>
+          <span>{t.creators.pageTitle}</span>
         </div>
         <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
-          {isRTL ? 'دليل احتراف المنصات والألعاب' : 'Master Platforms & Monetize Your Audience'}
+          {t.creators.pageTitle}
         </h1>
         <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
-          {isRTL
-            ? 'شروط تحقيق الربح، أسرار الخوارزميات، تكتيكات زيادة التفاعل، ودليل شامل لصناع محتوى يوتيوب وتيك توك وفري فاير.'
-            : 'Monetization policies, algorithmic retention triggers, and growth playbooks for YouTube, TikTok, Free Fire, and Instagram.'}
+          {t.creators.pageSubtitle}
         </p>
       </div>
 
@@ -67,7 +65,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
         {creatorGuides.map((guide) => {
           const isSelected = guide.id === selectedGuideId;
           const GuideIcon = iconMap[guide.icon] || Sparkles;
-          const name = isArabicFamily ? guide.arabicName : language === 'fr' ? guide.frenchName : guide.name;
+          const loc = localizeGuide(guide);
 
           return (
             <button
@@ -80,7 +78,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
               }`}
             >
               <GuideIcon className="h-4 w-4" />
-              <span>{name}</span>
+              <span>{loc.name}</span>
             </button>
           );
         })}
@@ -98,16 +96,16 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
               </div>
               <div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white">
-                  {isArabicFamily ? activeGuide.arabicName : language === 'fr' ? activeGuide.frenchName : activeGuide.name}
+                  {localizedActiveGuide.name}
                 </h2>
                 <p className="mt-1 text-xs sm:text-sm text-zinc-300 font-medium max-w-xl">
-                  {isArabicFamily ? activeGuide.taglineAr : activeGuide.taglineEn}
+                  {localizedActiveGuide.tagline}
                 </p>
               </div>
             </div>
 
             <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 text-center sm:text-end shrink-0">
-              <div className="text-xs text-zinc-400 font-semibold">{isRTL ? 'متوسط الـ RPM التقديري:' : 'Average Potential RPM:'}</div>
+              <div className="text-xs text-zinc-400 font-semibold">{t.creators.avgRpmLabel || t.creators.avgRpm}</div>
               <div className="mt-1 text-lg sm:text-xl font-black text-amber-400">{activeGuide.monetization.potentialRpm}</div>
             </div>
           </div>
@@ -120,7 +118,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
           <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
             <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4" />
-              <span>{isRTL ? 'شروط تفعيل الأرباح الرسمية' : 'Official Monetization Requirements'}</span>
+              <span>{t.creators.monetizationPolicies || t.creators.monetizationReqs}</span>
             </h3>
 
             <div className="mt-4 space-y-2.5">
@@ -141,7 +139,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
           <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
             <h3 className="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
               <DollarSign className="h-4 w-4" />
-              <span>{isRTL ? 'طرق وقنوات استلام الأرباح' : 'Payout & Revenue Streams'}</span>
+              <span>{t.creators.payoutChannels || t.creators.payoutMethods}</span>
             </h3>
 
             <div className="mt-4 space-y-2.5">
@@ -164,7 +162,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
         <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-xl">
           <h3 className="text-sm font-bold text-orange-400 uppercase tracking-wider flex items-center gap-2">
             <Zap className="h-4 w-4" />
-            <span>{isRTL ? 'تكتيكات الخوارزمية وأسرار رفع المشاهدات' : 'Algorithmic Growth Tactics'}</span>
+            <span>{t.creators.growthTacticsTitle || t.creators.algorithmHacks}</span>
           </h3>
 
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -174,10 +172,10 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
                   <span className="flex h-5 w-5 items-center justify-center rounded-md bg-orange-500/20 text-xs font-black text-orange-400">
                     {idx + 1}
                   </span>
-                  <span>{isRTL ? hack.titleAr : hack.titleEn}</span>
+                  <span>{isArabicFamily ? hack.titleAr : hack.titleEn}</span>
                 </div>
                 <p className="mt-2 text-xs text-zinc-300 leading-relaxed font-medium">
-                  {isRTL ? hack.detailAr : hack.detailEn}
+                  {isArabicFamily ? hack.detailAr : hack.detailEn}
                 </p>
               </div>
             ))}
@@ -191,17 +189,17 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
           <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
             <h3 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
               <Layers className="h-4 w-4 text-amber-400" />
-              <span>{isRTL ? 'أنواع الفيديوهات الأكثر نجاحاً' : 'Top Performing Formats'}</span>
+              <span>{t.creators.topFormatsTitle || t.creators.bestFormats}</span>
             </h3>
 
             <div className="mt-4 space-y-3">
               {activeGuide.bestFormats.map((fmt, i) => (
                 <div key={i} className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-3.5">
                   <div className="text-xs sm:text-sm font-bold text-amber-300">
-                    {isRTL ? fmt.nameAr : fmt.nameEn}
+                    {isArabicFamily ? fmt.nameAr : fmt.nameEn}
                   </div>
                   <p className="mt-1 text-xs text-zinc-400 leading-relaxed">
-                    {isRTL ? fmt.descriptionAr : fmt.descriptionEn}
+                    {isArabicFamily ? fmt.descriptionAr : fmt.descriptionEn}
                   </p>
                 </div>
               ))}
@@ -212,7 +210,7 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
           <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-xl">
             <h3 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
               <Wrench className="h-4 w-4 text-orange-400" />
-              <span>{isRTL ? 'البرامج والأدوات الموصى بها' : 'Recommended Software & Tools'}</span>
+              <span>{t.creators.gearAndTools}</span>
             </h3>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -224,24 +222,22 @@ export const CreatorsView: React.FC<CreatorsViewProps> = ({ onNavigateToIdeas, o
             </div>
 
             <div className="mt-8 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4">
-              <div className="text-xs font-bold text-amber-400 mb-1">{isRTL ? 'خطوتك التالية:' : 'Next Step:'}</div>
+              <div className="text-xs font-bold text-amber-400 mb-1">{t.creators.nextStep}</div>
               <p className="text-xs text-zinc-300 leading-relaxed">
-                {isRTL
-                  ? 'تصفح أفكار المحتوى المتوافقة مع هذه المنصة أو استخدم حاسبة أرباح المشاهدات لحساب دخلك المستهدف.'
-                  : 'Check out tailored content ideas for this platform or compute your potential views revenue in the Tools section.'}
+                {t.creators.nextStepDesc}
               </p>
               <div className="mt-3 flex gap-2">
                 <button
                   onClick={onNavigateToIdeas}
                   className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-bold text-black hover:bg-amber-400"
                 >
-                  {isRTL ? 'أفكار المحتوى' : 'Ideas'}
+                  {t.ideas.pageTitle}
                 </button>
                 <button
                   onClick={onNavigateToTools}
                   className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:text-white"
                 >
-                  {isRTL ? 'الحاسبات' : 'Calculators'}
+                  {t.tools.pageTitle}
                 </button>
               </div>
             </div>

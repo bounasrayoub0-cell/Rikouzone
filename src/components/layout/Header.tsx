@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, savedCou
             }`}
           >
             <Bookmark className={`h-4 w-4 ${savedCount > 0 ? 'text-sky-400 fill-sky-400/20' : ''}`} />
-            <span className="hidden sm:inline">{isRTL ? 'المحفوظات' : 'Saved'}</span>
+            <span className="hidden sm:inline">{t.common.savedItems}</span>
             {savedCount > 0 && (
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-[10px] font-black text-black">
                 {savedCount}

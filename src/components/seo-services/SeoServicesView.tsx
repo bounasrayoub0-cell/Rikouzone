@@ -43,6 +43,7 @@ import { SeoAuditGenerator } from './SeoAuditGenerator';
 import { SeoPricingCalculator } from './SeoPricingCalculator';
 import { SeoBeforeAfterComparator } from './SeoBeforeAfterComparator';
 import { SeoServiceSelectorTool } from './SeoServiceSelectorTool';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface SeoServicesViewProps {
   onNavigate: (tab: string) => void;
@@ -52,6 +53,7 @@ interface SeoServicesViewProps {
 const SEO_COMPLETED_LESSONS_KEY = 'rikouzone_seo_completed_lessons';
 
 export const SeoServicesView: React.FC<SeoServicesViewProps> = ({ onNavigate, onCopyText }) => {
+  const { t } = useLanguage();
   // 1. Navigation tabs
   const [activeTab, setActiveTab] = useState<
     'stages' | 'selector' | 'audit' | 'pricing' | 'before-after' | 'templates' | 'case-study'
@@ -119,7 +121,7 @@ export const SeoServicesView: React.FC<SeoServicesViewProps> = ({ onNavigate, on
             className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-amber-400 transition-colors"
           >
             <ArrowRight className="h-4 w-4" />
-            <span>العودة لكافة مسارات الدخل</span>
+            <span>{t.nav.income}</span>
           </button>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400">

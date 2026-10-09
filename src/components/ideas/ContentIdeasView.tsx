@@ -28,7 +28,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
   onCopyText,
   selectedIdeaId
 }) => {
-  const { language, isRTL } = useLanguage();
+  const { language, isRTL, t, localizeIdea } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState<string>('all');
@@ -42,7 +42,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
   });
 
   const platforms: { id: string; label: string }[] = [
-    { id: 'all', label: isRTL ? 'كل المنصات' : 'All Platforms' },
+    { id: 'all', label: t.ideas.allPlatforms },
     { id: 'TikTok', label: 'TikTok' },
     { id: 'Shorts', label: 'YouTube Shorts' },
     { id: 'YouTube', label: 'YouTube Long' },
@@ -88,15 +88,13 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-400">
           <Flame className="h-4 w-4" />
-          <span>{isRTL ? 'مكتبة تضم أكثر من 160 فكرة وسكربت' : '160+ Viral Content Ideas & Scripts'}</span>
+          <span>{t.ideas.libraryBadge}</span>
         </div>
         <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
-          {isRTL ? 'مكتبة أفكار المحتوى الفيروسي والسكربتات' : 'Viral Content Ideas & Hook Engine'}
+          {t.ideas.pageTitle}
         </h1>
         <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
-          {isRTL
-            ? 'خطافات افتتاحية صادمة، هياكل سيناريو جاهزة، ونداءات تفاعل ذكية مصممة خصيصاً لتفادي التمرير ورفع نسبة المشاهدة.'
-            : 'Tested opening hooks, step-by-step video script formulas, and viral retention tactics across 8 creator platforms.'}
+          {t.ideas.pageSubtitle}
         </p>
       </div>
 
@@ -111,7 +109,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={isRTL ? 'ابحث في الأفكار والهوكات (مثال: فري فاير، ذكاء اصطناعي، بدون وجه)...' : 'Search ideas, hooks, or topics...'}
+            placeholder={t.ideas.searchPlaceholder}
             className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
           />
         </div>
@@ -141,13 +139,13 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-800/80 pt-4 text-xs">
           
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-zinc-400 font-semibold">{isRTL ? 'النيتش / التخصص:' : 'Niche:'}</span>
+            <span className="text-zinc-400 font-semibold">{t.income.categoryHeader}:</span>
             <select
               value={selectedNiche}
               onChange={(e) => setSelectedNiche(e.target.value)}
               className="rounded-xl border border-zinc-800 bg-zinc-900 py-1.5 px-3 text-xs text-white focus:border-purple-500 focus:outline-none"
             >
-              <option value="all">{isRTL ? 'جميع التخصصات (23 نيتش)' : 'All Niches (23)'}</option>
+              <option value="all">{t.ideas.allNiches} (23)</option>
               {niches.map((n) => (
                 <option key={n} value={n}>{n}</option>
               ))}
@@ -163,14 +161,12 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
               }`}
             >
               <UserX className="h-3.5 w-3.5" />
-              <span>{isRTL ? 'بدون وجه فقط (Faceless)' : 'Faceless Only'}</span>
+              <span>{t.income.facelessOnly}</span>
             </button>
           </div>
 
           <div className="text-zinc-500 font-medium">
-            {isRTL
-              ? `عرض ${filteredIdeas.length} من أصل ${contentIdeas.length} فكرة`
-              : `Showing ${filteredIdeas.length} of ${contentIdeas.length} ideas`}
+            {`${t.income.showing} ${filteredIdeas.length} ${t.income.of} ${contentIdeas.length} ${t.nav.ideas}`}
           </div>
 
         </div>
@@ -182,7 +178,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
         <div className="mt-12 rounded-3xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
           <Lightbulb className="mx-auto h-10 w-10 text-zinc-600" />
           <h3 className="mt-4 text-lg font-bold text-white">
-            {isRTL ? 'لم يتم العثور على أفكار مطابقة' : 'No ideas match your criteria'}
+            {t.common.notFound}
           </h3>
           <button
             onClick={() => {
@@ -193,15 +189,13 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             }}
             className="mt-4 rounded-xl bg-purple-600 px-4 py-2 text-xs font-bold text-white hover:bg-purple-500 transition-all"
           >
-            {isRTL ? 'إعادة ضبط كل الفلاتر' : 'Reset All Filters'}
+            {t.common.resetFilters}
           </button>
         </div>
       ) : (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredIdeas.map((idea) => {
-            const isArabicFamily = language === 'ar' || language === 'ary';
-            const title = isArabicFamily ? idea.arabicTitle : language === 'fr' ? idea.frenchTitle : idea.title;
-            const hook = isArabicFamily ? idea.arabicHook : language === 'fr' ? idea.frenchHook : idea.hook;
+            const { title, hook } = localizeIdea(idea);
             const saved = isSaved(idea.id);
 
             return (
@@ -230,7 +224,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                     <button
                       onClick={() => onToggleSave(idea.id, 'idea')}
                       className="rounded-lg p-1 text-zinc-500 hover:text-purple-400 transition-colors"
-                      title={isRTL ? 'حفظ' : 'Bookmark'}
+                      title={t.common.save}
                     >
                       <Bookmark className={`h-4 w-4 ${saved ? 'fill-purple-400 text-purple-400' : ''}`} />
                     </button>
@@ -248,15 +242,15 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                   <div className="mt-3 rounded-2xl border border-purple-500/25 bg-purple-500/5 p-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
-                        {isRTL ? '⚡ الهوك الافتتاحي (Hook):' : '⚡ Hook:'}
+                        {t.ideas.openingHookTitle}
                       </span>
                       <button
-                        onClick={() => onCopyText(hook, isRTL ? 'تم نسخ الهوك!' : 'Hook copied!')}
+                        onClick={() => onCopyText(hook, t.ideas.hookCopied)}
                         className="flex items-center gap-1 rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-200 hover:bg-purple-600 hover:text-white transition-all"
-                        title={isRTL ? 'نسخ الهوك' : 'Copy'}
+                        title={t.ideas.copyHook}
                       >
                         <Copy className="h-3 w-3" />
-                        <span>{isRTL ? 'نسخ' : 'Copy'}</span>
+                        <span>{t.common.copy}</span>
                       </button>
                     </div>
                     <p className="mt-1 text-xs font-semibold text-zinc-200 line-clamp-2 italic">
@@ -271,7 +265,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                     <span>{idea.duration}</span>
                     <span className="text-zinc-600">•</span>
                     <span className="capitalize text-purple-400 font-medium">
-                      {idea.viralPotential === 'explosive' ? (isRTL ? 'انتشار ناري 🔥' : 'Explosive') : (isRTL ? 'عالي جداً' : 'Very High')}
+                      {idea.viralPotential === 'explosive' ? t.common.explosive : t.common.high}
                     </span>
                   </div>
 
@@ -279,7 +273,7 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                     onClick={() => setActiveIdeaModal(idea)}
                     className="rounded-xl border border-zinc-700 bg-zinc-800/70 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-purple-600 hover:text-white hover:border-transparent transition-all"
                   >
-                    {isRTL ? 'السكربت والـ CTA' : 'Script & CTA'}
+                    {t.sections.viewScriptOutline}
                   </button>
                 </div>
               </div>
