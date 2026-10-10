@@ -14,7 +14,9 @@ export const it: TranslationSchema = {
     tools: 'Strumenti Digitali',
     ideas: 'Idee di Contenuto',
     ai: 'Rikou AI',
-    profile: 'Il Mio Account'
+    profile: 'Il Mio Account',
+    about: 'Chi siamo',
+    contact: 'Contattaci'
   },
   hero: {
     welcome: 'Benvenuto su RikouZone',
@@ -315,7 +317,7 @@ export const it: TranslationSchema = {
     toolsTitle: 'Strumenti & IA',
     disclaimer: 'Progettato per l’esecuzione pratica. Tutte le stime si basano sui parametri reali del 2026.',
     rightsReserved: 'Tutti i diritti riservati da RikouZone',
-    foundedBy: 'Fondato & Sviluppato da',
+    foundedBy: 'Fondato & Sviluppato da: Ayoub Bounasr',
     brandDescription: 'La piattaforma formativa digitale completa che potenzia creator e studenti con roadmap pratiche e strumenti moderni.',
     statsSummary: 'Creato per l’azione concreta. Tutti i dati riflettono parametri reali del mercato 2026.',
     founderCredit: 'Fondato da Ayoub Bounasr',

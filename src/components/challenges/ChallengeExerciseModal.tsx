@@ -74,7 +74,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
       <div 
-        className="relative w-full max-w-xl rounded-3xl border border-zinc-700/80 bg-zinc-950 p-6 sm:p-8 shadow-2xl overflow-hidden my-6"
+        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-700/80 bg-zinc-950 p-5 sm:p-7 shadow-2xl my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-emerald-500/15 blur-2xl" />

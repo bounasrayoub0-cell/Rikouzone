@@ -14,7 +14,9 @@ export const en: TranslationSchema = {
     tools: 'Digital Tools',
     ideas: 'Content Ideas',
     ai: 'Rikou AI',
-    profile: 'My Account'
+    profile: 'My Account',
+    about: 'About Us',
+    contact: 'Contact Us'
   },
   hero: {
     welcome: 'Welcome to RikouZone',
@@ -315,7 +317,7 @@ export const en: TranslationSchema = {
     toolsTitle: 'Tools & AI',
     disclaimer: 'Built for practical execution. All estimates reflect real 2026 industry benchmarks.',
     rightsReserved: 'All rights reserved by RikouZone',
-    foundedBy: 'Founded & Developed by',
+    foundedBy: 'Founded & Developed by: Ayoub Bounasr',
     brandDescription: 'The comprehensive digital learning platform empowering creators and learners with practical roadmaps and modern tools.',
     statsSummary: 'Built for practical execution. All estimates reflect real 2026 industry benchmarks.',
     founderCredit: 'Founded by Ayoub Bounasr',

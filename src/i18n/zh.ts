@@ -14,7 +14,9 @@ export const zh: TranslationSchema = {
     tools: '数字工具',
     ideas: '内容灵感',
     ai: 'Rikou AI',
-    profile: '我的账户'
+    profile: '我的账户',
+    about: '关于我们',
+    contact: '联系我们'
   },
   hero: {
     welcome: '欢迎来到 RikouZone',
@@ -315,7 +317,7 @@ export const zh: TranslationSchema = {
     toolsTitle: '工具与智能助手',
     disclaimer: '所有数据与预估均源自 2026 年数字内容创作与电商行业真实基准。',
     rightsReserved: 'RikouZone 保留所有权利',
-    foundedBy: '创始人与开发者',
+    foundedBy: '创始人与开发者: Ayoub Bounasr',
     brandDescription: '赋能全球内容创作者与自媒体从业者的数字化实战学习体系与前沿工具平台。',
     statsSummary: '立足实操落地。所有数据与估算均依据2026年全球自媒体与变现真实基准测算。',
     founderCredit: '由 Ayoub Bounasr 创立',

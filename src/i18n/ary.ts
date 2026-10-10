@@ -14,7 +14,9 @@ export const ary: TranslationSchema = {
     tools: 'أدوات رقمية',
     ideas: 'أفكار المحتوى',
     ai: 'الذكاء الاصطناعي',
-    profile: 'الحساب'
+    profile: 'الحساب',
+    about: 'شكون حنا',
+    contact: 'تواصل معانا'
   },
   hero: {
     welcome: 'مرحباً بيك فـ RikouZone',
@@ -315,7 +317,7 @@ export const ary: TranslationSchema = {
     toolsTitle: 'الأدوات والذكاء',
     disclaimer: 'كاع الأرقام والاستراتيجيات مبنية على دراسات وإحصاءات صناعة المحتوى الواقعية لعام 2026.',
     rightsReserved: 'جميع الحقوق محفوظة لمنصة RikouZone',
-    foundedBy: 'تطوير وتأسيس',
+    foundedBy: 'تطوير وتأسيس: Ayoub Bounasr',
     brandDescription: 'المنظومة التعليمية المتكاملة لتطوير مهارات صناع المحتوى والمتعلمين بالمناهج التطبيقية والأدوات العملية.',
     statsSummary: 'كاع الأرقام والاستراتيجيات مبنية على دراسات وإحصاءات صناعة المحتوى الواقعية لعام 2026.',
     founderCredit: 'تأسيس أيوب بوناصر / Founded by Ayoub Bounasr',

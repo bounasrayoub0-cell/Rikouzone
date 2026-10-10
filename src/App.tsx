@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
 import { ThemeProvider } from './theme/ThemeContext';
 import { Header } from './components/layout/Header';
+import { SidebarDrawer } from './components/layout/SidebarDrawer';
 import { BottomNavigation } from './components/layout/BottomNavigation';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/home/Hero';
@@ -34,6 +35,9 @@ import { AiContentServicesView } from './components/ai-content/AiContentServices
 import { AiAutomationAgencyView } from './components/ai-automation/AiAutomationAgencyView';
 import { DigitalProductsView } from './components/digital-products/DigitalProductsView';
 import { SellingTemplatesView } from './components/templates/SellingTemplatesView';
+import { ChallengesView } from './components/challenges/ChallengesView';
+import { AboutView } from './components/about/AboutView';
+import { ContactView } from './components/contact/ContactView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -43,6 +47,7 @@ const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
 function MainApp() {
   const { t } = useLanguage();
   const [currentTab, setCurrentTab] = useState<string>('home');
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem(SAVED_ITEMS_KEY);
@@ -149,6 +154,16 @@ function MainApp() {
 
       {/* Top Header */}
       <Header
+        currentTab={currentTab}
+        onNavigate={handleNavigate}
+        savedCount={savedIds.length}
+        onToggleSidebar={() => setIsSidebarOpen(true)}
+      />
+
+      {/* Professional Sidebar Drawer (Hamburger Menu) */}
+      <SidebarDrawer
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
         currentTab={currentTab}
         onNavigate={handleNavigate}
         savedCount={savedIds.length}
@@ -346,6 +361,13 @@ function MainApp() {
           />
         )}
 
+        {currentTab === 'challenges' && (
+          <ChallengesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
         {currentTab === 'profile' && (
           <ProfileView
             savedIds={savedIds}
@@ -356,6 +378,14 @@ function MainApp() {
             onCopyText={handleCopyText}
             onNavigate={handleNavigate}
           />
+        )}
+
+        {currentTab === 'about' && (
+          <AboutView onNavigate={handleNavigate} />
+        )}
+
+        {currentTab === 'contact' && (
+          <ContactView onNavigate={handleNavigate} />
         )}
       </main>
 

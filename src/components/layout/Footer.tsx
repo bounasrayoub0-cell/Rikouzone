@@ -52,6 +52,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('about')} className="hover:text-amber-400 transition-colors font-medium text-amber-300/90 hover:text-amber-300">
+                  {t.nav.about || 'من نحن'}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('contact')} className="hover:text-amber-400 transition-colors font-medium text-amber-300/90 hover:text-amber-300">
+                  {t.nav.contact || 'اتصل بنا'}
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('income')} className="hover:text-amber-400 transition-colors">
                   {t.nav.income} (35)
                 </button>
@@ -59,6 +69,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button onClick={() => onNavigate('ideas')} className="hover:text-amber-400 transition-colors">
                   {t.nav.ideas} (160+)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('challenges')} className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <span>التحديات ونقاط الخبرة</span>
+                  <span className="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-1.5 py-0.2 rounded border border-amber-500/20 font-sans">XP</span>
                 </button>
               </li>
             </ul>
@@ -107,7 +123,36 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {t.brand.subtitle}
             </div>
             <div className="text-xs text-zinc-400 font-medium mt-0.5">
-              <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">{t.footer.foundedBy || t.footer.founderCredit}</span>
+              <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">{t.footer.foundedBy || 'تطوير وتأسيس: Ayoub Bounasr'}</span>
+            </div>
+            <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1">
+              <button 
+                onClick={() => onNavigate('about')} 
+                className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
+              >
+                {t.nav.about || 'من نحن'}
+              </button>
+              <span>·</span>
+              <button 
+                onClick={() => onNavigate('contact')} 
+                className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
+              >
+                {t.nav.contact || 'اتصل بنا'}
+              </button>
+              <span>·</span>
+              <button 
+                onClick={() => onNavigate('home')} 
+                className="hover:text-amber-400 transition-colors cursor-pointer"
+              >
+                {t.nav.home}
+              </button>
+              <span>·</span>
+              <button 
+                onClick={() => onNavigate('challenges')} 
+                className="hover:text-amber-400 transition-colors cursor-pointer"
+              >
+                XP
+              </button>
             </div>
             <div className="text-[11px] text-zinc-500 mt-1 font-normal">
               {t.footer.rightsReserved}

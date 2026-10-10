@@ -15,6 +15,8 @@ export interface TranslationSchema {
     ideas: string;
     ai: string;
     profile: string;
+    about?: string;
+    contact?: string;
   };
   hero: {
     welcome: string;

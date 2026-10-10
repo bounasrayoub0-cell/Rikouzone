@@ -88,6 +88,43 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
         </div>
       </section>
 
+      {/* Challenges & Daily XP Invitation Banner */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div 
+          onClick={() => onNavigate('challenges')}
+          className="group relative cursor-pointer overflow-hidden rounded-3xl border border-amber-500/30 bg-gradient-to-r from-amber-950/25 via-zinc-900 to-zinc-950 p-6 sm:p-7 backdrop-blur-xl transition-all hover:border-amber-400/60 hover:shadow-xl hover:shadow-amber-950/20"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-black shadow-lg shadow-amber-500/20 shrink-0">
+                <Sparkles className="h-6 w-6 stroke-[2.5]" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-amber-400">قسم جديد</span>
+                  <span className="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded-full font-bold">
+                    تحديات يومية وأسبوعية 2026
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white mt-0.5 group-hover:text-amber-300 transition-colors">
+                  التحديات ونقاط الخبرة XP — حوّل تعلّمك إلى عادة يومية
+                </h3>
+                <p className="text-xs text-zinc-400 mt-1 max-w-2xl">
+                  اختبر معلوماتك، أنجز تمارين تطبيقية، حافظ على شعلة الأيام المتتالية Streak، واجمع شارات التميز.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="px-4 py-2.5 rounded-xl bg-amber-500 text-black font-black text-xs group-hover:bg-amber-400 transition-colors flex items-center gap-1.5 shadow-md shadow-amber-500/20">
+                <span>دخول التحديات</span>
+                <ArrowIcon className="h-3.5 w-3.5" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. Featured Income Paths Spotlight */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
