@@ -141,6 +141,9 @@ export function getInitialUserState(): ChallengeUserState {
 export function saveUserState(state: ChallengeUserState): void {
   try {
     localStorage.setItem(CHALLENGES_STORAGE_KEY, JSON.stringify(state));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('rz_xp_updated', { detail: { totalXp: state.totalXp } }));
+    }
   } catch (e) {
     console.warn('Failed to save challenge state to localStorage:', e);
   }

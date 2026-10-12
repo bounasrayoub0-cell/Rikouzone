@@ -17,6 +17,9 @@ export interface TranslationSchema {
     profile: string;
     about?: string;
     contact?: string;
+    terms?: string;
+    privacy?: string;
+    cookies?: string;
   };
   hero: {
     welcome: string;
@@ -321,6 +324,9 @@ export interface TranslationSchema {
     brandDescription: string;
     statsSummary: string;
     founderCredit: string;
+    termsOfUse?: string;
+    privacyPolicy?: string;
+    cookiesPolicy?: string;
   };
   toasts: {
     savedIncome: string;

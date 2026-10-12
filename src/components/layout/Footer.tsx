@@ -62,6 +62,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('terms')} className="hover:text-amber-400 transition-colors font-medium text-amber-300/90 hover:text-amber-300">
+                  {t.nav.terms || t.footer.termsOfUse || 'شروط الاستخدام'}
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('income')} className="hover:text-amber-400 transition-colors">
                   {t.nav.income} (35)
                 </button>
@@ -125,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="text-xs text-zinc-400 font-medium mt-0.5">
               <span className="font-semibold text-amber-400/95 hover:text-amber-300 transition-colors">{t.footer.foundedBy || 'تطوير وتأسيس: Ayoub Bounasr'}</span>
             </div>
-            <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-zinc-400 mt-1">
               <button 
                 onClick={() => onNavigate('about')} 
                 className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
@@ -138,6 +143,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
               >
                 {t.nav.contact || 'اتصل بنا'}
+              </button>
+              <span>·</span>
+              <button 
+                id="footer-terms-btn"
+                onClick={() => onNavigate('terms')} 
+                className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
+              >
+                {t.nav.terms || t.footer.termsOfUse || 'شروط الاستخدام'}
+              </button>
+              <span>·</span>
+              <button 
+                id="footer-privacy-btn"
+                onClick={() => onNavigate('privacy')} 
+                className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
+              >
+                {t.nav.privacy || t.footer.privacyPolicy || 'سياسة الخصوصية'}
+              </button>
+              <span>·</span>
+              <button 
+                id="footer-cookies-btn"
+                onClick={() => onNavigate('cookies')} 
+                className="hover:text-amber-400 text-zinc-300 font-medium transition-colors cursor-pointer"
+              >
+                {t.nav.cookies || t.footer.cookiesPolicy || 'سياسة الكوكيز والإعلانات'}
               </button>
               <span>·</span>
               <button 

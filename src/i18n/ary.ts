@@ -16,7 +16,10 @@ export const ary: TranslationSchema = {
     ai: 'الذكاء الاصطناعي',
     profile: 'الحساب',
     about: 'شكون حنا',
-    contact: 'تواصل معانا'
+    contact: 'تواصل معانا',
+    terms: 'شروط الاستخدام',
+    privacy: 'سياسة الخصوصية',
+    cookies: 'سياسة الكوكيز والإعلانات'
   },
   hero: {
     welcome: 'مرحباً بيك فـ RikouZone',
@@ -321,6 +324,9 @@ export const ary: TranslationSchema = {
     brandDescription: 'المنظومة التعليمية المتكاملة لتطوير مهارات صناع المحتوى والمتعلمين بالمناهج التطبيقية والأدوات العملية.',
     statsSummary: 'كاع الأرقام والاستراتيجيات مبنية على دراسات وإحصاءات صناعة المحتوى الواقعية لعام 2026.',
     founderCredit: 'تأسيس أيوب بوناصر / Founded by Ayoub Bounasr',
+    termsOfUse: 'شروط الاستخدام',
+    privacyPolicy: 'سياسة الخصوصية',
+    cookiesPolicy: 'سياسة الكوكيز والإعلانات'
   },
   toasts: {
     savedIncome: 'تم حفظ المسار فـ المفضلة بنجاح!',

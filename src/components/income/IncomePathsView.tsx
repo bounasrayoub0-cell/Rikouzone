@@ -1,21 +1,27 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
-import { IncomePath, DifficultyLevel } from '../../types';
+import { IncomePath } from '../../types';
 import { incomePaths } from '../../data/incomePaths';
 import { IncomeDetailModal } from './IncomeDetailModal';
 import { 
   Search, 
-  Filter, 
   TrendingUp, 
-  Clock, 
-  DollarSign, 
   Bookmark, 
   ArrowRight, 
-  ArrowLeft,
-  Sparkles,
-  Zap,
-  SlidersHorizontal
+  ArrowLeft, 
+  Sparkles, 
+  SlidersHorizontal,
+  Lock,
+  Unlock
 } from 'lucide-react';
+import { LockedTrackModal } from './LockedTrackModal';
+import { 
+  useUserXp, 
+  isTrackLocked, 
+  getTrackLockDetails, 
+  lockedTracksI18n,
+  LOCKED_TRACKS_RULES
+} from '../../utils/lockedTracks';
 
 interface IncomePathsViewProps {
   onToggleSave: (id: string, type: 'income' | 'idea') => void;
@@ -34,13 +40,20 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
 }) => {
   const { language, isRTL, t, localizePath } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
+  const userXp = useUserXp();
+  const tLock = lockedTracksI18n[language] || lockedTracksI18n.ar;
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
+  const [lockedModalPath, setLockedModalPath] = useState<IncomePath | null>(null);
   const [activeModalPath, setActiveModalPath] = useState<IncomePath | null>(() => {
     if (selectedPathId) {
-      return incomePaths.find((p) => p.id === selectedPathId) || null;
+      const found = incomePaths.find((p) => p.id === selectedPathId) || null;
+      if (found && isTrackLocked(found.id, userXp)) {
+        return null;
+      }
+      return found;
     }
     return null;
   });
@@ -79,6 +92,65 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
     });
   }, [searchQuery, selectedCategory, selectedDifficulty, localizePath]);
 
+  const handleOpenPath = (path: IncomePath) => {
+    // If the track is locked according to user's real XP, open locked modal
+    if (isTrackLocked(path.id, userXp)) {
+      setLockedModalPath(path);
+      return;
+    }
+
+    // Unlocked or normal paths
+    if (path.id === 'affiliate-marketing' && onNavigate) {
+      onNavigate('affiliate');
+    } else if (path.id === 'tiktok-affiliate' && onNavigate) {
+      onNavigate('tiktok-affiliate');
+    } else if (path.id === 'youtube-monetization' && onNavigate) {
+      onNavigate('youtube-monetization');
+    } else if (path.id === 'instagram-monetization' && onNavigate) {
+      onNavigate('instagram-monetization');
+    } else if (path.id === 'facebook-monetization' && onNavigate) {
+      onNavigate('facebook-monetization');
+    } else if (path.id === 'blogging' && onNavigate) {
+      onNavigate('blogging');
+    } else if (path.id === 'seo-services' && onNavigate) {
+      onNavigate('seo-services');
+    } else if (path.id === 'freelance-writing' && onNavigate) {
+      onNavigate('freelance-writing');
+    } else if (path.id === 'copywriting' && onNavigate) {
+      onNavigate('copywriting');
+    } else if (path.id === 'video-editing' && onNavigate) {
+      onNavigate('video-editing');
+    } else if (path.id === 'graphic-design' && onNavigate) {
+      onNavigate('graphic-design');
+    } else if (path.id === 'thumbnail-design' && onNavigate) {
+      onNavigate('thumbnail-design');
+    } else if (path.id === 'web-development' && onNavigate) {
+      onNavigate('web-development');
+    } else if (path.id === 'app-development' && onNavigate) {
+      onNavigate('app-development');
+    } else if (path.id === 'social-media-management' && onNavigate) {
+      onNavigate('social-media-management');
+    } else if (path.id === 'ugc-content' && onNavigate) {
+      onNavigate('ugc-content');
+    } else if (path.id === 'ai-content-services' && onNavigate) {
+      onNavigate('ai-content-services');
+    } else if (path.id === 'ai-automation-services' && onNavigate) {
+      onNavigate('ai-automation-services');
+    } else if (path.id === 'selling-digital-products' && onNavigate) {
+      onNavigate('selling-digital-products');
+    } else if (path.id === 'selling-templates' && onNavigate) {
+      onNavigate('selling-templates');
+    } else if (path.id === 'print-on-demand' && onNavigate) {
+      onNavigate('print-on-demand');
+    } else if (path.id === 'dropshipping' && onNavigate) {
+      onNavigate('dropshipping');
+    } else if (path.id === 'ecommerce' && onNavigate) {
+      onNavigate('ecommerce');
+    } else {
+      setActiveModalPath(path);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
       
@@ -113,7 +185,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute top-3.5 left-4 rtl:left-4 rtl:right-auto ltr:right-4 ltr:left-auto text-xs text-zinc-400 hover:text-white"
+              className="absolute top-3.5 left-4 rtl:left-4 rtl:right-auto ltr:right-4 ltr:left-auto text-xs text-zinc-400 hover:text-white cursor-pointer"
             >
               {t.common.clear}
             </button>
@@ -129,7 +201,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 key={cat.id}
                 id={`income-cat-${cat.id}`}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+                className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all cursor-pointer ${
                   isActive
                     ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/20'
                     : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
@@ -156,7 +228,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 <button
                   key={lvl.id}
                   onClick={() => setSelectedDifficulty(lvl.id)}
-                  className={`rounded-lg px-2.5 py-1 font-semibold transition-all ${
+                  className={`rounded-lg px-2.5 py-1 font-semibold transition-all cursor-pointer ${
                     selectedDifficulty === lvl.id
                       ? 'bg-zinc-800 text-emerald-400 border border-emerald-500/30'
                       : 'text-zinc-500 hover:text-zinc-300'
@@ -191,7 +263,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               setSelectedCategory('all');
               setSelectedDifficulty('all');
             }}
-            className="mt-4 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-bold text-black"
+            className="mt-4 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-bold text-black cursor-pointer"
           >
             {t.common.resetFilters}
           </button>
@@ -202,11 +274,19 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
             const { title, shortDesc: desc, category } = localizePath(path);
             const saved = isSaved(path.id);
 
+            const lockRule = LOCKED_TRACKS_RULES[path.id];
+            const isLocked = lockRule ? isTrackLocked(path.id, userXp) : false;
+            const lockDetails = lockRule ? getTrackLockDetails(path.id, userXp) : null;
+
             return (
               <div
                 key={path.id}
                 id={`income-card-${path.id}`}
-                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:border-emerald-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-emerald-500/5"
+                className={`group relative flex flex-col justify-between rounded-3xl border p-6 backdrop-blur-sm transition-all ${
+                  isLocked
+                    ? 'border-amber-500/30 bg-gradient-to-b from-zinc-900/90 via-zinc-900/60 to-zinc-950 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5'
+                    : 'border-zinc-800/90 bg-zinc-900/60 hover:border-emerald-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-emerald-500/5'
+                }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -214,24 +294,43 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                       <span className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20">
                         {category}
                       </span>
-                      {[
+
+                      {/* Locked Badge */}
+                      {isLocked && lockRule && (
+                        <span className="rounded-lg bg-amber-500/15 border border-amber-500/40 px-2.5 py-1 text-[11px] font-black text-amber-300 flex items-center gap-1.5 shadow-sm">
+                          <Lock className="h-3 w-3 text-amber-400" />
+                          <span>{tLock.lockedBadge} · {lockRule.requiredXp} XP</span>
+                        </span>
+                      )}
+
+                      {/* Unlocked Badge */}
+                      {lockRule && !isLocked && (
+                        <span className="rounded-lg bg-emerald-500/15 border border-emerald-500/40 px-2.5 py-1 text-[11px] font-black text-emerald-300 flex items-center gap-1.5 shadow-sm">
+                          <Unlock className="h-3 w-3 text-emerald-400" />
+                          <span>{tLock.unlockedBadge}</span>
+                        </span>
+                      )}
+
+                      {!lockRule && [
                         'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
                         'instagram-monetization', 'facebook-monetization', 'blogging', 
                         'social-media-management', 'ugc-content', 'video-editing', 
                         'copywriting', 'freelance-writing', 'seo-services', 
-                        'graphic-design', 'thumbnail-design', 'web-development', 'app-development'
+                        'graphic-design', 'thumbnail-design', 'print-on-demand',
+                        'dropshipping', 'ecommerce', 'selling-digital-products', 'selling-templates'
                       ].includes(path.id) && (
                         <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 {t.income.trackUpgradedBadge}
                         </span>
                       )}
                     </div>
+
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onToggleSave(path.id, 'income');
                       }}
-                      className="rounded-lg p-1.5 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-800/80 transition-colors"
+                      className="rounded-lg p-1.5 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-800/80 transition-colors cursor-pointer"
                       title={saved ? t.income.saved : t.income.savePath}
                     >
                       <Bookmark className={`h-4 w-4 ${saved ? 'fill-emerald-400 text-emerald-400' : ''}`} />
@@ -239,140 +338,125 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   </div>
 
                   <h3 
-                    onClick={() => {
-                      if (path.id === 'affiliate-marketing' && onNavigate) {
-                        onNavigate('affiliate');
-                      } else if (path.id === 'tiktok-affiliate' && onNavigate) {
-                        onNavigate('tiktok-affiliate');
-                      } else if (path.id === 'youtube-monetization' && onNavigate) {
-                        onNavigate('youtube-monetization');
-                      } else if (path.id === 'instagram-monetization' && onNavigate) {
-                        onNavigate('instagram-monetization');
-                      } else if (path.id === 'facebook-monetization' && onNavigate) {
-                        onNavigate('facebook-monetization');
-                      } else if (path.id === 'blogging' && onNavigate) {
-                        onNavigate('blogging');
-                      } else if (path.id === 'seo-services' && onNavigate) {
-                        onNavigate('seo-services');
-                      } else if (path.id === 'freelance-writing' && onNavigate) {
-                        onNavigate('freelance-writing');
-                      } else if (path.id === 'copywriting' && onNavigate) {
-                        onNavigate('copywriting');
-                      } else if (path.id === 'video-editing' && onNavigate) {
-                        onNavigate('video-editing');
-                      } else if (path.id === 'graphic-design' && onNavigate) {
-                        onNavigate('graphic-design');
-                      } else if (path.id === 'thumbnail-design' && onNavigate) {
-                        onNavigate('thumbnail-design');
-                      } else if (path.id === 'web-development' && onNavigate) {
-                        onNavigate('web-development');
-                      } else if (path.id === 'app-development' && onNavigate) {
-                        onNavigate('app-development');
-                      } else if (path.id === 'social-media-management' && onNavigate) {
-                        onNavigate('social-media-management');
-                      } else if (path.id === 'ugc-content' && onNavigate) {
-                        onNavigate('ugc-content');
-                      } else {
-                        setActiveModalPath(path);
-                      }
-                    }}
-                    className="mt-4 text-lg font-bold text-white group-hover:text-emerald-300 transition-colors cursor-pointer"
+                    onClick={() => handleOpenPath(path)}
+                    className={`mt-4 text-lg font-bold transition-colors cursor-pointer flex items-center gap-2 ${
+                      isLocked 
+                        ? 'text-zinc-100 group-hover:text-amber-300' 
+                        : 'text-white group-hover:text-emerald-300'
+                    }`}
                   >
-                    {title}
+                    <span>{title}</span>
+                    {isLocked && <Lock className="h-4 w-4 text-amber-400 shrink-0 inline" />}
                   </h3>
 
                   <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-3">
                     {desc}
                   </p>
+
+                  {/* Locked Track XP Progress Indicator */}
+                  {isLocked && lockDetails && lockRule && (
+                    <div className="mt-3.5 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-3">
+                      <div className="flex items-center justify-between text-[11px] mb-1.5">
+                        <span className="font-semibold text-amber-200/90 flex items-center gap-1">
+                          <Lock className="h-3 w-3 text-amber-400 inline" />
+                          <span>{tLock.progressLabel}</span>
+                        </span>
+                        <span className="font-bold font-mono text-amber-400">
+                          {lockDetails.progressPercent}%
+                        </span>
+                      </div>
+                      
+                      {/* Bar */}
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-900 border border-amber-500/20">
+                        <div 
+                          className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 transition-all duration-500 rounded-full"
+                          style={{ width: `${Math.max(4, lockDetails.progressPercent)}%` }}
+                        />
+                      </div>
+
+                      <div className="mt-2 flex items-center justify-between text-[10px]">
+                        <span className="text-zinc-400">
+                          {tLock.currentXpLabel} <strong className="text-white font-mono">{userXp} XP</strong>
+                        </span>
+                        <span className="text-amber-300 font-medium">
+                          {tLock.remainingXpLabel} <strong className="text-amber-400 font-mono font-bold">{lockDetails.remainingXp} XP</strong>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Unlocked State Progress / Status for Unlocked Special Tracks */}
+                  {!isLocked && lockRule && (
+                    <div className="mt-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 flex items-center justify-between text-[11px] text-emerald-300">
+                      <span className="flex items-center gap-1 font-semibold">
+                        <Unlock className="h-3.5 w-3.5 text-emerald-400" />
+                        <span>{tLock.unlockedBadge}</span>
+                      </span>
+                      <span className="font-mono font-bold text-emerald-400">
+                        {userXp} / {lockRule.requiredXp} XP
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-zinc-800/80">
                   <div className="grid grid-cols-2 gap-2 text-xs mb-4">
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
                       <div className="text-zinc-500 font-medium">{t.income.monthlyPotential}</div>
-                      <div className="text-sm font-black text-emerald-400 mt-0.5">{path.potentialMonthlyIncome || path.estimatedIncomeRange}</div>
+                      <div className={`text-sm font-black mt-0.5 ${isLocked ? 'text-amber-400' : 'text-emerald-400'}`}>
+                        {path.potentialMonthlyIncome || path.estimatedIncomeRange}
+                      </div>
                     </div>
                     <div className="rounded-xl bg-zinc-950/60 p-2.5">
                       <div className="text-zinc-500 font-medium">{t.income.learningTime}</div>
-                      <div className="text-sm font-bold text-zinc-200 mt-0.5">{path.timeToLearn || (language === 'ar' || language === 'ary' ? path.arabicTimeToFirstIncome : path.timeToFirstIncome)}</div>
+                      <div className="text-sm font-bold text-zinc-200 mt-0.5">
+                        {path.timeToLearn || (language === 'ar' || language === 'ary' ? path.arabicTimeToFirstIncome : path.timeToFirstIncome)}
+                      </div>
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      if (path.id === 'affiliate-marketing' && onNavigate) {
-                        onNavigate('affiliate');
-                      } else if (path.id === 'tiktok-affiliate' && onNavigate) {
-                        onNavigate('tiktok-affiliate');
-                      } else if (path.id === 'youtube-monetization' && onNavigate) {
-                        onNavigate('youtube-monetization');
-                      } else if (path.id === 'instagram-monetization' && onNavigate) {
-                        onNavigate('instagram-monetization');
-                      } else if (path.id === 'facebook-monetization' && onNavigate) {
-                        onNavigate('facebook-monetization');
-                      } else if (path.id === 'blogging' && onNavigate) {
-                        onNavigate('blogging');
-                      } else if (path.id === 'seo-services' && onNavigate) {
-                        onNavigate('seo-services');
-                      } else if (path.id === 'freelance-writing' && onNavigate) {
-                        onNavigate('freelance-writing');
-                      } else if (path.id === 'copywriting' && onNavigate) {
-                        onNavigate('copywriting');
-                      } else if (path.id === 'video-editing' && onNavigate) {
-                        onNavigate('video-editing');
-                      } else if (path.id === 'graphic-design' && onNavigate) {
-                        onNavigate('graphic-design');
-                      } else if (path.id === 'thumbnail-design' && onNavigate) {
-                        onNavigate('thumbnail-design');
-                      } else if (path.id === 'web-development' && onNavigate) {
-                        onNavigate('web-development');
-                      } else if (path.id === 'app-development' && onNavigate) {
-                        onNavigate('app-development');
-                      } else if (path.id === 'social-media-management' && onNavigate) {
-                        onNavigate('social-media-management');
-                      } else if (path.id === 'ugc-content' && onNavigate) {
-                        onNavigate('ugc-content');
-                      } else if (path.id === 'ai-content-services' && onNavigate) {
-                        onNavigate('ai-content-services');
-                      } else if (path.id === 'ai-automation-services' && onNavigate) {
-                        onNavigate('ai-automation-services');
-                      } else if (path.id === 'selling-digital-products' && onNavigate) {
-                        onNavigate('selling-digital-products');
-                      } else if (path.id === 'selling-templates' && onNavigate) {
-                        onNavigate('selling-templates');
-                      } else {
-                        setActiveModalPath(path);
-                      }
-                    }}
-                    className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
-                      [
-                        'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
-                        'instagram-monetization', 'facebook-monetization', 'blogging', 
-                        'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
-                        'graphic-design', 'thumbnail-design', 'web-development', 
-                        'app-development', 'social-media-management', 'ugc-content',
-                        'ai-content-services', 'ai-automation-services', 'selling-digital-products',
-                        'selling-templates'
-                      ].includes(path.id)
-                        ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
-                        : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
-                    }`}
-                  >
-                    <span>
-                      {[
-                        'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
-                        'instagram-monetization', 'facebook-monetization', 'blogging', 
-                        'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
-                        'graphic-design', 'thumbnail-design', 'web-development', 
-                        'app-development', 'social-media-management', 'ugc-content',
-                        'ai-content-services', 'ai-automation-services', 'selling-digital-products',
-                        'selling-templates'
-                      ].includes(path.id)
-                        ? t.income.openFullCourse
-                        : t.income.viewDetails}
-                    </span>
-                    <ArrowIcon className="h-3.5 w-3.5" />
-                  </button>
+                  {/* Action button */}
+                  {isLocked && lockRule ? (
+                    <button
+                      onClick={() => handleOpenPath(path)}
+                      className="w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/10 border border-amber-500/40 text-amber-300 hover:from-amber-500 hover:to-orange-500 hover:text-black shadow-md shadow-amber-500/10 active:scale-95"
+                    >
+                      <Lock className="h-3.5 w-3.5" />
+                      <span>{tLock.cardActionLocked.replace('{req}', `${lockRule.requiredXp}`)}</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleOpenPath(path)}
+                      className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer ${
+                        [
+                          'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
+                          'instagram-monetization', 'facebook-monetization', 'blogging', 
+                          'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
+                          'graphic-design', 'thumbnail-design', 'web-development', 
+                          'app-development', 'social-media-management', 'ugc-content',
+                          'ai-content-services', 'ai-automation-services', 'selling-digital-products',
+                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce'
+                        ].includes(path.id)
+                          ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
+                          : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
+                      }`}
+                    >
+                      <span>
+                        {[
+                          'affiliate-marketing', 'tiktok-affiliate', 'youtube-monetization', 
+                          'instagram-monetization', 'facebook-monetization', 'blogging', 
+                          'seo-services', 'freelance-writing', 'copywriting', 'video-editing', 
+                          'graphic-design', 'thumbnail-design', 'web-development', 
+                          'app-development', 'social-media-management', 'ugc-content',
+                          'ai-content-services', 'ai-automation-services', 'selling-digital-products',
+                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce'
+                        ].includes(path.id)
+                          ? t.income.openFullCourse
+                          : t.income.viewDetails}
+                      </span>
+                      <ArrowIcon className="h-3.5 w-3.5" />
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -380,7 +464,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         </div>
       )}
 
-      {/* Modal Detail */}
+      {/* Modal Detail for Unlocked Paths */}
       <IncomeDetailModal
         path={activeModalPath}
         onClose={() => setActiveModalPath(null)}
@@ -407,6 +491,17 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToAiAutomation={() => onNavigate && onNavigate('ai-automation-services')}
         onNavigateToDigitalProducts={() => onNavigate && onNavigate('selling-digital-products')}
         onNavigateToTemplates={() => onNavigate && onNavigate('selling-templates')}
+        onNavigateToPrintOnDemand={() => onNavigate && onNavigate('print-on-demand')}
+        onNavigateToDropshipping={() => onNavigate && onNavigate('dropshipping')}
+        onNavigateToEcommerce={() => onNavigate && onNavigate('ecommerce')}
+      />
+
+      {/* Locked Track Dialog Modal */}
+      <LockedTrackModal
+        path={lockedModalPath}
+        currentXp={userXp}
+        onClose={() => setLockedModalPath(null)}
+        onNavigateToChallenges={() => onNavigate && onNavigate('challenges')}
       />
 
     </div>

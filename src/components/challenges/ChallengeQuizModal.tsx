@@ -48,18 +48,18 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
       <div 
-        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-700/80 bg-zinc-950 p-5 sm:p-7 shadow-2xl my-auto"
+        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-800/90 bg-[#0c0e15] p-5 sm:p-7 shadow-2xl my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow */}
-        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/15 blur-2xl" />
+        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/10 blur-2xl" />
 
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
               <HelpCircle className="h-5 w-5" />
             </div>
             <div>
@@ -72,7 +72,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
             <Sparkles className="h-3.5 w-3.5" />
             <span>+{challenge.xpReward} XP</span>
           </div>
@@ -87,19 +87,19 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
           <div className="mt-5 space-y-2.5">
             {quiz.options.map((option, idx) => {
               const isSelected = selectedOption === idx;
-              let btnStyle = 'border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:border-zinc-700';
+              let btnStyle = 'border-zinc-800 bg-[#12141d]/70 text-zinc-300 hover:border-zinc-700 hover:bg-[#161825]';
 
               if (isSelected && !isAnswerSubmitted) {
-                btnStyle = 'border-amber-500 bg-amber-950/20 text-white font-bold ring-1 ring-amber-500/40';
+                btnStyle = 'border-orange-500 bg-orange-950/20 text-white font-bold ring-1 ring-orange-500/40 shadow-sm shadow-orange-500/15';
               }
 
               if (isAnswerSubmitted) {
                 if (idx === quiz.correctIndex) {
-                  btnStyle = 'border-emerald-500 bg-emerald-950/40 text-emerald-200 font-bold';
+                  btnStyle = 'border-emerald-500/60 bg-emerald-950/30 text-emerald-200 font-bold';
                 } else if (isSelected && !isCorrect) {
-                  btnStyle = 'border-red-500 bg-red-950/40 text-red-200 font-bold';
+                  btnStyle = 'border-red-500/60 bg-red-950/30 text-red-200 font-bold';
                 } else {
-                  btnStyle = 'border-zinc-800 bg-zinc-900/30 text-zinc-500 opacity-60';
+                  btnStyle = 'border-zinc-800/60 bg-[#10121a]/30 text-zinc-500 opacity-60';
                 }
               }
 
@@ -127,8 +127,8 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
         {isAnswerSubmitted && (
           <div className={`p-4 rounded-2xl border text-xs sm:text-sm mb-6 ${
             isCorrect 
-              ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300' 
-              : 'bg-red-950/30 border-red-500/40 text-red-300'
+              ? 'bg-[#0a1410]/80 border-emerald-500/40 text-emerald-300' 
+              : 'bg-[#180d0d]/80 border-red-500/40 text-red-300'
           }`}>
             <div className="flex items-center gap-2 font-black mb-1">
               {isCorrect ? (
@@ -150,7 +150,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
         )}
 
         {/* Actions Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-zinc-800">
+        <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80">
           <button
             onClick={onClose}
             className="px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer"
@@ -164,7 +164,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
               disabled={selectedOption === null}
               className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${
                 selectedOption !== null
-                  ? 'bg-amber-500 hover:bg-amber-400 text-black shadow-lg shadow-amber-500/20'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
                   : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
               }`}
             >
@@ -173,7 +173,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
           ) : isCorrect ? (
             <button
               onClick={handleClaimReward}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs shadow-lg shadow-emerald-500/25 cursor-pointer flex items-center gap-1.5"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-black font-black text-xs shadow-lg shadow-emerald-500/25 border border-emerald-400/30 cursor-pointer flex items-center gap-1.5"
             >
               <Sparkles className="h-4 w-4" />
               <span>استلام {challenge.xpReward} XP وإنهاء التحدي</span>
@@ -184,7 +184,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
                 setSelectedOption(null);
                 setIsAnswerSubmitted(false);
               }}
-              className="px-6 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-black text-xs cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-[#141620] hover:bg-[#1a1d2b] border border-zinc-700/60 text-zinc-200 font-black text-xs cursor-pointer"
             >
               إعادة المحاولة
             </button>

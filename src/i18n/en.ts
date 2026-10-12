@@ -16,7 +16,10 @@ export const en: TranslationSchema = {
     ai: 'Rikou AI',
     profile: 'My Account',
     about: 'About Us',
-    contact: 'Contact Us'
+    contact: 'Contact Us',
+    terms: 'Terms of Use',
+    privacy: 'Privacy Policy',
+    cookies: 'Cookie & Advertising Policy'
   },
   hero: {
     welcome: 'Welcome to RikouZone',
@@ -321,6 +324,9 @@ export const en: TranslationSchema = {
     brandDescription: 'The comprehensive digital learning platform empowering creators and learners with practical roadmaps and modern tools.',
     statsSummary: 'Built for practical execution. All estimates reflect real 2026 industry benchmarks.',
     founderCredit: 'Founded by Ayoub Bounasr',
+    termsOfUse: 'Terms of Use',
+    privacyPolicy: 'Privacy Policy',
+    cookiesPolicy: 'Cookie & Advertising Policy'
   },
   toasts: {
     savedIncome: 'Path saved to bookmarks successfully!',

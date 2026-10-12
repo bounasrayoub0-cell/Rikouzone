@@ -15,6 +15,9 @@ import {
   Globe,
   Info,
   Mail,
+  FileText,
+  Shield,
+  Cookie,
   ChevronRight,
   ChevronLeft
 } from 'lucide-react';
@@ -54,6 +57,12 @@ const drawerI18n: Record<string, {
   aboutSub: string;
   contact: string;
   contactSub: string;
+  terms: string;
+  termsSub: string;
+  privacy: string;
+  privacySub: string;
+  cookies: string;
+  cookiesSub: string;
 }> = {
   ar: {
     groupAccount: 'حسابي',
@@ -76,7 +85,13 @@ const drawerI18n: Record<string, {
     about: 'من نحن',
     aboutSub: 'رؤيتنا ورسالتنا التعليمية',
     contact: 'اتصل بنا',
-    contactSub: 'تواصل معنا واستفسر'
+    contactSub: 'تواصل معنا واستفسر',
+    terms: 'شروط الاستخدام',
+    termsSub: 'القواعد والسياسات الرسمية',
+    privacy: 'سياسة الخصوصية',
+    privacySub: 'حماية وأمان بياناتك',
+    cookies: 'سياسة الكوكيز والإعلانات',
+    cookiesSub: 'ملفات الارتباط والإعلانات والبيانات'
   },
   ary: {
     groupAccount: 'حسابي',
@@ -99,7 +114,13 @@ const drawerI18n: Record<string, {
     about: 'شكون حنا',
     aboutSub: 'الرؤية والهدف ديالنا',
     contact: 'تواصل معانا',
-    contactSub: 'صيفط لينا ميساج دابا'
+    contactSub: 'صيفط لينا ميساج دابا',
+    terms: 'شروط الاستخدام',
+    termsSub: 'القوانين وشروط الخدمة',
+    privacy: 'سياسة الخصوصية',
+    privacySub: 'حماية وأمان البيانات ديالك',
+    cookies: 'سياسة الكوكيز والإعلانات',
+    cookiesSub: 'الكوكيز والإعلانات والبيانات المحلية'
   },
   en: {
     groupAccount: 'My Account',
@@ -122,7 +143,13 @@ const drawerI18n: Record<string, {
     about: 'About Us',
     aboutSub: 'Our vision & educational mission',
     contact: 'Contact Us',
-    contactSub: 'Get in touch & direct support'
+    contactSub: 'Get in touch & direct support',
+    terms: 'Terms of Use',
+    termsSub: 'Rules & legal framework',
+    privacy: 'Privacy Policy',
+    privacySub: 'Data protection & security',
+    cookies: 'Cookie & Ad Policy',
+    cookiesSub: 'Cookies, local storage & Adsterra'
   },
   fr: {
     groupAccount: 'Mon Compte',
@@ -145,7 +172,13 @@ const drawerI18n: Record<string, {
     about: 'À propos de nous',
     aboutSub: 'Notre vision et mission',
     contact: 'Contactez-nous',
-    contactSub: 'Écrivez-nous directement'
+    contactSub: 'Écrivez-nous directement',
+    terms: "Conditions d'utilisation",
+    termsSub: 'Règles et mentions légales',
+    privacy: 'Politique de confidentialité',
+    privacySub: 'Protection de vos données',
+    cookies: 'Cookies & Publicités',
+    cookiesSub: 'Cookies, stockage local & annonces'
   },
   es: {
     groupAccount: 'Mi Cuenta',
@@ -168,7 +201,13 @@ const drawerI18n: Record<string, {
     about: 'Quiénes somos',
     aboutSub: 'Nuestra visión y propósito',
     contact: 'Contáctanos',
-    contactSub: 'Escríbenos directamente'
+    contactSub: 'Escríbenos directamente',
+    terms: 'Términos de uso',
+    termsSub: 'Normas y avisos legales',
+    privacy: 'Política de privacidad',
+    privacySub: 'Protección y seguridad de datos',
+    cookies: 'Cookies y Publicidad',
+    cookiesSub: 'Cookies, almacenamiento local y anuncios'
   },
   de: {
     groupAccount: 'Mein Konto',
@@ -191,7 +230,13 @@ const drawerI18n: Record<string, {
     about: 'Über uns',
     aboutSub: 'Unsere Vision und Mission',
     contact: 'Kontakt',
-    contactSub: 'Schreiben Sie uns direkt'
+    contactSub: 'Schreiben Sie uns direkt',
+    terms: 'Nutzungsbedingungen',
+    termsSub: 'Plattformregeln & Rechtliches',
+    privacy: 'Datenschutzerklärung',
+    privacySub: 'Datenschutz & Sicherheit',
+    cookies: 'Cookie- & Werberichtlinie',
+    cookiesSub: 'Cookies, LocalStorage & Anzeigen'
   },
   it: {
     groupAccount: 'Il Mio Account',
@@ -214,7 +259,13 @@ const drawerI18n: Record<string, {
     about: 'Chi siamo',
     aboutSub: 'La nostra visione e missione',
     contact: 'Contattaci',
-    contactSub: 'Scrivici direttamente'
+    contactSub: 'Scrivici direttamente',
+    terms: 'Termini di utilizzo',
+    termsSub: 'Regole e note legali',
+    privacy: 'Informativa sulla privacy',
+    privacySub: 'Protezione e sicurezza dei dati',
+    cookies: 'Cookie & Pubblicità',
+    cookiesSub: 'Cookie, memoria locale & annunci'
   },
   pt: {
     groupAccount: 'Minha Conta',
@@ -237,7 +288,13 @@ const drawerI18n: Record<string, {
     about: 'Sobre nós',
     aboutSub: 'Nossa visão e missão',
     contact: 'Fale Conosco',
-    contactSub: 'Fale com a equipe'
+    contactSub: 'Fale com a equipe',
+    terms: 'Termos de uso',
+    termsSub: 'Regras e avisos legais',
+    privacy: 'Política de privacidade',
+    privacySub: 'Proteção e segurança de dados',
+    cookies: 'Cookies e Publicidade',
+    cookiesSub: 'Cookies, armazenamento local & anúncios'
   },
   zh: {
     groupAccount: '我的账户',
@@ -260,7 +317,13 @@ const drawerI18n: Record<string, {
     about: '关于我们',
     aboutSub: '愿景与教育使命',
     contact: '联系我们',
-    contactSub: '随时与我们取得联系'
+    contactSub: '随时与我们取得联系',
+    terms: '使用条款',
+    termsSub: '平台规则与法律条款',
+    privacy: '隐私政策',
+    privacySub: '数据保护与安全说明',
+    cookies: 'Cookie 与广告政策',
+    cookiesSub: 'Cookie机制、本地存储与广告说明'
   }
 };
 
@@ -556,6 +619,84 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                   <div className="min-w-0">
                     <span className="text-sm font-bold block truncate">{labels.contact}</span>
                     <span className="text-[10px] text-zinc-400 truncate block">{labels.contactSub}</span>
+                  </div>
+                </div>
+                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+              </button>
+
+              {/* 3. شروط الاستخدام */}
+              <button
+                id="drawer-item-terms"
+                onClick={() => handleItemClick('terms')}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
+                  currentTab === 'terms' || currentTab === 'terms-of-use'
+                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
+                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
+                    currentTab === 'terms' || currentTab === 'terms-of-use'
+                      ? 'bg-amber-500 text-black'
+                      : 'bg-zinc-800/80 text-amber-400'
+                  }`}>
+                    <FileText className="h-4.5 w-4.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold block truncate">{labels.terms}</span>
+                    <span className="text-[10px] text-zinc-400 truncate block">{labels.termsSub}</span>
+                  </div>
+                </div>
+                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+              </button>
+
+              {/* 4. سياسة الخصوصية */}
+              <button
+                id="drawer-item-privacy"
+                onClick={() => handleItemClick('privacy')}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
+                  currentTab === 'privacy' || currentTab === 'privacy-policy'
+                    ? 'border-emerald-500/60 bg-emerald-500/15 text-white font-bold shadow-sm'
+                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
+                    currentTab === 'privacy' || currentTab === 'privacy-policy'
+                      ? 'bg-emerald-500 text-black'
+                      : 'bg-zinc-800/80 text-emerald-400'
+                  }`}>
+                    <Shield className="h-4.5 w-4.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold block truncate">{labels.privacy}</span>
+                    <span className="text-[10px] text-zinc-400 truncate block">{labels.privacySub}</span>
+                  </div>
+                </div>
+                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+              </button>
+
+              {/* 5. سياسة الكوكيز والإعلانات */}
+              <button
+                id="drawer-item-cookies"
+                onClick={() => handleItemClick('cookies')}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
+                  currentTab === 'cookies' || currentTab === 'cookie-policy'
+                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
+                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
+                    currentTab === 'cookies' || currentTab === 'cookie-policy'
+                      ? 'bg-amber-500 text-black'
+                      : 'bg-zinc-800/80 text-amber-400'
+                  }`}>
+                    <Cookie className="h-4.5 w-4.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold block truncate">{labels.cookies}</span>
+                    <span className="text-[10px] text-zinc-400 truncate block">{labels.cookiesSub}</span>
                   </div>
                 </div>
                 <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />

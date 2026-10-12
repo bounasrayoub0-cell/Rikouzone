@@ -16,7 +16,10 @@ export const ar: TranslationSchema = {
     ai: 'Rikou AI',
     profile: 'حسابي',
     about: 'من نحن',
-    contact: 'اتصل بنا'
+    contact: 'اتصل بنا',
+    terms: 'شروط الاستخدام',
+    privacy: 'سياسة الخصوصية',
+    cookies: 'سياسة الكوكيز والإعلانات'
   },
   hero: {
     welcome: 'مرحباً بك في RikouZone',
@@ -321,6 +324,9 @@ export const ar: TranslationSchema = {
     brandDescription: 'المنظومة التعليمية المتكاملة لتطوير مهارات صناع المحتوى والمتعلمين بالمناهج التطبيقية والأدوات العملية.',
     statsSummary: 'جميع الأرقام والاستراتيجيات مبنية على دراسات وإحصاءات صناعة المحتوى الواقعية لعام 2026.',
     founderCredit: 'تأسيس أيوب بوناصر / Founded by Ayoub Bounasr',
+    termsOfUse: 'شروط الاستخدام',
+    privacyPolicy: 'سياسة الخصوصية',
+    cookiesPolicy: 'سياسة الكوكيز والإعلانات'
   },
   toasts: {
     savedIncome: 'تم حفظ المسار في المفضلة بنجاح!',

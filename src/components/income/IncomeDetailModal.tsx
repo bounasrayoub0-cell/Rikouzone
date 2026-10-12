@@ -45,6 +45,9 @@ interface IncomeDetailModalProps {
   onNavigateToAiAutomation?: () => void;
   onNavigateToDigitalProducts?: () => void;
   onNavigateToTemplates?: () => void;
+  onNavigateToPrintOnDemand?: () => void;
+  onNavigateToDropshipping?: () => void;
+  onNavigateToEcommerce?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -73,6 +76,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToAiAutomation,
   onNavigateToDigitalProducts,
   onNavigateToTemplates,
+  onNavigateToPrintOnDemand,
+  onNavigateToDropshipping,
+  onNavigateToEcommerce,
 }) => {
   const { language, isRTL, t, localizePath } = useLanguage();
 
@@ -168,6 +174,9 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
             "ai-automation-services": onNavigateToAiAutomation,
             "selling-digital-products": onNavigateToDigitalProducts,
             "selling-templates": onNavigateToTemplates,
+            "print-on-demand": onNavigateToPrintOnDemand,
+            "dropshipping": onNavigateToDropshipping,
+            "ecommerce": onNavigateToEcommerce,
           };
           const navFn = navMap[path.id];
           if (!navFn) return null;

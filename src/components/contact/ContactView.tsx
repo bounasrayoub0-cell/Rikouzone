@@ -29,10 +29,9 @@ interface ContactViewProps {
 }
 
 /**
- * البريد الإلكتروني المؤقت المعتمد للتواصل مع منصة RikouZone.
- * يمكن تعديل هذا العنوان لاحقاً عند إنشاء البريد الرسمي لنطاق المنصة (مثل contact@rikouzone.com).
+ * البريد الإلكتروني الرسمي المعتمد للتواصل مع منصة RikouZone.
  */
-export const OFFICIAL_CONTACT_EMAIL = 'bounasrayoub0@gmail.com';
+export const OFFICIAL_CONTACT_EMAIL = 'contact.rikouzone@gmail.com';
 
 interface ContactMessageRecord {
   id: string;

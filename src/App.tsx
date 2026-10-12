@@ -35,17 +35,28 @@ import { AiContentServicesView } from './components/ai-content/AiContentServices
 import { AiAutomationAgencyView } from './components/ai-automation/AiAutomationAgencyView';
 import { DigitalProductsView } from './components/digital-products/DigitalProductsView';
 import { SellingTemplatesView } from './components/templates/SellingTemplatesView';
+import { PrintOnDemandView } from './components/print-on-demand/PrintOnDemandView';
+import { ModernDropshippingView } from './components/dropshipping/ModernDropshippingView';
+import { BrandedEcommerceView } from './components/branded-ecommerce/BrandedEcommerceView';
 import { ChallengesView } from './components/challenges/ChallengesView';
 import { AboutView } from './components/about/AboutView';
 import { ContactView } from './components/contact/ContactView';
+import { TermsOfUseView } from './components/terms/TermsOfUseView';
+import { PrivacyPolicyView } from './components/privacy/PrivacyPolicyView';
+import { CookiePolicyView } from './components/cookies/CookiePolicyView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
 import AdBanner from "./components/common/AdBanner";
+import { useUserXp, isTrackLocked } from './utils/lockedTracks';
+import { LockedTrackAccessGuard } from './components/income/LockedTrackAccessGuard';
+import { LockedTrackModal } from './components/income/LockedTrackModal';
+
 const SAVED_ITEMS_KEY = 'rikouzone_saved_items';
 
 function MainApp() {
   const { t } = useLanguage();
+  const userXp = useUserXp();
   const [currentTab, setCurrentTab] = useState<string>('home');
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => {
@@ -280,17 +291,69 @@ function MainApp() {
         )}
 
         {currentTab === 'web-development' && (
-          <WebDevelopmentView
-            onNavigate={handleNavigate}
-            onCopyText={handleCopyText}
-          />
+          isTrackLocked('web-development', userXp) ? (
+            <LockedTrackAccessGuard
+              trackId="web-development"
+              currentXp={userXp}
+              onNavigate={handleNavigate}
+            />
+          ) : (
+            <WebDevelopmentView
+              onNavigate={handleNavigate}
+              onCopyText={handleCopyText}
+            />
+          )
         )}
 
         {currentTab === 'app-development' && (
-          <MobileAppDevelopmentView
-            onNavigate={handleNavigate}
-            onCopyText={handleCopyText}
-          />
+          isTrackLocked('app-development', userXp) ? (
+            <LockedTrackAccessGuard
+              trackId="app-development"
+              currentXp={userXp}
+              onNavigate={handleNavigate}
+            />
+          ) : (
+            <MobileAppDevelopmentView
+              onNavigate={handleNavigate}
+              onCopyText={handleCopyText}
+            />
+          )
+        )}
+
+        {currentTab === 'online-courses' && (
+          isTrackLocked('online-courses', userXp) ? (
+            <LockedTrackAccessGuard
+              trackId="online-courses"
+              currentXp={userXp}
+              onNavigate={handleNavigate}
+            />
+          ) : (
+            <IncomePathsView
+              onToggleSave={handleToggleSave}
+              isSaved={isSaved}
+              onCopyText={handleCopyText}
+              onNavigate={handleNavigate}
+              selectedPathId="online-courses"
+            />
+          )
+        )}
+
+        {currentTab === 'micro-saas' && (
+          isTrackLocked('micro-saas', userXp) ? (
+            <LockedTrackAccessGuard
+              trackId="micro-saas"
+              currentXp={userXp}
+              onNavigate={handleNavigate}
+            />
+          ) : (
+            <IncomePathsView
+              onToggleSave={handleToggleSave}
+              isSaved={isSaved}
+              onCopyText={handleCopyText}
+              onNavigate={handleNavigate}
+              selectedPathId="micro-saas"
+            />
+          )
         )}
 
         {currentTab === 'social-media-management' && (
@@ -330,6 +393,27 @@ function MainApp() {
 
         {(currentTab === 'selling-templates' || currentTab === 'templates' || currentTab === 'notion-canva-templates') && (
           <SellingTemplatesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'print-on-demand' || currentTab === 'pod') && (
+          <PrintOnDemandView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'dropshipping' || currentTab === 'modern-dropshipping') && (
+          <ModernDropshippingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'ecommerce' || currentTab === 'branded-ecommerce') && (
+          <BrandedEcommerceView
             onNavigate={handleNavigate}
             onCopyText={handleCopyText}
           />
@@ -387,36 +471,63 @@ function MainApp() {
         {currentTab === 'contact' && (
           <ContactView onNavigate={handleNavigate} />
         )}
+
+        {(currentTab === 'terms' || currentTab === 'terms-of-use') && (
+          <TermsOfUseView onNavigate={handleNavigate} onCopyText={handleCopyText} />
+        )}
+
+        {(currentTab === 'privacy' || currentTab === 'privacy-policy') && (
+          <PrivacyPolicyView onNavigate={handleNavigate} onCopyText={handleCopyText} />
+        )}
+
+        {(currentTab === 'cookies' || currentTab === 'cookie-policy' || currentTab === 'cookies-policy') && (
+          <CookiePolicyView onNavigate={handleNavigate} onCopyText={handleCopyText} />
+        )}
       </main>
 
-      {/* Global Modals for Items Opened from Featured Sections */}
-      <IncomeDetailModal
-        path={selectedIncomeModal}
-        onClose={() => setSelectedIncomeModal(null)}
-        onToggleSave={(id) => handleToggleSave(id, 'income')}
-        isSaved={selectedIncomeModal ? isSaved(selectedIncomeModal.id) : false}
-        onCopyText={handleCopyText}
-        onNavigateToAffiliate={() => handleNavigate('affiliate')}
-        onNavigateToTikTokAffiliate={() => handleNavigate('tiktok-affiliate')}
-        onNavigateToYouTube={() => handleNavigate('youtube-monetization')}
-        onNavigateToInstagram={() => handleNavigate('instagram-monetization')}
-        onNavigateToFacebook={() => handleNavigate('facebook-monetization')}
-        onNavigateToBlogging={() => handleNavigate('blogging')}
-        onNavigateToSeoServices={() => handleNavigate('seo-services')}
-        onNavigateToWriting={() => handleNavigate('freelance-writing')}
-        onNavigateToCopywriting={() => handleNavigate('copywriting')}
-        onNavigateToVideoEditing={() => handleNavigate('video-editing')}
-        onNavigateToGraphicDesign={() => handleNavigate('graphic-design')}
-        onNavigateToThumbnailDesign={() => handleNavigate('thumbnail-design')}
-        onNavigateToWebDev={() => handleNavigate('web-development')}
-        onNavigateToAppDev={() => handleNavigate('app-development')}
-        onNavigateToSocialMedia={() => handleNavigate('social-media-management')}
-        onNavigateToUgc={() => handleNavigate('ugc-content')}
-        onNavigateToAiContent={() => handleNavigate('ai-content-services')}
-        onNavigateToAiAutomation={() => handleNavigate('ai-automation-services')}
-        onNavigateToDigitalProducts={() => handleNavigate('selling-digital-products')}
-        onNavigateToTemplates={() => handleNavigate('selling-templates')}
-      />
+      {/* Global Modals for Items Opened from Featured Sections or Deep Links */}
+      {selectedIncomeModal && isTrackLocked(selectedIncomeModal.id, userXp) ? (
+        <LockedTrackModal
+          path={selectedIncomeModal}
+          currentXp={userXp}
+          onClose={() => setSelectedIncomeModal(null)}
+          onNavigateToChallenges={() => {
+            setSelectedIncomeModal(null);
+            handleNavigate('challenges');
+          }}
+        />
+      ) : (
+        <IncomeDetailModal
+          path={selectedIncomeModal}
+          onClose={() => setSelectedIncomeModal(null)}
+          onToggleSave={(id) => handleToggleSave(id, 'income')}
+          isSaved={selectedIncomeModal ? isSaved(selectedIncomeModal.id) : false}
+          onCopyText={handleCopyText}
+          onNavigateToAffiliate={() => handleNavigate('affiliate')}
+          onNavigateToTikTokAffiliate={() => handleNavigate('tiktok-affiliate')}
+          onNavigateToYouTube={() => handleNavigate('youtube-monetization')}
+          onNavigateToInstagram={() => handleNavigate('instagram-monetization')}
+          onNavigateToFacebook={() => handleNavigate('facebook-monetization')}
+          onNavigateToBlogging={() => handleNavigate('blogging')}
+          onNavigateToSeoServices={() => handleNavigate('seo-services')}
+          onNavigateToWriting={() => handleNavigate('freelance-writing')}
+          onNavigateToCopywriting={() => handleNavigate('copywriting')}
+          onNavigateToVideoEditing={() => handleNavigate('video-editing')}
+          onNavigateToGraphicDesign={() => handleNavigate('graphic-design')}
+          onNavigateToThumbnailDesign={() => handleNavigate('thumbnail-design')}
+          onNavigateToWebDev={() => handleNavigate('web-development')}
+          onNavigateToAppDev={() => handleNavigate('app-development')}
+          onNavigateToSocialMedia={() => handleNavigate('social-media-management')}
+          onNavigateToUgc={() => handleNavigate('ugc-content')}
+          onNavigateToAiContent={() => handleNavigate('ai-content-services')}
+          onNavigateToAiAutomation={() => handleNavigate('ai-automation-services')}
+          onNavigateToDigitalProducts={() => handleNavigate('selling-digital-products')}
+          onNavigateToTemplates={() => handleNavigate('selling-templates')}
+          onNavigateToPrintOnDemand={() => handleNavigate('print-on-demand')}
+          onNavigateToDropshipping={() => handleNavigate('dropshipping')}
+          onNavigateToEcommerce={() => handleNavigate('ecommerce')}
+        />
+      )}
 
       <IdeaDetailModal
         idea={selectedIdeaModal}
