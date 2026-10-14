@@ -38,6 +38,13 @@ import { SellingTemplatesView } from './components/templates/SellingTemplatesVie
 import { PrintOnDemandView } from './components/print-on-demand/PrintOnDemandView';
 import { ModernDropshippingView } from './components/dropshipping/ModernDropshippingView';
 import { BrandedEcommerceView } from './components/branded-ecommerce/BrandedEcommerceView';
+import { OnlineCoursesView } from './components/online-courses/OnlineCoursesView';
+import { CoachingView } from './components/coaching/CoachingView';
+import { NewsletterView } from './components/newsletter/NewsletterView';
+import { MicroSaasView } from './components/micro-saas/MicroSaasView';
+import { CpaMarketingView } from './components/cpa/CpaMarketingView';
+import { LeadGenerationView } from './components/lead-gen/LeadGenerationView';
+import { StockContentView } from './components/stock-content/StockContentView';
 import { ChallengesView } from './components/challenges/ChallengesView';
 import { AboutView } from './components/about/AboutView';
 import { ContactView } from './components/contact/ContactView';
@@ -320,7 +327,7 @@ function MainApp() {
           )
         )}
 
-        {currentTab === 'online-courses' && (
+        {(currentTab === 'online-courses' || currentTab === 'courses' || currentTab === 'digital-courses') && (
           isTrackLocked('online-courses', userXp) ? (
             <LockedTrackAccessGuard
               trackId="online-courses"
@@ -328,17 +335,14 @@ function MainApp() {
               onNavigate={handleNavigate}
             />
           ) : (
-            <IncomePathsView
-              onToggleSave={handleToggleSave}
-              isSaved={isSaved}
-              onCopyText={handleCopyText}
+            <OnlineCoursesView
               onNavigate={handleNavigate}
-              selectedPathId="online-courses"
+              onCopyText={handleCopyText}
             />
           )
         )}
 
-        {currentTab === 'micro-saas' && (
+        {(currentTab === 'micro-saas' || currentTab === 'saas' || currentTab === 'ai-web-wrappers') && (
           isTrackLocked('micro-saas', userXp) ? (
             <LockedTrackAccessGuard
               trackId="micro-saas"
@@ -346,12 +350,9 @@ function MainApp() {
               onNavigate={handleNavigate}
             />
           ) : (
-            <IncomePathsView
-              onToggleSave={handleToggleSave}
-              isSaved={isSaved}
-              onCopyText={handleCopyText}
+            <MicroSaasView
               onNavigate={handleNavigate}
-              selectedPathId="micro-saas"
+              onCopyText={handleCopyText}
             />
           )
         )}
@@ -414,6 +415,41 @@ function MainApp() {
 
         {(currentTab === 'ecommerce' || currentTab === 'branded-ecommerce') && (
           <BrandedEcommerceView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'online-coaching' || currentTab === 'coaching' || currentTab === '1-on-1-coaching') && (
+          <CoachingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'newsletter' || currentTab === 'newsletters' || currentTab === 'email-newsletter') && (
+          <NewsletterView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'cpa-marketing' || currentTab === 'cpa' || currentTab === 'cpa-network') && (
+          <CpaMarketingView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'lead-generation' || currentTab === 'lead-gen' || currentTab === 'leadgen') && (
+          <LeadGenerationView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'stock-content' || currentTab === 'stock' || currentTab === 'stock-footage') && (
+          <StockContentView
             onNavigate={handleNavigate}
             onCopyText={handleCopyText}
           />
@@ -526,6 +562,8 @@ function MainApp() {
           onNavigateToPrintOnDemand={() => handleNavigate('print-on-demand')}
           onNavigateToDropshipping={() => handleNavigate('dropshipping')}
           onNavigateToEcommerce={() => handleNavigate('ecommerce')}
+          onNavigateToOnlineCourses={() => handleNavigate('online-courses')}
+          onNavigateToCoaching={() => handleNavigate('online-coaching')}
         />
       )}
 

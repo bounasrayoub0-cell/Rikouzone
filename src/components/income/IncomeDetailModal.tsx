@@ -16,8 +16,17 @@ import {
   ThumbsUp,
   ThumbsDown,
   Monitor,
-  Sparkles
+  Sparkles,
+  Lock,
+  Unlock
 } from 'lucide-react';
+import { 
+  useUserXp, 
+  isTrackLocked, 
+  getTrackLockDetails, 
+  LOCKED_TRACKS_RULES, 
+  lockedTracksI18n 
+} from '../../utils/lockedTracks';
 
 interface IncomeDetailModalProps {
   path: IncomePath | null;
@@ -48,6 +57,14 @@ interface IncomeDetailModalProps {
   onNavigateToPrintOnDemand?: () => void;
   onNavigateToDropshipping?: () => void;
   onNavigateToEcommerce?: () => void;
+  onNavigateToOnlineCourses?: () => void;
+  onNavigateToCoaching?: () => void;
+  onNavigateToNewsletter?: () => void;
+  onNavigateToMicroSaas?: () => void;
+  onNavigateToCpaMarketing?: () => void;
+  onNavigateToLeadGeneration?: () => void;
+  onNavigateToStockContent?: () => void;
+  onNavigateToChallenges?: () => void;
 }
 
 export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
@@ -79,8 +96,17 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToPrintOnDemand,
   onNavigateToDropshipping,
   onNavigateToEcommerce,
+  onNavigateToOnlineCourses,
+  onNavigateToCoaching,
+  onNavigateToNewsletter,
+  onNavigateToMicroSaas,
+  onNavigateToCpaMarketing,
+  onNavigateToLeadGeneration,
+  onNavigateToStockContent,
+  onNavigateToChallenges,
 }) => {
   const { language, isRTL, t, localizePath } = useLanguage();
+  const userXp = useUserXp();
 
   if (!path) return null;
 
@@ -151,7 +177,7 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Upgraded Interactive Course Banner */}
+        {/* Upgraded Interactive Course Banner / Lock Banner */}
         {(() => {
           const navMap: Record<string, (() => void) | undefined> = {
             "affiliate-marketing": onNavigateToAffiliate,
@@ -177,16 +203,85 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
             "print-on-demand": onNavigateToPrintOnDemand,
             "dropshipping": onNavigateToDropshipping,
             "ecommerce": onNavigateToEcommerce,
+            "online-courses": onNavigateToOnlineCourses,
+            "online-coaching": onNavigateToCoaching,
+            "newsletter": onNavigateToNewsletter,
+            "micro-saas": onNavigateToMicroSaas,
+            "cpa-marketing": onNavigateToCpaMarketing,
+            "lead-generation": onNavigateToLeadGeneration,
+            "stock-content": onNavigateToStockContent,
           };
           const navFn = navMap[path.id];
           if (!navFn) return null;
+
+          const lockRule = LOCKED_TRACKS_RULES[path.id];
+          const isLocked = lockRule ? isTrackLocked(path.id, userXp) : false;
+          const lockDetails = lockRule ? getTrackLockDetails(path.id, userXp) : null;
+          const tLock = lockedTracksI18n[language] || lockedTracksI18n['ar'];
+
+          if (isLocked && lockRule && lockDetails) {
+            return (
+              <div className="mt-5 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-zinc-900/90 to-amber-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-black text-amber-300">
+                    <Lock className="h-3 w-3" />
+                    <span>{tLock.lockedBadge} · {lockRule.requiredXp} XP</span>
+                  </div>
+                  <h4 className="mt-1.5 text-base sm:text-lg font-black text-white flex items-center gap-2">
+                    <span>{title}</span>
+                    <Lock className="h-4 w-4 text-amber-400" />
+                  </h4>
+                  <p className="mt-0.5 text-xs text-zinc-300 leading-relaxed">
+                    {tLock.modalDesc.replace('{req}', `${lockRule.requiredXp}`)}
+                  </p>
+                  
+                  {/* Progress indicator */}
+                  <div className="mt-2.5 flex items-center gap-3">
+                    <div className="h-2 w-32 sm:w-48 overflow-hidden rounded-full bg-zinc-900 border border-amber-500/20">
+                      <div 
+                        className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"
+                        style={{ width: `${Math.max(4, lockDetails.progressPercent)}%` }}
+                      />
+                    </div>
+                    <span className="text-[11px] font-mono text-amber-300 font-bold">
+                      {lockDetails.progressPercent}% ({userXp} / {lockRule.requiredXp} XP)
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    onClose();
+                    if (onNavigateToChallenges) {
+                      onNavigateToChallenges();
+                    } else {
+                      navFn();
+                    }
+                  }}
+                  className="shrink-0 w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl py-2.5 px-5 text-xs font-bold transition-all cursor-pointer bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/10 border border-amber-500/40 text-amber-300 hover:from-amber-500 hover:to-orange-500 hover:text-black shadow-md shadow-amber-500/10 active:scale-95"
+                >
+                  <Lock className="h-3.5 w-3.5" />
+                  <span>{tLock.cardActionLocked.replace('{req}', `${lockRule.requiredXp}`)}</span>
+                </button>
+              </div>
+            );
+          }
 
           return (
             <div className="mt-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-zinc-900/90 to-emerald-500/10 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-emerald-500/10">
               <div>
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-black text-emerald-300">
-                  <Sparkles className="h-3 w-3" />
-                  <span>{t.income.trackUpgradedBadge}</span>
+                  {lockRule ? (
+                    <>
+                      <Unlock className="h-3 w-3" />
+                      <span>{tLock.unlockedBadge} ({userXp} / {lockRule.requiredXp} XP)</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-3 w-3" />
+                      <span>{t.income.trackUpgradedBadge}</span>
+                    </>
+                  )}
                 </div>
                 <h4 className="mt-1.5 text-base sm:text-lg font-black text-white">
                   {title}

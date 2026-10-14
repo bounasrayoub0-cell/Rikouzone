@@ -13,7 +13,7 @@ export const LOCKED_TRACKS_RULES: Record<string, LockedTrackRule> = {
     id: 'online-courses',
     requiredXp: 500,
     arabicName: 'صناعة وبيع الكورسات والتكوينات (Online Courses)',
-    englishName: 'Creating & Selling Online Courses'
+    englishName: 'Online Courses & Training Creation'
   },
   'web-development': {
     id: 'web-development',
@@ -30,8 +30,8 @@ export const LOCKED_TRACKS_RULES: Record<string, LockedTrackRule> = {
   'micro-saas': {
     id: 'micro-saas',
     requiredXp: 2000,
-    arabicName: 'البرمجيات الصغيرة بالاشتراك (Micro-SaaS)',
-    englishName: 'Micro SaaS & AI Web Wrappers'
+    arabicName: 'تطوير البرمجيات الصغيرة كخدمة (Micro-SaaS)',
+    englishName: 'Micro-SaaS Development'
   }
 };
 

@@ -146,6 +146,20 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       onNavigate('dropshipping');
     } else if (path.id === 'ecommerce' && onNavigate) {
       onNavigate('ecommerce');
+    } else if (path.id === 'online-courses' && onNavigate) {
+      onNavigate('online-courses');
+    } else if (path.id === 'online-coaching' && onNavigate) {
+      onNavigate('online-coaching');
+    } else if (path.id === 'newsletter' && onNavigate) {
+      onNavigate('newsletter');
+    } else if (path.id === 'micro-saas' && onNavigate) {
+      onNavigate('micro-saas');
+    } else if (path.id === 'cpa-marketing' && onNavigate) {
+      onNavigate('cpa-marketing');
+    } else if (path.id === 'lead-generation' && onNavigate) {
+      onNavigate('lead-generation');
+    } else if (path.id === 'stock-content' && onNavigate) {
+      onNavigate('stock-content');
     } else {
       setActiveModalPath(path);
     }
@@ -317,7 +331,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         'social-media-management', 'ugc-content', 'video-editing', 
                         'copywriting', 'freelance-writing', 'seo-services', 
                         'graphic-design', 'thumbnail-design', 'print-on-demand',
-                        'dropshipping', 'ecommerce', 'selling-digital-products', 'selling-templates'
+                        'dropshipping', 'ecommerce', 'selling-digital-products', 'selling-templates',
+                        'cpa-marketing', 'lead-generation'
                       ].includes(path.id) && (
                         <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
                           🔥 {t.income.trackUpgradedBadge}
@@ -435,7 +450,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           'graphic-design', 'thumbnail-design', 'web-development', 
                           'app-development', 'social-media-management', 'ugc-content',
                           'ai-content-services', 'ai-automation-services', 'selling-digital-products',
-                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce'
+                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce',
+                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content'
                         ].includes(path.id)
                           ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
                           : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
@@ -449,7 +465,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           'graphic-design', 'thumbnail-design', 'web-development', 
                           'app-development', 'social-media-management', 'ugc-content',
                           'ai-content-services', 'ai-automation-services', 'selling-digital-products',
-                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce'
+                          'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce',
+                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content'
                         ].includes(path.id)
                           ? t.income.openFullCourse
                           : t.income.viewDetails}
@@ -494,6 +511,14 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToPrintOnDemand={() => onNavigate && onNavigate('print-on-demand')}
         onNavigateToDropshipping={() => onNavigate && onNavigate('dropshipping')}
         onNavigateToEcommerce={() => onNavigate && onNavigate('ecommerce')}
+        onNavigateToOnlineCourses={() => onNavigate && onNavigate('online-courses')}
+        onNavigateToCoaching={() => onNavigate && onNavigate('online-coaching')}
+        onNavigateToNewsletter={() => onNavigate && onNavigate('newsletter')}
+        onNavigateToMicroSaas={() => onNavigate && onNavigate('micro-saas')}
+        onNavigateToCpaMarketing={() => onNavigate && onNavigate('cpa-marketing')}
+        onNavigateToLeadGeneration={() => onNavigate && onNavigate('lead-generation')}
+        onNavigateToStockContent={() => onNavigate && onNavigate('stock-content')}
+        onNavigateToChallenges={() => onNavigate && onNavigate('challenges')}
       />
 
       {/* Locked Track Dialog Modal */}
