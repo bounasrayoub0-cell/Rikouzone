@@ -281,17 +281,27 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({
                         onNavigate('lead-generation');
                       } else if (path.id === 'stock-content') {
                         onNavigate('stock-content');
+                      } else if (path.id === 'gaming-content') {
+                        onNavigate('gaming-content');
+                      } else if (path.id === 'free-fire-content') {
+                        onNavigate('free-fire-content');
+                      } else if (path.id === 'faceless-youtube') {
+                        onNavigate('faceless-youtube');
+                      } else if (path.id === 'faceless-tiktok') {
+                        onNavigate('faceless-tiktok');
+                      } else if (path.id === 'local-business-digital-services') {
+                        onNavigate('local-business-digital-services');
                       } else {
                         onSelectPath(path);
                       }
                     }}
                     className={`mt-3 w-full rounded-xl py-2 text-xs font-bold transition-all cursor-pointer ${
-                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'print-on-demand' || path.id === 'dropshipping' || path.id === 'ecommerce' || path.id === 'online-courses' || path.id === 'online-coaching' || path.id === 'newsletter' || path.id === 'micro-saas' || path.id === 'cpa-marketing' || path.id === 'lead-generation' || path.id === 'stock-content'
+                      path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'print-on-demand' || path.id === 'dropshipping' || path.id === 'ecommerce' || path.id === 'online-courses' || path.id === 'online-coaching' || path.id === 'newsletter' || path.id === 'micro-saas' || path.id === 'cpa-marketing' || path.id === 'lead-generation' || path.id === 'stock-content' || path.id === 'gaming-content' || path.id === 'free-fire-content' || path.id === 'faceless-youtube' || path.id === 'faceless-tiktok' || path.id === 'local-business-digital-services'
                         ? 'bg-amber-500 text-black hover:bg-amber-400 font-black shadow-md shadow-amber-500/20'
                         : 'bg-zinc-800/80 text-zinc-200 hover:bg-amber-500 hover:text-black'
                     }`}
                   >
-                    {path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'print-on-demand' || path.id === 'dropshipping' || path.id === 'ecommerce' || path.id === 'online-courses' || path.id === 'online-coaching' || path.id === 'newsletter' || path.id === 'micro-saas' || path.id === 'cpa-marketing' || path.id === 'lead-generation' || path.id === 'stock-content'
+                    {path.id === 'affiliate-marketing' || path.id === 'tiktok-affiliate' || path.id === 'youtube-monetization' || path.id === 'instagram-monetization' || path.id === 'facebook-monetization' || path.id === 'blogging' || path.id === 'seo-services' || path.id === 'freelance-writing' || path.id === 'copywriting' || path.id === 'video-editing' || path.id === 'print-on-demand' || path.id === 'dropshipping' || path.id === 'ecommerce' || path.id === 'online-courses' || path.id === 'online-coaching' || path.id === 'newsletter' || path.id === 'micro-saas' || path.id === 'cpa-marketing' || path.id === 'lead-generation' || path.id === 'stock-content' || path.id === 'gaming-content' || path.id === 'free-fire-content' || path.id === 'faceless-youtube' || path.id === 'faceless-tiktok' || path.id === 'local-business-digital-services'
                       ? t.income.openFullCourse
                       : t.income.viewDetails}
                   </button>

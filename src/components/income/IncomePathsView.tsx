@@ -160,6 +160,16 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       onNavigate('lead-generation');
     } else if (path.id === 'stock-content' && onNavigate) {
       onNavigate('stock-content');
+    } else if (path.id === 'gaming-content' && onNavigate) {
+      onNavigate('gaming-content');
+    } else if (path.id === 'free-fire-content' && onNavigate) {
+      onNavigate('free-fire-content');
+    } else if (path.id === 'faceless-youtube' && onNavigate) {
+      onNavigate('faceless-youtube');
+    } else if (path.id === 'faceless-tiktok' && onNavigate) {
+      onNavigate('faceless-tiktok');
+    } else if (path.id === 'local-business-digital-services' && onNavigate) {
+      onNavigate('local-business-digital-services');
     } else {
       setActiveModalPath(path);
     }
@@ -451,7 +461,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           'app-development', 'social-media-management', 'ugc-content',
                           'ai-content-services', 'ai-automation-services', 'selling-digital-products',
                           'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce',
-                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content'
+                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content', 'gaming-content', 'free-fire-content', 'faceless-youtube', 'faceless-tiktok', 'local-business-digital-services'
                         ].includes(path.id)
                           ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
                           : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
@@ -466,7 +476,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           'app-development', 'social-media-management', 'ugc-content',
                           'ai-content-services', 'ai-automation-services', 'selling-digital-products',
                           'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce',
-                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content'
+                          'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content', 'gaming-content', 'free-fire-content', 'faceless-youtube', 'faceless-tiktok', 'local-business-digital-services'
                         ].includes(path.id)
                           ? t.income.openFullCourse
                           : t.income.viewDetails}
@@ -518,6 +528,11 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         onNavigateToCpaMarketing={() => onNavigate && onNavigate('cpa-marketing')}
         onNavigateToLeadGeneration={() => onNavigate && onNavigate('lead-generation')}
         onNavigateToStockContent={() => onNavigate && onNavigate('stock-content')}
+        onNavigateToGamingContent={() => onNavigate && onNavigate('gaming-content')}
+        onNavigateToFreeFireContent={() => onNavigate && onNavigate('free-fire-content')}
+        onNavigateToFacelessYoutube={() => onNavigate && onNavigate('faceless-youtube')}
+        onNavigateToFacelessTiktok={() => onNavigate && onNavigate('faceless-tiktok')}
+        onNavigateToLocalBusiness={() => onNavigate && onNavigate('local-business-digital-services')}
         onNavigateToChallenges={() => onNavigate && onNavigate('challenges')}
       />
 

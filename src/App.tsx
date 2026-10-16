@@ -45,6 +45,11 @@ import { MicroSaasView } from './components/micro-saas/MicroSaasView';
 import { CpaMarketingView } from './components/cpa/CpaMarketingView';
 import { LeadGenerationView } from './components/lead-gen/LeadGenerationView';
 import { StockContentView } from './components/stock-content/StockContentView';
+import { GamingContentView } from './components/gaming/GamingContentView';
+import { FreeFireContentView } from './components/free-fire/FreeFireContentView';
+import { FacelessYoutubeView } from './components/faceless-youtube/FacelessYoutubeView';
+import { FacelessTiktokView } from './components/faceless-tiktok/FacelessTiktokView';
+import { LocalBusinessView } from './components/local-business/LocalBusinessView';
 import { ChallengesView } from './components/challenges/ChallengesView';
 import { AboutView } from './components/about/AboutView';
 import { ContactView } from './components/contact/ContactView';
@@ -450,6 +455,41 @@ function MainApp() {
 
         {(currentTab === 'stock-content' || currentTab === 'stock' || currentTab === 'stock-footage') && (
           <StockContentView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'gaming-content' || currentTab === 'gaming' || currentTab === 'gaming-streaming') && (
+          <GamingContentView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'free-fire-content' || currentTab === 'free-fire' || currentTab === 'freefire') && (
+          <FreeFireContentView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'faceless-youtube' || currentTab === 'faceless-channel') && (
+          <FacelessYoutubeView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'faceless-tiktok' || currentTab === 'faceless-tiktok-track') && (
+          <FacelessTiktokView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'local-business-digital-services' || currentTab === 'local-business' || currentTab === 'local-services') && (
+          <LocalBusinessView
             onNavigate={handleNavigate}
             onCopyText={handleCopyText}
           />

@@ -64,6 +64,11 @@ interface IncomeDetailModalProps {
   onNavigateToCpaMarketing?: () => void;
   onNavigateToLeadGeneration?: () => void;
   onNavigateToStockContent?: () => void;
+  onNavigateToGamingContent?: () => void;
+  onNavigateToFreeFireContent?: () => void;
+  onNavigateToFacelessYoutube?: () => void;
+  onNavigateToFacelessTiktok?: () => void;
+  onNavigateToLocalBusiness?: () => void;
   onNavigateToChallenges?: () => void;
 }
 
@@ -103,6 +108,11 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
   onNavigateToCpaMarketing,
   onNavigateToLeadGeneration,
   onNavigateToStockContent,
+  onNavigateToGamingContent,
+  onNavigateToFreeFireContent,
+  onNavigateToFacelessYoutube,
+  onNavigateToFacelessTiktok,
+  onNavigateToLocalBusiness,
   onNavigateToChallenges,
 }) => {
   const { language, isRTL, t, localizePath } = useLanguage();
@@ -210,6 +220,11 @@ export const IncomeDetailModal: React.FC<IncomeDetailModalProps> = ({
             "cpa-marketing": onNavigateToCpaMarketing,
             "lead-generation": onNavigateToLeadGeneration,
             "stock-content": onNavigateToStockContent,
+            "gaming-content": onNavigateToGamingContent,
+            "free-fire-content": onNavigateToFreeFireContent,
+            "faceless-youtube": onNavigateToFacelessYoutube,
+            "faceless-tiktok": onNavigateToFacelessTiktok,
+            "local-business-digital-services": onNavigateToLocalBusiness,
           };
           const navFn = navMap[path.id];
           if (!navFn) return null;
