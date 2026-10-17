@@ -362,8 +362,9 @@ export const weeklyChallengePool: ChallengeTask[] = [
   }
 ];
 
-// Rich list of all unlockable badges with exact conditions and bonus rewards
+// Rich list of all 30 unlockable badges with exact conditions and bonus rewards
 export const allBadgesList: BadgeItem[] = [
+  // --- 1. Existing 8 Badges (Preserved intact) ---
   {
     id: 'first-challenge-done',
     name: 'First Step',
@@ -374,7 +375,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'إكمال أي تحدٍّ واحد بنجاح (يومي أو أسبوعي)',
     targetValue: 1,
     isUnlocked: false,
-    xpBonus: 25
+    xpBonus: 25,
+    category: 'challenges'
   },
   {
     id: 'xp-century-100',
@@ -386,7 +388,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'الوصول إلى 100 نقطة XP إجمالية',
     targetValue: 100,
     isUnlocked: false,
-    xpBonus: 50
+    xpBonus: 50,
+    category: 'xp'
   },
   {
     id: 'first-quiz-mastered',
@@ -398,7 +401,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'إجابة اختبار تعليمي قصير بنجاح',
     targetValue: 1,
     isUnlocked: false,
-    xpBonus: 30
+    xpBonus: 30,
+    category: 'learning'
   },
   {
     id: 'first-practical-exercise',
@@ -410,7 +414,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'إنجاز تمرين تطبيقي عملي بنجاح',
     targetValue: 1,
     isUnlocked: false,
-    xpBonus: 40
+    xpBonus: 40,
+    category: 'challenges'
   },
   {
     id: 'challenges-five-completed',
@@ -422,7 +427,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'إكمال 5 تحديات تعليمية',
     targetValue: 5,
     isUnlocked: false,
-    xpBonus: 75
+    xpBonus: 75,
+    category: 'challenges'
   },
   {
     id: 'streak-7-days',
@@ -434,7 +440,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'الوصول إلى سلسلة 7 أيام متتالية (7-Day Streak)',
     targetValue: 7,
     isUnlocked: false,
-    xpBonus: 100
+    xpBonus: 100,
+    category: 'streak'
   },
   {
     id: 'weekly-champion',
@@ -446,7 +453,8 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'إكمال تحدٍّ أسبوعي كبير واحد على الأقل',
     targetValue: 1,
     isUnlocked: false,
-    xpBonus: 80
+    xpBonus: 80,
+    category: 'challenges'
   },
   {
     id: 'xp-master-500',
@@ -458,6 +466,305 @@ export const allBadgesList: BadgeItem[] = [
     requiredCondition: 'جمع 500 نقطة خبرة (XP) إجمالية',
     targetValue: 500,
     isUnlocked: false,
-    xpBonus: 150
+    xpBonus: 150,
+    category: 'xp'
+  },
+
+  // --- 2. شارات التعلّم (5 شارات جديدة) ---
+  {
+    id: 'lessons-1-done',
+    name: 'First Step',
+    nameAr: 'أول خطوة',
+    description: 'Completed your very first educational lesson in RikouZone',
+    descriptionAr: 'أكملت أول درس تعليمي عملي في المنصة بنجاح',
+    iconName: 'BookOpen',
+    requiredCondition: 'إكمال أول درس',
+    targetValue: 1,
+    isUnlocked: false,
+    xpBonus: 25,
+    category: 'learning'
+  },
+  {
+    id: 'lessons-5-done',
+    name: 'Active Learner',
+    nameAr: 'متعلم نشيط',
+    description: 'Completed 5 educational lessons across practical tracks',
+    descriptionAr: 'أتممت 5 دروس تعليمية وتقدمت في مسارات المهارات',
+    iconName: 'GraduationCap',
+    requiredCondition: 'إكمال 5 دروس',
+    targetValue: 5,
+    isUnlocked: false,
+    xpBonus: 50,
+    category: 'learning'
+  },
+  {
+    id: 'lessons-20-done',
+    name: 'Knowledge Enthusiast',
+    nameAr: 'عاشق المعرفة',
+    description: 'Completed 20 comprehensive learning lessons',
+    descriptionAr: 'أنجزت 20 درساً تعليمياً بتعمق وشغف حقيقي',
+    iconName: 'Library',
+    requiredCondition: 'إكمال 20 درساً',
+    targetValue: 20,
+    isUnlocked: false,
+    xpBonus: 100,
+    category: 'learning'
+  },
+  {
+    id: 'lessons-50-done',
+    name: 'Learning Expert',
+    nameAr: 'خبير التعلّم',
+    description: 'Completed 50 in-depth practical lessons in digital skills',
+    descriptionAr: 'أتممت 50 درساً واكتسبت رصيداً كبيراً في مختلف المجالات',
+    iconName: 'Medal',
+    requiredCondition: 'إكمال 50 درساً',
+    targetValue: 50,
+    isUnlocked: false,
+    xpBonus: 200,
+    category: 'learning'
+  },
+  {
+    id: 'lessons-100-done',
+    name: 'Walking Encyclopedia',
+    nameAr: 'موسوعة متنقلة',
+    description: 'Completed 100 lessons across all tracks in RikouZone',
+    descriptionAr: 'تجاوزت حاجز 100 درس لتصبح مرجعاً حقيقياً في المهارات الرقمية',
+    iconName: 'Crown',
+    requiredCondition: 'إكمال 100 درس',
+    targetValue: 100,
+    isUnlocked: false,
+    xpBonus: 350,
+    category: 'learning'
+  },
+
+  // --- 3. شارات الاستمرارية (4 شارات جديدة) ---
+  {
+    id: 'streak-2-days',
+    name: 'Streak Starter',
+    nameAr: 'بداية الاستمرارية',
+    description: 'Maintained 2 consecutive active days of learning',
+    descriptionAr: 'حافظت على يومين متتاليين من النشاط والتعلم وبداية بناء العادة',
+    iconName: 'Flame',
+    requiredCondition: 'يومان متتاليان من النشاط',
+    targetValue: 2,
+    isUnlocked: false,
+    xpBonus: 30,
+    category: 'streak'
+  },
+  {
+    id: 'streak-14-days',
+    name: 'Two Weeks Champion',
+    nameAr: 'بطل الأسبوعين',
+    description: 'Maintained 14 consecutive active days of learning',
+    descriptionAr: '14 يوماً متتالياً من الانضباط وترسيخ عادات النجاح دون انقطاع',
+    iconName: 'Flame',
+    requiredCondition: '14 يوماً متتالياً',
+    targetValue: 14,
+    isUnlocked: false,
+    xpBonus: 150,
+    category: 'streak'
+  },
+  {
+    id: 'streak-30-days',
+    name: 'Month of Discipline',
+    nameAr: 'شهر من الانضباط',
+    description: 'Maintained an unbroken 30-day learning streak',
+    descriptionAr: 'حافظت على 30 يوماً متتالياً من التعلم اليومي الراسخ',
+    iconName: 'Calendar',
+    requiredCondition: '30 يوماً متتالياً',
+    targetValue: 30,
+    isUnlocked: false,
+    xpBonus: 300,
+    category: 'streak'
+  },
+  {
+    id: 'streak-100-days',
+    name: 'Consistency Legend',
+    nameAr: 'أسطورة الاستمرارية',
+    description: 'Achieved an extraordinary 100-day active learning streak',
+    descriptionAr: '100 يوم متتالٍ من الالتزام الإعجازي وبناء المهارات الرقمية',
+    iconName: 'Crown',
+    requiredCondition: '100 يوم متتالٍ',
+    targetValue: 100,
+    isUnlocked: false,
+    xpBonus: 600,
+    category: 'streak'
+  },
+
+  // --- 4. شارات التحديات (3 شارات جديدة) ---
+  {
+    id: 'challenges-10-completed',
+    name: 'Determined Challenger',
+    nameAr: 'متحدي',
+    description: 'Completed 10 daily or weekly learning challenges',
+    descriptionAr: 'أنجزت 10 تحديات تعليمية يومية وأسبوعية بنجاح واقتدار',
+    iconName: 'CheckCircle2',
+    requiredCondition: 'إكمال 10 تحديات',
+    targetValue: 10,
+    isUnlocked: false,
+    xpBonus: 120,
+    category: 'challenges'
+  },
+  {
+    id: 'challenges-25-completed',
+    name: 'Challenges Champion',
+    nameAr: 'بطل التحديات',
+    description: 'Conquered 25 practical challenges across platform paths',
+    descriptionAr: 'اجتزت 25 تحدياً عملياً في مختلف مسارات المنصة بنجاح',
+    iconName: 'Trophy',
+    requiredCondition: 'إكمال 25 تحدياً',
+    targetValue: 25,
+    isUnlocked: false,
+    xpBonus: 250,
+    category: 'challenges'
+  },
+  {
+    id: 'challenges-50-completed',
+    name: 'King of Challenges',
+    nameAr: 'ملك التحديات',
+    description: 'Achieved mastery by completing 50 learning challenges',
+    descriptionAr: 'حققت إنجازاً ضخماً بإكمال 50 تحدياً تطبيقياً كاملاً',
+    iconName: 'Crown',
+    requiredCondition: 'إكمال 50 تحدياً',
+    targetValue: 50,
+    isUnlocked: false,
+    xpBonus: 450,
+    category: 'challenges'
+  },
+
+  // --- 5. شارات XP (3 شارات جديدة) ---
+  {
+    id: 'xp-pro-1000',
+    name: 'Pro Achiever',
+    nameAr: 'محترف',
+    description: 'Surpassed 1,000 total experience points in RikouZone',
+    descriptionAr: 'تجاوزت حاجز 1,000 نقطة خبرة XP وأثبتّ جدارتك المهنية',
+    iconName: 'Zap',
+    requiredCondition: 'الوصول إلى 1,000 XP',
+    targetValue: 1000,
+    isUnlocked: false,
+    xpBonus: 250,
+    category: 'xp'
+  },
+  {
+    id: 'xp-expert-2500',
+    name: 'Elite Expert',
+    nameAr: 'خبير',
+    description: 'Accumulated 2,500 total XP through persistent learning',
+    descriptionAr: 'جمعت 2,500 نقطة خبرة XP لتصبح في مصاف نخبة المتعلمين',
+    iconName: 'Sparkles',
+    requiredCondition: 'الوصول إلى 2,500 XP',
+    targetValue: 2500,
+    isUnlocked: false,
+    xpBonus: 450,
+    category: 'xp'
+  },
+  {
+    id: 'xp-legend-5000',
+    name: 'RikouZone Legend',
+    nameAr: 'أسطورة RikouZone',
+    description: 'Reached the summit of achievement with 5,000 XP',
+    descriptionAr: 'حطمت حاجز 5,000 XP وبلغت قمة هرم المنجزين الرقميين',
+    iconName: 'Crown',
+    requiredCondition: 'الوصول إلى 5,000 XP',
+    targetValue: 5000,
+    isUnlocked: false,
+    xpBonus: 750,
+    category: 'xp'
+  },
+
+  // --- 6. شارات المسارات (5 شارات جديدة) ---
+  {
+    id: 'paths-1-started',
+    name: 'Track Explorer',
+    nameAr: 'مستكشف',
+    description: 'Started your first comprehensive practical learning path',
+    descriptionAr: 'بدأت رحلتك في أول مسار تعلّم عملي لاكتساب مهارات حقيقية',
+    iconName: 'Compass',
+    requiredCondition: 'بدء أول مسار تعلّم',
+    targetValue: 1,
+    isUnlocked: false,
+    xpBonus: 30,
+    category: 'paths'
+  },
+  {
+    id: 'paths-1-completed',
+    name: 'On the Road',
+    nameAr: 'على الطريق',
+    description: 'Successfully completed your first full learning path',
+    descriptionAr: 'أكملت أول مسار تعلّم بالكامل وأتقنت مهاراته الأساسية',
+    iconName: 'Milestone',
+    requiredCondition: 'إكمال أول مسار',
+    targetValue: 1,
+    isUnlocked: false,
+    xpBonus: 100,
+    category: 'paths'
+  },
+  {
+    id: 'paths-3-completed',
+    name: 'Multi-Skilled',
+    nameAr: 'متعدد المهارات',
+    description: 'Completed 3 full learning paths across disciplines',
+    descriptionAr: 'أتممت 3 مسارات كاملة لتجمع بين مهارات رقمية متكاملة',
+    iconName: 'Layers',
+    requiredCondition: 'إكمال 3 مسارات',
+    targetValue: 3,
+    isUnlocked: false,
+    xpBonus: 200,
+    category: 'paths'
+  },
+  {
+    id: 'paths-5-completed',
+    name: 'Specialist',
+    nameAr: 'متخصص',
+    description: 'Mastered 5 complete learning tracks in RikouZone',
+    descriptionAr: 'أنهيت 5 مسارات تعلّم شاملة وأصبحت محترفاً متمكناً في مجالك',
+    iconName: 'ShieldCheck',
+    requiredCondition: 'إكمال 5 مسارات',
+    targetValue: 5,
+    isUnlocked: false,
+    xpBonus: 350,
+    category: 'paths'
+  },
+  {
+    id: 'paths-10-completed',
+    name: 'Master of Tracks',
+    nameAr: 'سيد المسارات',
+    description: 'Completed 10 full learning tracks across the platform',
+    descriptionAr: 'حققت إنجازاً مبهراً بإكمال 10 مسارات تعلّم مختلفة في المنصة',
+    iconName: 'Crown',
+    requiredCondition: 'إكمال 10 مسارات',
+    targetValue: 10,
+    isUnlocked: false,
+    xpBonus: 600,
+    category: 'paths'
+  },
+
+  // --- 7. شارات الإنجازات الخاصة (2 شارتان جديدتان) ---
+  {
+    id: 'quiz-perfect-score',
+    name: 'High Precision',
+    nameAr: 'دقة عالية',
+    description: 'Achieved a 100% perfect score on an educational quiz',
+    descriptionAr: 'أحرزت العلامة الكاملة في اختبار قصير دون أي خطأ',
+    iconName: 'Star',
+    requiredCondition: 'الحصول على نتيجة كاملة في اختبار',
+    targetValue: 1,
+    isUnlocked: false,
+    xpBonus: 50,
+    category: 'special'
+  },
+  {
+    id: 'badges-collector-10',
+    name: 'Badge Collector',
+    nameAr: 'جامع الشارات',
+    description: 'Unlocked 10 distinct achievement badges across RikouZone',
+    descriptionAr: 'جمعت 10 شارات تميز مختلفة لتثبت تنوع إنجازاتك واجتهادك',
+    iconName: 'BookmarkCheck',
+    requiredCondition: 'الحصول على 10 شارات مختلفة',
+    targetValue: 10,
+    isUnlocked: false,
+    xpBonus: 150,
+    category: 'special'
   }
 ];

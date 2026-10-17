@@ -91,6 +91,16 @@ export type IdeaNiche =
   | 'Personal Branding'
   | 'Faceless Content';
 
+export type ContentAngle =
+  | 'tutorial'
+  | 'mistakes'
+  | 'experiment'
+  | 'comparison'
+  | 'listicle'
+  | 'story'
+  | 'problem_solving'
+  | 'trends';
+
 export interface ContentIdea {
   id: string;
   title: string;
@@ -115,6 +125,8 @@ export interface ContentIdea {
   duration: string;
   facelessPossibility: boolean;
   tags: string[];
+  angle?: ContentAngle;
+  arabicAngle?: string;
 }
 
 export interface CalculatorInputField {

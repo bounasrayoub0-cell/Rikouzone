@@ -9,6 +9,7 @@ import {
   weeklyChallengePool, 
   allBadgesList 
 } from '../data/challengesData';
+import { getGlobalLearningStats } from './badgeProgressTracker';
 
 export const CHALLENGES_STORAGE_KEY = 'rikouzone_challenges_user_state';
 
@@ -178,31 +179,122 @@ export function calculateUpdatedStreak(
 }
 
 // Check newly eligible badges
+// Check newly eligible badges across all 30 badges
 export function checkBadgesEligibility(state: ChallengeUserState): { newlyUnlockedBadges: BadgeItem[]; bonusXpTotal: number } {
   const newlyUnlocked: BadgeItem[] = [];
   let bonusXp = 0;
+  const stats = getGlobalLearningStats(state);
 
   for (const badge of allBadgesList) {
     if (state.unlockedBadgeIds.includes(badge.id)) continue;
 
     let eligible = false;
-    if (badge.id === 'first-challenge-done') {
-      eligible = state.completedChallengeIds.length >= 1;
-    } else if (badge.id === 'xp-century-100') {
-      eligible = state.totalXp >= 100;
-    } else if (badge.id === 'challenges-five-completed') {
-      eligible = state.completedChallengeIds.length >= 5;
-    } else if (badge.id === 'streak-7-days') {
-      eligible = state.streakCount >= 7;
-    } else if (badge.id === 'first-quiz-mastered') {
-      eligible = state.history.some(h => h.type === 'quiz');
-    } else if (badge.id === 'first-practical-exercise') {
-      eligible = state.history.some(h => h.type === 'exercise');
-    } else if (badge.id === 'weekly-champion') {
-      eligible = state.history.some(h => h.type === 'weekly') || 
-        Object.values(state.completedWeeklyKeys).some(arr => arr.length > 0);
-    } else if (badge.id === 'xp-master-500') {
-      eligible = state.totalXp >= 500;
+
+    switch (badge.id) {
+      // 1. Existing Badges
+      case 'first-challenge-done':
+        eligible = state.completedChallengeIds.length >= 1;
+        break;
+      case 'xp-century-100':
+        eligible = state.totalXp >= 100;
+        break;
+      case 'first-quiz-mastered':
+        eligible = state.history.some(h => h.type === 'quiz') || stats.perfectQuizzes > 0;
+        break;
+      case 'first-practical-exercise':
+        eligible = state.history.some(h => h.type === 'exercise');
+        break;
+      case 'challenges-five-completed':
+        eligible = state.completedChallengeIds.length >= 5;
+        break;
+      case 'streak-7-days':
+        eligible = state.streakCount >= 7;
+        break;
+      case 'weekly-champion':
+        eligible = state.history.some(h => h.type === 'weekly') || 
+          Object.values(state.completedWeeklyKeys).some(arr => arr.length > 0);
+        break;
+      case 'xp-master-500':
+        eligible = state.totalXp >= 500;
+        break;
+
+      // 2. Learning Badges (Lessons)
+      case 'lessons-1-done':
+        eligible = stats.lessonsCompleted >= 1;
+        break;
+      case 'lessons-5-done':
+        eligible = stats.lessonsCompleted >= 5;
+        break;
+      case 'lessons-20-done':
+        eligible = stats.lessonsCompleted >= 20;
+        break;
+      case 'lessons-50-done':
+        eligible = stats.lessonsCompleted >= 50;
+        break;
+      case 'lessons-100-done':
+        eligible = stats.lessonsCompleted >= 100;
+        break;
+
+      // 3. Streak Badges
+      case 'streak-2-days':
+        eligible = state.streakCount >= 2;
+        break;
+      case 'streak-14-days':
+        eligible = state.streakCount >= 14;
+        break;
+      case 'streak-30-days':
+        eligible = state.streakCount >= 30;
+        break;
+      case 'streak-100-days':
+        eligible = state.streakCount >= 100;
+        break;
+
+      // 4. Challenges Badges
+      case 'challenges-10-completed':
+        eligible = state.completedChallengeIds.length >= 10;
+        break;
+      case 'challenges-25-completed':
+        eligible = state.completedChallengeIds.length >= 25;
+        break;
+      case 'challenges-50-completed':
+        eligible = state.completedChallengeIds.length >= 50;
+        break;
+
+      // 5. XP Badges
+      case 'xp-pro-1000':
+        eligible = state.totalXp >= 1000;
+        break;
+      case 'xp-expert-2500':
+        eligible = state.totalXp >= 2500;
+        break;
+      case 'xp-legend-5000':
+        eligible = state.totalXp >= 5000;
+        break;
+
+      // 6. Paths Badges
+      case 'paths-1-started':
+        eligible = stats.pathsStarted >= 1;
+        break;
+      case 'paths-1-completed':
+        eligible = stats.pathsCompleted >= 1;
+        break;
+      case 'paths-3-completed':
+        eligible = stats.pathsCompleted >= 3;
+        break;
+      case 'paths-5-completed':
+        eligible = stats.pathsCompleted >= 5;
+        break;
+      case 'paths-10-completed':
+        eligible = stats.pathsCompleted >= 10;
+        break;
+
+      // 7. Special Badges
+      case 'quiz-perfect-score':
+        eligible = stats.perfectQuizzes >= 1;
+        break;
+      case 'badges-collector-10':
+        eligible = state.unlockedBadgeIds.length >= 10;
+        break;
     }
 
     if (eligible) {

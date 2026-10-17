@@ -225,6 +225,11 @@ export const ar: TranslationSchema = {
     hookCopied: 'تم نسخ الهوك بنجاح!',
     ctaFormulaTitle: 'نداء التفاعل النهائي (Call to Action):',
     ctaCopied: 'تم نسخ الـ CTA!',
+    allAngles: 'جميع الزوايا والأساليب (8 أساليب)',
+    anglesFilter: 'الزاوية والأسلوب:',
+    generateAiIdeas: 'توليد فكرة ذكية فريدة (AI Generator)',
+    antiDuplicateBadge: 'نظام فحص البصمة ومنع التكرار مفعل 100%',
+    freshIdeaGenerated: 'تم توليد فكرة فريدة وغير مكررة بنجاح!'
   },
   ai: {
     pageTitle: 'Rikou AI: مساعد صناعة المحتوى والتعلم الرقمي',

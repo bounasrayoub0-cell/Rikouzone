@@ -47,6 +47,9 @@ import {
   checkBadgesEligibility, 
   calculateLevelAndProgress 
 } from '../../utils/challengeStorage';
+import { getLocalizedBadge } from '../../utils/badgeTranslations';
+import { calculateBadgeProgress, getGlobalLearningStats } from '../../utils/badgeProgressTracker';
+import { HexagonalBadge, BadgeDetailModal } from '../common/HexagonalBadge';
 import { ChallengeQuizModal } from './ChallengeQuizModal';
 import { ChallengeExerciseModal } from './ChallengeExerciseModal';
 
@@ -59,7 +62,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
   onNavigate,
   onCopyText
 }) => {
-  const { isRTL } = useLanguage();
+  const { language, isRTL } = useLanguage();
   const ArrowBackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   const todayStr = getTodayDateString();
@@ -83,6 +86,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
   const [activeExerciseChallenge, setActiveExerciseChallenge] = useState<ChallengeTask | null>(null);
   const [activeLessonChallenge, setActiveLessonChallenge] = useState<ChallengeTask | null>(null);
   const [lessonConfirmedCheck, setLessonConfirmedCheck] = useState<boolean>(false);
+  const [selectedDetailBadge, setSelectedDetailBadge] = useState<BadgeItem | null>(null);
 
   // 5 Dedicated Tabs requested by user:
   // 'daily' | 'weekly' | 'quizzes' | 'exercises' | 'badges'
@@ -803,62 +807,21 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-y-7 gap-x-2 sm:gap-x-4 place-items-center">
               {allBadgesList.map((badge) => {
                 const isUnlocked = userState.unlockedBadgeIds.includes(badge.id);
+                const progress = calculateBadgeProgress(badge, userState);
 
                 return (
-                  <div
+                  <HexagonalBadge
                     key={badge.id}
-                    className={`rounded-2xl border p-3.5 sm:p-4 flex flex-col justify-between transition-all ${
-                      isUnlocked
-                        ? 'border-amber-500/40 bg-[#12141c]/90 shadow-md shadow-amber-500/10'
-                        : 'border-zinc-800/80 bg-[#0a0b10]/60 opacity-60'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-2.5">
-                        <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 border ${
-                          isUnlocked
-                            ? 'bg-amber-500/15 text-amber-400 border-amber-500/40 shadow-sm shadow-amber-500/10'
-                            : 'bg-[#12131a] text-zinc-600 border-zinc-800'
-                        }`}>
-                          {isUnlocked ? (
-                            badge.id.includes('streak') ? <Flame className="h-4 w-4 text-orange-400" /> :
-                            badge.id.includes('weekly') ? <Trophy className="h-4 w-4 text-amber-400" /> :
-                            badge.id.includes('quiz') ? <HelpCircle className="h-4 w-4 text-amber-300" /> :
-                            badge.id.includes('exercise') ? <Target className="h-4 w-4 text-emerald-400" /> :
-                            <Award className="h-4 w-4 text-amber-400" />
-                          ) : (
-                            <Lock className="h-3.5 w-3.5" />
-                          )}
-                        </div>
-
-                        <span className="text-[11px] font-black text-amber-400 font-sans">
-                          +{badge.xpBonus} XP
-                        </span>
-                      </div>
-
-                      <h4 className="text-xs sm:text-sm font-bold text-white">
-                        {badge.nameAr}
-                      </h4>
-                      <p className="mt-1 text-[11px] text-zinc-400 leading-relaxed line-clamp-2">
-                        {badge.descriptionAr}
-                      </p>
-                    </div>
-
-                    <div className="mt-3 pt-2.5 border-t border-zinc-800/60 text-[10px] text-zinc-400 flex items-center justify-between">
-                      <span className="line-clamp-1">{badge.requiredCondition}</span>
-                      {isUnlocked ? (
-                        <span className="text-emerald-400 font-bold flex items-center gap-0.5 shrink-0">
-                          <CheckCircle2 className="h-3 w-3" />
-                          <span>محققة</span>
-                        </span>
-                      ) : (
-                        <span className="text-zinc-600 font-bold shrink-0">مغلقة</span>
-                      )}
-                    </div>
-                  </div>
+                    badge={badge}
+                    isUnlocked={isUnlocked}
+                    progressInfo={progress}
+                    language={language}
+                    size="md"
+                    onClick={() => setSelectedDetailBadge(badge)}
+                  />
                 );
               })}
             </div>
@@ -1056,6 +1019,15 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* Hexagonal Badge Detail Modal */}
+      <BadgeDetailModal
+        badge={selectedDetailBadge}
+        isUnlocked={selectedDetailBadge ? userState.unlockedBadgeIds.includes(selectedDetailBadge.id) : false}
+        progressInfo={selectedDetailBadge ? calculateBadgeProgress(selectedDetailBadge, userState) : undefined}
+        language={language}
+        onClose={() => setSelectedDetailBadge(null)}
+      />
     </div>
   );
 };

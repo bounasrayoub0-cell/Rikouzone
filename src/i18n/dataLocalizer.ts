@@ -1,4 +1,5 @@
 import { Language, IncomePath, ContentIdea } from '../types';
+import { getLocalizedCategoryName } from '../utils/categoryNormalizer';
 
 export interface LocalizedItemText {
   title: string;
@@ -1665,13 +1666,16 @@ export function getLocalizedPath(path: IncomePath | null | undefined, language: 
     return { title: '', shortDesc: '', category: '' };
   }
 
+  // Consistent canonical localized category matching category filter buttons in all 9 languages
+  const category = getLocalizedCategoryName(path.category, language);
+
   // 1. Check custom translation dictionary first
   const custom = PATH_TRANSLATIONS[path.id]?.[language];
   if (custom) {
     return {
       title: custom.title,
       shortDesc: custom.shortDesc,
-      category: custom.category || path.category
+      category
     };
   }
 
@@ -1680,7 +1684,7 @@ export function getLocalizedPath(path: IncomePath | null | undefined, language: 
     return {
       title: (path as any).darijaTitle || path.arabicTitle || path.title,
       shortDesc: (path as any).darijaShortDescription || path.arabicShortDescription || path.shortDescription,
-      category: path.category
+      category
     };
   }
 
@@ -1688,7 +1692,7 @@ export function getLocalizedPath(path: IncomePath | null | undefined, language: 
     return {
       title: path.arabicTitle || path.title,
       shortDesc: path.arabicShortDescription || path.shortDescription,
-      category: path.category
+      category
     };
   }
 
@@ -1696,7 +1700,7 @@ export function getLocalizedPath(path: IncomePath | null | undefined, language: 
     return {
       title: path.frenchTitle || path.title,
       shortDesc: path.frenchShortDescription || path.shortDescription,
-      category: path.category
+      category
     };
   }
 
@@ -1704,7 +1708,7 @@ export function getLocalizedPath(path: IncomePath | null | undefined, language: 
   return {
     title: path.title,
     shortDesc: path.shortDescription || (path as any).description || '',
-    category: path.category
+    category
   };
 }
 

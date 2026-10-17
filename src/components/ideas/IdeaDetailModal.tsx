@@ -66,6 +66,11 @@ export const IdeaDetailModal: React.FC<IdeaDetailModalProps> = ({
                   {t.income.facelessPossible}
                 </span>
               )}
+              {idea.arabicAngle && (
+                <span className="inline-flex items-center gap-1 rounded-lg bg-indigo-500/10 px-2 py-0.5 text-[11px] font-bold text-indigo-300 border border-indigo-500/20">
+                  {idea.arabicAngle}
+                </span>
+              )}
             </div>
 
             <h2 className="mt-3 text-xl sm:text-2xl font-black text-white">

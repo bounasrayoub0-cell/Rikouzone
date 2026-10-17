@@ -225,6 +225,11 @@ export interface TranslationSchema {
     hookCopied: string;
     ctaFormulaTitle: string;
     ctaCopied: string;
+    allAngles?: string;
+    anglesFilter?: string;
+    generateAiIdeas?: string;
+    antiDuplicateBadge?: string;
+    freshIdeaGenerated?: string;
   };
   ai: {
     pageTitle: string;

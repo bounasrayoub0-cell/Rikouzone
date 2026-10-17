@@ -41,6 +41,7 @@ export interface BadgeItem {
   isUnlocked: boolean;
   unlockedAt?: string;
   xpBonus: number;
+  category?: 'learning' | 'streak' | 'challenges' | 'xp' | 'paths' | 'special';
 }
 
 export interface XpHistoryEntry {

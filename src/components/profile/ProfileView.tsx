@@ -38,19 +38,33 @@ import {
   RefreshCw,
   ExternalLink,
   ShieldCheck,
-  UserCircle
+  UserCircle,
+  BookOpen,
+  GraduationCap,
+  Library,
+  Medal,
+  Crown,
+  Compass,
+  Milestone,
+  Star,
+  BookmarkCheck,
+  Lock
 } from 'lucide-react';
 import { 
   getInitialUserState, 
   calculateLevelAndProgress,
-  checkBadgesEligibility
+  checkBadgesEligibility,
+  saveUserState
 } from '../../utils/challengeStorage';
 import { 
   allBadgesList, 
   dailyChallengePool, 
   weeklyChallengePool 
 } from '../../data/challengesData';
-import { BadgeItem, XpHistoryEntry } from '../../data/challengesDataTypes';
+import { BadgeItem, XpHistoryEntry, ChallengeUserState } from '../../data/challengesDataTypes';
+import { getLocalizedBadge } from '../../utils/badgeTranslations';
+import { calculateBadgeProgress, getGlobalLearningStats } from '../../utils/badgeProgressTracker';
+import { HexagonalBadge, BadgeDetailModal } from '../common/HexagonalBadge';
 import { 
   UserProfile, 
   AVATAR_PRESETS, 
@@ -506,13 +520,209 @@ const profileI18n: Record<string, {
 
 // Map of badge icon names to Lucide icons
 const badgeIconMap: Record<string, React.ElementType> = {
+  Award,
   Sparkles,
   HelpCircle,
   Target,
   CheckCircle2,
   Flame,
   Trophy,
-  Zap
+  Zap,
+  BookOpen,
+  GraduationCap,
+  Library,
+  Medal,
+  Crown,
+  Calendar,
+  Compass,
+  Milestone,
+  Layers,
+  ShieldCheck,
+  Star,
+  BookmarkCheck,
+  Lock
+};
+
+const badgeTabI18n: Record<string, {
+  subtitle: string;
+  unlockedLabel: string;
+  lockedLabel: string;
+  filterAll: string;
+  filterUnlocked: string;
+  filterLocked: string;
+  catAll: string;
+  catLearning: string;
+  catStreak: string;
+  catChallenges: string;
+  catXp: string;
+  catPaths: string;
+  catSpecial: string;
+  progressLabel: string;
+  bonusXpLabel: string;
+  all30Title: string;
+}> = {
+  ar: {
+    subtitle: 'أوسمة وشارات استحقاق تفتح تلقائياً عند إنجاز شروط التعلّم الحقيقية.',
+    unlockedLabel: 'مكتسبة',
+    lockedLabel: 'مقفلة',
+    filterAll: 'الكل',
+    filterUnlocked: 'المكتسبة',
+    filterLocked: 'المقفلة',
+    catAll: 'الكل (30)',
+    catLearning: 'التعلّم والدروس',
+    catStreak: 'الاستمرارية',
+    catChallenges: 'التحديات',
+    catXp: 'نقاط XP',
+    catPaths: 'المسارات',
+    catSpecial: 'إنجازات خاصة',
+    progressLabel: 'التقدم',
+    bonusXpLabel: 'إجمالي مكافآت XP المكتسبة:',
+    all30Title: 'لوحة الشارات الثلاثين الكاملة'
+  },
+  ary: {
+    subtitle: 'أوسمة وشارات استحقاق كتحل تلقائياً فاش كتحقق شروط التعلم الحقيقية.',
+    unlockedLabel: 'مكتسبة',
+    lockedLabel: 'مقفولة',
+    filterAll: 'الكل',
+    filterUnlocked: 'المكتسبة',
+    filterLocked: 'المقفولة',
+    catAll: 'الكل (30)',
+    catLearning: 'التعلم والدروس',
+    catStreak: 'الاستمرارية',
+    catChallenges: 'التحديات',
+    catXp: 'نقاط XP',
+    catPaths: 'المسارات',
+    catSpecial: 'إنجازات خاصة',
+    progressLabel: 'التقدم',
+    bonusXpLabel: 'مجموع مكافآت XP المكتسبة:',
+    all30Title: 'لوحة الشارات 30 كاملة'
+  },
+  en: {
+    subtitle: 'Merit badges automatically unlocked upon completing real learning milestones.',
+    unlockedLabel: 'Unlocked',
+    lockedLabel: 'Locked',
+    filterAll: 'All',
+    filterUnlocked: 'Unlocked',
+    filterLocked: 'Locked',
+    catAll: 'All (30)',
+    catLearning: 'Learning & Lessons',
+    catStreak: 'Streak & Habits',
+    catChallenges: 'Challenges',
+    catXp: 'XP Milestones',
+    catPaths: 'Learning Paths',
+    catSpecial: 'Special Feats',
+    progressLabel: 'Progress',
+    bonusXpLabel: 'Total Bonus XP Earned:',
+    all30Title: 'All 30 RikouZone Badges'
+  },
+  fr: {
+    subtitle: 'Badges de mérite débloqués automatiquement selon vos réussites réelles.',
+    unlockedLabel: 'Débloqué',
+    lockedLabel: 'Verrouillé',
+    filterAll: 'Tous',
+    filterUnlocked: 'Débloqués',
+    filterLocked: 'Verrouillés',
+    catAll: 'Tous (30)',
+    catLearning: 'Apprentissage',
+    catStreak: 'Série & Richesse',
+    catChallenges: 'Défis',
+    catXp: 'Jalons XP',
+    catPaths: 'Parcours',
+    catSpecial: 'Succès Spéciaux',
+    progressLabel: 'Progression',
+    bonusXpLabel: 'Total XP bonus gagné :',
+    all30Title: 'Les 30 Badges RikouZone'
+  },
+  es: {
+    subtitle: 'Insignias de mérito desbloqueadas automáticamente al completar hitos reales.',
+    unlockedLabel: 'Desbloqueado',
+    lockedLabel: 'Bloqueado',
+    filterAll: 'Todos',
+    filterUnlocked: 'Desbloqueadas',
+    filterLocked: 'Bloqueadas',
+    catAll: 'Todos (30)',
+    catLearning: 'Aprendizaje',
+    catStreak: 'Racha Continua',
+    catChallenges: 'Desafíos',
+    catXp: 'Hitos XP',
+    catPaths: 'Rutas',
+    catSpecial: 'Logros Especiales',
+    progressLabel: 'Progreso',
+    bonusXpLabel: 'Total XP extra ganado:',
+    all30Title: 'Las 30 Insignias de RikouZone'
+  },
+  de: {
+    subtitle: 'Leistungsabzeichen werden bei echten Lernmeilensteinen automatisch freigeschaltet.',
+    unlockedLabel: 'Freigeschaltet',
+    lockedLabel: 'Gesperrt',
+    filterAll: 'Alle',
+    filterUnlocked: 'Freigeschaltet',
+    filterLocked: 'Gesperrt',
+    catAll: 'Alle (30)',
+    catLearning: 'Lernen & Lektionen',
+    catStreak: 'Serie & Disziplin',
+    catChallenges: 'Herausforderungen',
+    catXp: 'XP-Meilensteine',
+    catPaths: 'Lernpfade',
+    catSpecial: 'Besondere Erfolge',
+    progressLabel: 'Fortschritt',
+    bonusXpLabel: 'Gesamte Bonus-XP:',
+    all30Title: 'Alle 30 RikouZone-Abzeichen'
+  },
+  it: {
+    subtitle: 'Distintivi di merito sbloccati automaticamente al completamento dei traguardi reali.',
+    unlockedLabel: 'Sbloccato',
+    lockedLabel: 'Bloccato',
+    filterAll: 'Tutti',
+    filterUnlocked: 'Sbloccati',
+    filterLocked: 'Bloccati',
+    catAll: 'Tutti (30)',
+    catLearning: 'Apprendimento',
+    catStreak: 'Serie Continua',
+    catChallenges: 'Sfide',
+    catXp: 'Traguardi XP',
+    catPaths: 'Percorsi',
+    catSpecial: 'Traguardi Speciali',
+    progressLabel: 'Progresso',
+    bonusXpLabel: 'XP bonus totali guadagnati:',
+    all30Title: 'Tutti i 30 Distintivi RikouZone'
+  },
+  pt: {
+    subtitle: 'Emblemas de mérito desbloqueados automaticamente ao completar marcos reais.',
+    unlockedLabel: 'Desbloqueado',
+    lockedLabel: 'Bloqueado',
+    filterAll: 'Todos',
+    filterUnlocked: 'Desbloqueados',
+    filterLocked: 'Bloqueados',
+    catAll: 'Todos (30)',
+    catLearning: 'Aprendizado',
+    catStreak: 'Sequência',
+    catChallenges: 'Desafios',
+    catXp: 'Marcos XP',
+    catPaths: 'Trilhas',
+    catSpecial: 'Conquistas Especiais',
+    progressLabel: 'Progresso',
+    bonusXpLabel: 'Total de XP bônus conquistado:',
+    all30Title: 'Todos os 30 Emblemas RikouZone'
+  },
+  zh: {
+    subtitle: '达成真实的学习里程碑后自动点亮荣誉徽章。',
+    unlockedLabel: '已解锁',
+    lockedLabel: '未解锁',
+    filterAll: '全部',
+    filterUnlocked: '已解锁',
+    filterLocked: '未解锁',
+    catAll: '全部 (30)',
+    catLearning: '学习与课程',
+    catStreak: '连续打卡',
+    catChallenges: '实战挑战',
+    catXp: '经验值里程碑',
+    catPaths: '学习路径',
+    catSpecial: '特别成就',
+    progressLabel: '进度',
+    bonusXpLabel: '累计获得奖励经验：',
+    all30Title: 'RikouZone 全部 30 枚勋章'
+  }
 };
 
 export const ProfileView: React.FC<ProfileViewProps> = ({
@@ -532,6 +742,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   // Active Tab within Profile view
   const [activeTab, setActiveTab] = useState<'overview' | 'badges' | 'saved' | 'settings'>('overview');
   const [savedFilter, setSavedFilter] = useState<'all' | 'paths' | 'ideas'>('all');
+  const [badgeCategoryFilter, setBadgeCategoryFilter] = useState<'all' | 'learning' | 'streak' | 'challenges' | 'xp' | 'paths' | 'special'>('all');
+  const [badgeStatusFilter, setBadgeStatusFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
+  const [selectedDetailBadge, setSelectedDetailBadge] = useState<BadgeItem | null>(null);
 
   // User Profile Data state (persisted locally in localStorage)
   const [userProfile, setUserProfile] = useState<UserProfile>(() => getStoredUserProfile());
@@ -544,22 +757,122 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // User Progression & Challenges state from localStorage
-  const userChallengeState = useMemo(() => getInitialUserState(), []);
+  const [userChallengeState, setUserChallengeState] = useState<ChallengeUserState>(() => getInitialUserState());
   const levelInfo = useMemo(() => calculateLevelAndProgress(userChallengeState.totalXp), [userChallengeState.totalXp]);
+
+  // Global learning statistics (lessons, paths, quizzes, streaks)
+  const globalStats = useMemo(() => getGlobalLearningStats(userChallengeState), [userChallengeState]);
+
+  // Check and award any newly eligible badges automatically (idempotent, single-time award)
+  useEffect(() => {
+    const { newlyUnlockedBadges, bonusXpTotal } = checkBadgesEligibility(userChallengeState);
+    if (newlyUnlockedBadges.length > 0) {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const timeStr = new Date().toLocaleTimeString();
+      const updatedBadgeIds = [...userChallengeState.unlockedBadgeIds, ...newlyUnlockedBadges.map(b => b.id)];
+      const updatedHistory: XpHistoryEntry[] = [
+        ...newlyUnlockedBadges.map(b => ({
+          id: `badge-${b.id}-${Date.now()}`,
+          title: `شارة جديدة: ${isRTL ? b.nameAr : b.name}`,
+          xp: b.xpBonus,
+          date: todayStr,
+          time: timeStr,
+          type: 'badge' as const
+        })),
+        ...userChallengeState.history
+      ];
+      const updatedState: ChallengeUserState = {
+        ...userChallengeState,
+        totalXp: userChallengeState.totalXp + bonusXpTotal,
+        unlockedBadgeIds: updatedBadgeIds,
+        history: updatedHistory
+      };
+      setUserChallengeState(updatedState);
+      saveUserState(updatedState);
+    }
+  }, []);
+
+  // Listen to learning events across platform to sync badge progress in real-time
+  useEffect(() => {
+    const handleUpdate = () => {
+      const fresh = getInitialUserState();
+      const { newlyUnlockedBadges, bonusXpTotal } = checkBadgesEligibility(fresh);
+      if (newlyUnlockedBadges.length > 0) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const timeStr = new Date().toLocaleTimeString();
+        const updatedBadgeIds = [...fresh.unlockedBadgeIds, ...newlyUnlockedBadges.map(b => b.id)];
+        const updatedHistory: XpHistoryEntry[] = [
+          ...newlyUnlockedBadges.map(b => ({
+            id: `badge-${b.id}-${Date.now()}`,
+            title: `شارة جديدة: ${isRTL ? b.nameAr : b.name}`,
+            xp: b.xpBonus,
+            date: todayStr,
+            time: timeStr,
+            type: 'badge' as const
+          })),
+          ...fresh.history
+        ];
+        const updatedState: ChallengeUserState = {
+          ...fresh,
+          totalXp: fresh.totalXp + bonusXpTotal,
+          unlockedBadgeIds: updatedBadgeIds,
+          history: updatedHistory
+        };
+        setUserChallengeState(updatedState);
+        saveUserState(updatedState);
+      } else {
+        setUserChallengeState(fresh);
+      }
+    };
+
+    window.addEventListener('rz_xp_updated', handleUpdate);
+    window.addEventListener('rz_lesson_completed', handleUpdate);
+    window.addEventListener('rz_track_started', handleUpdate);
+    window.addEventListener('rz_track_completed', handleUpdate);
+    window.addEventListener('rz_perfect_quiz', handleUpdate);
+    return () => {
+      window.removeEventListener('rz_xp_updated', handleUpdate);
+      window.removeEventListener('rz_lesson_completed', handleUpdate);
+      window.removeEventListener('rz_track_started', handleUpdate);
+      window.removeEventListener('rz_track_completed', handleUpdate);
+      window.removeEventListener('rz_perfect_quiz', handleUpdate);
+    };
+  }, [isRTL]);
 
   // Real Badges calculation
   const badgesList = useMemo(() => {
-    // Check eligibility
-    checkBadgesEligibility(userChallengeState);
     return allBadgesList.map(badge => ({
       ...badge,
       isUnlocked: userChallengeState.unlockedBadgeIds.includes(badge.id)
     }));
-  }, [userChallengeState]);
+  }, [userChallengeState.unlockedBadgeIds]);
 
   const unlockedBadgesCount = useMemo(() => {
     return badgesList.filter(b => b.isUnlocked).length;
   }, [badgesList]);
+
+  // Total XP earned strictly from unlocked badges
+  const totalBadgeXpEarned = useMemo(() => {
+    return badgesList
+      .filter(b => b.isUnlocked)
+      .reduce((sum, b) => sum + (b.xpBonus || 0), 0);
+  }, [badgesList]);
+
+  // Filtered badges list for Badges Tab
+  const filteredBadgesList = useMemo(() => {
+    return badgesList.filter(badge => {
+      if (badgeCategoryFilter !== 'all' && badge.category !== badgeCategoryFilter) {
+        return false;
+      }
+      if (badgeStatusFilter === 'unlocked' && !badge.isUnlocked) {
+        return false;
+      }
+      if (badgeStatusFilter === 'locked' && badge.isUnlocked) {
+        return false;
+      }
+      return true;
+    });
+  }, [badgesList, badgeCategoryFilter, badgeStatusFilter]);
 
   // Saved Items calculation
   const savedPaths = useMemo(() => incomePaths.filter((p) => savedIds.includes(p.id)), [savedIds]);
@@ -1032,21 +1345,20 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <span className="text-xs text-zinc-400">من {badgesList.length} شارات مفتوحة</span>
                 </div>
 
-                <div className="mt-3 flex items-center gap-1.5 overflow-hidden">
-                  {badgesList.slice(0, 5).map(badge => {
-                    const Icon = badgeIconMap[badge.iconName] || Trophy;
+                <div className="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  {badgesList.slice(0, 6).map(badge => {
+                    const progress = calculateBadgeProgress(badge, userChallengeState, globalStats);
                     return (
-                      <div
+                      <HexagonalBadge
                         key={badge.id}
-                        className={`flex h-8 w-8 items-center justify-center rounded-xl border ${
-                          badge.isUnlocked
-                            ? 'border-amber-500/60 bg-amber-500/15 text-amber-300 shadow-sm'
-                            : 'border-zinc-800 bg-zinc-900/50 text-zinc-400'
-                        }`}
-                        title={isRTL ? badge.nameAr : badge.name}
-                      >
-                        <Icon className="h-4 w-4" />
-                      </div>
+                        badge={badge}
+                        isUnlocked={badge.isUnlocked}
+                        progressInfo={progress}
+                        language={language}
+                        size="sm"
+                        showLabel={false}
+                        onClick={() => setSelectedDetailBadge(badge)}
+                      />
                     );
                   })}
                 </div>
@@ -1176,89 +1488,147 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* =========================================================================
           5. TAB CONTENT: BADGES & ACHIEVEMENTS
          ========================================================================= */}
-      {activeTab === 'badges' && (
-        <div className="mt-6 space-y-6 animate-in fade-in duration-200">
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-800/80">
-              <div>
-                <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
-                  <Trophy className="h-5 w-5 text-amber-400" />
-                  <span>{labels.badgesTitle}</span>
-                </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  أوسمة وشارات استحقاق تفتح تلقائياً عند إنجاز شروط التعلم الحقيقية.
-                </p>
+      {/* =========================================================================
+          5. TAB CONTENT: BADGES & ACHIEVEMENTS (30 COMPLETE MERIT BADGES)
+         ========================================================================= */}
+      {activeTab === 'badges' && (() => {
+        const bt = badgeTabI18n[language] || badgeTabI18n.ar;
+        const overallPercent = Math.round((unlockedBadgesCount / Math.max(1, badgesList.length)) * 100);
+
+        return (
+          <div className="mt-6 space-y-6 animate-in fade-in duration-200">
+            <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
+              
+              {/* Header */}
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-zinc-800/80">
+                <div>
+                  <h2 className="text-base sm:text-xl font-black text-white flex items-center gap-2">
+                    <Trophy className="h-6 w-6 text-amber-400" />
+                    <span>{bt.all30Title}</span>
+                  </h2>
+                  <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                    {bt.subtitle}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <div className="rounded-2xl bg-amber-500/10 px-3.5 py-1.5 border border-amber-500/25 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-amber-400" />
+                    <span className="text-xs font-black text-amber-400 font-sans">
+                      {unlockedBadgesCount} / {badgesList.length} {bt.unlockedLabel}
+                    </span>
+                  </div>
+
+                  {totalBadgeXpEarned > 0 && (
+                    <div className="rounded-2xl bg-emerald-500/10 px-3 py-1.5 border border-emerald-500/25 flex items-center gap-1.5">
+                      <Zap className="h-3.5 w-3.5 text-emerald-400" />
+                      <span className="text-xs font-black text-emerald-400 font-sans">
+                        +{totalBadgeXpEarned.toLocaleString()} XP
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-black text-amber-400 border border-amber-500/20 font-sans">
-                  {unlockedBadgesCount} / {badgesList.length} شارة مفتوحة
-                </span>
-              </div>
-            </div>
-
-            {/* Badges Grid */}
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-              {badgesList.map((badge) => {
-                const Icon = badgeIconMap[badge.iconName] || Trophy;
-
-                return (
+              {/* Overall Unlock Progress Bar */}
+              <div className="mt-4 p-4 rounded-2xl border border-zinc-800/80 bg-zinc-950/60">
+                <div className="flex items-center justify-between text-xs text-zinc-300 font-medium mb-1.5">
+                  <span>{bt.progressLabel}: {unlockedBadgesCount} من 30 شارة</span>
+                  <span className="font-mono font-bold text-amber-400">{overallPercent}%</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
                   <div
-                    key={badge.id}
-                    className={`rounded-2xl border p-4 transition-all flex flex-col justify-between ${
-                      badge.isUnlocked
-                        ? 'border-amber-500/40 bg-gradient-to-br from-amber-950/20 via-zinc-900/90 to-zinc-950 shadow-md shadow-amber-950/10'
-                        : 'border-zinc-800/80 bg-zinc-950/40 opacity-75 hover:opacity-100'
+                    className="h-full rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-400 transition-all duration-500"
+                    style={{ width: `${overallPercent}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Filters Toolbar: Categories & Status */}
+              <div className="mt-5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                {/* Category Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  {[
+                    { id: 'all', label: bt.catAll },
+                    { id: 'learning', label: bt.catLearning },
+                    { id: 'streak', label: bt.catStreak },
+                    { id: 'challenges', label: bt.catChallenges },
+                    { id: 'xp', label: bt.catXp },
+                    { id: 'paths', label: bt.catPaths },
+                    { id: 'special', label: bt.catSpecial }
+                  ].map(cat => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setBadgeCategoryFilter(cat.id as any)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                        badgeCategoryFilter === cat.id
+                          ? 'bg-amber-500 text-black shadow-md shadow-amber-500/20'
+                          : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800/70'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Status Segmented Control */}
+                <div className="flex items-center p-0.5 rounded-xl border border-zinc-800 bg-zinc-950 text-xs shrink-0 self-start md:self-auto">
+                  <button
+                    onClick={() => setBadgeStatusFilter('all')}
+                    className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
+                      badgeStatusFilter === 'all' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
-                    <div>
-                      <div className="flex items-start justify-between gap-2">
-                        <div className={`flex h-11 w-11 items-center justify-center rounded-xl border ${
-                          badge.isUnlocked
-                            ? 'border-amber-500/50 bg-amber-500/20 text-amber-400 shadow-sm'
-                            : 'border-zinc-800 bg-zinc-900/60 text-zinc-400'
-                        }`}>
-                          <Icon className="h-5 w-5" />
-                        </div>
+                    {bt.filterAll} ({badgesList.length})
+                  </button>
+                  <button
+                    onClick={() => setBadgeStatusFilter('unlocked')}
+                    className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
+                      badgeStatusFilter === 'unlocked' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    {bt.filterUnlocked} ({unlockedBadgesCount})
+                  </button>
+                  <button
+                    onClick={() => setBadgeStatusFilter('locked')}
+                    className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
+                      badgeStatusFilter === 'locked' ? 'bg-zinc-800 text-zinc-300 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    {bt.filterLocked} ({badgesList.length - unlockedBadgesCount})
+                  </button>
+                </div>
+              </div>
 
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
-                          badge.isUnlocked
-                            ? 'border-amber-500/30 bg-amber-500/10 text-amber-400'
-                            : 'border-zinc-800 bg-zinc-900 text-zinc-400'
-                        }`}>
-                          +{badge.xpBonus} XP
-                        </span>
-                      </div>
+              {/* Badges Hexagonal Gaming Grid (30 Distinct Hexagons) */}
+              {filteredBadgesList.length === 0 ? (
+                <div className="mt-8 py-12 text-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-950/30">
+                  <Trophy className="h-10 w-10 text-zinc-600 mx-auto mb-2" />
+                  <p className="text-sm text-zinc-400 font-medium">لا توجد شارات مطابقة لهذا التصنيف.</p>
+                </div>
+              ) : (
+                <div className="mt-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-y-8 gap-x-2 sm:gap-x-4 place-items-center">
+                  {filteredBadgesList.map((badge) => {
+                    const progress = calculateBadgeProgress(badge, userChallengeState, globalStats);
 
-                      <h3 className={`mt-3 text-sm font-bold ${badge.isUnlocked ? 'text-white' : 'text-zinc-300'}`}>
-                        {isRTL ? badge.nameAr : badge.name}
-                      </h3>
-
-                      <p className="mt-1 text-xs text-zinc-400">
-                        {isRTL ? badge.descriptionAr : badge.description}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-                      <span className="text-zinc-400 truncate">
-                        {badge.requiredCondition}
-                      </span>
-                      {badge.isUnlocked ? (
-                        <span className="font-bold text-amber-400 flex items-center gap-1 shrink-0">
-                          <Check className="h-3 w-3" />
-                          <span>مفتوحة</span>
-                        </span>
-                      ) : (
-                        <span className="text-zinc-400 shrink-0">مقفلة</span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+                    return (
+                      <HexagonalBadge
+                        key={badge.id}
+                        badge={badge}
+                        isUnlocked={badge.isUnlocked}
+                        progressInfo={progress}
+                        language={language}
+                        size="md"
+                        onClick={() => setSelectedDetailBadge(badge)}
+                      />
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
 
       {/* =========================================================================
@@ -1798,6 +2168,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* Hexagonal Badge Gaming Detail Modal */}
+      <BadgeDetailModal
+        badge={selectedDetailBadge}
+        isUnlocked={selectedDetailBadge ? userChallengeState.unlockedBadgeIds.includes(selectedDetailBadge.id) : false}
+        progressInfo={selectedDetailBadge ? calculateBadgeProgress(selectedDetailBadge, userChallengeState, globalStats) : undefined}
+        language={language}
+        onClose={() => setSelectedDetailBadge(null)}
+      />
 
     </div>
   );

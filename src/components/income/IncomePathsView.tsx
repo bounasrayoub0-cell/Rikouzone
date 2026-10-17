@@ -22,6 +22,12 @@ import {
   lockedTracksI18n,
   LOCKED_TRACKS_RULES
 } from '../../utils/lockedTracks';
+import { 
+  matchesCategory, 
+  normalizeCategory, 
+  getLocalizedCategoryName,
+  tolerantSearchMatch
+} from '../../utils/categoryNormalizer';
 
 interface IncomePathsViewProps {
   onToggleSave: (id: string, type: 'income' | 'idea') => void;
@@ -71,8 +77,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
 
   const filteredPaths = useMemo(() => {
     return incomePaths.filter((path) => {
-      // Category match
-      if (selectedCategory !== 'all' && path.category !== selectedCategory) {
+      // Category match supporting canonical, legacy, translated, or slug
+      if (!matchesCategory(path.category, selectedCategory)) {
         return false;
       }
       // Difficulty match
@@ -81,12 +87,29 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       }
       // Search query
       if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase();
+        const query = searchQuery.trim();
         const loc = localizePath(path);
-        const inTitle = (loc.title || '').toLowerCase().includes(query) || (path.title || '').toLowerCase().includes(query) || (path.arabicTitle || '').toLowerCase().includes(query);
-        const inDesc = (loc.shortDesc || '').toLowerCase().includes(query) || (path.shortDescription || path.description || '').toLowerCase().includes(query) || (path.arabicShortDescription || '').toLowerCase().includes(query);
-        const inSkills = (path.requiredSkills || []).some(s => s.toLowerCase().includes(query));
-        if (!inTitle && !inDesc && !inSkills) return false;
+        const matchTitle = tolerantSearchMatch(loc.title || '', query) ||
+                           tolerantSearchMatch(path.title || '', query) ||
+                           tolerantSearchMatch(path.arabicTitle || '', query) ||
+                           tolerantSearchMatch(path.frenchTitle || '', query);
+        const matchDesc = tolerantSearchMatch(loc.shortDesc || '', query) ||
+                          tolerantSearchMatch(path.shortDescription || path.description || '', query) ||
+                          tolerantSearchMatch(path.arabicShortDescription || '', query) ||
+                          tolerantSearchMatch(path.fullDescription || '', query) ||
+                          tolerantSearchMatch(path.arabicFullDescription || '', query);
+        const matchCategory = tolerantSearchMatch(loc.category || '', query) ||
+                              tolerantSearchMatch(path.category || '', query) ||
+                              tolerantSearchMatch(getLocalizedCategoryName(path.category, 'ar'), query) ||
+                              tolerantSearchMatch(getLocalizedCategoryName(path.category, 'en'), query);
+        const matchSkills = (path.requiredSkills || []).some(s => tolerantSearchMatch(s, query)) ||
+                            (path.arabicRequiredSkills || []).some(s => tolerantSearchMatch(s, query));
+        const matchTools = (path.tools || []).some(s => tolerantSearchMatch(s, query));
+        const matchPlatforms = (path.platforms || []).some(s => tolerantSearchMatch(s, query));
+
+        if (!matchTitle && !matchDesc && !matchCategory && !matchSkills && !matchTools && !matchPlatforms) {
+          return false;
+        }
       }
       return true;
     });
@@ -219,7 +242,9 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         {/* Category Pill Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none justify-start sm:justify-center">
           {categories.map((cat) => {
-            const isActive = selectedCategory === cat.id;
+            const isCatAll = normalizeCategory(cat.id) === 'all';
+            const isSelectedAll = normalizeCategory(selectedCategory) === 'all';
+            const isActive = isCatAll ? isSelectedAll : matchesCategory(cat.id, selectedCategory);
             return (
               <button
                 key={cat.id}
@@ -315,9 +340,17 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 <div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedCategory(path.category);
+                        }}
+                        className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer text-start"
+                        title={`${t.income.categoriesList.all}: ${category}`}
+                      >
                         {category}
-                      </span>
+                      </button>
 
                       {/* Locked Badge */}
                       {isLocked && lockRule && (
