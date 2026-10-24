@@ -30,7 +30,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Alle (35)',
       it: 'Tutti (35)',
       pt: 'Todos (35)',
-      zh: '全部 (35)'
+      zh: '全部 (35)',
+      ja: 'すべて (35)',
+      ko: '전체 (35)',
+      tr: 'Tümü (35)',
+      hi: 'सभी (35)',
+      ru: 'Все (35)',
+      nl: 'Alles (35)',
+      id: 'Semua (35)',
+      pl: 'Wszystkie (35)'
     },
     aliases: [
       'all', 'all paths', 'all (35)', 'كل', 'الكل', 'الكل (35)', 'كولشي', 'كولشي (35)',
@@ -49,7 +57,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Content Creation',
       it: 'Creazione di Contenuti',
       pt: 'Criação de Conteúdo',
-      zh: '内容创作'
+      zh: '内容创作',
+      ja: 'コンテンツ制作',
+      ko: '콘텐츠 제작',
+      tr: 'İçerik Üretimi',
+      hi: 'कंटेंट क्रिएशन',
+      ru: 'Создание контента',
+      nl: 'Contentcreatie',
+      id: 'Pembuatan Konten',
+      pl: 'Tworzenie Treści'
     },
     aliases: [
       'content creation', 'content-creation', 'content_creation', 'contentcreation',
@@ -70,7 +86,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Freelancing & Services',
       it: 'Freelance e Servizi',
       pt: 'Freelance e Serviços',
-      zh: '自由职业与服务'
+      zh: '自由职业与服务',
+      ja: 'フリーランス＆サービス',
+      ko: '프리랜싱 및 서비스',
+      tr: 'Freelance ve Hizmetler',
+      hi: 'फ्रीलांसिंग और सेवाएँ',
+      ru: 'Фриланс и услуги',
+      nl: 'Freelancing & Diensten',
+      id: 'Freelance & Layanan',
+      pl: 'Freelancing i Usługi'
     },
     aliases: [
       'freelancing', 'freelance', 'freelance & services', 'freelancing & services',
@@ -92,7 +116,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'E-Commerce',
       it: 'E-commerce',
       pt: 'Comércio Eletrônico',
-      zh: '电子商务'
+      zh: '电子商务',
+      ja: 'Eコマース',
+      ko: '이커머스',
+      tr: 'E-Ticaret',
+      hi: 'ई-कॉमर्स',
+      ru: 'Электронная коммерция',
+      nl: 'E-commerce',
+      id: 'E-commerce',
+      pl: 'E-commerce'
     },
     aliases: [
       'e-commerce', 'ecommerce', 'e_commerce', 'e commerce', 'commerce',
@@ -113,7 +145,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Digitales Marketing',
       it: 'Marketing Digitale',
       pt: 'Marketing Digital',
-      zh: '数字营销'
+      zh: '数字营销',
+      ja: 'デジタルマーケティング',
+      ko: '디지털 마케팅',
+      tr: 'Dijital Pazarlama',
+      hi: 'डिजिटल मार्केटिंग',
+      ru: 'Цифровой маркетинг',
+      nl: 'Digitale Marketing',
+      id: 'Pemasaran Digital',
+      pl: 'Marketing Cyfrowy'
     },
     aliases: [
       'marketing', 'digital marketing', 'digital-marketing', 'digital_marketing',
@@ -133,7 +173,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Technologie & KI',
       it: 'Tech e IA',
       pt: 'Tecnologia e IA',
-      zh: '科技与AI'
+      zh: '科技与AI',
+      ja: 'テクノロジー＆AI',
+      ko: '기술 및 AI',
+      tr: 'Teknoloji ve Yapay Zeka',
+      hi: 'तकनीक और एआई',
+      ru: 'Технологии и ИИ',
+      nl: 'Tech & AI',
+      id: 'Teknologi & AI',
+      pl: 'Technologia i AI'
     },
     aliases: [
       'tech & ai', 'tech-ai', 'tech_ai', 'tech and ai', 'techai', 'tech & ia', 'tech-ia',
@@ -156,7 +204,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Gaming & Streaming',
       it: 'Gaming e Streaming',
       pt: 'Gaming e Transmissão',
-      zh: '游戏与直播'
+      zh: '游戏与直播',
+      ja: 'ゲーム＆配信',
+      ko: '게이밍 및 스트리밍',
+      tr: 'Oyun ve Yayıncılık',
+      hi: 'गेमिंग और स्ट्रीमिंग',
+      ru: 'Гейминг и стриминг',
+      nl: 'Gaming & Streaming',
+      id: 'Game & Streaming',
+      pl: 'Gaming i Streaming'
     },
     aliases: [
       'gaming', 'gaming & streaming', 'gaming and streaming', 'gaming-streaming',
@@ -176,7 +232,15 @@ export const CATEGORY_DEFINITIONS: Record<CanonicalCategory, CategoryDefinition>
       de: 'Micro-Services',
       it: 'Microservizi',
       pt: 'Microserviços',
-      zh: '微服务'
+      zh: '微服务',
+      ja: 'マイクロサービス',
+      ko: '마이크로 서비스',
+      tr: 'Mikro Hizmetler',
+      hi: 'माइक्रो सेवाएँ',
+      ru: 'Микро-услуги',
+      nl: 'Microdiensten',
+      id: 'Layanan Mikro',
+      pl: 'Mikrousługi'
     },
     aliases: [
       'micro services', 'micro-services', 'micro_services', 'microservices',

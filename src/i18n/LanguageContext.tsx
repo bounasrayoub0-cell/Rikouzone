@@ -11,6 +11,14 @@ import { de } from './de';
 import { it } from './it';
 import { pt } from './pt';
 import { zh } from './zh';
+import { ja } from './ja';
+import { ko } from './ko';
+import { tr } from './tr';
+import { hi } from './hi';
+import { ru } from './ru';
+import { nl } from './nl';
+import { id } from './id';
+import { pl } from './pl';
 
 interface LanguageContextType {
   language: Language;
@@ -38,11 +46,20 @@ const translations: Record<Language, TranslationSchema> = {
   de,
   it,
   pt,
-  zh
+  zh,
+  ja,
+  ko,
+  tr,
+  hi,
+  ru,
+  nl,
+  id,
+  pl
 };
 
 const VALID_LANGUAGES = new Set<Language>([
-  'ary', 'ar', 'en', 'fr', 'es', 'de', 'it', 'pt', 'zh'
+  'ary', 'ar', 'en', 'fr', 'es', 'de', 'it', 'pt', 'zh',
+  'ja', 'ko', 'tr', 'hi', 'ru', 'nl', 'id', 'pl'
 ]);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -151,6 +168,30 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         item[`english${cap}`] ||
         ''
       );
+    }
+    if (language === 'ja') {
+      return item[`japanese${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'ko') {
+      return item[`korean${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'tr') {
+      return item[`turkish${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'hi') {
+      return item[`hindi${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'ru') {
+      return item[`russian${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'nl') {
+      return item[`dutch${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'id') {
+      return item[`indonesian${cap}`] || item[field] || item[`english${cap}`] || '';
+    }
+    if (language === 'pl') {
+      return item[`polish${cap}`] || item[field] || item[`english${cap}`] || '';
     }
 
     // Default English / fallback

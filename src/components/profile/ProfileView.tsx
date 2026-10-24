@@ -74,6 +74,8 @@ import {
   calculateProfileCompletion, 
   processUploadedImage 
 } from '../../utils/profileStorage';
+import { RkoCoinLogo } from '../common/RkoCoinLogo';
+import { useRkoWallet } from '../../utils/rkoWalletStorage';
 
 interface ProfileViewProps {
   savedIds: string[];
@@ -758,6 +760,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   // User Progression & Challenges state from localStorage
   const [userChallengeState, setUserChallengeState] = useState<ChallengeUserState>(() => getInitialUserState());
+  const { balance: rkoBalance } = useRkoWallet();
   const levelInfo = useMemo(() => calculateLevelAndProgress(userChallengeState.totalXp), [userChallengeState.totalXp]);
 
   // Global learning statistics (lessons, paths, quizzes, streaks)
@@ -1043,12 +1046,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-3 sm:px-6 py-6 pb-24 lg:pb-12 text-zinc-100">
+    <div className="mx-auto max-w-5xl px-3 sm:px-6 py-6 pb-24 lg:pb-12 text-slate-900 dark:text-zinc-100">
 
       {/* Floating Status Notification */}
       {statusNotification && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border border-amber-500/40 bg-zinc-950/95 px-4 py-2.5 text-xs font-bold text-amber-300 shadow-xl shadow-black backdrop-blur-xl animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="h-4 w-4 text-amber-400" />
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border border-amber-500/40 bg-white/95 dark:bg-zinc-950/95 px-4 py-2.5 text-xs font-bold text-amber-600 dark:text-amber-300 shadow-xl shadow-slate-200/50 dark:shadow-black backdrop-blur-xl animate-in fade-in slide-in-from-top-2">
+          <CheckCircle2 className="h-4 w-4 text-amber-500 dark:text-amber-400" />
           <span>{statusNotification}</span>
         </div>
       )}
@@ -1056,7 +1059,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* =========================================================================
           1. PREMIUM PROFILE HEADER (Branded, Modern, Responsive, Obsidian & Amber)
          ========================================================================= */}
-      <div className="relative overflow-hidden rounded-3xl border border-amber-500/25 bg-gradient-to-b from-zinc-900/90 via-[#0a0a0d] to-zinc-950 p-5 sm:p-7 shadow-2xl backdrop-blur-2xl">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-500/25 bg-gradient-to-b from-amber-50/70 via-white to-orange-50/40 dark:from-zinc-900/90 dark:via-[#0a0a0d] dark:to-zinc-950 p-5 sm:p-7 shadow-xl shadow-slate-200/60 dark:shadow-2xl backdrop-blur-2xl">
         {/* Subtle background ambient glow */}
         <div className="pointer-events-none absolute -top-24 right-1/4 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 left-1/4 h-64 w-64 rounded-full bg-orange-600/10 blur-3xl" />
@@ -1068,7 +1071,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             
             {/* Avatar with Camera Trigger */}
             <div className="relative group shrink-0">
-              <div className="relative h-20 w-20 sm:h-24 sm:w-24 overflow-hidden rounded-2xl border-2 border-amber-500/50 bg-zinc-950 p-1 shadow-xl shadow-amber-500/15 group-hover:border-amber-400 transition-all">
+              <div className="relative h-20 w-20 sm:h-24 sm:w-24 overflow-hidden rounded-2xl border-2 border-amber-500/50 bg-white dark:bg-zinc-950 p-1 shadow-lg shadow-amber-500/15 group-hover:border-amber-400 transition-all">
                 <img
                   src={userProfile.avatarUrl || '/file_00000000b1d881f496a6612e6eef85ce.png'}
                   onError={(e) => {
@@ -1082,7 +1085,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               </div>
 
               {/* Online Verified Status Check */}
-              <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 text-[10px] font-black text-black shadow-md border-2 border-zinc-950">
+              <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 text-[10px] font-black text-black shadow-md border-2 border-white dark:border-zinc-950">
                 ✓
               </span>
 
@@ -1101,24 +1104,24 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {/* User Credentials & Bio */}
             <div className="min-w-0">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                   {userProfile.displayName}
                 </h1>
-                <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold text-amber-400 border border-amber-500/25 font-sans">
+                <span className="rounded-full bg-amber-500/15 dark:bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400 border border-amber-500/30 font-sans">
                   PRO CREATOR
                 </span>
               </div>
 
-              <div className="mt-1 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-zinc-400 font-mono">
-                <span className="text-amber-400/90 font-bold">{userProfile.username}</span>
-                <span className="text-zinc-600">·</span>
-                <span className="text-zinc-300 font-sans">{userProfile.roleTitle}</span>
-                <span className="text-zinc-600">·</span>
-                <span className="text-zinc-400 font-sans">RikouZone 2026</span>
+              <div className="mt-1 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-slate-600 dark:text-zinc-400 font-mono">
+                <span className="text-amber-600 dark:text-amber-400 font-bold">{userProfile.username}</span>
+                <span className="text-slate-400 dark:text-zinc-600">·</span>
+                <span className="text-slate-700 dark:text-zinc-300 font-sans">{userProfile.roleTitle}</span>
+                <span className="text-slate-400 dark:text-zinc-600">·</span>
+                <span className="text-slate-500 dark:text-zinc-400 font-sans">RikouZone 2026</span>
               </div>
 
               {userProfile.bio && (
-                <p className="mt-2 text-xs sm:text-sm text-zinc-300/90 max-w-xl line-clamp-2 italic">
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 max-w-xl line-clamp-2 italic">
                   "{userProfile.bio}"
                 </p>
               )}
@@ -1130,45 +1133,56 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <button
               onClick={handleOpenEditModal}
               id="edit-profile-btn"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-amber-500/30 bg-zinc-900/90 hover:bg-zinc-800 hover:border-amber-400 px-4 py-2 text-xs font-bold text-amber-300 transition-all shadow-md active:scale-95 cursor-pointer"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-amber-500/30 bg-amber-50/80 dark:bg-zinc-900/90 hover:bg-amber-100 dark:hover:bg-zinc-800 hover:border-amber-400 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300 transition-all shadow-sm active:scale-95 cursor-pointer"
             >
               <Edit3 className="h-3.5 w-3.5" />
               <span>{labels.editProfile}</span>
             </button>
 
             {/* Quick Metrics Bar in Header */}
-            <div className="flex items-center gap-2">
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/70 px-3 py-1.5 text-center">
-                <div className="text-xs font-black text-amber-400 font-sans">{userChallengeState.totalXp} XP</div>
-                <div className="text-[9px] text-zinc-400">{labels.levelTitle} {levelInfo.currentLevel}</div>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+              <div 
+                onClick={() => onNavigate('wallet')}
+                title="عرض محفظة RKO وتفاصيل الرصيد"
+                className="rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 text-center shadow-sm dark:shadow-none cursor-pointer transition-all active:scale-95 group"
+              >
+                <div className="text-xs font-black text-amber-600 dark:text-amber-400 font-sans flex items-center justify-center gap-1">
+                  <RkoCoinLogo size="xs" />
+                  <span>{rkoBalance}</span>
+                  <span className="text-[10px]">RKO</span>
+                </div>
+                <div className="text-[9px] text-amber-700 dark:text-amber-400/90 font-bold group-hover:underline">محفظة RKO</div>
               </div>
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/70 px-3 py-1.5 text-center">
-                <div className="text-xs font-black text-orange-400 font-sans">{userChallengeState.streakCount} 🔥</div>
-                <div className="text-[9px] text-zinc-400">{labels.streakTitle}</div>
+              <div className="rounded-xl border border-slate-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/70 px-3 py-1.5 text-center shadow-sm dark:shadow-none">
+                <div className="text-xs font-black text-amber-600 dark:text-amber-400 font-sans">{userChallengeState.totalXp} XP</div>
+                <div className="text-[9px] text-slate-500 dark:text-zinc-400">{labels.levelTitle} {levelInfo.currentLevel}</div>
               </div>
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/70 px-3 py-1.5 text-center">
-                <div className="text-xs font-black text-sky-400 font-sans">{savedIds.length}</div>
-                <div className="text-[9px] text-zinc-400">{labels.tabSaved}</div>
+              <div className="rounded-xl border border-slate-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/70 px-3 py-1.5 text-center shadow-sm dark:shadow-none">
+                <div className="text-xs font-black text-orange-600 dark:text-orange-400 font-sans">{userChallengeState.streakCount} 🔥</div>
+                <div className="text-[9px] text-slate-500 dark:text-zinc-400">{labels.streakTitle}</div>
+              </div>
+              <div className="rounded-xl border border-slate-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/70 px-3 py-1.5 text-center shadow-sm dark:shadow-none">
+                <div className="text-xs font-black text-sky-600 dark:text-sky-400 font-sans">{savedIds.length}</div>
+                <div className="text-[9px] text-slate-500 dark:text-zinc-400">{labels.tabSaved}</div>
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Profile Completion Indicator */}
-        <div className="mt-5 pt-4 border-t border-zinc-800/70">
+        <div className="mt-5 pt-4 border-t border-slate-200 dark:border-zinc-800/70">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-amber-400" />
-              <span className="font-bold text-zinc-200">{labels.profileCompletion}:</span>
-              <span className="font-mono font-bold text-amber-400">{completionInfo.percentage}%</span>
+              <ShieldCheck className="h-4 w-4 text-amber-500 dark:text-amber-400" />
+              <span className="font-bold text-slate-800 dark:text-zinc-200">{labels.profileCompletion}:</span>
+              <span className="font-mono font-bold text-amber-600 dark:text-amber-400">{completionInfo.percentage}%</span>
             </div>
             
-            <div className="flex items-center gap-2 text-[11px] text-zinc-400">
+            <div className="flex items-center gap-2 text-[11px] text-slate-600 dark:text-zinc-400">
               {completionInfo.completedTasks.map(task => (
                 <span 
                   key={task.id} 
-                  className={`inline-flex items-center gap-1 ${task.done ? 'text-amber-400 font-semibold' : 'text-zinc-400 line-through'}`}
+                  className={`inline-flex items-center gap-1 ${task.done ? 'text-amber-600 dark:text-amber-400 font-semibold' : 'text-slate-400 dark:text-zinc-500 line-through'}`}
                 >
                   <span>{task.done ? '✓' : '○'}</span>
                   <span>{task.label}</span>
@@ -1178,7 +1192,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           </div>
 
           {/* Progress bar */}
-          <div className="mt-2 h-1.5 w-full rounded-full bg-zinc-800/80 overflow-hidden">
+          <div className="mt-2 h-1.5 w-full rounded-full bg-slate-200 dark:bg-zinc-800/80 overflow-hidden">
             <div 
               className="h-full rounded-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-500"
               style={{ width: `${completionInfo.percentage}%` }}
@@ -1192,14 +1206,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* =========================================================================
           2. ENCOURAGEMENT BANNER (Dynamic & Real, based on genuine stats)
          ========================================================================= */}
-      <div className="mt-4 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 px-4 py-3 text-xs flex items-center justify-between gap-3 text-zinc-300">
+      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/40 px-4 py-3 text-xs flex items-center justify-between gap-3 text-slate-700 dark:text-zinc-300 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2.5">
-          <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+          <Sparkles className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
           <span>{encouragingMessage}</span>
         </div>
         <button
           onClick={() => onNavigate('challenges')}
-          className="shrink-0 text-amber-400 hover:text-amber-300 font-bold text-[11px] hover:underline flex items-center gap-1 cursor-pointer"
+          className="shrink-0 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-bold text-[11px] hover:underline flex items-center gap-1 cursor-pointer"
         >
           <span>{labels.viewAllChallenges}</span>
           <ArrowIcon className="h-3 w-3" />
@@ -1210,13 +1224,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* =========================================================================
           3. TAB NAVIGATION (Overview, Badges, Saved, Settings)
          ========================================================================= */}
-      <div className="mt-6 flex items-center gap-1.5 p-1 rounded-2xl border border-zinc-800/80 bg-zinc-950/70 overflow-x-auto">
+      <div className="mt-6 flex items-center gap-1.5 p-1 rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-950/70 overflow-x-auto shadow-sm dark:shadow-none">
         <button
           onClick={() => setActiveTab('overview')}
           className={`flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-2 ${
             activeTab === 'overview'
               ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black shadow-md shadow-amber-500/20'
-              : 'text-zinc-400 hover:text-white hover:bg-zinc-900/60'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900/60'
           }`}
         >
           <TrendingUp className="h-3.5 w-3.5" />
@@ -1228,7 +1242,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           className={`flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-2 ${
             activeTab === 'badges'
               ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black shadow-md shadow-amber-500/20'
-              : 'text-zinc-400 hover:text-white hover:bg-zinc-900/60'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900/60'
           }`}
         >
           <Trophy className="h-3.5 w-3.5" />
@@ -1240,7 +1254,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           className={`flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-2 ${
             activeTab === 'saved'
               ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black shadow-md shadow-amber-500/20'
-              : 'text-zinc-400 hover:text-white hover:bg-zinc-900/60'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900/60'
           }`}
         >
           <Bookmark className="h-3.5 w-3.5" />
@@ -1252,7 +1266,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           className={`flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-2 ${
             activeTab === 'settings'
               ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black shadow-md shadow-amber-500/20'
-              : 'text-zinc-400 hover:text-white hover:bg-zinc-900/60'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900/60'
           }`}
         >
           <Globe className="h-3.5 w-3.5" />
@@ -1271,34 +1285,34 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             
             {/* Level & XP Progress Card */}
-            <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-zinc-950 p-4 sm:p-5 flex flex-col justify-between">
+            <div className="rounded-2xl border border-slate-200 dark:border-amber-500/30 bg-white dark:bg-gradient-to-br dark:from-zinc-900/90 dark:via-zinc-950 dark:to-zinc-950 p-4 sm:p-5 flex flex-col justify-between shadow-sm dark:shadow-none">
               <div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-amber-400 uppercase tracking-wider">{labels.levelTitle} {levelInfo.currentLevel}</span>
-                  <span className="font-mono text-zinc-400">{userChallengeState.totalXp} XP</span>
+                  <span className="font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">{labels.levelTitle} {levelInfo.currentLevel}</span>
+                  <span className="font-mono text-slate-500 dark:text-zinc-400 font-bold">{userChallengeState.totalXp} XP</span>
                 </div>
-                <h3 className="mt-1 text-base font-black text-white">{levelInfo.levelTitle}</h3>
+                <h3 className="mt-1 text-base font-black text-slate-900 dark:text-white">{levelInfo.levelTitle}</h3>
                 
                 {/* Progress bar to next level */}
                 <div className="mt-4">
-                  <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1.5 font-sans">
+                  <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-zinc-400 mb-1.5 font-sans">
                     <span>{levelInfo.progressPercent}% نحو المستوى القادم</span>
                     <span>{levelInfo.remainingXp} XP {labels.remainingXpText}</span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-zinc-800 overflow-hidden">
                     <div 
-                      className="h-full rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-300"
+                      className="h-full rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400"
                       style={{ width: `${levelInfo.progressPercent}%` }}
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs">
-                <span className="text-zinc-400">الهدف: المستوى {levelInfo.currentLevel + 1}</span>
+              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between text-xs">
+                <span className="text-slate-500 dark:text-zinc-400">الهدف: المستوى {levelInfo.currentLevel + 1}</span>
                 <button
                   onClick={() => onNavigate('challenges')}
-                  className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 cursor-pointer"
+                  className="text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 font-bold flex items-center gap-1 cursor-pointer"
                 >
                   <span>كسب XP</span>
                   <ArrowIcon className="h-3 w-3" />
@@ -1307,42 +1321,42 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
 
             {/* Daily Streak & Momentum Card */}
-            <div className="rounded-2xl border border-orange-500/30 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-zinc-950 p-4 sm:p-5 flex flex-col justify-between">
+            <div className="rounded-2xl border border-slate-200 dark:border-orange-500/30 bg-white dark:bg-gradient-to-br dark:from-zinc-900/90 dark:via-zinc-950 dark:to-zinc-950 p-4 sm:p-5 flex flex-col justify-between shadow-sm dark:shadow-none">
               <div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-orange-400 uppercase tracking-wider">{labels.streakTitle}</span>
-                  <Flame className="h-4 w-4 text-orange-400" />
+                  <span className="font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider">{labels.streakTitle}</span>
+                  <Flame className="h-4 w-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 
                 <div className="mt-2 flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white font-sans">{userChallengeState.streakCount}</span>
-                  <span className="text-sm font-bold text-orange-400">{labels.daysStreak} 🔥</span>
+                  <span className="text-3xl font-black text-slate-900 dark:text-white font-sans">{userChallengeState.streakCount}</span>
+                  <span className="text-sm font-bold text-orange-600 dark:text-orange-400">{labels.daysStreak} 🔥</span>
                 </div>
 
-                <p className="mt-2 text-xs text-zinc-400">
+                <p className="mt-2 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
                   حافظ على حل تحدٍّ أو اختبار واحد يومياً لتغذية الشعلة وعدم قطع السلسلة.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs">
-                <span className="text-zinc-400">آخر نشاط: {userChallengeState.lastActiveDate || 'اليوم'}</span>
-                <span className="text-amber-400 font-bold font-sans">
+              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between text-xs">
+                <span className="text-slate-500 dark:text-zinc-400">آخر نشاط: {userChallengeState.lastActiveDate || 'اليوم'}</span>
+                <span className="text-amber-600 dark:text-amber-400 font-bold font-sans">
                   {userChallengeState.completedChallengeIds.length} {labels.completedChallengesCount}
                 </span>
               </div>
             </div>
 
             {/* Badges Snapshot Card */}
-            <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-zinc-950 p-4 sm:p-5 flex flex-col justify-between">
+            <div className="rounded-2xl border border-slate-200 dark:border-amber-500/30 bg-white dark:bg-gradient-to-br dark:from-zinc-900/90 dark:via-zinc-950 dark:to-zinc-950 p-4 sm:p-5 flex flex-col justify-between shadow-sm dark:shadow-none">
               <div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-amber-400 uppercase tracking-wider">{labels.badgesTitle}</span>
-                  <Award className="h-4 w-4 text-amber-400" />
+                  <span className="font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">{labels.badgesTitle}</span>
+                  <Award className="h-4 w-4 text-amber-500 dark:text-amber-400" />
                 </div>
 
                 <div className="mt-2 flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white font-sans">{unlockedBadgesCount}</span>
-                  <span className="text-xs text-zinc-400">من {badgesList.length} شارات مفتوحة</span>
+                  <span className="text-3xl font-black text-slate-900 dark:text-white font-sans">{unlockedBadgesCount}</span>
+                  <span className="text-xs text-slate-500 dark:text-zinc-400">من {badgesList.length} شارات مفتوحة</span>
                 </div>
 
                 <div className="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
@@ -1364,11 +1378,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs">
-                <span className="text-zinc-400">انقر لعرض كل الإنجازات</span>
+              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between text-xs">
+                <span className="text-slate-500 dark:text-zinc-400">انقر لعرض كل الإنجازات</span>
                 <button
                   onClick={() => setActiveTab('badges')}
-                  className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 cursor-pointer"
+                  className="text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 font-bold flex items-center gap-1 cursor-pointer"
                 >
                   <span>عرض الشارات</span>
                   <ArrowIcon className="h-3 w-3" />
@@ -1379,15 +1393,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           </div>
 
           {/* Learning Tracks Real Progress Breakdown */}
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                <Layers className="h-4.5 w-4.5 text-amber-400" />
+              <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Layers className="h-4.5 w-4.5 text-amber-500 dark:text-amber-400" />
                 <span>{labels.learningTracksProgress}</span>
               </h2>
               <button
                 onClick={() => onNavigate('income')}
-                className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer"
+                className="text-xs font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 flex items-center gap-1 cursor-pointer"
               >
                 <span>تصفح كل المسارات</span>
                 <ArrowIcon className="h-3 w-3" />
@@ -1399,19 +1413,19 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 <div
                   key={field.id}
                   onClick={() => onNavigate(field.actionTab)}
-                  className="group rounded-2xl border border-zinc-800/90 bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all cursor-pointer flex flex-col justify-between"
+                  className="group rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-slate-50/80 dark:bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all cursor-pointer flex flex-col justify-between shadow-sm dark:shadow-none"
                 >
                   <div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+                      <span className="font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors line-clamp-1">
                         {field.title}
                       </span>
-                      <span className="font-mono text-[11px] text-amber-400 font-bold shrink-0">
+                      <span className="font-mono text-[11px] text-amber-600 dark:text-amber-400 font-bold shrink-0">
                         {field.progressPercent}%
                       </span>
                     </div>
 
-                    <div className="mt-3 h-1.5 w-full rounded-full bg-zinc-800 overflow-hidden">
+                    <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-zinc-800 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300"
                         style={{ width: `${field.progressPercent}%` }}
@@ -1419,13 +1433,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     </div>
                   </div>
 
-                  <div className="mt-3 pt-2 border-t border-zinc-800/60 flex items-center justify-between text-[11px] text-zinc-400">
+                  <div className="mt-3 pt-2 border-t border-slate-200 dark:border-zinc-800/60 flex items-center justify-between text-[11px] text-slate-500 dark:text-zinc-400">
                     <span>
                       {field.completedUnits > 0
                         ? `${field.completedUnits} نشاط مكتمل`
                         : 'لم يبدأ بعد'}
                     </span>
-                    <span className="text-amber-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
+                    <span className="text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5 font-semibold">
                       <span>فتح</span>
                       <ArrowIcon className="h-2.5 w-2.5" />
                     </span>
@@ -1436,17 +1450,17 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           </div>
 
           {/* Recent Learning Activity Log */}
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
-            <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2 mb-4">
-              <Clock className="h-4.5 w-4.5 text-amber-400" />
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
+            <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+              <Clock className="h-4.5 w-4.5 text-amber-500 dark:text-amber-400" />
               <span>{labels.recentActivity}</span>
             </h2>
 
             {userChallengeState.history.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-zinc-800 bg-zinc-950/40 p-8 text-center">
-                <HelpCircle className="mx-auto h-8 w-8 text-zinc-400" />
-                <h4 className="mt-2 text-sm font-bold text-white">{labels.noActivityYet}</h4>
-                <p className="mt-1 text-xs text-zinc-400 max-w-sm mx-auto">
+              <div className="rounded-2xl border border-dashed border-slate-300 dark:border-zinc-800 bg-slate-50/60 dark:bg-zinc-950/40 p-8 text-center">
+                <HelpCircle className="mx-auto h-8 w-8 text-slate-400 dark:text-zinc-400" />
+                <h4 className="mt-2 text-sm font-bold text-slate-900 dark:text-white">{labels.noActivityYet}</h4>
+                <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 max-w-sm mx-auto">
                   {labels.noActivityDesc}
                 </p>
                 <button
@@ -1461,18 +1475,18 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 {userChallengeState.history.slice(0, 5).map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between p-3 rounded-xl border border-zinc-800 bg-zinc-950/60 text-xs"
+                    className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 text-xs shadow-sm dark:shadow-none"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400 shrink-0">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 shrink-0">
                         <Check className="h-3.5 w-3.5" />
                       </div>
                       <div className="min-w-0">
-                        <span className="font-bold text-white block truncate">{item.title}</span>
-                        <span className="text-[10px] text-zinc-400 block font-mono">{item.date} {item.time || ''}</span>
+                        <span className="font-bold text-slate-900 dark:text-white block truncate">{item.title}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-zinc-400 block font-mono">{item.date} {item.time || ''}</span>
                       </div>
                     </div>
-                    <span className="font-mono font-black text-amber-400 shrink-0 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
+                    <span className="font-mono font-black text-amber-600 dark:text-amber-400 shrink-0 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
                       +{item.xp} XP
                     </span>
                   </div>
@@ -1497,32 +1511,32 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
         return (
           <div className="mt-6 space-y-6 animate-in fade-in duration-200">
-            <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
+            <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
               
               {/* Header */}
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-zinc-800/80">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-200 dark:border-zinc-800/80">
                 <div>
-                  <h2 className="text-base sm:text-xl font-black text-white flex items-center gap-2">
-                    <Trophy className="h-6 w-6 text-amber-400" />
+                  <h2 className="text-base sm:text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                    <Trophy className="h-6 w-6 text-amber-500 dark:text-amber-400" />
                     <span>{bt.all30Title}</span>
                   </h2>
-                  <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-1">
                     {bt.subtitle}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2.5">
                   <div className="rounded-2xl bg-amber-500/10 px-3.5 py-1.5 border border-amber-500/25 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-amber-400" />
-                    <span className="text-xs font-black text-amber-400 font-sans">
+                    <Sparkles className="h-4 w-4 text-amber-500 dark:text-amber-400" />
+                    <span className="text-xs font-black text-amber-600 dark:text-amber-400 font-sans">
                       {unlockedBadgesCount} / {badgesList.length} {bt.unlockedLabel}
                     </span>
                   </div>
 
                   {totalBadgeXpEarned > 0 && (
                     <div className="rounded-2xl bg-emerald-500/10 px-3 py-1.5 border border-emerald-500/25 flex items-center gap-1.5">
-                      <Zap className="h-3.5 w-3.5 text-emerald-400" />
-                      <span className="text-xs font-black text-emerald-400 font-sans">
+                      <Zap className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
+                      <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 font-sans">
                         +{totalBadgeXpEarned.toLocaleString()} XP
                       </span>
                     </div>
@@ -1531,12 +1545,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               </div>
 
               {/* Overall Unlock Progress Bar */}
-              <div className="mt-4 p-4 rounded-2xl border border-zinc-800/80 bg-zinc-950/60">
-                <div className="flex items-center justify-between text-xs text-zinc-300 font-medium mb-1.5">
+              <div className="mt-4 p-4 rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-slate-50/80 dark:bg-zinc-950/60 shadow-sm dark:shadow-none">
+                <div className="flex items-center justify-between text-xs text-slate-700 dark:text-zinc-300 font-medium mb-1.5">
                   <span>{bt.progressLabel}: {unlockedBadgesCount} من 30 شارة</span>
-                  <span className="font-mono font-bold text-amber-400">{overallPercent}%</span>
+                  <span className="font-mono font-bold text-amber-600 dark:text-amber-400">{overallPercent}%</span>
                 </div>
-                <div className="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-zinc-800 overflow-hidden">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-400 transition-all duration-500"
                     style={{ width: `${overallPercent}%` }}
@@ -1563,7 +1577,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                         badgeCategoryFilter === cat.id
                           ? 'bg-amber-500 text-black shadow-md shadow-amber-500/20'
-                          : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800/70'
+                          : 'bg-slate-100 dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 border border-slate-200 dark:border-zinc-800/70'
                       }`}
                     >
                       {cat.label}
@@ -1572,11 +1586,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
 
                 {/* Status Segmented Control */}
-                <div className="flex items-center p-0.5 rounded-xl border border-zinc-800 bg-zinc-950 text-xs shrink-0 self-start md:self-auto">
+                <div className="flex items-center p-0.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-100 dark:bg-zinc-950 text-xs shrink-0 self-start md:self-auto">
                   <button
                     onClick={() => setBadgeStatusFilter('all')}
                     className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                      badgeStatusFilter === 'all' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                      badgeStatusFilter === 'all' ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                     }`}
                   >
                     {bt.filterAll} ({badgesList.length})
@@ -1584,7 +1598,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <button
                     onClick={() => setBadgeStatusFilter('unlocked')}
                     className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                      badgeStatusFilter === 'unlocked' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                      badgeStatusFilter === 'unlocked' ? 'bg-white dark:bg-zinc-800 text-amber-600 dark:text-amber-400 font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                     }`}
                   >
                     {bt.filterUnlocked} ({unlockedBadgesCount})
@@ -1592,7 +1606,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <button
                     onClick={() => setBadgeStatusFilter('locked')}
                     className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                      badgeStatusFilter === 'locked' ? 'bg-zinc-800 text-zinc-300 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                      badgeStatusFilter === 'locked' ? 'bg-white dark:bg-zinc-800 text-slate-800 dark:text-zinc-300 font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                     }`}
                   >
                     {bt.filterLocked} ({badgesList.length - unlockedBadgesCount})
@@ -1602,9 +1616,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
               {/* Badges Hexagonal Gaming Grid (30 Distinct Hexagons) */}
               {filteredBadgesList.length === 0 ? (
-                <div className="mt-8 py-12 text-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-950/30">
-                  <Trophy className="h-10 w-10 text-zinc-600 mx-auto mb-2" />
-                  <p className="text-sm text-zinc-400 font-medium">لا توجد شارات مطابقة لهذا التصنيف.</p>
+                <div className="mt-8 py-12 text-center rounded-2xl border border-dashed border-slate-300 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-950/30">
+                  <Trophy className="h-10 w-10 text-slate-400 dark:text-zinc-600 mx-auto mb-2" />
+                  <p className="text-sm text-slate-600 dark:text-zinc-400 font-medium">لا توجد شارات مطابقة لهذا التصنيف.</p>
                 </div>
               ) : (
                 <div className="mt-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-y-8 gap-x-2 sm:gap-x-4 place-items-center">
@@ -1636,15 +1650,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
          ========================================================================= */}
       {activeTab === 'saved' && (
         <div className="mt-6 space-y-6 animate-in fade-in duration-200">
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-800/80">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-zinc-800/80">
               <div className="flex items-center gap-2">
-                <Bookmark className="h-5 w-5 text-amber-400 fill-amber-400/20" />
-                <h2 className="text-base sm:text-lg font-black text-white">
+                <Bookmark className="h-5 w-5 text-amber-500 dark:text-amber-400 fill-amber-400/20" />
+                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
                   {labels.savedSectionTitle}
                 </h2>
-                <span className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs text-zinc-300 font-mono">
+                <span className="rounded-full bg-slate-100 dark:bg-zinc-800 px-2.5 py-0.5 text-xs text-slate-700 dark:text-zinc-300 font-mono border border-slate-200 dark:border-transparent">
                   {savedIds.length}
                 </span>
               </div>
@@ -1652,11 +1666,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               {savedIds.length > 0 && (
                 <div className="flex items-center gap-3">
                   {/* Segmented Filter */}
-                  <div className="flex items-center p-0.5 rounded-xl border border-zinc-800 bg-zinc-950 text-xs">
+                  <div className="flex items-center p-0.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-100 dark:bg-zinc-950 text-xs">
                     <button
                       onClick={() => setSavedFilter('all')}
                       className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                        savedFilter === 'all' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                        savedFilter === 'all' ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                       }`}
                     >
                       {labels.filterAll}
@@ -1664,7 +1678,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     <button
                       onClick={() => setSavedFilter('paths')}
                       className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                        savedFilter === 'paths' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                        savedFilter === 'paths' ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                       }`}
                     >
                       {labels.filterPaths} ({savedPaths.length})
@@ -1672,7 +1686,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     <button
                       onClick={() => setSavedFilter('ideas')}
                       className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
-                        savedFilter === 'ideas' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                        savedFilter === 'ideas' ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-white font-bold shadow-sm dark:shadow-none' : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                       }`}
                     >
                       {labels.filterIdeas} ({savedIdeas.length})
@@ -1681,7 +1695,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
                   <button
                     onClick={onClearAllSaved}
-                    className="flex items-center gap-1 text-xs text-rose-400 hover:text-rose-300 font-bold cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-bold cursor-pointer"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     <span>{t.profile.clearAll}</span>
@@ -1692,11 +1706,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
             {savedIds.length === 0 ? (
               <div className="py-12 text-center">
-                <Bookmark className="mx-auto h-12 w-12 text-zinc-400" />
-                <h3 className="mt-3 text-base font-bold text-white">
+                <Bookmark className="mx-auto h-12 w-12 text-slate-400 dark:text-zinc-400" />
+                <h3 className="mt-3 text-base font-bold text-slate-900 dark:text-white">
                   {t.profile.noSavedTitle}
                 </h3>
-                <p className="mt-1 text-xs text-zinc-400 max-w-sm mx-auto">
+                <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 max-w-sm mx-auto">
                   {t.profile.noSavedDesc}
                 </p>
                 <div className="mt-5 flex justify-center gap-3">
@@ -1708,7 +1722,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   </button>
                   <button
                     onClick={() => onNavigate('ideas')}
-                    className="rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-bold text-white hover:border-amber-400 hover:text-amber-300 transition-all cursor-pointer"
+                    className="rounded-xl border border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 px-4 py-2 text-xs font-bold text-slate-800 dark:text-white hover:border-amber-400 hover:text-amber-600 dark:hover:text-amber-300 transition-all cursor-pointer"
                   >
                     {t.ideas.pageTitle}
                   </button>
@@ -1720,7 +1734,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 {/* Saved Paths */}
                 {(savedFilter === 'all' || savedFilter === 'paths') && savedPaths.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <h3 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                       <TrendingUp className="h-4 w-4" />
                       <span>{t.profile.savedLearningPaths} ({savedPaths.length})</span>
                     </h3>
@@ -1732,29 +1746,29 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         return (
                           <div
                             key={p.id}
-                            className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all"
+                            className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all shadow-sm dark:shadow-none"
                           >
                             <div className="min-w-0 flex-1">
-                              <span className="text-[10px] font-bold text-amber-400 uppercase">{p.category}</span>
+                              <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase">{p.category}</span>
                               <h4 
                                 onClick={() => onSelectPath(p)}
-                                className="text-sm font-bold text-white hover:text-amber-300 cursor-pointer line-clamp-1"
+                                className="text-sm font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-300 cursor-pointer line-clamp-1"
                               >
                                 {loc.title}
                               </h4>
-                              <span className="text-xs font-semibold text-zinc-400">{p.potentialMonthlyIncome || p.estimatedIncomeRange}</span>
+                              <span className="text-xs font-semibold text-slate-600 dark:text-zinc-400">{p.potentialMonthlyIncome || p.estimatedIncomeRange}</span>
                             </div>
 
                             <div className="flex items-center gap-2 shrink-0">
                               <button
                                 onClick={() => onSelectPath(p)}
-                                className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs font-bold text-zinc-200 hover:bg-amber-500 hover:text-black transition-all cursor-pointer"
+                                className="rounded-lg bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:bg-amber-500 hover:text-black transition-all cursor-pointer"
                               >
                                 {t.income.viewDetails}
                               </button>
                               <button
                                 onClick={() => onToggleSave(p.id, 'income')}
-                                className="rounded-lg p-1.5 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
+                                className="rounded-lg p-1.5 text-slate-400 hover:text-rose-500 dark:text-zinc-500 dark:hover:text-rose-400 transition-colors cursor-pointer"
                                 title={t.common.remove}
                               >
                                 <Trash2 className="h-4 w-4" />
@@ -1770,7 +1784,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 {/* Saved Ideas */}
                 {(savedFilter === 'all' || savedFilter === 'ideas') && savedIdeas.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <h3 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                       <Lightbulb className="h-4 w-4" />
                       <span>{t.profile.savedContentIdeas} ({savedIdeas.length})</span>
                     </h3>
@@ -1782,40 +1796,40 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         return (
                           <div
                             key={i.id}
-                            className="flex flex-col justify-between rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all"
+                            className="flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 p-4 hover:border-amber-500/40 transition-all shadow-sm dark:shadow-none"
                           >
                             <div>
                               <div className="flex items-center justify-between text-xs">
-                                <span className="font-bold text-amber-400">{i.platform}</span>
+                                <span className="font-bold text-amber-600 dark:text-amber-400">{i.platform}</span>
                                 <button
                                   onClick={() => onToggleSave(i.id, 'idea')}
-                                  className="text-zinc-500 hover:text-rose-400 p-1 transition-colors cursor-pointer"
+                                  className="text-slate-400 hover:text-rose-500 dark:text-zinc-500 dark:hover:text-rose-400 p-1 transition-colors cursor-pointer"
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
                                 </button>
                               </div>
                               <h4 
                                 onClick={() => onSelectIdea(i)}
-                                className="mt-1 text-sm font-bold text-white hover:text-amber-300 cursor-pointer line-clamp-1"
+                                className="mt-1 text-sm font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-300 cursor-pointer line-clamp-1"
                               >
                                 {loc.title}
                               </h4>
-                              <p className="mt-1 text-xs text-zinc-400 italic line-clamp-1">
+                              <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 italic line-clamp-1">
                                 "{loc.hook}"
                               </p>
                             </div>
 
-                            <div className="mt-3 pt-2 border-t border-zinc-800/80 flex items-center justify-between">
+                            <div className="mt-3 pt-2 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
                               <button
                                 onClick={() => onCopyText(loc.hook, t.ideas.hookCopied)}
-                                className="flex items-center gap-1 text-[11px] font-bold text-amber-400 hover:underline cursor-pointer"
+                                className="flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
                               >
                                 <Copy className="h-3 w-3" />
                                 <span>{t.ideas.copyHook}</span>
                               </button>
                               <button
                                 onClick={() => onSelectIdea(i)}
-                                className="rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-bold text-zinc-200 hover:bg-amber-500 hover:text-black transition-all cursor-pointer"
+                                className="rounded-lg bg-slate-200 dark:bg-zinc-800 px-2.5 py-1 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:bg-amber-500 hover:text-black transition-all cursor-pointer"
                               >
                                 {t.ideas.scriptOutline}
                               </button>
@@ -1842,12 +1856,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         <div className="mt-6 space-y-6 animate-in fade-in duration-200">
           
           {/* Appearance Mode (Dark / Light) */}
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
-            <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
-              {isDark ? <Moon className="h-4 w-4 text-amber-400" /> : <Sun className="h-4 w-4 text-amber-400" />}
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
+            <h2 className="text-sm font-bold text-slate-800 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-2">
+              {isDark ? <Moon className="h-4 w-4 text-amber-500 dark:text-amber-400" /> : <Sun className="h-4 w-4 text-amber-500 dark:text-amber-400" />}
               <span>{t.profile.appearanceMode}</span>
             </h2>
-            <p className="mt-1 text-xs text-zinc-400">
+            <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400">
               {t.profile.appearanceDesc}
             </p>
 
@@ -1856,25 +1870,25 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 onClick={() => setTheme('dark')}
                 className={`rounded-2xl p-4 text-start border transition-all cursor-pointer ${
                   theme === 'dark'
-                    ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
-                    : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                    ? 'border-amber-500 bg-amber-500/10 text-slate-900 dark:text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
+                    : 'border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700 hover:text-slate-900 dark:hover:text-zinc-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-800 text-amber-400">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200 dark:bg-zinc-800 text-amber-500 dark:text-amber-400">
                       <Moon className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="font-bold text-sm text-white block">
+                      <span className="font-bold text-sm text-slate-900 dark:text-white block">
                         {t.profile.darkMode}
                       </span>
-                      <span className="text-[11px] text-zinc-400 block">
+                      <span className="text-[11px] text-slate-500 dark:text-zinc-400 block">
                         {t.profile.darkModeDesc}
                       </span>
                     </div>
                   </div>
-                  {theme === 'dark' && <CheckCircle2 className="h-5 w-5 text-amber-400" />}
+                  {theme === 'dark' && <CheckCircle2 className="h-5 w-5 text-amber-500 dark:text-amber-400" />}
                 </div>
               </button>
 
@@ -1882,37 +1896,37 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 onClick={() => setTheme('light')}
                 className={`rounded-2xl p-4 text-start border transition-all cursor-pointer ${
                   theme === 'light'
-                    ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
-                    : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                    ? 'border-amber-500 bg-amber-500/10 text-slate-900 dark:text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
+                    : 'border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700 hover:text-slate-900 dark:hover:text-zinc-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-800 text-amber-400">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200 dark:bg-zinc-800 text-amber-500 dark:text-amber-400">
                       <Sun className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="font-bold text-sm text-white block">
+                      <span className="font-bold text-sm text-slate-900 dark:text-white block">
                         {t.profile.lightMode}
                       </span>
-                      <span className="text-[11px] text-zinc-400 block">
+                      <span className="text-[11px] text-slate-500 dark:text-zinc-400 block">
                         {t.profile.lightModeDesc}
                       </span>
                     </div>
                   </div>
-                  {theme === 'light' && <CheckCircle2 className="h-5 w-5 text-amber-400" />}
+                  {theme === 'light' && <CheckCircle2 className="h-5 w-5 text-amber-500 dark:text-amber-400" />}
                 </div>
               </button>
             </div>
           </div>
 
           {/* Language Selection */}
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl">
-            <h2 className="text-sm font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-2">
-              <Globe className="h-4 w-4 text-amber-400" />
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/50 p-5 sm:p-6 backdrop-blur-xl shadow-sm dark:shadow-none">
+            <h2 className="text-sm font-bold text-slate-800 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-2">
+              <Globe className="h-4 w-4 text-amber-500 dark:text-amber-400" />
               <span>{t.profile.languageSection}</span>
             </h2>
-            <p className="mt-1 text-xs text-zinc-400">
+            <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400">
               {t.common.selectLanguage}
             </p>
 
@@ -1924,8 +1938,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   onClick={() => setLanguage(item.code)}
                   className={`rounded-2xl p-4 text-start border transition-all cursor-pointer ${
                     language === item.code
-                      ? 'border-amber-500 bg-amber-500/10 text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
-                      : 'border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                      ? 'border-amber-500 bg-amber-500/10 text-slate-900 dark:text-white shadow-md shadow-amber-500/10 ring-1 ring-amber-500/40'
+                      : 'border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/60 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700 hover:text-slate-900 dark:hover:text-zinc-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -1934,18 +1948,18 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         {item.flag}
                       </span>
                       <div className="min-w-0">
-                        <span className="font-bold text-sm text-white block truncate">{item.nativeName}</span>
-                        <span className="text-[11px] text-zinc-400 truncate block">{item.name}</span>
+                        <span className="font-bold text-sm text-slate-900 dark:text-white block truncate">{item.nativeName}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-zinc-400 truncate block">{item.name}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="rounded bg-zinc-800/80 px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 border border-zinc-700/50">
+                      <span className="rounded bg-slate-200 dark:bg-zinc-800/80 px-1.5 py-0.5 text-[9px] font-mono text-slate-700 dark:text-zinc-400 border border-slate-300 dark:border-zinc-700/50">
                         {item.badge}
                       </span>
-                      {language === item.code && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
+                      {language === item.code && <CheckCircle2 className="h-4 w-4 text-amber-500 dark:text-amber-400" />}
                     </div>
                   </div>
-                  <p className="mt-2 text-[11px] text-zinc-400 line-clamp-1">{item.description}</p>
+                  <p className="mt-2 text-[11px] text-slate-600 dark:text-zinc-400 line-clamp-1">{item.description}</p>
                 </button>
               ))}
             </div>
@@ -1959,26 +1973,26 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           8. EDIT PROFILE MODAL / DRAWER (Local, No registration, No authentication)
          ========================================================================= */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <div 
-            className="relative w-full max-w-lg rounded-3xl border border-amber-500/30 bg-[#0c0c10] text-zinc-100 p-6 shadow-2xl animate-in fade-in zoom-in-95"
+            className="relative w-full max-w-lg rounded-3xl border border-slate-200 dark:border-amber-500/30 bg-white dark:bg-[#0c0c10] text-slate-900 dark:text-zinc-100 p-6 shadow-2xl animate-in fade-in zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-zinc-800/80">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 dark:border-amber-500/20">
                   <UserCircle className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-white">{labels.editProfile}</h3>
-                  <span className="text-[11px] text-zinc-400">تخصيص البيانات والصورة وحفظها محلياً على جهازك</span>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">{labels.editProfile}</h3>
+                  <span className="text-[11px] text-slate-500 dark:text-zinc-400">تخصيص البيانات والصورة وحفظها محلياً على جهازك</span>
                 </div>
               </div>
 
               <button
                 onClick={() => setIsEditModalOpen(false)}
-                className="rounded-xl p-1.5 text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors cursor-pointer"
+                className="rounded-xl p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -1988,13 +2002,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="mt-5 space-y-4 max-h-[70vh] overflow-y-auto px-1">
               
               {/* Avatar Management Area */}
-              <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/60 p-4">
-                <span className="text-xs font-bold text-zinc-300 block mb-2.5">
+              <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-slate-50 dark:bg-zinc-950/60 p-4">
+                <span className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-2.5">
                   صورة الملف الشخصي (Avatar)
                 </span>
 
                 <div className="flex items-center gap-4">
-                  <div className="relative h-16 w-16 rounded-2xl border-2 border-amber-500/50 bg-zinc-900 p-0.5 overflow-hidden shrink-0 shadow-md">
+                  <div className="relative h-16 w-16 rounded-2xl border-2 border-amber-500/50 bg-white dark:bg-zinc-900 p-0.5 overflow-hidden shrink-0 shadow-md">
                     <img
                       src={editForm.avatarUrl || '/file_00000000b1d881f496a6612e6eef85ce.png'}
                       onError={(e) => {
@@ -2029,7 +2043,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         <button
                           type="button"
                           onClick={handleRemovePhoto}
-                          className="flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 px-3 py-1.5 text-xs font-bold transition-all cursor-pointer"
+                          className="flex items-center gap-1.5 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 px-3 py-1.5 text-xs font-bold transition-all cursor-pointer"
                         >
                           <RefreshCw className="h-3.5 w-3.5" />
                           <span>{labels.removePhoto}</span>
@@ -2037,7 +2051,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                       )}
                     </div>
 
-                    <span className="text-[10px] text-zinc-400">
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400">
                       يمكنك رفع أي صورة من هاتفك أو حاسوبك (يتم ضغطها وتخزينها محلياً).
                     </span>
                   </div>
@@ -2048,8 +2062,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 )}
 
                 {/* Presets Grid */}
-                <div className="mt-3.5 pt-3 border-t border-zinc-800/70">
-                  <span className="text-[11px] text-zinc-400 block mb-2">{labels.choosePreset}</span>
+                <div className="mt-3.5 pt-3 border-t border-slate-200 dark:border-zinc-800/70">
+                  <span className="text-[11px] text-slate-500 dark:text-zinc-400 block mb-2">{labels.choosePreset}</span>
                   <div className="grid grid-cols-4 gap-2">
                     {AVATAR_PRESETS.map((preset) => {
                       const isSelected = editForm.avatarUrl === preset.url;
@@ -2060,8 +2074,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                           onClick={() => handleSelectPreset(preset)}
                           className={`flex flex-col items-center gap-1 p-1.5 rounded-xl border text-center transition-all cursor-pointer ${
                             isSelected
-                              ? 'border-amber-400 bg-amber-500/20 ring-1 ring-amber-400/50'
-                              : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'
+                              ? 'border-amber-500 bg-amber-500/20 ring-1 ring-amber-500/50'
+                              : 'border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:border-amber-400'
                           }`}
                         >
                           <img
@@ -2070,7 +2084,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                             alt={preset.title}
                             className="h-10 w-10 rounded-lg object-contain"
                           />
-                          <span className="text-[9px] text-zinc-300 truncate max-w-full font-medium">
+                          <span className="text-[9px] text-slate-700 dark:text-zinc-300 truncate max-w-full font-medium">
                             {preset.title}
                           </span>
                         </button>
@@ -2082,7 +2096,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
               {/* Display Name Input */}
               <div>
-                <label className="text-xs font-bold text-zinc-300 block mb-1">
+                <label className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-1">
                   {labels.displayNameLabel}
                 </label>
                 <input
@@ -2090,14 +2104,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   value={editForm.displayName}
                   onChange={(e) => setEditForm(prev => ({ ...prev, displayName: e.target.value }))}
                   placeholder="مثال: أيوب بوناصر / صانع محتوى"
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm dark:shadow-none"
                   maxLength={50}
                 />
               </div>
 
               {/* Username Input */}
               <div>
-                <label className="text-xs font-bold text-zinc-300 block mb-1">
+                <label className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-1">
                   {labels.usernameLabel}
                 </label>
                 <input
@@ -2105,14 +2119,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   value={editForm.username}
                   onChange={(e) => setEditForm(prev => ({ ...prev, username: e.target.value }))}
                   placeholder="@ayoub_creator"
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs text-amber-400 font-mono placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-2.5 text-xs text-amber-600 dark:text-amber-400 font-mono placeholder-slate-400 dark:placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm dark:shadow-none"
                   maxLength={30}
                 />
               </div>
 
               {/* Role Title Input */}
               <div>
-                <label className="text-xs font-bold text-zinc-300 block mb-1">
+                <label className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-1">
                   {labels.roleLabel}
                 </label>
                 <input
@@ -2120,14 +2134,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   value={editForm.roleTitle}
                   onChange={(e) => setEditForm(prev => ({ ...prev, roleTitle: e.target.value }))}
                   placeholder="مثال: صانع محتوى ومختص تسويق رقمي"
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm dark:shadow-none"
                   maxLength={60}
                 />
               </div>
 
               {/* Bio & Learning Goal */}
               <div>
-                <label className="text-xs font-bold text-zinc-300 block mb-1">
+                <label className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-1">
                   {labels.bioLabel}
                 </label>
                 <textarea
@@ -2135,10 +2149,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   onChange={(e) => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
                   placeholder={labels.bioPlaceholder}
                   rows={3}
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none shadow-sm dark:shadow-none"
                   maxLength={200}
                 />
-                <span className="text-[10px] text-zinc-500 block text-end font-mono">
+                <span className="text-[10px] text-slate-400 dark:text-zinc-500 block text-end font-mono">
                   {editForm.bio.length} / 200
                 </span>
               </div>
@@ -2146,11 +2160,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
 
             {/* Modal Actions */}
-            <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-end gap-3">
+            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setIsEditModalOpen(false)}
-                className="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2 text-xs font-bold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                className="rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2 text-xs font-bold text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {labels.cancel}
               </button>

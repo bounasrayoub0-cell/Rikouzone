@@ -7,8 +7,8 @@ export interface LocalizedItemText {
   category?: string;
 }
 
-// Translations for all 35 Income Paths across 9 languages
-export const PATH_TRANSLATIONS: Record<string, Record<Language, LocalizedItemText>> = {
+// Translations for all 35 Income Paths across all supported languages
+export const PATH_TRANSLATIONS: Record<string, Partial<Record<Language, LocalizedItemText>>> = {
   'affiliate-marketing': {
     ary: {
       title: 'أفيلييت ماركيتينغ (التسويق بالعمولة)',
@@ -1824,6 +1824,31 @@ export function getLocalizedTool(tool: any, language: Language): {
     };
   }
 
+  if (language === 'ja') {
+    return { title: tool.japaneseTitle || tool.title, desc: tool.japaneseDescription || tool.description };
+  }
+  if (language === 'ko') {
+    return { title: tool.koreanTitle || tool.title, desc: tool.koreanDescription || tool.description };
+  }
+  if (language === 'tr') {
+    return { title: tool.turkishTitle || tool.title, desc: tool.turkishDescription || tool.description };
+  }
+  if (language === 'hi') {
+    return { title: tool.hindiTitle || tool.title, desc: tool.hindiDescription || tool.description };
+  }
+  if (language === 'ru') {
+    return { title: tool.russianTitle || tool.title, desc: tool.russianDescription || tool.description };
+  }
+  if (language === 'nl') {
+    return { title: tool.dutchTitle || tool.title, desc: tool.dutchDescription || tool.description };
+  }
+  if (language === 'id') {
+    return { title: tool.indonesianTitle || tool.title, desc: tool.indonesianDescription || tool.description };
+  }
+  if (language === 'pl') {
+    return { title: tool.polishTitle || tool.title, desc: tool.polishDescription || tool.description };
+  }
+
   return {
     title: tool.title,
     desc: tool.description
@@ -1893,6 +1918,31 @@ export function getLocalizedGuide(guide: any, language: Language): {
       name: guide.chineseName || guide.name,
       tagline: guide.taglineZh || guide.taglineEn || ''
     };
+  }
+
+  if (language === 'ja') {
+    return { name: guide.japaneseName || guide.name, tagline: guide.taglineJa || guide.taglineEn || '' };
+  }
+  if (language === 'ko') {
+    return { name: guide.koreanName || guide.name, tagline: guide.taglineKo || guide.taglineEn || '' };
+  }
+  if (language === 'tr') {
+    return { name: guide.turkishName || guide.name, tagline: guide.taglineTr || guide.taglineEn || '' };
+  }
+  if (language === 'hi') {
+    return { name: guide.hindiName || guide.name, tagline: guide.taglineHi || guide.taglineEn || '' };
+  }
+  if (language === 'ru') {
+    return { name: guide.russianName || guide.name, tagline: guide.taglineRu || guide.taglineEn || '' };
+  }
+  if (language === 'nl') {
+    return { name: guide.dutchName || guide.name, tagline: guide.taglineNl || guide.taglineEn || '' };
+  }
+  if (language === 'id') {
+    return { name: guide.indonesianName || guide.name, tagline: guide.taglineId || guide.taglineEn || '' };
+  }
+  if (language === 'pl') {
+    return { name: guide.polishName || guide.name, tagline: guide.taglinePl || guide.taglineEn || '' };
   }
 
   return {

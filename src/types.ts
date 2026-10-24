@@ -7,7 +7,15 @@ export type Language =
   | 'de'   // Deutsch
   | 'it'   // Italiano
   | 'pt'   // Português
-  | 'zh';  // Simplified Chinese (简体中文)
+  | 'zh'   // Simplified Chinese (简体中文)
+  | 'ja'   // Japanese (日本語)
+  | 'ko'   // Korean (한국어)
+  | 'tr'   // Turkish (Türkçe)
+  | 'hi'   // Hindi (हिन्दी)
+  | 'ru'   // Russian (Русский)
+  | 'nl'   // Dutch (Nederlands)
+  | 'id'   // Indonesian (Bahasa Indonesia)
+  | 'pl';  // Polish (Polski)
 
 export type NavTab = 
   | 'home'

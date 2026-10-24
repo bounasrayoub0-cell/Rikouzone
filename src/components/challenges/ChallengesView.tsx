@@ -52,6 +52,7 @@ import { calculateBadgeProgress, getGlobalLearningStats } from '../../utils/badg
 import { HexagonalBadge, BadgeDetailModal } from '../common/HexagonalBadge';
 import { ChallengeQuizModal } from './ChallengeQuizModal';
 import { ChallengeExerciseModal } from './ChallengeExerciseModal';
+import { recordRkoTransaction } from '../../utils/rkoWalletStorage';
 
 interface ChallengesViewProps {
   onNavigate: (tab: string) => void;
@@ -193,12 +194,22 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
 
     setUserState(finalState);
 
-    // Show celebratory XP toast
+    // Record RKO internal currency reward for completing challenge
+    recordRkoTransaction(
+      'earn',
+      15,
+      'challenge',
+      `إنجاز تحدي: ${challengeTitle}`,
+      `مكافأة إتمام تحدي "${challengeTitle}" بنجاح وكسب ${earnedXp} XP.`,
+      challengeId
+    );
+
+    // Show celebratory XP & RKO toast
     const totalGained = earnedXp + bonusXpTotal;
     setXpToast({
       message: newlyUnlockedBadges.length > 0 
-        ? `أحسنت! فتحت شارة "${newlyUnlockedBadges[0].nameAr}" وحصلت على ${totalGained} XP!`
-        : `رائع! حصلت على +${earnedXp} XP بنجاح!`,
+        ? `أحسنت! فتحت شارة "${newlyUnlockedBadges[0].nameAr}" وحصلت على ${totalGained} XP و +15 RKO!`
+        : `رائع! حصلت على +${earnedXp} XP و +15 RKO بنجاح!`,
       xp: totalGained
     });
 
@@ -240,7 +251,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#07080b] text-zinc-100 pb-24">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#07080b] text-slate-900 dark:text-zinc-100 pb-24">
       {/* Floating XP Toast */}
       {xpToast && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-bounce">
@@ -252,31 +263,31 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
       )}
 
       {/* 1. Header Section - Clean, Compact & Highly Organized */}
-      <div className="border-b border-zinc-800/80 bg-gradient-to-b from-[#14151f]/80 via-[#0a0b10] to-[#07080b] px-4 pt-5 pb-6 sm:px-6 lg:px-8">
+      <div className="border-b border-slate-200 dark:border-zinc-800/80 bg-gradient-to-b from-amber-50/60 via-white to-slate-50 dark:from-[#14151f]/80 dark:via-[#0a0b10] dark:to-[#07080b] px-4 pt-5 pb-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-1.5 text-xs text-zinc-400 mb-3">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-zinc-400 mb-3">
             <button
               onClick={() => onNavigate('home')}
-              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
             >
               <ArrowBackIcon className="h-3 w-3" />
               <span>الرئيسية</span>
             </button>
-            <span className="text-zinc-600">/</span>
-            <span className="text-amber-400 font-bold">التحديات</span>
+            <span className="text-slate-300 dark:text-zinc-600">/</span>
+            <span className="text-amber-600 dark:text-amber-400 font-bold">التحديات</span>
           </div>
 
           {/* Title & Short Description */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                 <span>التحديات</span>
-                <span className="text-xs px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold shadow-sm shadow-amber-500/10">
+                <span className="text-xs px-2 py-0.5 rounded-md bg-amber-500/15 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold shadow-sm shadow-amber-500/10">
                   XP System
                 </span>
               </h1>
-              <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-zinc-400">
                 أنجز المهام اليومية، طوّر مهاراتك، واجمع نقاط XP لفتح الشارات والترقيات.
               </p>
             </div>
@@ -285,71 +296,71 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
           {/* Mini Stats Cards (XP, Level, Streak, Completed) - Uniform & Compact */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
             {/* 1. Total XP */}
-            <div className="rounded-2xl border border-zinc-800/90 bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0 shadow-sm shadow-amber-500/10">
+            <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3 shadow-sm dark:shadow-none">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shrink-0 shadow-sm shadow-amber-500/10">
                 <Sparkles className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-zinc-400 font-bold block truncate">مجموع XP</span>
-                <span className="text-base sm:text-lg font-black text-amber-400 font-sans tracking-tight">
-                  {userState.totalXp} <span className="text-[10px] font-bold text-zinc-500">XP</span>
+                <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-bold block truncate">مجموع XP</span>
+                <span className="text-base sm:text-lg font-black text-amber-600 dark:text-amber-400 font-sans tracking-tight">
+                  {userState.totalXp} <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500">XP</span>
                 </span>
               </div>
             </div>
 
             {/* 2. Level & Rank */}
-            <div className="rounded-2xl border border-zinc-800/90 bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0 shadow-sm shadow-amber-500/10">
+            <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3 shadow-sm dark:shadow-none">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shrink-0 shadow-sm shadow-amber-500/10">
                 <Award className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-zinc-400 font-bold block truncate">المستوى الحالي</span>
-                <span className="text-xs sm:text-sm font-black text-white truncate block">
+                <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-bold block truncate">المستوى الحالي</span>
+                <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate block">
                   المستوى {currentLevel}
                 </span>
               </div>
             </div>
 
             {/* 3. Daily Streak */}
-            <div className="rounded-2xl border border-zinc-800/90 bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/30 shrink-0 shadow-sm shadow-orange-500/10">
+            <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3 shadow-sm dark:shadow-none">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15 text-orange-500 dark:text-orange-400 border border-orange-500/30 shrink-0 shadow-sm shadow-orange-500/10">
                 <Flame className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-zinc-400 font-bold block truncate">السلسلة اليومية</span>
-                <span className="text-base sm:text-lg font-black text-orange-400 font-sans tracking-tight flex items-center gap-1">
+                <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-bold block truncate">السلسلة اليومية</span>
+                <span className="text-base sm:text-lg font-black text-orange-600 dark:text-orange-400 font-sans tracking-tight flex items-center gap-1">
                   {userState.streakCount} <span className="text-xs">🔥</span>
                 </span>
               </div>
             </div>
 
             {/* 4. Completed Challenges */}
-            <div className="rounded-2xl border border-zinc-800/90 bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0 shadow-sm shadow-emerald-500/10">
+            <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 p-3 sm:p-3.5 flex items-center gap-3 shadow-sm dark:shadow-none">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-500 dark:text-emerald-400 border border-emerald-500/30 shrink-0 shadow-sm shadow-emerald-500/10">
                 <CheckCircle2 className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-zinc-400 font-bold block truncate">المكتملة</span>
-                <span className="text-base sm:text-lg font-black text-emerald-400 font-sans tracking-tight">
-                  {userState.completedChallengeIds.length} <span className="text-[10px] font-bold text-zinc-500">تحدي</span>
+                <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-bold block truncate">المكتملة</span>
+                <span className="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400 font-sans tracking-tight">
+                  {userState.completedChallengeIds.length} <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500">تحدي</span>
                 </span>
               </div>
             </div>
           </div>
 
           {/* Real Level Progress Bar (Accurate real math: e.g. 275 / 500 = 55%) */}
-          <div className="mt-3.5 rounded-2xl border border-zinc-800/80 bg-[#0c0d14]/90 p-3 sm:p-3.5 space-y-2">
+          <div className="mt-3.5 rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-[#0c0d14]/90 p-3 sm:p-3.5 space-y-2 shadow-sm dark:shadow-none">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-bold flex items-center gap-1.5">
+              <span className="text-slate-700 dark:text-zinc-300 font-bold flex items-center gap-1.5">
                 <span>التقدم نحو الهدف القادم:</span>
-                <span className="text-zinc-400 font-normal">({userState.totalXp} من {nextLevelXp} XP)</span>
+                <span className="text-slate-500 dark:text-zinc-400 font-normal">({userState.totalXp} من {nextLevelXp} XP)</span>
               </span>
-              <span className="text-amber-400 font-black font-sans text-xs sm:text-sm">
+              <span className="text-amber-600 dark:text-amber-400 font-black font-sans text-xs sm:text-sm">
                 {progressPercent}%
               </span>
             </div>
 
-            <div className="h-2 w-full bg-zinc-800/90 rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-slate-200 dark:bg-zinc-800/90 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 rounded-full transition-all duration-500 shadow-sm shadow-amber-500/40"
                 style={{ width: `${progressPercent}%` }}
@@ -363,19 +374,19 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
           </div>
 
           {/* 2. Clear Tabs Navigation (اليومية، الأسبوعية، الاختبارات، التمارين العملية، الشارات) */}
-          <div className="mt-5 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 border-b border-zinc-800/70">
+          <div className="mt-5 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 border-b border-slate-200 dark:border-zinc-800/70">
             <button
               onClick={() => setActiveTab('daily')}
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'daily'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'text-zinc-400 hover:text-white hover:bg-[#12131b]'
+                  : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#12131b]'
               }`}
             >
               <Calendar className="h-3.5 w-3.5" />
               <span>اليومية</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-sans ${
-                activeTab === 'daily' ? 'bg-black/30 text-white font-bold' : 'bg-zinc-800/80 text-zinc-400'
+                activeTab === 'daily' ? 'bg-black/30 text-white font-bold' : 'bg-slate-200 dark:bg-zinc-800/80 text-slate-700 dark:text-zinc-400'
               }`}>
                 {completedDailyCount}/{todayChallenges.length}
               </span>
@@ -386,13 +397,13 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'weekly'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'text-zinc-400 hover:text-white hover:bg-[#12131b]'
+                  : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#12131b]'
               }`}
             >
               <Clock className="h-3.5 w-3.5" />
               <span>الأسبوعية</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-sans ${
-                activeTab === 'weekly' ? 'bg-black/30 text-white font-bold' : 'bg-zinc-800/80 text-zinc-400'
+                activeTab === 'weekly' ? 'bg-black/30 text-white font-bold' : 'bg-slate-200 dark:bg-zinc-800/80 text-slate-700 dark:text-zinc-400'
               }`}>
                 {completedWeeklyCount}/{weekChallenges.length}
               </span>
@@ -403,13 +414,13 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'quizzes'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'text-zinc-400 hover:text-white hover:bg-[#12131b]'
+                  : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#12131b]'
               }`}
             >
               <HelpCircle className="h-3.5 w-3.5" />
               <span>الاختبارات</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-sans ${
-                activeTab === 'quizzes' ? 'bg-black/30 text-white font-bold' : 'bg-zinc-800/80 text-zinc-400'
+                activeTab === 'quizzes' ? 'bg-black/30 text-white font-bold' : 'bg-slate-200 dark:bg-zinc-800/80 text-slate-700 dark:text-zinc-400'
               }`}>
                 {allQuizzes.length}
               </span>
@@ -420,13 +431,13 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'exercises'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'text-zinc-400 hover:text-white hover:bg-[#12131b]'
+                  : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#12131b]'
               }`}
             >
               <Target className="h-3.5 w-3.5" />
               <span>التمارين العملية</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-sans ${
-                activeTab === 'exercises' ? 'bg-black/30 text-white font-bold' : 'bg-zinc-800/80 text-zinc-400'
+                activeTab === 'exercises' ? 'bg-black/30 text-white font-bold' : 'bg-slate-200 dark:bg-zinc-800/80 text-slate-700 dark:text-zinc-400'
               }`}>
                 {allExercises.length}
               </span>
@@ -437,13 +448,13 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'badges'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'text-zinc-400 hover:text-white hover:bg-[#12131b]'
+                  : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#12131b]'
               }`}
             >
               <Award className="h-3.5 w-3.5" />
               <span>الشارات</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-sans ${
-                activeTab === 'badges' ? 'bg-black/30 text-white font-bold' : 'bg-zinc-800/80 text-zinc-400'
+                activeTab === 'badges' ? 'bg-black/30 text-white font-bold' : 'bg-slate-200 dark:bg-zinc-800/80 text-slate-700 dark:text-zinc-400'
               }`}>
                 {userState.unlockedBadgeIds.length}/{allBadgesList.length}
               </span>
@@ -458,14 +469,14 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         {/* TAB 1: DAILY CHALLENGES */}
         {activeTab === 'daily' && (
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-[#0c0d14]/90 border border-zinc-800/80 p-3 rounded-2xl text-xs">
-              <div className="flex items-center gap-2 text-zinc-300">
-                <Calendar className="h-4 w-4 text-amber-400 shrink-0" />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-white dark:bg-[#0c0d14]/90 border border-slate-200 dark:border-zinc-800/80 p-3 rounded-2xl text-xs shadow-sm dark:shadow-none">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-zinc-300">
+                <Calendar className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
                 <span>تتجدد المهام يومياً حسب التاريخ. أنجز التحدي اليوم لاستلام الـ XP (ممنوع تكرار نفس التحدي اليومي).</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-bold text-zinc-400 shrink-0">
-                <span className="bg-[#13151f] text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-800">{todayStr}</span>
-                <span className="bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20">تتجدد بعد: {hoursLeftToday} س</span>
+              <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-zinc-400 shrink-0">
+                <span className="bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-zinc-800">{todayStr}</span>
+                <span className="bg-amber-500/15 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30">تتجدد بعد: {hoursLeftToday} س</span>
               </div>
             </div>
 
@@ -478,52 +489,52 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                     key={task.id}
                     className={`rounded-2xl border p-4 sm:p-4.5 flex flex-col justify-between transition-all ${
                       isCompleted
-                        ? 'border-emerald-500/30 bg-[#0a1410]/80 shadow-sm shadow-emerald-950/20'
-                        : 'border-zinc-800/90 bg-[#0e1017]/90 hover:border-zinc-700/80 hover:bg-[#12141e]/90 shadow-sm'
+                        ? 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-[#0a1410]/80 shadow-sm shadow-emerald-500/5 dark:shadow-emerald-950/20'
+                        : 'border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 hover:border-slate-300 dark:hover:border-zinc-700/80 hover:bg-slate-50 dark:hover:bg-[#12141e]/90 shadow-sm dark:shadow-none'
                     }`}
                   >
                     <div>
                       {/* Domain, Type & XP Pill */}
                       <div className="flex items-center justify-between gap-2 mb-2.5">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#13151f] text-zinc-300 border border-zinc-800">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800">
                             {task.domainAr}
                           </span>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
                             task.type === 'quiz' 
-                              ? 'bg-[#181628]/80 text-purple-300 border border-purple-900/40'
+                              ? 'bg-purple-50 dark:bg-[#181628]/80 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-900/40'
                               : task.type === 'exercise'
-                              ? 'bg-[#0e1a1c]/80 text-cyan-300 border border-cyan-900/40'
-                              : 'bg-[#1c1810]/80 text-amber-300 border border-amber-900/40'
+                              ? 'bg-cyan-50 dark:bg-[#0e1a1c]/80 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-900/40'
+                              : 'bg-amber-50 dark:bg-[#1c1810]/80 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900/40'
                           }`}>
                             {task.type === 'quiz' ? 'اختبار' : task.type === 'exercise' ? 'تمرين' : 'درس'}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 shadow-sm shadow-amber-500/10">
+                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30 shadow-sm">
                           <Sparkles className="h-3 w-3" />
                           <span>+{task.xpReward} XP</span>
                         </div>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
                         {task.title}
                       </h3>
-                      <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                      <p className="mt-1.5 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
                         {task.description}
                       </p>
                     </div>
 
                     {/* Bottom Status & CTA */}
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
                       <div>
                         {isCompleted ? (
-                          <span className="text-emerald-400 text-xs font-bold flex items-center gap-1">
+                          <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1">
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>مكتمل اليوم ✓</span>
                           </span>
                         ) : (
-                          <span className="text-zinc-500 text-xs flex items-center gap-1">
+                          <span className="text-slate-400 dark:text-zinc-500 text-xs flex items-center gap-1">
                             <Circle className="h-3 w-3" />
                             <span>لم يبدأ</span>
                           </span>
@@ -538,7 +549,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                           {task.type === 'quiz' ? 'بدء الاختبار' : task.type === 'exercise' ? 'بدء التمرين' : 'بدء المهمة'}
                         </button>
                       ) : (
-                        <span className="text-[11px] text-zinc-500 font-bold">
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 font-bold">
                           تم استلام الـ XP
                         </span>
                       )}
@@ -553,14 +564,14 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         {/* TAB 2: WEEKLY CHALLENGES */}
         {activeTab === 'weekly' && (
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-[#0c0d14]/90 border border-zinc-800/80 p-3 rounded-2xl text-xs">
-              <div className="flex items-center gap-2 text-zinc-300">
-                <Clock className="h-4 w-4 text-amber-400 shrink-0" />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-white dark:bg-[#0c0d14]/90 border border-slate-200 dark:border-zinc-800/80 p-3 rounded-2xl text-xs shadow-sm dark:shadow-none">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-zinc-300">
+                <Clock className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
                 <span>مشاريع تطبيقية واختبارات كفاءة تتجدد أسبوعياً بمكافآت XP كبرى.</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-bold text-zinc-400 shrink-0">
-                <span className="bg-[#13151f] text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-800">{currentWeekKey}</span>
-                <span className="bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20">متبقي: {daysLeftInWeek} أيام</span>
+              <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-zinc-400 shrink-0">
+                <span className="bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-zinc-800">{currentWeekKey}</span>
+                <span className="bg-amber-500/15 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30">متبقي: {daysLeftInWeek} أيام</span>
               </div>
             </div>
 
@@ -573,39 +584,39 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                     key={task.id}
                     className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all ${
                       isCompleted
-                        ? 'border-emerald-500/30 bg-[#0a1410]/80 shadow-sm shadow-emerald-950/20'
-                        : 'border-zinc-800/90 bg-[#0e1017]/90 hover:border-zinc-700/80 hover:bg-[#12141e]/90 shadow-sm'
+                        ? 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-[#0a1410]/80 shadow-sm shadow-emerald-500/5 dark:shadow-emerald-950/20'
+                        : 'border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 hover:border-slate-300 dark:hover:border-zinc-700/80 hover:bg-slate-50 dark:hover:bg-[#12141e]/90 shadow-sm dark:shadow-none'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2.5">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#13151f] text-zinc-300 border border-zinc-800">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800">
                           {task.domainAr}
                         </span>
 
-                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 shadow-sm shadow-amber-500/10">
+                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30 shadow-sm">
                           <Sparkles className="h-3 w-3" />
                           <span>+{task.xpReward} XP</span>
                         </div>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
                         {task.title}
                       </h3>
-                      <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed">
+                      <p className="mt-1.5 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
                         {task.description}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
                       <div>
                         {isCompleted ? (
-                          <span className="text-emerald-400 text-xs font-bold flex items-center gap-1">
+                          <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1">
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>مكتمل لهذا الأسبوع ✓</span>
                           </span>
                         ) : (
-                          <span className="text-zinc-500 text-xs flex items-center gap-1">
+                          <span className="text-slate-400 dark:text-zinc-500 text-xs flex items-center gap-1">
                             <Circle className="h-3 w-3" />
                             <span>قيد الإنجاز</span>
                           </span>
@@ -620,7 +631,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                           بدء التحدي الأسبوعي
                         </button>
                       ) : (
-                        <span className="text-[11px] text-zinc-500 font-bold">
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 font-bold">
                           تم استلام الـ XP
                         </span>
                       )}
@@ -635,8 +646,8 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         {/* TAB 3: QUIZZES */}
         {activeTab === 'quizzes' && (
           <div className="space-y-4">
-            <div className="bg-[#0c0d14]/90 border border-zinc-800/80 p-3 rounded-2xl text-xs text-zinc-300 flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 text-amber-400 shrink-0" />
+            <div className="bg-white dark:bg-[#0c0d14]/90 border border-slate-200 dark:border-zinc-800/80 p-3 rounded-2xl text-xs text-slate-700 dark:text-zinc-300 flex items-center gap-2 shadow-sm dark:shadow-none">
+              <HelpCircle className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
               <span>اختبارات سريعة متعددة الاختيارات لقياس الفهم الرقمي مع تصحيح وشرح فوري.</span>
             </div>
 
@@ -649,44 +660,44 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                     key={quiz.id}
                     className={`rounded-2xl border p-4 sm:p-4.5 flex flex-col justify-between transition-all ${
                       isCompleted
-                        ? 'border-emerald-500/30 bg-[#0a1410]/80 shadow-sm shadow-emerald-950/20'
-                        : 'border-zinc-800/90 bg-[#0e1017]/90 hover:border-zinc-700/80 hover:bg-[#12141e]/90 shadow-sm'
+                        ? 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-[#0a1410]/80 shadow-sm shadow-emerald-500/5 dark:shadow-emerald-950/20'
+                        : 'border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 hover:border-slate-300 dark:hover:border-zinc-700/80 hover:bg-slate-50 dark:hover:bg-[#12141e]/90 shadow-sm dark:shadow-none'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2.5">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#13151f] text-zinc-300 border border-zinc-800">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800">
                             {quiz.domainAr}
                           </span>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#181a24] text-zinc-400">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#181a24] text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800">
                             سؤال تفاعلي
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 shadow-sm shadow-amber-500/10">
+                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30 shadow-sm">
                           <Sparkles className="h-3 w-3" />
                           <span>+{quiz.xpReward} XP</span>
                         </div>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
                         {quiz.title}
                       </h3>
-                      <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                      <p className="mt-1.5 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
                         {quiz.description}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
                       <div>
                         {isCompleted ? (
-                          <span className="text-emerald-400 text-xs font-bold flex items-center gap-1">
+                          <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1">
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>مكتمل بنجاح ✓</span>
                           </span>
                         ) : (
-                          <span className="text-zinc-500 text-xs flex items-center gap-1">
+                          <span className="text-slate-400 dark:text-zinc-500 text-xs flex items-center gap-1">
                             <Circle className="h-3 w-3" />
                             <span>غير مجتاز</span>
                           </span>
@@ -701,7 +712,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                           بدء الاختبار
                         </button>
                       ) : (
-                        <span className="text-[11px] text-zinc-500 font-bold">
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 font-bold">
                           تم استلام الـ XP
                         </span>
                       )}
@@ -716,8 +727,8 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         {/* TAB 4: PRACTICAL EXERCISES */}
         {activeTab === 'exercises' && (
           <div className="space-y-4">
-            <div className="bg-[#0c0d14]/90 border border-zinc-800/80 p-3 rounded-2xl text-xs text-zinc-300 flex items-center gap-2">
-              <Target className="h-4 w-4 text-amber-400 shrink-0" />
+            <div className="bg-white dark:bg-[#0c0d14]/90 border border-slate-200 dark:border-zinc-800/80 p-3 rounded-2xl text-xs text-slate-700 dark:text-zinc-300 flex items-center gap-2 shadow-sm dark:shadow-none">
+              <Target className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
               <span>تمارين تطبيقية تتطلب صياغة عملية وتأكيد معايير الجودة لمنع التحايل وضمان الفائدة الحقيقية.</span>
             </div>
 
@@ -730,44 +741,44 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                     key={ex.id}
                     className={`rounded-2xl border p-4 sm:p-4.5 flex flex-col justify-between transition-all ${
                       isCompleted
-                        ? 'border-emerald-500/30 bg-[#0a1410]/80 shadow-sm shadow-emerald-950/20'
-                        : 'border-zinc-800/90 bg-[#0e1017]/90 hover:border-zinc-700/80 hover:bg-[#12141e]/90 shadow-sm'
+                        ? 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-[#0a1410]/80 shadow-sm shadow-emerald-500/5 dark:shadow-emerald-950/20'
+                        : 'border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0e1017]/90 hover:border-slate-300 dark:hover:border-zinc-700/80 hover:bg-slate-50 dark:hover:bg-[#12141e]/90 shadow-sm dark:shadow-none'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2.5">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#13151f] text-zinc-300 border border-zinc-800">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#13151f] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800">
                             {ex.domainAr}
                           </span>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#181a24] text-zinc-400">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#181a24] text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800">
                             تطبيق عملي
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 shadow-sm shadow-amber-500/10">
+                        <div className="flex items-center gap-1 font-sans font-black text-xs text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30 shadow-sm">
                           <Sparkles className="h-3 w-3" />
                           <span>+{ex.xpReward} XP</span>
                         </div>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
                         {ex.title}
                       </h3>
-                      <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                      <p className="mt-1.5 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
                         {ex.description}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
                       <div>
                         {isCompleted ? (
-                          <span className="text-emerald-400 text-xs font-bold flex items-center gap-1">
+                          <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1">
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>مكتمل وموثّق ✓</span>
                           </span>
                         ) : (
-                          <span className="text-zinc-500 text-xs flex items-center gap-1">
+                          <span className="text-slate-400 dark:text-zinc-500 text-xs flex items-center gap-1">
                             <Circle className="h-3 w-3" />
                             <span>بانتظار التطبيق</span>
                           </span>
@@ -782,7 +793,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                           بدء التمرين
                         </button>
                       ) : (
-                        <span className="text-[11px] text-zinc-500 font-bold">
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 font-bold">
                           تم استلام الـ XP
                         </span>
                       )}
@@ -797,12 +808,12 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         {/* TAB 5: BADGES */}
         {activeTab === 'badges' && (
           <div className="space-y-4">
-            <div className="bg-[#0c0d14]/90 border border-zinc-800/80 p-3 rounded-2xl text-xs text-zinc-300 flex items-center justify-between gap-2">
+            <div className="bg-white dark:bg-[#0c0d14]/90 border border-slate-200 dark:border-zinc-800/80 p-3 rounded-2xl text-xs text-slate-700 dark:text-zinc-300 flex items-center justify-between gap-2 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-2">
-                <Award className="h-4 w-4 text-amber-400 shrink-0" />
+                <Award className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
                 <span>شارات إنجاز تُمنح تلقائياً عند استيفاء الشروط وتضيف مكافآت XP فورية لرصيدك.</span>
               </div>
-              <span className="text-[11px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 shrink-0">
+              <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30 shrink-0">
                 {userState.unlockedBadgeIds.length} من {allBadgesList.length}
               </span>
             </div>
@@ -829,42 +840,42 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
         )}
 
         {/* XP Activity History Accordion (Compact & Organized) */}
-        <div className="rounded-2xl border border-zinc-800/80 bg-[#0c0d14]/90 p-4">
+        <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-[#0c0d14]/90 p-4 shadow-sm dark:shadow-none">
           <button
             onClick={() => setShowHistory(!showHistory)}
-            className="w-full flex items-center justify-between text-xs font-bold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+            className="w-full flex items-center justify-between text-xs font-bold text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
           >
             <div className="flex items-center gap-2">
-              <History className="h-4 w-4 text-amber-400" />
+              <History className="h-4 w-4 text-amber-500 dark:text-amber-400" />
               <span>سجل آخر مكافآت ونقاط الـ XP ({userState.history.length})</span>
             </div>
-            <div className="flex items-center gap-1.5 text-zinc-500">
+            <div className="flex items-center gap-1.5 text-slate-400 dark:text-zinc-500">
               <span className="text-[10px]">{showHistory ? 'إخفاء' : 'عرض السجل'}</span>
               <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showHistory ? 'rotate-180' : ''}`} />
             </div>
           </button>
 
           {showHistory && (
-            <div className="mt-3 pt-3 border-t border-zinc-800/80 space-y-1.5 max-h-56 overflow-y-auto pr-1">
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-zinc-800/80 space-y-1.5 max-h-56 overflow-y-auto pr-1">
               {userState.history.length > 0 ? (
                 userState.history.map((entry) => (
                   <div
                     key={entry.id}
-                    className="p-2.5 rounded-xl bg-[#0e1017]/90 border border-zinc-800/60 flex items-center justify-between text-xs"
+                    className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#0e1017]/90 border border-slate-200 dark:border-zinc-800/60 flex items-center justify-between text-xs"
                   >
                     <div className="flex items-center gap-2 min-w-0">
                       <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${
-                        entry.type === 'badge' ? 'bg-amber-400' :
-                        entry.type === 'weekly' ? 'bg-orange-400' :
-                        entry.type === 'exercise' ? 'bg-emerald-400' :
-                        'bg-blue-400'
+                        entry.type === 'badge' ? 'bg-amber-500 dark:bg-amber-400' :
+                        entry.type === 'weekly' ? 'bg-orange-500 dark:bg-orange-400' :
+                        entry.type === 'exercise' ? 'bg-emerald-500 dark:bg-emerald-400' :
+                        'bg-blue-500 dark:bg-blue-400'
                       }`} />
-                      <span className="font-bold text-zinc-200 truncate">{entry.title}</span>
-                      <span className="text-[10px] text-zinc-500 shrink-0">
+                      <span className="font-bold text-slate-800 dark:text-zinc-200 truncate">{entry.title}</span>
+                      <span className="text-[10px] text-slate-400 dark:text-zinc-500 shrink-0">
                         ({entry.date} {entry.time ? `• ${entry.time}` : ''})
                       </span>
                     </div>
-                    <span className="font-sans font-black text-emerald-400 shrink-0">
+                    <span className="font-sans font-black text-emerald-600 dark:text-emerald-400 shrink-0">
                       +{entry.xp} XP
                     </span>
                   </div>
@@ -907,28 +918,28 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
 
       {/* Lesson / Skill Confirmation Modal */}
       {activeLessonChallenge && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-150">
           <div 
-            className="relative w-full max-w-lg rounded-2xl border border-zinc-800/90 bg-[#0c0e15] p-5 sm:p-6 shadow-2xl overflow-hidden"
+            className="relative w-full max-w-lg rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0c0e15] text-slate-900 dark:text-zinc-100 p-5 sm:p-6 shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between pb-3.5 border-b border-zinc-800/80">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-200 dark:border-zinc-800/80">
               <div className="flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
                   <BookOpen className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-black uppercase text-amber-400 block tracking-wider">
+                  <span className="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 block tracking-wider">
                     {activeLessonChallenge.type === 'lesson' ? 'قراءة واستيعاب درس' : 'تطبيق مهارة عملية'}
                   </span>
-                  <h3 className="text-sm sm:text-base font-bold text-white line-clamp-1">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white line-clamp-1">
                     {activeLessonChallenge.title}
                   </h3>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black font-sans shadow-sm shadow-amber-500/10">
+              <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-500/15 dark:bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-black font-sans shadow-sm shadow-amber-500/10">
                 <Sparkles className="h-3 w-3" />
                 <span>+{activeLessonChallenge.xpReward} XP</span>
               </div>
@@ -936,16 +947,16 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
 
             {/* Description & Steps */}
             <div className="my-4 space-y-3.5">
-              <p className="text-xs text-zinc-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed">
                 {activeLessonChallenge.description}
               </p>
 
               {activeLessonChallenge.steps && (
-                <div className="p-3 rounded-xl bg-[#12141d]/80 border border-zinc-800 space-y-1.5">
-                  <span className="text-[11px] font-bold text-amber-400 block">خطوات التنفيذ:</span>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#12141d]/80 border border-slate-200 dark:border-zinc-800 space-y-1.5">
+                  <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 block">خطوات التنفيذ:</span>
                   {activeLessonChallenge.steps.map((step, idx) => (
-                    <div key={idx} className="text-xs text-zinc-300 flex items-start gap-1.5">
-                      <span className="h-4 w-4 rounded-full bg-[#1b1d28] text-[10px] font-black text-zinc-300 flex items-center justify-center shrink-0 mt-0.5 border border-zinc-700/60">
+                    <div key={idx} className="text-xs text-slate-700 dark:text-zinc-300 flex items-start gap-1.5">
+                      <span className="h-4 w-4 rounded-full bg-slate-200 dark:bg-[#1b1d28] text-[10px] font-black text-slate-800 dark:text-zinc-300 flex items-center justify-center shrink-0 mt-0.5 border border-slate-300 dark:border-zinc-700/60">
                         {idx + 1}
                       </span>
                       <span>{step}</span>
@@ -963,7 +974,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                       setActiveLessonChallenge(null);
                     }
                   }}
-                  className="w-full flex items-center justify-center gap-1.5 p-2.5 rounded-xl bg-[#12141e] hover:bg-[#181a27] border border-orange-500/40 text-orange-300 text-xs font-bold transition-colors cursor-pointer shadow-sm shadow-orange-500/10"
+                  className="w-full flex items-center justify-center gap-1.5 p-2.5 rounded-xl bg-orange-50 dark:bg-[#12141e] hover:bg-orange-100 dark:hover:bg-[#181a27] border border-orange-300 dark:border-orange-500/40 text-orange-700 dark:text-orange-300 text-xs font-bold transition-colors cursor-pointer shadow-sm shadow-orange-500/10"
                 >
                   <span>{activeLessonChallenge.actionLink.label}</span>
                   <ExternalLink className="h-3 w-3" />
@@ -976,12 +987,12 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                 onClick={() => setLessonConfirmedCheck(!lessonConfirmedCheck)}
                 className={`w-full text-right p-3 rounded-xl border text-xs transition-all cursor-pointer flex items-center gap-2.5 ${
                   lessonConfirmedCheck
-                    ? 'border-emerald-500/60 bg-emerald-950/20 text-emerald-200'
-                    : 'border-zinc-800 bg-[#12141c]/50 text-zinc-400 hover:border-zinc-700'
+                    ? 'border-emerald-500/60 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-200 font-medium'
+                    : 'border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-[#12141c]/50 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700'
                 }`}
               >
                 <div className={`h-4 w-4 rounded-md border flex items-center justify-center shrink-0 ${
-                  lessonConfirmedCheck ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-zinc-700 bg-zinc-950'
+                  lessonConfirmedCheck ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950'
                 }`}>
                   {lessonConfirmedCheck && <Check className="h-3 w-3 stroke-[3]" />}
                 </div>

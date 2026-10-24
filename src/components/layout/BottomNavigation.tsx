@@ -60,51 +60,51 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
       id: 'home', 
       label: t.nav.home, 
       icon: Home,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     },
     { 
       id: 'income', 
       label: t.nav.income, 
       icon: TrendingUp,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     },
     { 
       id: 'ai', 
       label: t.nav.ai, 
       icon: Sparkles,
       isSpecial: true,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     },
     { 
       id: 'ideas', 
       label: t.nav.ideas, 
       icon: Lightbulb,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     },
     { 
       id: 'challenges', 
       label: challengesLabel, 
       icon: Trophy,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     },
-    {
+    { 
       id: 'profile',
       label: profileLabel,
       icon: UserCircle,
-      activeColor: 'text-amber-400',
-      activeDot: 'bg-amber-400'
+      activeColor: 'text-[#2563EB] dark:text-[#3B82F6]',
+      activeDot: 'bg-[#2563EB] dark:bg-[#3B82F6]'
     }
   ];
 
   return (
     <nav 
       aria-label="Bottom Navigation" 
-      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-zinc-800/90 bg-zinc-950/95 backdrop-blur-2xl px-1 py-1 safe-area-bottom shadow-2xl shadow-black"
+      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl px-1 py-1 safe-area-bottom shadow-lg"
     >
       <div className="flex items-center justify-between max-w-md mx-auto">
         {navItems.map((item) => {
@@ -119,13 +119,13 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                 onClick={() => onNavigate(item.id)}
                 className="relative -top-2 flex flex-col items-center group cursor-pointer px-1 shrink-0"
               >
-                <div className={`relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 shadow-md shadow-amber-900/40 ${
-                  isActive ? 'ring-2 ring-amber-400 ring-offset-2 ring-offset-zinc-950 scale-105 shadow-amber-500/40' : 'hover:scale-105'
+                <div className={`relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full p-0.5 bg-gradient-to-tr from-[#2563EB] to-blue-400 shadow-md shadow-blue-500/20 ${
+                  isActive ? 'ring-2 ring-[#2563EB] ring-offset-2 ring-offset-white dark:ring-offset-zinc-950 scale-105' : 'hover:scale-105'
                 } transition-all duration-200`}>
                   <img
-                    src="/file_00000000790481f48f32726a32633267.png"
+                    src="/assets/rikou-ai-avatar.png"
                     onError={(e) => {
-                      e.currentTarget.src = '/assets/rikou-ai-avatar.png';
+                      e.currentTarget.src = '/file_00000000790481f48f32726a32633267.png';
                     }}
                     alt="Rikou AI Avatar"
                     className="h-full w-full rounded-full object-cover select-none bg-zinc-950"
@@ -134,7 +134,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                   />
                 </div>
                 <span className={`mt-0.5 text-[9px] sm:text-[10px] font-black tracking-tight leading-none ${
-                  isActive ? 'text-amber-400' : 'text-zinc-400'
+                  isActive ? 'text-[#2563EB] dark:text-[#3B82F6]' : 'text-[#667085] dark:text-zinc-400'
                 }`}>
                   {item.label}
                 </span>
@@ -149,15 +149,15 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
               onClick={() => onNavigate(item.id)}
               className={`relative flex flex-1 flex-col items-center justify-center py-1 px-0.5 transition-all duration-150 cursor-pointer min-w-0 ${
                 isActive
-                  ? `${item.activeColor} scale-105`
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? `${item.activeColor} scale-105 font-bold`
+                  : 'text-[#667085] dark:text-zinc-400 hover:text-[#101828] dark:hover:text-zinc-200'
               }`}
             >
               <div className="relative">
                 <Icon className={`h-4.5 w-4.5 sm:h-5 sm:w-5 ${isActive ? 'stroke-[2.5]' : 'stroke-2'}`} />
               </div>
               <span className={`mt-0.5 text-[9px] sm:text-[10px] tracking-tight leading-tight text-center truncate max-w-[54px] sm:max-w-[64px] block ${
-                isActive ? 'font-black' : 'font-medium'
+                isActive ? 'font-bold' : 'font-medium'
               }`}>
                 {item.label}
               </span>

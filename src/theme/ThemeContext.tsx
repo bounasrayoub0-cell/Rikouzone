@@ -20,14 +20,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (stored === 'light' || stored === 'dark') {
         return stored;
       }
-      // Check system preference if no user preference is stored
-      if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light';
-      }
     } catch {
       // localStorage may fail in restricted/iframe environments
     }
-    return 'dark'; // Default dark theme as requested
+    return 'light'; // Default light theme on first visit
   });
 
   const applyTheme = useCallback((currentTheme: Theme) => {

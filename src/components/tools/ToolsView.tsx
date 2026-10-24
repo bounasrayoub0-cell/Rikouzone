@@ -154,27 +154,27 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-bold text-blue-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-bold text-blue-600 dark:text-blue-400">
           <Calculator className="h-4 w-4" />
           <span>{t.tools.calculatorsCount}</span>
         </div>
-        <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
+        <h1 className="mt-4 text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
           {t.tools.pageTitle}
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
+        <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-zinc-400 leading-relaxed">
           {t.tools.pageSubtitle}
         </p>
       </div>
 
       {/* Main Mode Toggle: Calculators vs Content Utilities */}
       <div className="mt-8 flex justify-center">
-        <div className="inline-flex rounded-2xl border border-zinc-800 bg-zinc-900/90 p-1.5 backdrop-blur-md">
+        <div className="inline-flex rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-sm dark:shadow-none">
           <button
             onClick={() => setActiveTab('calculators')}
-            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'calculators'
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                : 'text-zinc-400 hover:text-white'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Calculator className="h-4 w-4" />
@@ -182,10 +182,10 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
           </button>
           <button
             onClick={() => setActiveTab('utilities')}
-            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'utilities'
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                : 'text-zinc-400 hover:text-white'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Sparkles className="h-4 w-4" />
@@ -199,7 +199,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
           
           {/* Left Column: Calculator Selector List */}
           <div className="lg:col-span-4 space-y-2">
-            <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider px-1 mb-3">
+            <h3 className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider px-1 mb-3">
               {t.tools.selectCalc}
             </h3>
 
@@ -214,22 +214,22 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                     key={calc.id}
                     id={`calc-select-${calc.id}`}
                     onClick={() => handleSelectCalculator(calc)}
-                    className={`flex items-start text-start gap-3 rounded-2xl p-3.5 transition-all border ${
+                    className={`flex items-start text-start gap-3 rounded-2xl p-3.5 transition-all border cursor-pointer ${
                       isSelected
-                        ? 'border-blue-500/60 bg-blue-500/10 text-white shadow-md shadow-blue-500/5'
-                        : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                        ? 'border-blue-500/60 bg-blue-50 dark:bg-blue-500/10 text-slate-900 dark:text-white shadow-md shadow-blue-500/5'
+                        : 'border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700 hover:text-slate-900 dark:hover:text-zinc-200 shadow-sm dark:shadow-none'
                     }`}
                   >
                     <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl font-bold text-xs ${
-                      isSelected ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-400'
+                      isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400'
                     }`}>
                       <Calculator className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className={`text-xs sm:text-sm font-bold line-clamp-1 ${isSelected ? 'text-blue-300' : 'text-zinc-200'}`}>
+                      <div className={`text-xs sm:text-sm font-bold line-clamp-1 ${isSelected ? 'text-blue-700 dark:text-blue-300' : 'text-slate-800 dark:text-zinc-200'}`}>
                         {title}
                       </div>
-                      <div className="text-[11px] text-zinc-500 line-clamp-1 mt-0.5">
+                      <div className="text-[11px] text-slate-500 dark:text-zinc-500 line-clamp-1 mt-0.5">
                         {desc}
                       </div>
                     </div>
@@ -240,25 +240,25 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
           </div>
 
           {/* Right Column: Active Interactive Calculator Canvas */}
-          <div className="lg:col-span-8 rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-xl">
+          <div className="lg:col-span-8 rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-sm dark:shadow-none">
             
             {/* Top Details */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-zinc-800/80 pb-6">
               <div>
-                <span className="rounded-lg bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-400 border border-blue-500/20 uppercase">
+                <span className="rounded-lg bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-600 dark:text-blue-400 border border-blue-500/20 uppercase">
                   {currentCalc.category}
                 </span>
-                <h2 className="mt-2 text-xl sm:text-2xl font-black text-white">
+                <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                   {localize(currentCalc, 'title') || currentCalc.title}
                 </h2>
-                <p className="mt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-xl">
+                <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-zinc-400 leading-relaxed max-w-xl">
                   {localize(currentCalc, 'description') || currentCalc.description}
                 </p>
               </div>
 
               <button
                 onClick={handleResetInputs}
-                className="flex items-center gap-1.5 self-start sm:self-auto rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs font-bold text-zinc-400 hover:text-white hover:border-blue-500 transition-all"
+                className="flex items-center gap-1.5 self-start sm:self-auto rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-100 dark:bg-zinc-950 px-3 py-2 text-xs font-bold text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:border-blue-500 transition-all cursor-pointer shadow-sm dark:shadow-none"
                 title={t.tools.reset}
               >
                 <RotateCcw className="h-3.5 w-3.5" />
@@ -273,13 +273,13 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                 const label = localize(input, 'label') || input.label;
 
                 return (
-                  <div key={input.id} className="rounded-2xl border border-zinc-800/80 bg-zinc-950/60 p-4">
+                  <div key={input.id} className="rounded-2xl border border-slate-200 dark:border-zinc-800/80 bg-slate-50/80 dark:bg-zinc-950/60 p-4 shadow-sm dark:shadow-none">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-zinc-300">
+                      <label className="text-xs font-bold text-slate-700 dark:text-zinc-300">
                         {label}
                       </label>
                       {input.suffix && (
-                        <span className="text-[10px] font-bold text-blue-400/80">
+                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400/80">
                           {input.suffix}
                         </span>
                       )}
@@ -293,7 +293,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                         step={input.step || 1}
                         value={currentVal}
                         onChange={(e) => handleInputChange(input.id, parseFloat(e.target.value))}
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-2.5 px-3 text-sm font-bold text-white focus:border-blue-500 focus:outline-none"
+                        className="w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-2.5 px-3 text-sm font-bold text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none shadow-sm dark:shadow-none"
                       />
                     </div>
 
@@ -311,7 +311,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                     )}
 
                     {input.arabicHelperText && isRTL && (
-                      <div className="mt-2 text-[11px] text-zinc-500 leading-tight">
+                      <div className="mt-2 text-[11px] text-slate-500 dark:text-zinc-500 leading-tight">
                         {input.arabicHelperText}
                       </div>
                     )}
@@ -321,8 +321,8 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             </div>
 
             {/* Results Display Area */}
-            <div className="mt-8 rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-zinc-950 to-zinc-950 p-6">
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400">
+            <div className="mt-8 rounded-3xl border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-50 via-white to-blue-50/50 dark:from-blue-500/10 dark:via-zinc-950 dark:to-zinc-950 p-6 shadow-sm dark:shadow-none">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">
                 <TrendingUp className="h-4 w-4" />
                 <span>{t.tools.resultTitle}</span>
               </div>
@@ -337,19 +337,19 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                       className={`rounded-2xl p-4 border transition-all ${
                         res.highlight
                           ? 'border-blue-500/50 bg-blue-500/15 shadow-lg shadow-blue-500/10'
-                          : 'border-zinc-800/80 bg-zinc-900/50'
+                          : 'border-slate-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/50 shadow-sm dark:shadow-none'
                       }`}
                     >
-                      <div className="text-xs font-semibold text-zinc-400">
+                      <div className="text-xs font-semibold text-slate-600 dark:text-zinc-400">
                         {resLabel}
                       </div>
                       <div className={`mt-2 text-2xl sm:text-3xl font-black ${
-                        res.highlight ? 'text-blue-300' : 'text-white'
+                        res.highlight ? 'text-blue-700 dark:text-blue-300' : 'text-slate-900 dark:text-white'
                       }`}>
                         {res.value}
                       </div>
                       {res.arabicDescription && isRTL && (
-                        <div className="mt-1.5 text-[11px] text-zinc-400">
+                        <div className="mt-1.5 text-[11px] text-slate-500 dark:text-zinc-400">
                           {res.arabicDescription}
                         </div>
                       )}
@@ -358,14 +358,14 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                 })}
               </div>
 
-              <div className="mt-4 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-400">
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                   {t.tools.resultsEstimated}
                 </span>
                 <button
                   onClick={() => onCopyText(results.map(r => `${r.label}: ${r.value}`).join(' | '), t.toasts.copySuccess)}
-                  className="flex items-center gap-1 text-blue-400 hover:underline font-bold"
+                  className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-bold cursor-pointer"
                 >
                   <Copy className="h-3.5 w-3.5" />
                   <span>{t.common.copy}</span>
@@ -381,16 +381,16 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
         /* Content Utilities Interactive Sandbox */
         <div className="mt-10 max-w-4xl mx-auto space-y-6">
           
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-xl">
-            <h3 className="text-xl font-bold text-white">
+          <div className="rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-sm dark:shadow-none">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
               {t.tools.contentToolsTab}
             </h3>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-slate-600 dark:text-zinc-400">
               {t.tools.pageSubtitle}
             </p>
 
             <div className="mt-5">
-              <label className="text-xs font-bold text-zinc-300">
+              <label className="text-xs font-bold text-slate-700 dark:text-zinc-300">
                 {t.tools.inputsTitle}
               </label>
               <input
@@ -398,7 +398,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
                 value={utilityTopic}
                 onChange={(e) => setUtilityTopic(e.target.value)}
                 placeholder={t.tools.topicPlaceholder}
-                className="mt-2 w-full rounded-xl border border-zinc-800 bg-zinc-950 py-3 px-4 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-3 px-4 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none shadow-sm dark:shadow-none"
               />
             </div>
 
@@ -406,7 +406,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
             <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
               <button
                 onClick={() => handleRunQuickUtility('hook-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3 px-3 text-xs font-bold text-white hover:scale-102 transition-all shadow-md shadow-blue-500/20"
+                className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3 px-3 text-xs font-bold text-white hover:scale-102 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
               >
                 <Zap className="h-4 w-4" />
                 <span>{t.tools.generateHooks}</span>
@@ -414,45 +414,45 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onCopyText, onNavigateToAI
 
               <button
                 onClick={() => handleRunQuickUtility('title-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 py-3 px-3 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-white transition-all cursor-pointer shadow-sm dark:shadow-none"
               >
-                <Sparkles className="h-4 w-4 text-blue-400" />
+                <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span>{t.tools.youtubeTitles}</span>
               </button>
 
               <button
                 onClick={() => handleRunQuickUtility('hashtag-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 py-3 px-3 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-white transition-all cursor-pointer shadow-sm dark:shadow-none"
               >
-                <Hash className="h-4 w-4 text-blue-400" />
+                <Hash className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span>{t.tools.smartHashtags}</span>
               </button>
 
               <button
                 onClick={() => handleRunQuickUtility('content-ideas-generator')}
-                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 py-3 px-3 text-xs font-bold text-zinc-200 hover:border-blue-500 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 py-3 px-3 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-white transition-all cursor-pointer shadow-sm dark:shadow-none"
               >
-                <Lightbulb className="h-4 w-4 text-blue-400" />
+                <Lightbulb className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span>{t.tools.quickIdea}</span>
               </button>
             </div>
 
             {/* Output Canvas */}
             {utilityOutput && (
-              <div className="mt-6 rounded-2xl border border-blue-500/30 bg-zinc-950 p-5">
+              <div className="mt-6 rounded-2xl border border-blue-200 dark:border-blue-500/30 bg-slate-50/90 dark:bg-zinc-950 p-5 shadow-sm dark:shadow-none">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                     {t.tools.generatedOutput}
                   </span>
                   <button
                     onClick={() => onCopyText(utilityOutput, t.toasts.copySuccess)}
-                    className="flex items-center gap-1 text-xs font-bold text-blue-400 hover:underline"
+                    className="flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                   >
                     <Copy className="h-3.5 w-3.5" />
                     <span>{t.tools.copyText}</span>
                   </button>
                 </div>
-                <pre className="mt-3 text-xs sm:text-sm text-zinc-200 whitespace-pre-wrap font-sans leading-relaxed">
+                <pre className="mt-3 text-xs sm:text-sm text-slate-800 dark:text-zinc-200 whitespace-pre-wrap font-sans leading-relaxed">
                   {utilityOutput}
                 </pre>
               </div>

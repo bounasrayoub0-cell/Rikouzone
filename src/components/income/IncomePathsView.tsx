@@ -203,14 +203,14 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
       
       {/* Header Banner */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 dark:border-blue-900/50 bg-[#EAF1FF] dark:bg-blue-950/40 px-3.5 py-1 text-xs font-bold text-[#2563EB] dark:text-blue-400">
           <TrendingUp className="h-4 w-4" />
           <span>{t.income.categoryHeader}</span>
         </div>
-        <h1 className="mt-4 text-3xl sm:text-4xl font-black text-white">
+        <h1 className="mt-4 text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
           {t.income.pageTitle}
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
+        <p className="mt-3 text-sm sm:text-base text-[#667085] dark:text-zinc-400 leading-relaxed">
           {t.income.pageSubtitle}
         </p>
       </div>
@@ -220,19 +220,19 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         
         {/* Search Bar */}
         <div className="relative max-w-2xl mx-auto">
-          <Search className="absolute top-3.5 right-4 rtl:right-4 rtl:left-auto ltr:left-4 ltr:right-auto h-5 w-5 text-zinc-400" />
+          <Search className="absolute top-3.5 right-4 rtl:right-4 rtl:left-auto ltr:left-4 ltr:right-auto h-5 w-5 text-slate-400 dark:text-zinc-400" />
           <input
             id="income-search-input"
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t.income.searchPlaceholder}
-            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/90 py-3 px-12 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 py-3 px-12 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]/20 shadow-sm dark:shadow-none"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute top-3.5 left-4 rtl:left-4 rtl:right-auto ltr:right-4 ltr:left-auto text-xs text-zinc-400 hover:text-white cursor-pointer"
+              className="absolute top-3.5 left-4 rtl:left-4 rtl:right-auto ltr:right-4 ltr:left-auto text-xs text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
             >
               {t.common.clear}
             </button>
@@ -252,8 +252,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/20'
-                    : 'border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                    ? 'bg-[#2563EB] text-white shadow-md shadow-blue-600/20'
+                    : 'border border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#101828] text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700 hover:text-slate-900 dark:hover:text-white shadow-sm dark:shadow-none'
                 }`}
               >
                 {cat.label}
@@ -263,8 +263,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
         </div>
 
         {/* Secondary Difficulty Filter */}
-        <div className="flex items-center justify-between border-t border-zinc-800/80 pt-4 text-xs">
-          <div className="flex items-center gap-2 text-zinc-400">
+        <div className="flex items-center justify-between border-t border-slate-200 dark:border-zinc-800/80 pt-4 text-xs">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-zinc-400">
             <SlidersHorizontal className="h-4 w-4" />
             <span>{t.income.difficultyLevel}</span>
             <div className="flex gap-1">
@@ -279,8 +279,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   onClick={() => setSelectedDifficulty(lvl.id)}
                   className={`rounded-lg px-2.5 py-1 font-semibold transition-all cursor-pointer ${
                     selectedDifficulty === lvl.id
-                      ? 'bg-zinc-800 text-emerald-400 border border-emerald-500/30'
-                      : 'text-zinc-500 hover:text-zinc-300'
+                      ? 'bg-[#EAF1FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-900/50'
+                      : 'text-slate-500 dark:text-zinc-500 hover:text-slate-800 dark:hover:text-zinc-300'
                   }`}
                 >
                   {lvl.label}
@@ -289,7 +289,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
             </div>
           </div>
 
-          <div className="text-zinc-500 font-medium">
+          <div className="text-slate-500 dark:text-zinc-500 font-medium">
             {`${t.income.showing} ${filteredPaths.length} ${t.income.of} ${incomePaths.length} ${t.income.paths}`}
           </div>
         </div>
@@ -312,7 +312,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
               setSelectedCategory('all');
               setSelectedDifficulty('all');
             }}
-            className="mt-4 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-bold text-black cursor-pointer"
+            className="mt-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] px-4 py-2 text-xs font-bold text-white cursor-pointer transition-colors shadow-md shadow-blue-600/20"
           >
             {t.common.resetFilters}
           </button>
@@ -333,8 +333,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                 id={`income-card-${path.id}`}
                 className={`group relative flex flex-col justify-between rounded-3xl border p-6 backdrop-blur-sm transition-all ${
                   isLocked
-                    ? 'border-amber-500/30 bg-gradient-to-b from-zinc-900/90 via-zinc-900/60 to-zinc-950 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5'
-                    : 'border-zinc-800/90 bg-zinc-900/60 hover:border-emerald-500/40 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-emerald-500/5'
+                    ? 'border-amber-400/50 dark:border-amber-500/30 bg-gradient-to-b from-amber-100/60 via-white to-amber-50/40 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/10 shadow-sm dark:shadow-none'
+                    : 'border-slate-200 dark:border-zinc-800/90 bg-white/95 dark:bg-[#101828]/60 hover:border-[#2563EB]/40 hover:bg-slate-50 dark:hover:bg-[#101828]/90 hover:shadow-xl hover:shadow-blue-600/5 shadow-sm dark:shadow-none'
                 }`}
               >
                 <div>
@@ -346,7 +346,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           e.stopPropagation();
                           setSelectedCategory(path.category);
                         }}
-                        className="rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer text-start"
+                        className="rounded-lg bg-[#EAF1FF] dark:bg-blue-950/40 px-3 py-1 text-xs font-bold text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-900/50 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors cursor-pointer text-start"
                         title={`${t.income.categoriesList.all}: ${category}`}
                       >
                         {category}
@@ -354,16 +354,16 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
 
                       {/* Locked Badge */}
                       {isLocked && lockRule && (
-                        <span className="rounded-lg bg-amber-500/15 border border-amber-500/40 px-2.5 py-1 text-[11px] font-black text-amber-300 flex items-center gap-1.5 shadow-sm">
-                          <Lock className="h-3 w-3 text-amber-400" />
+                        <span className="rounded-lg bg-amber-500/15 border border-amber-500/40 px-2.5 py-1 text-[11px] font-black text-amber-700 dark:text-amber-300 flex items-center gap-1.5 shadow-sm">
+                          <Lock className="h-3 w-3 text-amber-500 dark:text-amber-400" />
                           <span>{tLock.lockedBadge} · {lockRule.requiredXp} XP</span>
                         </span>
                       )}
 
                       {/* Unlocked Badge */}
                       {lockRule && !isLocked && (
-                        <span className="rounded-lg bg-emerald-500/15 border border-emerald-500/40 px-2.5 py-1 text-[11px] font-black text-emerald-300 flex items-center gap-1.5 shadow-sm">
-                          <Unlock className="h-3 w-3 text-emerald-400" />
+                        <span className="rounded-lg bg-[#EAF1FF] border border-blue-200 dark:bg-blue-950/40 dark:border-blue-900/50 px-2.5 py-1 text-[11px] font-bold text-[#2563EB] dark:text-blue-300 flex items-center gap-1.5 shadow-sm">
+                          <Unlock className="h-3 w-3 text-[#2563EB] dark:text-blue-400" />
                           <span>{tLock.unlockedBadge}</span>
                         </span>
                       )}
@@ -377,7 +377,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         'dropshipping', 'ecommerce', 'selling-digital-products', 'selling-templates',
                         'cpa-marketing', 'lead-generation'
                       ].includes(path.id) && (
-                        <span className="rounded-lg bg-emerald-500/15 px-2.5 py-1 text-[11px] font-black text-emerald-300 border border-emerald-500/30">
+                        <span className="rounded-lg bg-[#EAF1FF] dark:bg-blue-950/40 px-2.5 py-1 text-[11px] font-bold text-[#2563EB] dark:text-blue-300 border border-blue-200 dark:border-blue-900/50">
                           🔥 {t.income.trackUpgradedBadge}
                         </span>
                       )}
@@ -388,10 +388,10 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                         e.stopPropagation();
                         onToggleSave(path.id, 'income');
                       }}
-                      className="rounded-lg p-1.5 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-800/80 transition-colors cursor-pointer"
+                      className="rounded-lg p-1.5 text-slate-400 dark:text-zinc-500 hover:text-[#2563EB] dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 transition-colors cursor-pointer"
                       title={saved ? t.income.saved : t.income.savePath}
                     >
-                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-emerald-400 text-emerald-400' : ''}`} />
+                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-[#2563EB] text-[#2563EB]' : ''}`} />
                     </button>
                   </div>
 
@@ -399,33 +399,33 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                     onClick={() => handleOpenPath(path)}
                     className={`mt-4 text-lg font-bold transition-colors cursor-pointer flex items-center gap-2 ${
                       isLocked 
-                        ? 'text-zinc-100 group-hover:text-amber-300' 
-                        : 'text-white group-hover:text-emerald-300'
+                        ? 'text-slate-900 dark:text-zinc-100 group-hover:text-amber-600 dark:group-hover:text-amber-300' 
+                        : 'text-slate-900 dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400'
                     }`}
                   >
                     <span>{title}</span>
-                    {isLocked && <Lock className="h-4 w-4 text-amber-400 shrink-0 inline" />}
+                    {isLocked && <Lock className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0 inline" />}
                   </h3>
 
-                  <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-3">
+                  <p className="mt-2 text-xs text-[#667085] dark:text-zinc-400 leading-relaxed line-clamp-3">
                     {desc}
                   </p>
 
                   {/* Locked Track XP Progress Indicator */}
                   {isLocked && lockDetails && lockRule && (
-                    <div className="mt-3.5 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-3">
+                    <div className="mt-3.5 rounded-2xl border border-amber-400/40 dark:border-amber-500/30 bg-amber-50/80 dark:bg-amber-500/5 p-3">
                       <div className="flex items-center justify-between text-[11px] mb-1.5">
-                        <span className="font-semibold text-amber-200/90 flex items-center gap-1">
-                          <Lock className="h-3 w-3 text-amber-400 inline" />
+                        <span className="font-semibold text-amber-900 dark:text-amber-200/90 flex items-center gap-1">
+                          <Lock className="h-3 w-3 text-amber-500 dark:text-amber-400 inline" />
                           <span>{tLock.progressLabel}</span>
                         </span>
-                        <span className="font-bold font-mono text-amber-400">
+                        <span className="font-bold font-mono text-amber-600 dark:text-amber-400">
                           {lockDetails.progressPercent}%
                         </span>
                       </div>
                       
                       {/* Bar */}
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-900 border border-amber-500/20">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-900 border border-amber-400/30 dark:border-amber-500/20">
                         <div 
                           className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 transition-all duration-500 rounded-full"
                           style={{ width: `${Math.max(4, lockDetails.progressPercent)}%` }}
@@ -433,11 +433,11 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                       </div>
 
                       <div className="mt-2 flex items-center justify-between text-[10px]">
-                        <span className="text-zinc-400">
-                          {tLock.currentXpLabel} <strong className="text-white font-mono">{userXp} XP</strong>
+                        <span className="text-slate-600 dark:text-zinc-400">
+                          {tLock.currentXpLabel} <strong className="text-slate-900 dark:text-white font-mono">{userXp} XP</strong>
                         </span>
-                        <span className="text-amber-300 font-medium">
-                          {tLock.remainingXpLabel} <strong className="text-amber-400 font-mono font-bold">{lockDetails.remainingXp} XP</strong>
+                        <span className="text-amber-800 dark:text-amber-300 font-medium">
+                          {tLock.remainingXpLabel} <strong className="text-amber-600 dark:text-amber-400 font-mono font-bold">{lockDetails.remainingXp} XP</strong>
                         </span>
                       </div>
                     </div>
@@ -445,29 +445,29 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
 
                   {/* Unlocked State Progress / Status for Unlocked Special Tracks */}
                   {!isLocked && lockRule && (
-                    <div className="mt-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 flex items-center justify-between text-[11px] text-emerald-300">
+                    <div className="mt-3 rounded-xl border border-blue-200 dark:border-blue-900/40 bg-[#EAF1FF]/60 dark:bg-blue-950/20 px-3 py-2 flex items-center justify-between text-[11px] text-[#2563EB] dark:text-blue-300">
                       <span className="flex items-center gap-1 font-semibold">
-                        <Unlock className="h-3.5 w-3.5 text-emerald-400" />
+                        <Unlock className="h-3.5 w-3.5 text-[#2563EB] dark:text-blue-400" />
                         <span>{tLock.unlockedBadge}</span>
                       </span>
-                      <span className="font-mono font-bold text-emerald-400">
+                      <span className="font-mono font-bold text-[#2563EB] dark:text-blue-400">
                         {userXp} / {lockRule.requiredXp} XP
                       </span>
                     </div>
                   )}
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-zinc-800/80">
+                <div className="mt-6 pt-4 border-t border-slate-200 dark:border-zinc-800/80">
                   <div className="grid grid-cols-2 gap-2 text-xs mb-4">
-                    <div className="rounded-xl bg-zinc-950/60 p-2.5">
-                      <div className="text-zinc-500 font-medium">{t.income.monthlyPotential}</div>
-                      <div className={`text-sm font-black mt-0.5 ${isLocked ? 'text-amber-400' : 'text-emerald-400'}`}>
+                    <div className="rounded-xl bg-slate-50 dark:bg-zinc-950/60 p-2.5 border border-slate-200/60 dark:border-transparent">
+                      <div className="text-[#667085] dark:text-zinc-500 font-medium">{t.income.monthlyPotential}</div>
+                      <div className={`text-sm font-bold mt-0.5 ${isLocked ? 'text-amber-600 dark:text-amber-400' : 'text-[#2563EB] dark:text-blue-400'}`}>
                         {path.potentialMonthlyIncome || path.estimatedIncomeRange}
                       </div>
                     </div>
-                    <div className="rounded-xl bg-zinc-950/60 p-2.5">
-                      <div className="text-zinc-500 font-medium">{t.income.learningTime}</div>
-                      <div className="text-sm font-bold text-zinc-200 mt-0.5">
+                    <div className="rounded-xl bg-slate-50 dark:bg-zinc-950/60 p-2.5 border border-slate-200/60 dark:border-transparent">
+                      <div className="text-[#667085] dark:text-zinc-500 font-medium">{t.income.learningTime}</div>
+                      <div className="text-sm font-bold text-slate-800 dark:text-zinc-200 mt-0.5">
                         {path.timeToLearn || (language === 'ar' || language === 'ary' ? path.arabicTimeToFirstIncome : path.timeToFirstIncome)}
                       </div>
                     </div>
@@ -477,7 +477,7 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                   {isLocked && lockRule ? (
                     <button
                       onClick={() => handleOpenPath(path)}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/10 border border-amber-500/40 text-amber-300 hover:from-amber-500 hover:to-orange-500 hover:text-black shadow-md shadow-amber-500/10 active:scale-95"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all cursor-pointer bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/10 border border-amber-400/50 dark:border-amber-500/40 text-amber-800 dark:text-amber-300 hover:from-amber-500 hover:to-orange-500 hover:text-black shadow-md shadow-amber-500/10 active:scale-95"
                     >
                       <Lock className="h-3.5 w-3.5" />
                       <span>{tLock.cardActionLocked.replace('{req}', `${lockRule.requiredXp}`)}</span>
@@ -496,8 +496,8 @@ export const IncomePathsView: React.FC<IncomePathsViewProps> = ({
                           'selling-templates', 'print-on-demand', 'dropshipping', 'ecommerce',
                           'online-courses', 'online-coaching', 'newsletter', 'micro-saas', 'cpa-marketing', 'lead-generation', 'stock-content', 'gaming-content', 'free-fire-content', 'faceless-youtube', 'faceless-tiktok', 'local-business-digital-services'
                         ].includes(path.id)
-                          ? 'bg-emerald-500 text-black hover:bg-emerald-400 shadow-md shadow-emerald-500/20 font-black'
-                          : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-transparent'
+                          ? 'bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-md shadow-blue-600/20 font-bold'
+                          : 'bg-[#EAF1FF] border border-blue-200 text-[#2563EB] dark:bg-blue-950/40 dark:border-blue-900/50 dark:text-blue-300 hover:bg-[#2563EB] hover:text-white hover:border-transparent'
                       }`}
                     >
                       <span>

@@ -56,6 +56,7 @@ import { ContactView } from './components/contact/ContactView';
 import { TermsOfUseView } from './components/terms/TermsOfUseView';
 import { PrivacyPolicyView } from './components/privacy/PrivacyPolicyView';
 import { CookiePolicyView } from './components/cookies/CookiePolicyView';
+import { RkoWalletView } from './components/wallet/RkoWalletView';
 import { ToastContainer, ToastMessage } from './components/common/Toast';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { IncomePath, ContentIdea } from './types';
@@ -170,7 +171,7 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060608] text-zinc-100 flex flex-col selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen w-full max-w-full bg-slate-50 dark:bg-[#060608] text-slate-900 dark:text-zinc-100 flex flex-col selection:bg-amber-500 selection:text-black">
       
       {/* Toast Notification Layer */}
       <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />
@@ -193,9 +194,9 @@ function MainApp() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1">
+      <main className="flex-1 w-full min-w-0">
         {currentTab === 'home' && (
-          <div>
+          <div className="w-full min-w-0">
             <Hero onNavigate={handleNavigate} />
             <AdBanner />
             <HomeFeatured
@@ -523,6 +524,13 @@ function MainApp() {
 
         {currentTab === 'challenges' && (
           <ChallengesView
+            onNavigate={handleNavigate}
+            onCopyText={handleCopyText}
+          />
+        )}
+
+        {(currentTab === 'wallet' || currentTab === 'rko' || currentTab === 'rko-wallet') && (
+          <RkoWalletView
             onNavigate={handleNavigate}
             onCopyText={handleCopyText}
           />

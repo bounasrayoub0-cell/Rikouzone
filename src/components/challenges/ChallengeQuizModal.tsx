@@ -48,31 +48,31 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
       <div 
-        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-800/90 bg-[#0c0e15] p-5 sm:p-7 shadow-2xl my-auto"
+        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0c0e15] text-slate-900 dark:text-zinc-100 p-5 sm:p-7 shadow-2xl my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow */}
         <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/10 blur-2xl" />
 
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-zinc-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
               <HelpCircle className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[11px] font-black uppercase text-amber-400 block tracking-wider">
+              <span className="text-[11px] font-black uppercase text-amber-600 dark:text-amber-400 block tracking-wider">
                 اختبار التحقق من الفهم
               </span>
-              <h3 className="text-base sm:text-lg font-black text-white line-clamp-1">
+              <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white line-clamp-1">
                 {challenge.title}
               </h3>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 dark:bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
             <Sparkles className="h-3.5 w-3.5" />
             <span>+{challenge.xpReward} XP</span>
           </div>
@@ -80,26 +80,26 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
 
         {/* Question */}
         <div className="my-6">
-          <p className="text-sm sm:text-base font-bold text-zinc-100 leading-relaxed">
+          <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-zinc-100 leading-relaxed">
             {quiz.question}
           </p>
 
           <div className="mt-5 space-y-2.5">
             {quiz.options.map((option, idx) => {
               const isSelected = selectedOption === idx;
-              let btnStyle = 'border-zinc-800 bg-[#12141d]/70 text-zinc-300 hover:border-zinc-700 hover:bg-[#161825]';
+              let btnStyle = 'border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-[#12141d]/70 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-[#161825]';
 
               if (isSelected && !isAnswerSubmitted) {
-                btnStyle = 'border-orange-500 bg-orange-950/20 text-white font-bold ring-1 ring-orange-500/40 shadow-sm shadow-orange-500/15';
+                btnStyle = 'border-orange-500 bg-orange-50 dark:bg-orange-950/20 text-orange-900 dark:text-white font-bold ring-1 ring-orange-500/40 shadow-sm shadow-orange-500/15';
               }
 
               if (isAnswerSubmitted) {
                 if (idx === quiz.correctIndex) {
-                  btnStyle = 'border-emerald-500/60 bg-emerald-950/30 text-emerald-200 font-bold';
+                  btnStyle = 'border-emerald-500/60 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-200 font-bold';
                 } else if (isSelected && !isCorrect) {
-                  btnStyle = 'border-red-500/60 bg-red-950/30 text-red-200 font-bold';
+                  btnStyle = 'border-red-500/60 bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-200 font-bold';
                 } else {
-                  btnStyle = 'border-zinc-800/60 bg-[#10121a]/30 text-zinc-500 opacity-60';
+                  btnStyle = 'border-slate-200 dark:border-zinc-800/60 bg-slate-100/50 dark:bg-[#10121a]/30 text-slate-400 dark:text-zinc-500 opacity-60';
                 }
               }
 
@@ -184,7 +184,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
                 setSelectedOption(null);
                 setIsAnswerSubmitted(false);
               }}
-              className="px-6 py-2.5 rounded-xl bg-[#141620] hover:bg-[#1a1d2b] border border-zinc-700/60 text-zinc-200 font-black text-xs cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#141620] dark:hover:bg-[#1a1d2b] border border-slate-300 dark:border-zinc-700/60 text-slate-800 dark:text-zinc-200 font-black text-xs cursor-pointer transition-colors"
             >
               إعادة المحاولة
             </button>

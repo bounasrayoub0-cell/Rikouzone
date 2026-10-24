@@ -38,6 +38,7 @@ import { DropshippingProfitCalculator } from './DropshippingProfitCalculator';
 import { DropshippingProductScorecard } from './DropshippingProductScorecard';
 import { DropshippingTemplatesView } from './DropshippingTemplatesView';
 import { DropshippingChecklistAndQuiz } from './DropshippingChecklistAndQuiz';
+import { RikouLessonIllustration } from '../lessons/RikouLessonIllustration';
 
 interface ModernDropshippingViewProps {
   onNavigate: (tab: string) => void;
@@ -447,6 +448,15 @@ export const ModernDropshippingView: React.FC<ModernDropshippingViewProps> = ({
                       {activeLesson.overview}
                     </p>
                   </div>
+
+                  {/* RikouZone Educational Diagram / Visual Illustration */}
+                  <RikouLessonIllustration
+                    lessonId={activeLesson.id}
+                    trackId="dropshipping"
+                    title={activeLesson.title}
+                    subtitle={activeLesson.subtitle}
+                    lessonNumber={parseInt(activeLesson.id.replace(/\D/g, '')) || 1}
+                  />
 
                   {/* Learning Objectives */}
                   {activeLesson.learningObjectives && activeLesson.learningObjectives.length > 0 && (

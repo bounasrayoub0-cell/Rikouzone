@@ -467,5 +467,77 @@ export const SUPPORTED_LANGUAGES: LanguageMeta[] = [
     flag: '🇨🇳',
     badge: 'LTR',
     description: '简体中文创作者与变现中心'
+  },
+  {
+    code: 'ja',
+    name: 'Japanese',
+    nativeName: '日本語',
+    dir: 'ltr',
+    flag: '🇯🇵',
+    badge: 'LTR',
+    description: 'クリエイター＆デジタル収益化ハブ'
+  },
+  {
+    code: 'ko',
+    name: 'Korean',
+    nativeName: '한국어',
+    dir: 'ltr',
+    flag: '🇰🇷',
+    badge: 'LTR',
+    description: '크리에이터 및 디지털 수익화 허브'
+  },
+  {
+    code: 'tr',
+    name: 'Turkish',
+    nativeName: 'Türkçe',
+    dir: 'ltr',
+    flag: '🇹🇷',
+    badge: 'LTR',
+    description: 'İçerik Üreticileri ve Dijital Gelir Merkezi'
+  },
+  {
+    code: 'hi',
+    name: 'Hindi',
+    nativeName: 'हिन्दी',
+    dir: 'ltr',
+    flag: '🇮🇳',
+    badge: 'LTR',
+    description: 'क्रिएटर्स और डिजिटल कमाई का व्यापक केंद्र'
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    dir: 'ltr',
+    flag: '🇷🇺',
+    badge: 'LTR',
+    description: 'Платформа для креаторов и онлайн-доходов'
+  },
+  {
+    code: 'nl',
+    name: 'Dutch',
+    nativeName: 'Nederlands',
+    dir: 'ltr',
+    flag: '🇳🇱',
+    badge: 'LTR',
+    description: 'Platform voor makers en digitale inkomsten'
+  },
+  {
+    code: 'id',
+    name: 'Indonesian',
+    nativeName: 'Bahasa Indonesia',
+    dir: 'ltr',
+    flag: '🇮🇩',
+    badge: 'LTR',
+    description: 'Pusat Kreator dan Monetisasi Digital'
+  },
+  {
+    code: 'pl',
+    name: 'Polish',
+    nativeName: 'Polski',
+    dir: 'ltr',
+    flag: '🇵🇱',
+    badge: 'LTR',
+    description: 'Centrum dla twórców i zarabiania cyfrowego'
   }
 ];

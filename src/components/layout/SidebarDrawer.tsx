@@ -25,6 +25,8 @@ import { getInitialUserState, calculateLevelAndProgress } from '../../utils/chal
 import { getStoredUserProfile } from '../../utils/profileStorage';
 import { LanguageSelector } from '../common/LanguageSelector';
 import { ThemeSwitcher } from '../common/ThemeSwitcher';
+import { RkoCoinLogo } from '../common/RkoCoinLogo';
+import { useRkoWallet } from '../../utils/rkoWalletStorage';
 
 interface SidebarDrawerProps {
   isOpen: boolean;
@@ -344,6 +346,7 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
   const userState = getInitialUserState();
   const { currentLevel, levelTitle } = calculateLevelAndProgress(userState.totalXp);
   const userProfile = getStoredUserProfile();
+  const { balance: rkoBalance } = useRkoWallet();
 
   // Close on Escape key
   useEffect(() => {
@@ -503,6 +506,38 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                     {savedCount}
                   </span>
                   <ArrowIcon className="h-4 w-4 text-zinc-500" />
+                </div>
+              </button>
+
+              {/* RKO Wallet Button */}
+              <button
+                id="drawer-item-rko-wallet"
+                onClick={() => handleItemClick('wallet')}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
+                  currentTab === 'wallet' || currentTab === 'rko'
+                    ? 'border-amber-400 bg-amber-500/15 text-amber-300 ring-1 ring-amber-400/40'
+                    : 'border-amber-500/30 bg-amber-500/5 text-zinc-200 hover:border-amber-400/60 hover:bg-amber-500/10'
+                }`}
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-amber-500/40 shrink-0 shadow-sm">
+                    <RkoCoinLogo size="xs" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm font-bold block truncate">محفظة RKO</span>
+                      <span className="text-[9px] font-black px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                        عملة داخلية
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-zinc-400 truncate block">الرصيد وسجل العمليات والمزايا</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="flex h-5 items-center justify-center rounded-full px-2 text-[10px] font-black font-sans bg-amber-500 text-black">
+                    {rkoBalance} RKO
+                  </span>
+                  <ArrowIcon className="h-4 w-4 text-amber-400" />
                 </div>
               </button>
             </div>

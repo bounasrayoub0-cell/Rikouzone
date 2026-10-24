@@ -955,29 +955,29 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
 
       {/* Unified Hero Header */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/25 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-300 shadow-sm">
-          <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/25 bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-700 dark:text-purple-300 shadow-sm">
+          <Sparkles className="h-3.5 w-3.5 text-purple-500 dark:text-purple-400" />
           <span>{t.ai.unifiedTitle}</span>
         </div>
         
-        <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-          Rikou <span className="bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">AI</span>
+        <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          Rikou <span className="bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 dark:from-purple-400 dark:to-violet-400 bg-clip-text text-transparent">AI</span>
         </h1>
 
-        <p className="mt-2 text-base sm:text-lg font-bold text-zinc-100">
+        <p className="mt-2 text-base sm:text-lg font-bold text-slate-800 dark:text-zinc-100">
           {t.ai.pageSubtitle}
         </p>
 
-        <p className="mt-2 text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+        <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto">
           {t.ai.howCanIHelpDesc}
         </p>
       </div>
 
       {/* Main Unified Chat Frame with History Panel Integration */}
-      <div className="relative rounded-3xl border border-zinc-800 bg-[#0d0e12] shadow-2xl overflow-hidden flex flex-col min-h-[580px] max-h-[820px]">
+      <div className="relative rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#0d0e12] shadow-xl dark:shadow-2xl overflow-hidden flex flex-col min-h-[580px] max-h-[820px]">
         
         {/* Chat Control Bar */}
-        <div className="flex items-center justify-between px-3 sm:px-6 py-3.5 border-b border-zinc-800/90 bg-[#12131a] z-20">
+        <div className="flex items-center justify-between px-3 sm:px-6 py-3.5 border-b border-slate-200 dark:border-zinc-800/90 bg-slate-50/90 dark:bg-[#12131a] z-20">
           <div className="flex items-center gap-2.5">
             <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center">
               <img
@@ -991,16 +991,16 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
                 width={36}
                 height={36}
               />
-              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-zinc-950 animate-pulse" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-950 animate-pulse" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs sm:text-sm font-black text-white">Rikou AI</span>
-                <span className="rounded-md bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400">
+                <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Rikou AI</span>
+                <span className="rounded-md bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                   {t.ai.online}
                 </span>
               </div>
-              <p className="text-[10px] text-zinc-400 hidden sm:block">
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 hidden sm:block">
                 {t.ai.multilingualSupport}
               </p>
             </div>
@@ -1012,19 +1012,19 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             {/* Conversation History Toggle */}
             <button
               onClick={() => setIsHistoryOpen(!isHistoryOpen)}
-              className={`flex items-center gap-1.5 rounded-xl border px-2.5 sm:px-3 py-1.5 text-xs font-bold transition-all active:scale-95 ${
+              className={`flex items-center gap-1.5 rounded-xl border px-2.5 sm:px-3 py-1.5 text-xs font-bold transition-all active:scale-95 cursor-pointer ${
                 isHistoryOpen
-                  ? 'border-purple-500/50 bg-purple-500/15 text-purple-300'
-                  : 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:text-white hover:border-purple-500/30 hover:bg-zinc-800'
+                  ? 'border-purple-500/50 bg-purple-50 dark:bg-purple-500/15 text-purple-700 dark:text-purple-300'
+                  : 'border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:border-purple-500/30 hover:bg-slate-100 dark:hover:bg-zinc-800 shadow-sm dark:shadow-none'
               }`}
               title={t.ai.history}
             >
-              <History className="h-3.5 w-3.5 text-purple-400" />
+              <History className="h-3.5 w-3.5 text-purple-500 dark:text-purple-400" />
               <span className="hidden sm:inline">
                 {t.ai.history}
               </span>
               {savedSessions.length > 0 && (
-                <span className="rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-300 px-1.5 py-0.2 text-[10px] font-bold">
+                <span className="rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-700 dark:text-purple-300 px-1.5 py-0.2 text-[10px] font-bold">
                   {savedSessions.length}
                 </span>
               )}
@@ -1034,7 +1034,7 @@ export const RikouAIView: React.FC<RikouAIViewProps> = ({ onCopyText, initialToo
             <button
               id="rikou-new-chat-btn"
               onClick={handleNewChat}
-              className="flex items-center gap-1.5 rounded-xl border border-purple-500/30 bg-purple-950/40 px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-purple-200 hover:text-white hover:bg-purple-600 hover:border-purple-500 transition-all active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 rounded-xl border border-purple-400/40 dark:border-purple-500/30 bg-purple-50 dark:bg-purple-950/40 px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-purple-700 dark:text-purple-200 hover:text-white hover:bg-purple-600 hover:border-purple-500 transition-all active:scale-95 shadow-sm cursor-pointer"
               title={t.ai.newChat}
             >
               <Plus className="h-3.5 w-3.5 stroke-[2.5]" />

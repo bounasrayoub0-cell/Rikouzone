@@ -42,6 +42,7 @@ import { AffiliateCalculators } from './AffiliateCalculators';
 import { AffiliateTemplates } from './AffiliateTemplates';
 import { AffiliateActionPlan } from './AffiliateActionPlan';
 import { InteractiveNicheChecklist, InteractiveOfferChecklist } from './AffiliateOfferChecklist';
+import { RikouLessonIllustration } from '../lessons/RikouLessonIllustration';
 
 interface AffiliateMarketingViewProps {
   onNavigate: (tab: string) => void;
@@ -381,6 +382,15 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
               </div>
             </div>
 
+            {/* Visual Educational Illustration & Diagram */}
+            <RikouLessonIllustration
+              lessonId={currentM1Lesson.id}
+              trackId="affiliate-marketing"
+              title={currentM1Lesson.title}
+              subtitle={currentM1Lesson.shortDesc}
+              lessonNumber={activeM1LessonIndex + 1}
+            />
+
             {/* Lesson Body Paragraphs */}
             <div className="space-y-3 text-sm text-zinc-300 leading-relaxed">
               {currentM1Lesson.content.map((paragraph, pIdx) => (
@@ -525,6 +535,15 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
                 <span>{currentM2Lesson.keyTakeaway}</span>
               </div>
             </div>
+
+            {/* Visual Educational Illustration & Diagram */}
+            <RikouLessonIllustration
+              lessonId={currentM2Lesson.id}
+              trackId="affiliate-marketing"
+              title={currentM2Lesson.title}
+              subtitle={currentM2Lesson.shortDesc}
+              lessonNumber={activeM2LessonIndex + 1}
+            />
 
             <div className="space-y-3 text-sm text-zinc-300 leading-relaxed">
               {currentM2Lesson.content.map((paragraph, pIdx) => (

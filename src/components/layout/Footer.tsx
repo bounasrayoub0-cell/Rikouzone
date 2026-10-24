@@ -106,6 +106,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   {t.nav.creators}
                 </button>
               </li>
+              <li>
+                <button onClick={() => onNavigate('wallet')} className="hover:text-amber-400 transition-colors flex items-center gap-1.5 text-amber-300 font-semibold">
+                  <span>محفظة RKO</span>
+                  <span className="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-1.5 py-0.2 rounded border border-amber-500/20 font-sans">RKO</span>
+                </button>
+              </li>
             </ul>
           </div>
 

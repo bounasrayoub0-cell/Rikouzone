@@ -2,15 +2,42 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-navy: #101828;
+  --color-royal-blue: #2563EB;
+  --color-royal-blue-hover: #1D4ED8;
+  --color-pale-blue: #EAF1FF;
+  --color-slate-gray: #667085;
+  --color-rko-gold: #D4A72C;
+}
+
 @layer base {
   :root {
     --font-cairo: 'Cairo', system-ui, sans-serif;
     --font-sans: 'Plus Jakarta Sans', 'Cairo', system-ui, sans-serif;
+
+    /* Centralized Color Palette Tokens */
+    --color-primary-navy: #101828;
+    --color-bg-white: #FFFFFF;
+    --color-interactive-blue: #2563EB;
+    --color-interactive-hover: #1D4ED8;
+    --color-bg-pale-blue: #EAF1FF;
+    --color-text-secondary: #667085;
+    --color-rko-gold: #D4A72C;
+    --color-border-default: #E2E8F0;
+    --color-border-subtle: #F1F5F9;
   }
 
   html {
     scroll-behavior: smooth;
     font-family: var(--font-cairo);
+    background-color: #FFFFFF;
+    color: #101828;
+  }
+
+  html.dark {
+    background-color: #0B111E;
+    color: #F8FAFC;
   }
 
   [dir="ltr"] {
@@ -21,73 +48,102 @@
   html.dark *,
   html.light * {
     transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-    transition-duration: 180ms;
+    transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-/* Custom dark scrollbar (Default) */
+/* Custom dark scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #08090D;
+  background: #0B111E;
 }
 ::-webkit-scrollbar-thumb {
-  background: #252836;
+  background: #1E293B;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F59E0B;
+  background: #2563EB;
 }
 
 /* Light mode scrollbar */
 html.light ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F8FAFC;
 }
 html.light ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #CBD5E1;
 }
 html.light ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #94A3B8;
 }
 
-/* Subtle glow utilities */
-.gold-glow {
-  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.15);
+/* SaaS Subtle Professional Shadows (replaces loud neon glows) */
+.saas-shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+.saas-shadow-md {
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.06), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+}
+.saas-shadow-lg {
+  box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
 }
 
-.gold-glow-lg {
-  box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.25);
-}
-
+.gold-glow,
+.gold-glow-lg,
 .orange-glow {
-  box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.15);
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.05);
 }
 
 .card-gradient-border {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(249, 115, 22, 0.1) 100%);
+  background: transparent;
+  border-color: #E2E8F0;
+}
+html.dark .card-gradient-border {
+  border-color: #1E293B;
 }
 
 /* ============================================================
-   LIGHT MODE STYLING ENGINE
-   Clean, Modern, Eye-friendly (Preserves All Section Accent Colors)
+   LIGHT MODE STYLING ENGINE (SaaS Standard: Clean White, Deep Navy, Royal Blue)
    ============================================================ */
 
 html.light {
   color-scheme: light;
 }
 
-/* Base Body & Main Canvas */
+/* Base Body & Main Canvas: Clean White #FFFFFF */
 html.light body,
 html.light #root,
-html.light .min-h-screen {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
+html.light .min-h-screen,
+html.light .bg-\[\#060608\],
+html.light .bg-\[\#08090D\] {
+  background-color: #FFFFFF !important;
+  color: #101828 !important;
 }
 
-/* Deep Dark Neutral Containers -> Clean Light Surfaces */
+/* Primary Headings & Bold Text -> Deep Navy #101828 */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light .text-slate-900,
+html.light .text-slate-800,
+html.light .text-zinc-950,
+html.light .text-zinc-900 {
+  color: #101828 !important;
+}
+
+/* Secondary Text -> Slate Gray #667085 */
+html.light .text-slate-600,
+html.light .text-slate-500,
+html.light .text-zinc-500,
+html.light .text-zinc-400 {
+  color: #667085 !important;
+}
+
+/* Clean White Card Surfaces */
 html.light .bg-zinc-950,
 html.light .bg-zinc-900,
 html.light .bg-zinc-900\/90,
@@ -96,75 +152,104 @@ html.light .bg-zinc-900\/70,
 html.light .bg-zinc-900\/60,
 html.light .bg-zinc-900\/50,
 html.light .bg-zinc-900\/40,
-html.light .bg-zinc-900\/30 {
-  background-color: #ffffff !important;
+html.light .bg-zinc-900\/30,
+html.light .bg-\[\#09090b\],
+html.light .bg-\[\#0c0c10\],
+html.light .bg-\[\#0d0e12\],
+html.light .bg-\[\#101117\],
+html.light .bg-\[\#202124\] {
+  background-color: #FFFFFF !important;
 }
 
-/* Subtle Card Backdrops & Elevated Panels */
+/* Secondary Panels -> Pale Blue #EAF1FF or Soft Slate #F8FAFC */
 html.light .bg-zinc-950\/60,
 html.light .bg-zinc-950\/70,
 html.light .bg-zinc-950\/80,
+html.light .bg-zinc-950\/90,
+html.light .bg-zinc-950\/95,
 html.light .bg-zinc-800,
 html.light .bg-zinc-800\/90,
 html.light .bg-zinc-800\/80,
-html.light .bg-zinc-800\/70 {
-  background-color: #f1f5f9 !important;
+html.light .bg-zinc-800\/70,
+html.light .bg-zinc-850,
+html.light .bg-slate-50,
+html.light .bg-slate-100 {
+  background-color: #F8FAFC !important;
 }
 
 /* Header & Bottom Nav Translucency */
+html.light header,
 html.light header.bg-zinc-950\/80 {
-  background-color: rgba(255, 255, 255, 0.88) !important;
-}
-html.light .fixed.bottom-0.bg-zinc-950\/95 {
   background-color: rgba(255, 255, 255, 0.95) !important;
-}
-html.light footer.bg-zinc-950 {
-  background-color: #f1f5f9 !important;
+  border-bottom-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.05) !important;
 }
 
-/* Neutral Dark Borders -> Crisp Light Gray Borders */
+html.light .fixed.bottom-0.bg-zinc-950\/95,
+html.light nav.fixed.bottom-0 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-top-color: #E2E8F0 !important;
+  box-shadow: 0 -2px 10px rgba(16, 24, 40, 0.04) !important;
+}
+
+html.light footer {
+  background-color: #F8FAFC !important;
+  border-top-color: #E2E8F0 !important;
+}
+
+/* Dropdown Menus & Popups */
+html.light #language-dropdown-menu,
+html.light div[role="listbox"],
+html.light .shadow-2xl.backdrop-blur-2xl {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 25px -5px rgba(16, 24, 40, 0.08), 0 8px 10px -6px rgba(16, 24, 40, 0.04) !important;
+}
+
+/* Crisp Light Gray Borders */
 html.light .border-zinc-800,
 html.light .border-zinc-800\/90,
 html.light .border-zinc-800\/80,
 html.light .border-zinc-800\/70,
 html.light .border-zinc-800\/60,
+html.light .border-zinc-800\/50,
 html.light .border-zinc-900,
 html.light .border-zinc-700,
 html.light .border-zinc-700\/80,
-html.light .border-zinc-700\/50 {
-  border-color: #e2e8f0 !important;
+html.light .border-zinc-700\/50,
+html.light .border-zinc-700\/40,
+html.light .border-slate-200 {
+  border-color: #E2E8F0 !important;
 }
 
-/* Hover States for Cards & Neutral Buttons */
+/* Card & Button Hovers */
 html.light .hover\:bg-zinc-900\/90:hover,
+html.light .hover\:bg-zinc-900\/80:hover,
 html.light .hover\:bg-zinc-900:hover,
 html.light .hover\:bg-zinc-800\/80:hover,
-html.light .hover\:bg-zinc-800:hover {
-  background-color: #f8fafc !important;
+html.light .hover\:bg-zinc-800:hover,
+html.light .hover\:bg-slate-100:hover,
+html.light .hover\:bg-slate-200:hover {
+  background-color: #F1F5F9 !important;
 }
 
-html.light .hover\:border-zinc-700:hover {
-  border-color: #cbd5e1 !important;
+html.light .hover\:border-zinc-700:hover,
+html.light .hover\:border-slate-300:hover {
+  border-color: #CBD5E1 !important;
 }
 
-/* Neutral Typography: High contrast dark text in Light Mode */
+/* Text in Light Mode */
 html.light .text-white {
-  color: #0f172a !important;
+  color: #101828 !important;
 }
 html.light .text-zinc-100 {
-  color: #0f172a !important;
+  color: #101828 !important;
 }
 html.light .text-zinc-200 {
-  color: #1e293b !important;
+  color: #1E293B !important;
 }
 html.light .text-zinc-300 {
   color: #334155 !important;
-}
-html.light .text-zinc-400 {
-  color: #475569 !important;
-}
-html.light .text-zinc-500 {
-  color: #64748b !important;
 }
 
 /* Form Inputs, Selects, and Textareas */
@@ -172,80 +257,154 @@ html.light input[type="text"],
 html.light input[type="number"],
 html.light textarea,
 html.light select {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
+  background-color: #FFFFFF !important;
+  color: #101828 !important;
+  border-color: #CBD5E1 !important;
+}
+html.light input:focus,
+html.light textarea:focus,
+html.light select:focus {
+  border-color: #2563EB !important;
+  outline-color: #2563EB !important;
 }
 
 html.light input::placeholder,
 html.light textarea::placeholder {
-  color: #94a3b8 !important;
+  color: #94A3B8 !important;
 }
 
-/* Modals Backdrops & Overlays */
-html.light .fixed.inset-0.bg-black\/80 {
-  background-color: rgba(15, 23, 42, 0.6) !important;
+/* Modal Backdrops & Overlays */
+html.light .fixed.inset-0.bg-black\/80,
+html.light .fixed.inset-0.bg-black\/75,
+html.light .fixed.inset-0.bg-black\/70,
+html.light .fixed.inset-0.bg-black\/60 {
+  background-color: rgba(16, 24, 40, 0.55) !important;
 }
 
-/* PRESERVE WHITE TEXT ON SATURATED DARK BUTTONS & BADGES */
-html.light .bg-purple-600,
-html.light .bg-purple-600 *,
-html.light .bg-purple-500,
-html.light .bg-purple-500 *,
+/* Solid Blue Interactive CTAs in Light Mode (Preserves white text) */
 html.light .bg-blue-600,
 html.light .bg-blue-600 *,
 html.light .bg-blue-500,
 html.light .bg-blue-500 *,
-html.light .bg-rose-500,
-html.light .bg-rose-500 *,
-html.light .bg-rose-600,
-html.light .bg-rose-600 *,
-html.light .bg-emerald-600,
-html.light .bg-emerald-600 *,
-html.light button.bg-purple-600,
 html.light button.bg-blue-600,
-html.light .bg-black.text-white,
-html.light .bg-gradient-to-r.from-purple-500.to-indigo-500 * {
-  color: #ffffff !important;
+html.light button.bg-blue-500,
+html.light .bg-\[\#2563EB\],
+html.light .bg-\[\#2563EB\] * {
+  color: #FFFFFF !important;
 }
 
-/* PRESERVE BLACK TEXT ON AMBER & EMERALD SOLID BUTTONS */
-html.light .bg-amber-500,
-html.light .bg-amber-500 *,
-html.light .bg-emerald-500,
-html.light .bg-emerald-500 *,
-html.light .text-black {
-  color: #000000 !important;
+/* Convert Loud Amber/Orange Buttons to Royal Blue in Light Mode (except RKO wallet) */
+html.light button.bg-amber-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+html.light .bg-gradient-to-r.from-amber-500.to-yellow-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+html.light .bg-gradient-to-r.from-amber-500.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+html.light .bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500 {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: transparent !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2) !important;
 }
 
-/* Rikou AI Light Mode Adaptation */
-html.light div[data-section="rikou-ai-section"],
-html.light .bg-\[\#0d0e12\] {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05) !important;
+html.light button.bg-amber-500:hover:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button) {
+  background: #1D4ED8 !important;
 }
 
-html.light .bg-\[\#12131a\] {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+/* RKO Gold Strictly Scoped */
+.rko-coin-gold,
+[data-currency="rko"],
+#header-rko-wallet-btn span.text-amber-600,
+#header-rko-wallet-btn span.text-amber-400,
+.rko-wallet-gold {
+  color: #D4A72C !important;
 }
 
-html.light .bg-\[\#0f1015\] {
-  background-color: #f1f5f9 !important;
-  border-color: #e2e8f0 !important;
+/* Rikou AI Light Mode */
+html.light div[data-section="rikou-ai-section"] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.04) !important;
 }
 
-html.light .bg-\[\#13141c\] {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+/* Subtle Gradient Normalization */
+html.light .from-zinc-950,
+html.light .from-zinc-900,
+html.light .from-black,
+html.light .from-\[\#07080b\],
+html.light .from-\[\#09090b\],
+html.light .from-\[\#0a0b10\] {
+  --tw-gradient-from: #FFFFFF var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
 }
 
-html.light .hover\:bg-\[\#181924\]:hover {
-  background-color: #f1f5f9 !important;
+html.light .to-zinc-950,
+html.light .to-zinc-900,
+html.light .to-black,
+html.light .to-\[\#07080b\],
+html.light .to-\[\#09090b\],
+html.light .to-\[\#0a0b10\] {
+  --tw-gradient-to: #F8FAFC var(--tw-gradient-to-position) !important;
 }
 
-html.light .bg-\[\#101117\] {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+/* ============================================================
+   DARK MODE STYLING ENGINE (Deep Navy #0B111E / #101828)
+   ============================================================ */
+
+html.dark body,
+html.dark #root,
+html.dark .min-h-screen,
+html.dark .bg-\[\#060608\],
+html.dark .bg-\[\#08090D\] {
+  background-color: #0B111E !important;
+  color: #F8FAFC !important;
+}
+
+html.dark header,
+html.dark header.bg-zinc-950\/80 {
+  background-color: rgba(16, 24, 40, 0.95) !important;
+  border-bottom-color: #1E293B !important;
+}
+
+html.dark .fixed.bottom-0.bg-zinc-950\/95,
+html.dark nav.fixed.bottom-0 {
+  background-color: rgba(16, 24, 40, 0.95) !important;
+  border-top-color: #1E293B !important;
+}
+
+html.dark footer {
+  background-color: #0B111E !important;
+  border-top-color: #1E293B !important;
+}
+
+html.dark .bg-zinc-950,
+html.dark .bg-zinc-900,
+html.dark .bg-\[\#09090b\],
+html.dark .bg-\[\#060608\] {
+  background-color: #101828 !important;
+}
+
+html.dark .bg-zinc-900\/60,
+html.dark .bg-zinc-900\/50,
+html.dark .bg-zinc-900\/40,
+html.dark .bg-zinc-950\/60,
+html.dark .bg-zinc-950\/70,
+html.dark .bg-zinc-800 {
+  background-color: #162032 !important;
+}
+
+html.dark .border-zinc-800,
+html.dark .border-zinc-800\/90,
+html.dark .border-zinc-800\/80,
+html.dark .border-zinc-900 {
+  border-color: #1E293B !important;
+}
+
+html.dark .text-zinc-400,
+html.dark .text-slate-400 {
+  color: #94A3B8 !important;
+}
+
+/* Ensure gradient text titles preserve their gradient */
+.bg-clip-text {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }

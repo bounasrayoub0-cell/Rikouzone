@@ -72,30 +72,30 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-150 overflow-y-auto">
       <div 
-        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-800/90 bg-[#0c0e15] p-5 sm:p-7 shadow-2xl my-auto"
+        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0c0e15] text-slate-900 dark:text-zinc-100 p-5 sm:p-7 shadow-2xl my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/10 blur-2xl" />
 
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-zinc-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
               <Target className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[11px] font-black uppercase text-amber-400 block tracking-wider">
+              <span className="text-[11px] font-black uppercase text-amber-600 dark:text-amber-400 block tracking-wider">
                 التطبيق والتمرين العملي
               </span>
-              <h3 className="text-base sm:text-lg font-black text-white line-clamp-1">
+              <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white line-clamp-1">
                 {challenge.title}
               </h3>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 dark:bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
             <Sparkles className="h-3.5 w-3.5" />
             <span>+{challenge.xpReward} XP</span>
           </div>
@@ -103,14 +103,14 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
 
         {/* Instructions */}
         <div className="my-5 space-y-4">
-          <div className="p-4 rounded-2xl bg-[#12141d]/80 border border-zinc-800 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-            <span className="text-amber-400 font-bold block mb-1">تعليمات المهمة:</span>
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#12141d]/80 border border-slate-200 dark:border-zinc-800 text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed">
+            <span className="text-amber-600 dark:text-amber-400 font-bold block mb-1">تعليمات المهمة:</span>
             <p>{exercise.instructions}</p>
           </div>
 
           {/* User Input Area */}
           <div>
-            <label className="block text-xs font-bold text-zinc-300 mb-1.5">
+            <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">
               مساحة كتابة أو لصق تطبيقك العملي:
             </label>
             <textarea
@@ -121,13 +121,13 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
                 if (errorMsg) setErrorMsg(null);
               }}
               placeholder="اكتب هنا ما طبقته للتحقق والحصول على نقاط الـ XP..."
-              className="w-full rounded-2xl bg-[#10121a] border border-zinc-800 p-3.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/60 transition-colors"
+              className="w-full rounded-2xl bg-white dark:bg-[#10121a] border border-slate-300 dark:border-zinc-800 p-3.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-amber-500 shadow-sm dark:shadow-none transition-colors"
             />
           </div>
 
           {/* Verification Criteria Checkboxes */}
           <div className="space-y-2">
-            <span className="text-xs font-bold text-zinc-400 block">
+            <span className="text-xs font-bold text-slate-600 dark:text-zinc-400 block">
               معايير التحقق والتأكيد الذاتي (ضع علامة صح بعد مراجعتها):
             </span>
             <div className="space-y-2">
@@ -140,12 +140,12 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
                     onClick={() => toggleCheck(idx)}
                     className={`w-full text-right p-3 rounded-xl border text-xs transition-all cursor-pointer flex items-center gap-3 ${
                       checked
-                        ? 'border-emerald-500/60 bg-emerald-950/20 text-emerald-200'
-                        : 'border-zinc-800 bg-[#12141c]/50 text-zinc-400 hover:border-zinc-700'
+                        ? 'border-emerald-500/60 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-200 font-medium'
+                        : 'border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-[#12141c]/50 text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700'
                     }`}
                   >
                     <div className={`h-4 w-4 rounded-md border flex items-center justify-center shrink-0 ${
-                      checked ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-zinc-700 bg-zinc-950'
+                      checked ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950'
                     }`}>
                       {checked && <Check className="h-3 w-3 stroke-[3]" />}
                     </div>
@@ -158,17 +158,17 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
 
           {/* Sample Answer if provided */}
           {exercise.sampleAnswer && (
-            <div className="p-3.5 rounded-xl bg-[#10121a] border border-zinc-800/80 text-xs text-zinc-400 flex items-start justify-between gap-3">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#10121a] border border-slate-200 dark:border-zinc-800/80 text-xs text-slate-600 dark:text-zinc-400 flex items-start justify-between gap-3">
               <div>
-                <span className="font-bold text-zinc-300 block mb-0.5">نموذج استرشادي:</span>
-                <p className="italic text-zinc-400">"{exercise.sampleAnswer}"</p>
+                <span className="font-bold text-slate-800 dark:text-zinc-300 block mb-0.5">نموذج استرشادي:</span>
+                <p className="italic text-slate-600 dark:text-zinc-400">"{exercise.sampleAnswer}"</p>
               </div>
               <button
                 onClick={handleCopySample}
-                className="shrink-0 p-1.5 rounded-lg bg-[#181a26] hover:bg-[#202334] border border-zinc-700/60 text-zinc-300 transition-colors cursor-pointer"
+                className="shrink-0 p-1.5 rounded-lg bg-slate-200 dark:bg-[#181a26] hover:bg-slate-300 dark:hover:bg-[#202334] border border-slate-300 dark:border-zinc-700/60 text-slate-700 dark:text-zinc-300 transition-colors cursor-pointer"
                 title="نسخ النموذج"
               >
-                {copiedSample ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedSample ? <Check className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
               </button>
             </div>
           )}
@@ -182,10 +182,10 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-zinc-800/80">
           <button
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
           >
             إلغاء
           </button>
@@ -196,7 +196,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
             className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer flex items-center gap-1.5 ${
               isInputValid && allChecksConfirmed
                 ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                : 'bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed'
             }`}
           >
             <CheckCircle2 className="h-4 w-4" />

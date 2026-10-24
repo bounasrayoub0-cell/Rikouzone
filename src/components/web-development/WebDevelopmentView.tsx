@@ -29,6 +29,7 @@ import {
   freelanceServicesList, 
   clientOutreachEmail
 } from '../../data/webDevelopmentData';
+import { RikouLessonIllustration } from '../lessons/RikouLessonIllustration';
 
 interface WebDevelopmentViewProps {
   onNavigate?: (tab: string) => void;
@@ -583,6 +584,15 @@ export const WebDevelopmentView: React.FC<WebDevelopmentViewProps> = ({ onNaviga
                       {activeLesson.summary}
                     </p>
                   </div>
+
+                  {/* RikouZone Visual Infographic / Architecture Diagram */}
+                  <RikouLessonIllustration
+                    lessonId={activeLesson.id}
+                    trackId="web-development"
+                    title={activeLesson.title}
+                    subtitle={activeLesson.summary}
+                    lessonNumber={activeLesson.number}
+                  />
 
                   {/* 1. 📖 شرح الدرس (Explanation) */}
                   <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/60 p-4 sm:p-6 space-y-3">

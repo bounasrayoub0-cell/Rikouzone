@@ -7,7 +7,7 @@ export interface LocalizedBadgeData {
   condition: string;
 }
 
-export const BADGE_LOCALIZATIONS: Record<string, Record<Language, LocalizedBadgeData>> = {
+export const BADGE_LOCALIZATIONS: Record<string, Partial<Record<Language, LocalizedBadgeData>>> = {
   // 1. Existing Badges
   'first-challenge-done': {
     ar: { name: 'الخطوة الأولى', description: 'أكملت أول تحدٍّ تعليمي بنجاح في RikouZone', condition: 'إكمال أي تحدٍّ واحد بنجاح' },

@@ -366,31 +366,31 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
             return (
               <div
                 key={idea.id}
-                className={`group relative flex flex-col justify-between rounded-3xl border bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:bg-zinc-900/95 hover:shadow-xl ${
+                className={`group relative flex flex-col justify-between rounded-3xl border bg-white dark:bg-zinc-900/60 p-6 backdrop-blur-sm transition-all hover:bg-slate-50 dark:hover:bg-zinc-900/95 hover:shadow-xl shadow-sm dark:shadow-none ${
                   isFresh
-                    ? 'border-purple-500/60 shadow-lg shadow-purple-900/20 ring-1 ring-purple-500/30'
-                    : 'border-zinc-800/90 hover:border-purple-500/40 hover:shadow-purple-900/10'
+                    ? 'border-purple-400 dark:border-purple-500/60 shadow-lg shadow-purple-500/10 dark:shadow-purple-900/20 ring-1 ring-purple-400/40 dark:ring-purple-500/30'
+                    : 'border-slate-200 dark:border-zinc-800/90 hover:border-purple-400 dark:hover:border-purple-500/40 hover:shadow-purple-500/10'
                 }`}
               >
                 <div>
                   {/* Top Badges */}
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="rounded-lg bg-purple-500/10 px-2.5 py-0.5 font-bold text-purple-400 border border-purple-500/20">
+                      <span className="rounded-lg bg-purple-500/15 dark:bg-purple-500/10 px-2.5 py-0.5 font-bold text-purple-700 dark:text-purple-400 border border-purple-500/30 dark:border-purple-500/20">
                         {idea.platform}
                       </span>
-                      <span className="rounded-lg bg-zinc-800 px-2 py-0.5 text-[11px] font-semibold text-zinc-300">
+                      <span className="rounded-lg bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 text-[11px] font-semibold text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-transparent">
                         {idea.niche}
                       </span>
                       {idea.facelessPossibility && (
-                        <span className="inline-flex items-center gap-1 rounded bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-300 border border-purple-500/20">
+                        <span className="inline-flex items-center gap-1 rounded bg-purple-500/15 dark:bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300 border border-purple-500/30 dark:border-purple-500/20">
                           <UserX className="h-3 w-3" />
                           Faceless
                         </span>
                       )}
                       {isFresh && (
-                        <span className="inline-flex items-center gap-1 rounded bg-amber-500/15 px-2 py-0.5 text-[10px] font-black text-amber-300 border border-amber-500/30">
-                          <Sparkles className="h-3 w-3 text-amber-400" />
+                        <span className="inline-flex items-center gap-1 rounded bg-amber-500/15 px-2 py-0.5 text-[10px] font-black text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                          <Sparkles className="h-3 w-3 text-amber-500 dark:text-amber-400" />
                           جديد
                         </span>
                       )}
@@ -398,10 +398,10 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
 
                     <button
                       onClick={() => onToggleSave(idea.id, 'idea')}
-                      className="rounded-lg p-1 text-zinc-500 hover:text-purple-400 transition-colors cursor-pointer"
+                      className="rounded-lg p-1 text-slate-400 dark:text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer"
                       title={t.common.save}
                     >
-                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-purple-400 text-purple-400' : ''}`} />
+                      <Bookmark className={`h-4 w-4 ${saved ? 'fill-purple-500 text-purple-500' : ''}`} />
                     </button>
                   </div>
 
@@ -417,38 +417,38 @@ export const ContentIdeasView: React.FC<ContentIdeasViewProps> = ({
                   {/* Title */}
                   <h3 
                     onClick={() => setActiveIdeaModal(idea)}
-                    className="mt-2.5 text-base font-bold text-white group-hover:text-purple-300 transition-colors cursor-pointer line-clamp-2"
+                    className="mt-2.5 text-base font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors cursor-pointer line-clamp-2"
                   >
                     {title}
                   </h3>
 
                   {/* Unique Hook Box */}
-                  <div className="mt-3 rounded-2xl border border-purple-500/25 bg-purple-500/5 p-3">
+                  <div className="mt-3 rounded-2xl border border-purple-300/40 dark:border-purple-500/25 bg-purple-50/70 dark:bg-purple-500/5 p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400">
                         {t.ideas.openingHookTitle}
                       </span>
                       <button
                         onClick={() => onCopyText(hook, t.ideas.hookCopied)}
-                        className="flex items-center gap-1 rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-200 hover:bg-purple-600 hover:text-white transition-all cursor-pointer"
+                        className="flex items-center gap-1 rounded bg-slate-200 dark:bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-slate-700 dark:text-zinc-200 hover:bg-purple-600 hover:text-white transition-all cursor-pointer"
                         title={t.ideas.copyHook}
                       >
                         <Copy className="h-3 w-3" />
                         <span>{t.common.copy}</span>
                       </button>
                     </div>
-                    <p className="mt-1 text-xs font-semibold text-zinc-200 line-clamp-2 italic">
+                    <p className="mt-1 text-xs font-semibold text-slate-800 dark:text-zinc-200 line-clamp-2 italic">
                       "{hook}"
                     </p>
                   </div>
                 </div>
 
                 {/* Footer Meta & Button */}
-                <div className="mt-5 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <div className="mt-5 pt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-zinc-400">
                     <span>{idea.duration}</span>
-                    <span className="text-zinc-600">•</span>
-                    <span className="capitalize text-purple-400 font-medium">
+                    <span className="text-slate-300 dark:text-zinc-600">•</span>
+                    <span className="capitalize text-purple-700 dark:text-purple-400 font-medium">
                       {idea.viralPotential === 'explosive' ? t.common.explosive : t.common.high}
                     </span>
                   </div>
