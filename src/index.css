@@ -6,8 +6,8 @@
   --color-navy: #101828;
   --color-royal-blue: #2563EB;
   --color-royal-blue-hover: #1D4ED8;
-  --color-pale-blue: #EAF1FF;
-  --color-slate-gray: #667085;
+  --color-pale-blue: #EFF6FF;
+  --color-slate-gray: #475467;
   --color-rko-gold: #D4A72C;
 }
 
@@ -16,16 +16,26 @@
     --font-cairo: 'Cairo', system-ui, sans-serif;
     --font-sans: 'Plus Jakarta Sans', 'Cairo', system-ui, sans-serif;
 
-    /* Centralized Color Palette Tokens */
+    /* Centralized Palette Tokens */
     --color-primary-navy: #101828;
     --color-bg-white: #FFFFFF;
+    --color-bg-light-alt: #F8FAFC;
+    --color-bg-pale-blue: #EFF6FF;
+    --color-text-main-light: #101828;
+    --color-text-body-light: #475467;
+    --color-text-subtle-light: #667085;
+
+    --color-bg-dark-navy: #101828;
+    --color-bg-dark-surface: #162032;
+    --color-text-main-dark: #F9FAFB;
+    --color-text-body-dark: #D0D5DD;
+    --color-text-subtle-dark: #98A2B3;
+
     --color-interactive-blue: #2563EB;
     --color-interactive-hover: #1D4ED8;
-    --color-bg-pale-blue: #EAF1FF;
-    --color-text-secondary: #667085;
     --color-rko-gold: #D4A72C;
-    --color-border-default: #E2E8F0;
-    --color-border-subtle: #F1F5F9;
+    --color-border-light: #E2E8F0;
+    --color-border-dark: #1E293B;
   }
 
   html {
@@ -36,8 +46,8 @@
   }
 
   html.dark {
-    background-color: #0B111E;
-    color: #F8FAFC;
+    background-color: #101828;
+    color: #F9FAFB;
   }
 
   [dir="ltr"] {
@@ -59,7 +69,7 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B111E;
+  background: #101828;
 }
 ::-webkit-scrollbar-thumb {
   background: #1E293B;
@@ -80,7 +90,7 @@ html.light ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
 
-/* SaaS Subtle Professional Shadows (replaces loud neon glows) */
+/* SaaS Subtle Professional Shadows */
 .saas-shadow-sm {
   box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
 }
@@ -97,16 +107,69 @@ html.light ::-webkit-scrollbar-thumb:hover {
   box-shadow: 0 4px 12px rgba(16, 24, 40, 0.05);
 }
 
-.card-gradient-border {
-  background: transparent;
-  border-color: #E2E8F0;
+/* ============================================================
+   GLOBAL GRADIENT & GLOW NEUTRALIZATION (Clean homogeneous canvas)
+   ============================================================ */
+
+/* Remove large muddy background blurs */
+div[class*="blur-"][class*="amber-"],
+div[class*="blur-"][class*="orange-"],
+.bg-amber-500\/15.blur-\[120px\],
+.bg-amber-500\/10.blur-\[130px\],
+.bg-amber-500\/20.blur-3xl {
+  display: none !important;
 }
-html.dark .card-gradient-border {
-  border-color: #1E293B;
+
+/* Neutralize abrupt gradient hero sections in course & guide pages */
+.bg-gradient-to-b.from-amber-500\/10,
+.bg-gradient-to-b.from-blue-600\/10,
+.bg-gradient-to-b.from-amber-950,
+.bg-gradient-to-b.from-zinc-950,
+.bg-gradient-to-b.from-zinc-900 {
+  background-image: none !important;
+}
+
+/* Neutralize abrupt gradient text that loses contrast */
+.bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500.bg-clip-text,
+.bg-gradient-to-r.from-amber-400.via-orange-400.to-amber-500.bg-clip-text {
+  background-image: none !important;
+  -webkit-text-fill-color: initial !important;
+  color: #2563EB !important;
+}
+html.dark .bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500.bg-clip-text,
+html.dark .bg-gradient-to-r.from-amber-400.via-orange-400.to-amber-500.bg-clip-text {
+  color: #60A5FA !important;
 }
 
 /* ============================================================
-   LIGHT MODE STYLING ENGINE (SaaS Standard: Clean White, Deep Navy, Royal Blue)
+   UNIFIED BUTTONS & CTAS (Royal Blue #2563EB everywhere except RKO)
+   ============================================================ */
+
+/* Map loud amber/orange CTA buttons to Royal Blue */
+.bg-gradient-to-r.from-amber-500.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+.bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+.bg-gradient-to-r.from-amber-500.to-amber-400:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
+button.bg-amber-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button) {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px -2px rgba(37, 99, 235, 0.3) !important;
+}
+
+.bg-gradient-to-r.from-amber-500.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button):hover,
+.bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button):hover,
+.bg-gradient-to-r.from-amber-500.to-amber-400:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button):hover,
+button.bg-amber-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button):hover {
+  background: #1D4ED8 !important;
+}
+
+/* Secondary outline buttons in hero */
+.border-zinc-800.bg-zinc-900\/90:hover {
+  border-color: #2563EB !important;
+}
+
+/* ============================================================
+   LIGHT MODE STYLING ENGINE (Clean White #FFFFFF / Deep Navy / #475467)
    ============================================================ */
 
 html.light {
@@ -123,24 +186,65 @@ html.light .bg-\[\#08090D\] {
   color: #101828 !important;
 }
 
-/* Primary Headings & Bold Text -> Deep Navy #101828 */
+/* Course and lesson headers in Light Mode */
+html.light .bg-gradient-to-b.from-amber-500\/10,
+html.light .bg-gradient-to-b.from-blue-600\/10,
+html.light .bg-gradient-to-b.from-amber-950,
+html.light .bg-gradient-to-b.from-zinc-950 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Primary Headings -> Deep Navy #101828 */
 html.light h1,
-html.light h2,
+html.light h2:not(.text-amber-400):not(.text-amber-500):not(.text-blue-600),
 html.light h3,
 html.light h4,
+html.light h5,
+html.light h6,
 html.light .text-slate-900,
 html.light .text-slate-800,
 html.light .text-zinc-950,
-html.light .text-zinc-900 {
+html.light .text-zinc-900,
+html.light .text-white {
   color: #101828 !important;
 }
 
-/* Secondary Text -> Slate Gray #667085 */
+/* Subtitle & Course Highlights in Light Mode */
+html.light h2.text-amber-400,
+html.light h2.text-amber-500,
+html.light .font-bold.text-amber-400:not([data-currency="rko"]):not(.rko-coin-gold),
+html.light .font-bold.text-amber-500:not([data-currency="rko"]):not(.rko-coin-gold) {
+  color: #2563EB !important;
+}
+
+/* Normal Body Text & Descriptions -> Slate #475467 */
+html.light p,
+html.light .text-slate-700,
 html.light .text-slate-600,
+html.light .text-zinc-600,
+html.light .text-zinc-700,
+html.light .text-zinc-300,
+html.light .text-zinc-200 {
+  color: #475467 !important;
+}
+
+/* Secondary & Small Text -> Slate Gray #667085 */
 html.light .text-slate-500,
+html.light .text-slate-400,
 html.light .text-zinc-500,
 html.light .text-zinc-400 {
   color: #667085 !important;
+}
+
+/* Breadcrumbs in Light Mode */
+html.light nav.text-zinc-400,
+html.light nav.text-zinc-400 * {
+  color: #667085 !important;
+}
+html.light nav span.text-amber-400,
+html.light nav span.text-amber-500 {
+  color: #2563EB !important;
 }
 
 /* Clean White Card Surfaces */
@@ -161,7 +265,7 @@ html.light .bg-\[\#202124\] {
   background-color: #FFFFFF !important;
 }
 
-/* Secondary Panels -> Pale Blue #EAF1FF or Soft Slate #F8FAFC */
+/* Secondary Panels -> Pale Blue #EFF6FF or Soft Slate #F8FAFC */
 html.light .bg-zinc-950\/60,
 html.light .bg-zinc-950\/70,
 html.light .bg-zinc-950\/80,
@@ -171,23 +275,22 @@ html.light .bg-zinc-800,
 html.light .bg-zinc-800\/90,
 html.light .bg-zinc-800\/80,
 html.light .bg-zinc-800\/70,
-html.light .bg-zinc-850,
 html.light .bg-slate-50,
 html.light .bg-slate-100 {
   background-color: #F8FAFC !important;
 }
 
-/* Header & Bottom Nav Translucency */
+/* Header & Bottom Nav in Light Mode */
 html.light header,
 html.light header.bg-zinc-950\/80 {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(255, 255, 255, 0.96) !important;
   border-bottom-color: #E2E8F0 !important;
   box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.05) !important;
 }
 
 html.light .fixed.bottom-0.bg-zinc-950\/95,
 html.light nav.fixed.bottom-0 {
-  background-color: rgba(255, 255, 255, 0.96) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
   border-top-color: #E2E8F0 !important;
   box-shadow: 0 -2px 10px rgba(16, 24, 40, 0.04) !important;
 }
@@ -197,16 +300,7 @@ html.light footer {
   border-top-color: #E2E8F0 !important;
 }
 
-/* Dropdown Menus & Popups */
-html.light #language-dropdown-menu,
-html.light div[role="listbox"],
-html.light .shadow-2xl.backdrop-blur-2xl {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  box-shadow: 0 10px 25px -5px rgba(16, 24, 40, 0.08), 0 8px 10px -6px rgba(16, 24, 40, 0.04) !important;
-}
-
-/* Crisp Light Gray Borders */
+/* Crisp Light Gray Borders in Light Mode */
 html.light .border-zinc-800,
 html.light .border-zinc-800\/90,
 html.light .border-zinc-800\/80,
@@ -233,155 +327,134 @@ html.light .hover\:bg-slate-200:hover {
   background-color: #F1F5F9 !important;
 }
 
-html.light .hover\:border-zinc-700:hover,
-html.light .hover\:border-slate-300:hover {
-  border-color: #CBD5E1 !important;
+/* Course badges in Light Mode -> Pale Blue */
+html.light .border-amber-500\/30.bg-amber-500\/10.text-amber-400:not([id*="rko"]) {
+  border-color: #BFDBFE !important;
+  background-color: #EFF6FF !important;
+  color: #2563EB !important;
 }
 
-/* Text in Light Mode */
-html.light .text-white {
-  color: #101828 !important;
+/* Big amber lesson objective callout boxes -> Calm Pale Blue */
+html.light .bg-amber-500\/10.border-amber-500\/25,
+html.light .bg-amber-50.border-amber-400\/40,
+html.light .bg-amber-50\/80.border-amber-400\/40,
+html.light .bg-amber-50\/90 {
+  background-color: #EFF6FF !important;
+  border-color: #BFDBFE !important;
+  color: #1E40AF !important;
 }
-html.light .text-zinc-100 {
-  color: #101828 !important;
-}
-html.light .text-zinc-200 {
-  color: #1E293B !important;
-}
-html.light .text-zinc-300 {
-  color: #334155 !important;
-}
-
-/* Form Inputs, Selects, and Textareas */
-html.light input[type="text"],
-html.light input[type="number"],
-html.light textarea,
-html.light select {
-  background-color: #FFFFFF !important;
-  color: #101828 !important;
-  border-color: #CBD5E1 !important;
-}
-html.light input:focus,
-html.light textarea:focus,
-html.light select:focus {
-  border-color: #2563EB !important;
-  outline-color: #2563EB !important;
-}
-
-html.light input::placeholder,
-html.light textarea::placeholder {
-  color: #94A3B8 !important;
-}
-
-/* Modal Backdrops & Overlays */
-html.light .fixed.inset-0.bg-black\/80,
-html.light .fixed.inset-0.bg-black\/75,
-html.light .fixed.inset-0.bg-black\/70,
-html.light .fixed.inset-0.bg-black\/60 {
-  background-color: rgba(16, 24, 40, 0.55) !important;
-}
-
-/* Solid Blue Interactive CTAs in Light Mode (Preserves white text) */
-html.light .bg-blue-600,
-html.light .bg-blue-600 *,
-html.light .bg-blue-500,
-html.light .bg-blue-500 *,
-html.light button.bg-blue-600,
-html.light button.bg-blue-500,
-html.light .bg-\[\#2563EB\],
-html.light .bg-\[\#2563EB\] * {
-  color: #FFFFFF !important;
-}
-
-/* Convert Loud Amber/Orange Buttons to Royal Blue in Light Mode (except RKO wallet) */
-html.light button.bg-amber-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
-html.light .bg-gradient-to-r.from-amber-500.to-yellow-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
-html.light .bg-gradient-to-r.from-amber-500.to-orange-500:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button),
-html.light .bg-gradient-to-r.from-amber-500.via-amber-400.to-orange-500 {
-  background: #2563EB !important;
-  color: #FFFFFF !important;
-  border-color: transparent !important;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2) !important;
-}
-
-html.light button.bg-amber-500:hover:not([id*="rko"]):not([data-currency="rko"]):not(.rko-button) {
-  background: #1D4ED8 !important;
-}
-
-/* RKO Gold Strictly Scoped */
-.rko-coin-gold,
-[data-currency="rko"],
-#header-rko-wallet-btn span.text-amber-600,
-#header-rko-wallet-btn span.text-amber-400,
-.rko-wallet-gold {
-  color: #D4A72C !important;
-}
-
-/* Rikou AI Light Mode */
-html.light div[data-section="rikou-ai-section"] {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.04) !important;
-}
-
-/* Subtle Gradient Normalization */
-html.light .from-zinc-950,
-html.light .from-zinc-900,
-html.light .from-black,
-html.light .from-\[\#07080b\],
-html.light .from-\[\#09090b\],
-html.light .from-\[\#0a0b10\] {
-  --tw-gradient-from: #FFFFFF var(--tw-gradient-from-position) !important;
-  --tw-gradient-to: rgba(255, 255, 255, 0) var(--tw-gradient-to-position) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
-}
-
-html.light .to-zinc-950,
-html.light .to-zinc-900,
-html.light .to-black,
-html.light .to-\[\#07080b\],
-html.light .to-\[\#09090b\],
-html.light .to-\[\#0a0b10\] {
-  --tw-gradient-to: #F8FAFC var(--tw-gradient-to-position) !important;
+html.light .bg-amber-500\/10.border-amber-500\/25 strong,
+html.light .bg-amber-500\/10.border-amber-500\/25 .text-amber-700 {
+  color: #1D4ED8 !important;
 }
 
 /* ============================================================
-   DARK MODE STYLING ENGINE (Deep Navy #0B111E / #101828)
+   DARK MODE STYLING ENGINE (Homogeneous Deep Navy #101828 / #F9FAFB / #D0D5DD)
    ============================================================ */
 
+html.dark {
+  color-scheme: dark;
+}
+
+/* Canvas & Global Surfaces: Deep Navy #101828 (NOT pitch black #060608) */
 html.dark body,
 html.dark #root,
 html.dark .min-h-screen,
 html.dark .bg-\[\#060608\],
-html.dark .bg-\[\#08090D\] {
-  background-color: #0B111E !important;
-  color: #F8FAFC !important;
+html.dark .bg-\[\#08090D\],
+html.dark .bg-\[\#0a0b10\] {
+  background-color: #101828 !important;
+  color: #F9FAFB !important;
 }
 
+/* Course and lesson headers in Dark Mode: Clean homogeneous #101828 */
+html.dark .bg-gradient-to-b.from-amber-500\/10,
+html.dark .bg-gradient-to-b.from-blue-600\/10,
+html.dark .bg-gradient-to-b.from-amber-950,
+html.dark .bg-gradient-to-b.from-zinc-950 {
+  background-color: #101828 !important;
+  border-color: #1E293B !important;
+}
+
+/* Header & Bottom Nav in Dark Mode */
 html.dark header,
 html.dark header.bg-zinc-950\/80 {
   background-color: rgba(16, 24, 40, 0.95) !important;
   border-bottom-color: #1E293B !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark .fixed.bottom-0.bg-zinc-950\/95,
 html.dark nav.fixed.bottom-0 {
-  background-color: rgba(16, 24, 40, 0.95) !important;
+  background-color: rgba(16, 24, 40, 0.96) !important;
   border-top-color: #1E293B !important;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark footer {
-  background-color: #0B111E !important;
+  background-color: #101828 !important;
   border-top-color: #1E293B !important;
 }
 
+/* Primary Headings in Dark Mode -> Crisp #F9FAFB */
+html.dark h1,
+html.dark h2:not(.text-amber-400):not(.text-amber-500):not(.text-blue-400):not(.text-blue-500),
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+html.dark .text-white,
+html.dark .text-zinc-100 {
+  color: #F9FAFB !important;
+}
+
+/* Subtitle & Highlights in Dark Mode -> Clean Blue #60A5FA */
+html.dark h2.text-amber-400,
+html.dark h2.text-amber-500,
+html.dark .font-bold.text-amber-400:not([data-currency="rko"]):not(.rko-coin-gold),
+html.dark .font-bold.text-amber-500:not([data-currency="rko"]):not(.rko-coin-gold) {
+  color: #60A5FA !important;
+}
+
+/* Normal Body Text & Descriptions in Dark Mode -> High Contrast #D0D5DD */
+html.dark p,
+html.dark .text-slate-300,
+html.dark .text-slate-200,
+html.dark .text-zinc-300,
+html.dark .text-zinc-200 {
+  color: #D0D5DD !important;
+}
+
+/* Secondary & Small Text in Dark Mode -> #98A2B3 */
+html.dark .text-slate-400,
+html.dark .text-slate-500,
+html.dark .text-zinc-400,
+html.dark .text-zinc-500 {
+  color: #98A2B3 !important;
+}
+
+/* Breadcrumbs in Dark Mode */
+html.dark nav.text-zinc-400,
+html.dark nav.text-zinc-400 * {
+  color: #98A2B3 !important;
+}
+html.dark nav span.text-amber-400,
+html.dark nav span.text-amber-500 {
+  color: #60A5FA !important;
+}
+
+/* Dark Card Surfaces -> Elevated Surface #162032 with Subtle Border #1E293B */
 html.dark .bg-zinc-950,
 html.dark .bg-zinc-900,
 html.dark .bg-\[\#09090b\],
 html.dark .bg-\[\#060608\] {
-  background-color: #101828 !important;
+  background-color: #162032 !important;
 }
 
+html.dark .bg-zinc-950\/80,
+html.dark .bg-zinc-900\/90,
+html.dark .bg-zinc-900\/80,
+html.dark .bg-zinc-900\/70,
 html.dark .bg-zinc-900\/60,
 html.dark .bg-zinc-900\/50,
 html.dark .bg-zinc-900\/40,
@@ -391,20 +464,53 @@ html.dark .bg-zinc-800 {
   background-color: #162032 !important;
 }
 
+/* Dark Borders */
 html.dark .border-zinc-800,
 html.dark .border-zinc-800\/90,
 html.dark .border-zinc-800\/80,
-html.dark .border-zinc-900 {
+html.dark .border-zinc-800\/70,
+html.dark .border-zinc-800\/60,
+html.dark .border-zinc-800\/50,
+html.dark .border-zinc-900,
+html.dark .border-zinc-700 {
   border-color: #1E293B !important;
 }
 
-html.dark .text-zinc-400,
-html.dark .text-slate-400 {
-  color: #94A3B8 !important;
+/* Course badges in Dark Mode */
+html.dark .border-amber-500\/30.bg-amber-500\/10.text-amber-400:not([id*="rko"]) {
+  border-color: rgba(37, 99, 235, 0.4) !important;
+  background-color: rgba(37, 99, 235, 0.15) !important;
+  color: #93C5FD !important;
 }
 
-/* Ensure gradient text titles preserve their gradient */
-.bg-clip-text {
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
+/* Big amber lesson objective callout boxes in Dark Mode -> Calm Navy */
+html.dark .bg-amber-500\/10.border-amber-500\/25,
+html.dark .bg-amber-500\/5,
+html.dark .bg-amber-50\/80,
+html.dark .bg-amber-50\/90 {
+  background-color: #1A263D !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
+  color: #BFDBFE !important;
+}
+html.dark .bg-amber-500\/10.border-amber-500\/25 strong,
+html.dark .bg-amber-500\/10.border-amber-500\/25 .text-amber-300,
+html.dark .bg-amber-500\/10.border-amber-500\/25 .text-amber-400 {
+  color: #93C5FD !important;
+}
+
+/* ============================================================
+   RKO GOLD #D4A72C (Strictly Reserved for Coin & Wallet)
+   ============================================================ */
+
+.rko-coin-gold,
+[data-currency="rko"],
+#header-rko-wallet-btn span.text-amber-600,
+#header-rko-wallet-btn span.text-amber-400,
+.rko-wallet-gold,
+.text-rko-gold {
+  color: #D4A72C !important;
+}
+
+#header-rko-wallet-btn {
+  border-color: rgba(212, 167, 44, 0.35) !important;
 }

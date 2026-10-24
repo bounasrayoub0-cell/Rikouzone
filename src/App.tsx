@@ -171,7 +171,7 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full bg-slate-50 dark:bg-[#060608] text-slate-900 dark:text-zinc-100 flex flex-col selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen w-full max-w-full bg-white dark:bg-[#101828] text-[#101828] dark:text-[#F9FAFB] flex flex-col selection:bg-[#2563EB] selection:text-white">
       
       {/* Toast Notification Layer */}
       <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />

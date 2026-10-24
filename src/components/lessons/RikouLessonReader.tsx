@@ -131,7 +131,7 @@ export const RikouLessonReader: React.FC<RikouLessonReaderProps> = ({
               </button>
             )}
             <span className="text-slate-400 dark:text-zinc-500 font-sans hidden xs:inline">/</span>
-            <span className="text-amber-600 dark:text-amber-400 font-bold truncate max-w-[160px] sm:max-w-none">
+            <span className="text-[#2563EB] dark:text-blue-400 font-bold truncate max-w-[160px] sm:max-w-none">
               {lesson.trackTitleAr}
             </span>
           </div>
@@ -152,7 +152,7 @@ export const RikouLessonReader: React.FC<RikouLessonReaderProps> = ({
         {/* Title, Level, Duration Badges */}
         <div className="pt-2">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 border border-blue-200 dark:border-blue-900/40">
               المستوى: {lesson.level === 'beginner' ? 'مبتدئ' : lesson.level === 'intermediate' ? 'متوسط' : 'متقدم'}
             </span>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 flex items-center gap-1 font-sans">
@@ -171,10 +171,10 @@ export const RikouLessonReader: React.FC<RikouLessonReaderProps> = ({
         </div>
 
         {/* Learning Objective Box */}
-        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-3">
-          <Target className="w-4.5 h-4.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-2xl bg-[#EFF6FF] dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-xs text-[#1E40AF] dark:text-[#BFDBFE] flex items-start gap-3">
+          <Target className="w-4.5 h-4.5 text-[#2563EB] dark:text-blue-400 shrink-0 mt-0.5" />
           <div className="leading-relaxed">
-            <strong className="text-amber-700 dark:text-amber-300 block mb-0.5">
+            <strong className="text-[#1D4ED8] dark:text-blue-300 block mb-0.5">
               🎯 الهدف التعليمي المحدد لهذا الدرس:
             </strong>
             <span>{lesson.objective}</span>
@@ -186,7 +186,7 @@ export const RikouLessonReader: React.FC<RikouLessonReaderProps> = ({
       {/* 2. WHY THIS SKILL MATTERS (مقدمة قصيرة) */}
       <section className="rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/60 p-5 sm:p-7 shadow-sm dark:shadow-none space-y-2.5">
         <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-          <Lightbulb className="w-4 h-4 text-amber-500" />
+          <Lightbulb className="w-4 h-4 text-[#2563EB] dark:text-blue-400" />
           <span>لماذا هذه المهارة حاسمة في سوق العمل؟</span>
         </div>
         <p className="text-xs sm:text-sm text-slate-800 dark:text-zinc-200 font-medium leading-relaxed">
@@ -206,7 +206,7 @@ export const RikouLessonReader: React.FC<RikouLessonReaderProps> = ({
       {/* 4. BITE-SIZED BREAKDOWN STEPS (شرح مبسط مقسم) */}
       <section className="rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/60 p-5 sm:p-7 shadow-sm dark:shadow-none space-y-4">
         <div className="flex items-center gap-2.5 border-b border-slate-200 dark:border-zinc-800/80 pb-3">
-          <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-xl bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-400 flex items-center justify-center font-bold">
             <Layers className="w-4 h-4" />
           </div>
           <div>

@@ -59,16 +59,12 @@ export const RikouVisualAid: React.FC<RikouVisualAidProps> = ({
   return (
     <figure 
       aria-label={`مخطط تعليمي: ${spec.title}`}
-      className={`relative overflow-hidden rounded-3xl border border-amber-500/30 bg-gradient-to-b from-slate-900 via-zinc-950 to-black text-white p-4 sm:p-6 shadow-2xl shadow-amber-500/5 ${className}`}
+      className={`relative overflow-hidden rounded-3xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-[#162032] text-slate-900 dark:text-white p-4 sm:p-6 shadow-sm dark:shadow-none ${className}`}
     >
-      {/* Background ambient light */}
-      <div className="absolute top-0 right-0 -mt-8 -mr-8 w-56 h-56 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-56 h-56 rounded-full bg-orange-500/10 blur-3xl pointer-events-none" />
-
       {/* Official RikouZone Visual Header with real brand avatar */}
-      <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pb-3.5 mb-4 border-b border-zinc-800/80">
+      <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pb-3.5 mb-4 border-b border-slate-200 dark:border-zinc-800/80">
         <div className="flex items-center gap-2.5">
-          <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-xl border border-amber-500/40 bg-zinc-950 p-0.5 shrink-0 shadow-md">
+          <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 p-0.5 shrink-0 shadow-sm">
             <img
               src="/assets/rz-hero-badge.png"
               onError={(e) => {
@@ -89,24 +85,24 @@ export const RikouVisualAid: React.FC<RikouVisualAidProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-sm font-black text-white font-sans tracking-tight">
-                Rikou<span className="text-amber-400">Zone</span>
+              <span className="text-sm font-black text-slate-900 dark:text-white font-sans tracking-tight">
+                Rikou<span className="text-[#2563EB]">Zone</span>
               </span>
-              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-[#EFF6FF] text-[#2563EB] border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40">
                 ACADEMY
               </span>
             </div>
-            <span className="text-[10px] text-zinc-400 font-medium block">
+            <span className="text-[10px] text-[#667085] dark:text-[#98A2B3] font-medium block">
               المخطط البصري التعليمي المعتمد 2026
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-800/90 text-zinc-300 border border-zinc-700/60 font-sans">
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-300 border border-slate-300 dark:border-zinc-700/60 font-sans">
             الدرس #{lessonNumber}
           </span>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EFF6FF] text-[#2563EB] border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40">
             {spec.badgeLabel || trackTitleAr}
           </span>
         </div>
@@ -114,7 +110,7 @@ export const RikouVisualAid: React.FC<RikouVisualAidProps> = ({
 
       {/* Diagram Title & Subtitle */}
       <div className="relative z-10 mb-5 text-center sm:text-start">
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 mb-1">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] dark:text-blue-400 mb-1">
           <Sparkles className="w-3.5 h-3.5" />
           <span>{spec.title}</span>
         </div>

@@ -145,36 +145,33 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#060608] text-zinc-100 pb-24" dir="rtl">
+    <div className="min-h-screen bg-white dark:bg-[#101828] text-slate-800 dark:text-[#D0D5DD] pb-24" dir="rtl">
       
       {/* ------------------------------------------------------------- */}
       {/* 1. HERO / INTRODUCTION */}
       {/* ------------------------------------------------------------- */}
-      <section className="relative overflow-hidden border-b border-zinc-800/80 bg-gradient-to-b from-amber-500/10 via-zinc-950 to-[#060608] pt-8 pb-16">
-        
-        {/* Glow ambient background */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-amber-500/15 blur-[120px]" />
+      <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 bg-slate-50/50 dark:bg-[#101828] pt-8 pb-16">
         
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-xs text-zinc-400 mb-6 flex-wrap">
+          <nav className="flex items-center gap-2 text-xs text-[#667085] dark:text-[#98A2B3] mb-6 flex-wrap">
             <button 
               onClick={() => onNavigate('home')} 
-              className="flex items-center gap-1 hover:text-white transition-colors"
+              className="flex items-center gap-1 hover:text-[#2563EB] dark:hover:text-white transition-colors cursor-pointer"
             >
-              <Home className="h-3.5 w-3.5 text-zinc-500" />
+              <Home className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-500" />
               <span>الرئيسية</span>
             </button>
-            <ChevronLeft className="h-3.5 w-3.5 text-zinc-600" />
+            <ChevronLeft className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-600" />
             <button 
               onClick={() => onNavigate('income')} 
-              className="hover:text-white transition-colors"
+              className="hover:text-[#2563EB] dark:hover:text-white transition-colors cursor-pointer"
             >
               مسارات الدخل
             </button>
-            <ChevronLeft className="h-3.5 w-3.5 text-zinc-600" />
-            <span className="font-bold text-amber-400">التسويق بالعمولة (Affiliate Marketing)</span>
+            <ChevronLeft className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-600" />
+            <span className="font-bold text-[#2563EB] dark:text-blue-400">التسويق بالعمولة (Affiliate Marketing)</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -183,27 +180,27 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
             <div className="lg:col-span-8 space-y-4">
               
               <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-black text-amber-400 shadow-sm shadow-amber-500/10">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 dark:border-blue-900/50 bg-[#EFF6FF] dark:bg-blue-950/40 px-3.5 py-1 text-xs font-bold text-[#2563EB] dark:text-blue-400 shadow-sm">
                   <Sparkles className="h-3.5 w-3.5" />
                   <span>دليل المبتدئين 100% بدون تعقيد</span>
                 </span>
-                <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-400">
+                <span className="rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-400">
                   بدون رأس مال إلزامي (0 درهم)
                 </span>
-                <span className="rounded-full bg-zinc-900 border border-zinc-800 px-3 py-1 text-xs font-medium text-zinc-400">
+                <span className="rounded-full bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-300">
                   محدث ومطابق لسنة 2026
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white font-sans">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-[#F9FAFB] font-sans">
                 التسويق بالعمولة
               </h1>
 
-              <h2 className="text-xl sm:text-2xl font-bold text-amber-400">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#2563EB] dark:text-blue-400">
                 تعلم التسويق بالعمولة من الصفر بطريقة عملية
               </h2>
 
-              <p className="text-sm sm:text-base text-zinc-300 max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base text-[#475467] dark:text-[#D0D5DD] max-w-2xl leading-relaxed">
                 مسار تدريبي شامل وتفاعلي مصمم خصيصاً للمبتدئين في المغرب والعالم العربي. لا نظريات فارغة ولا وعود ربح سحرية؛ ستتعلم خطوة بخطوة كيف تختار النيتش، وتسجل في البرامج المعتمدة، وتصنع محتوى مقنعاً بهاتفك، وتطبق خطة الـ 7 أيام لتوليد أول عمولة حقيقية.
               </p>
 
@@ -211,7 +208,7 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
               <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <button
                   onClick={() => scrollToModule('mod-01')}
-                  className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-7 py-3.5 text-sm font-black text-black shadow-xl shadow-amber-500/25 hover:from-amber-400 hover:to-orange-400 transition-all active:scale-95"
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] px-7 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-600/25 transition-all active:scale-95 cursor-pointer"
                 >
                   <span>ابدأ من الصفر (الوحدة 01)</span>
                   <ArrowLeft className="h-4 w-4" />
@@ -219,9 +216,9 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
 
                 <button
                   onClick={() => scrollToModule('mod-08')}
-                  className="flex items-center justify-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900/90 px-5 py-3.5 text-sm font-bold text-zinc-200 hover:border-amber-500/40 hover:text-white transition-all"
+                  className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#162032] px-5 py-3.5 text-sm font-semibold text-slate-700 dark:text-[#D0D5DD] hover:border-[#2563EB] hover:text-[#2563EB] transition-all cursor-pointer shadow-sm dark:shadow-none"
                 >
-                  <DollarSign className="h-4 w-4 text-amber-400" />
+                  <DollarSign className="h-4 w-4 text-[#2563EB] dark:text-blue-400" />
                   <span>حاسبة الأرباح والأدوات</span>
                 </button>
               </div>
@@ -229,34 +226,34 @@ export const AffiliateMarketingView: React.FC<AffiliateMarketingViewProps> = ({
             </div>
 
             {/* Quick Metrics & Progress Tracker Card */}
-            <div className="lg:col-span-4 rounded-3xl border border-zinc-800 bg-zinc-950/80 p-6 backdrop-blur-xl shadow-2xl">
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80">
-                <span className="text-xs font-bold text-zinc-400">مؤشر الإنجاز والتعلم</span>
-                <span className="text-xs font-mono font-bold text-amber-400">{learningProgressPercent}% مكتمل</span>
+            <div className="lg:col-span-4 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#162032] p-6 shadow-sm dark:shadow-none">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800/80">
+                <span className="text-xs font-bold text-slate-500 dark:text-zinc-400">مؤشر الإنجاز والتعلم</span>
+                <span className="text-xs font-mono font-bold text-[#2563EB] dark:text-blue-400">{learningProgressPercent}% مكتمل</span>
               </div>
 
               {/* Progress bar */}
-              <div className="mt-3 w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-zinc-800/60">
+              <div className="mt-3 w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800/60">
                 <div 
-                  className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"
+                  className="h-full bg-[#2563EB] transition-all duration-300"
                   style={{ width: `${learningProgressPercent}%` }}
                 />
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs text-center">
-                <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-3">
-                  <span className="text-[10px] text-zinc-500 font-medium block">وحدات المسار</span>
-                  <span className="text-lg font-black text-white font-mono mt-0.5 block">10 وحدات</span>
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-[#101828]/60 p-3">
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-medium block">وحدات المسار</span>
+                  <span className="text-lg font-black text-slate-900 dark:text-white font-mono mt-0.5 block">10 وحدات</span>
                 </div>
-                <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-3">
-                  <span className="text-[10px] text-zinc-500 font-medium block">دروس الأساسيات</span>
-                  <span className="text-lg font-black text-amber-400 font-mono mt-0.5 block">12 درساً</span>
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-[#101828]/60 p-3">
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-medium block">دروس الأساسيات</span>
+                  <span className="text-lg font-black text-[#2563EB] dark:text-blue-400 font-mono mt-0.5 block">12 درساً</span>
                 </div>
-                <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-3">
-                  <span className="text-[10px] text-zinc-500 font-medium block">برامج معتمدة</span>
-                  <span className="text-lg font-black text-emerald-400 font-mono mt-0.5 block">12 برنامجاً</span>
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-[#101828]/60 p-3">
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-medium block">برامج معتمدة</span>
+                  <span className="text-lg font-black text-emerald-600 dark:text-emerald-400 font-mono mt-0.5 block">12 برنامجاً</span>
                 </div>
-                <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-3">
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-[#101828]/60 p-3">
                   <span className="text-[10px] text-zinc-500 font-medium block">قوالب للنسخ</span>
                   <span className="text-lg font-black text-orange-400 font-mono mt-0.5 block">8 قوالب</span>
                 </div>
