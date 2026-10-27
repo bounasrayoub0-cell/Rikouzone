@@ -386,14 +386,14 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
       {/* Drawer Container (RTL from right, LTR from left) */}
       <div className={`fixed inset-y-0 ${isRTL ? 'right-0' : 'left-0'} flex max-w-full`}>
         <div 
-          className={`w-screen max-w-sm sm:max-w-md border-${isRTL ? 'l' : 'r'} border-zinc-800/90 bg-[#09090b] text-zinc-100 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out`}
+          className={`w-screen max-w-sm sm:max-w-md border-${isRTL ? 'l' : 'r'} border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#09090b] text-slate-900 dark:text-zinc-100 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out`}
           onClick={(e) => e.stopPropagation()}
         >
           
           {/* Drawer Header with Brand Logo & Close Button */}
-          <div className="flex h-14 sm:h-15 items-center justify-between border-b border-zinc-800/80 px-4 sm:px-5 bg-zinc-950/90">
+          <div className="flex h-14 sm:h-15 items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 px-4 sm:px-5 bg-slate-50/90 dark:bg-zinc-950/90">
             <div className="flex items-center gap-2.5">
-              <div className="relative h-7 w-7 rounded-xl border border-amber-500/30 bg-zinc-950 p-0.5 shadow-sm">
+              <div className="relative h-7 w-7 rounded-xl border border-slate-200 dark:border-blue-900/50 bg-slate-100 dark:bg-zinc-950 p-0.5 shadow-sm">
                 <img
                   src="/file_00000000b1d881f496a6612e6eef85ce.png"
                   onError={(e) => {
@@ -404,17 +404,17 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-base font-black text-white font-sans tracking-tight">
-                  Rikou<span className="text-amber-400">Zone</span>
+                <span className="text-base font-black text-slate-900 dark:text-white font-sans tracking-tight">
+                  Rikou<span className="text-[#2563EB]">Zone</span>
                 </span>
-                <span className="text-[9px] text-zinc-400 font-medium">القائمة الجانبية</span>
+                <span className="text-[9px] text-slate-500 dark:text-zinc-400 font-medium">القائمة الجانبية</span>
               </div>
             </div>
 
             <button
               id="sidebar-close-btn"
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-white hover:border-zinc-700 hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer shadow-sm dark:shadow-none"
               aria-label="إغلاق القائمة"
             >
               <X className="h-4.5 w-4.5" />
@@ -427,10 +427,10 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
             {/* Top User Progress Card */}
             <div 
               onClick={() => handleItemClick('profile')}
-              className="group relative cursor-pointer overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-950/25 via-zinc-900/90 to-zinc-950 p-3.5 transition-all hover:border-amber-400/60 hover:shadow-lg hover:shadow-amber-500/10 active:scale-[0.99]"
+              className="group relative cursor-pointer overflow-hidden rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-gradient-to-br from-[#EFF6FF] via-white to-blue-50/40 dark:from-blue-950/25 dark:via-zinc-900/90 dark:to-zinc-950 p-3.5 transition-all hover:border-[#2563EB]/50 hover:shadow-md hover:shadow-blue-500/10 active:scale-[0.99] shadow-sm dark:shadow-none"
             >
               <div className="flex items-center gap-3">
-                <div className="relative h-11 w-11 rounded-xl border-2 border-amber-500/40 bg-zinc-950 p-0.5 shrink-0 shadow-md overflow-hidden">
+                <div className="relative h-11 w-11 rounded-xl border-2 border-blue-500/40 bg-slate-100 dark:bg-zinc-950 p-0.5 shrink-0 shadow-md overflow-hidden">
                   <img
                     src={userProfile.avatarUrl || '/file_00000000b1d881f496a6612e6eef85ce.png'}
                     onError={(e) => {
@@ -439,39 +439,39 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                     alt="User Avatar"
                     className="h-full w-full object-cover rounded-lg select-none"
                   />
-                  <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-500 text-[8px] font-black text-black">
+                  <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#2563EB] text-[8px] font-black text-white">
                     ✓
                   </span>
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-sm font-black text-white truncate group-hover:text-amber-300 transition-colors">
+                    <span className="text-sm font-black text-slate-900 dark:text-white truncate group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">
                       {userProfile.displayName || labels.myAccount}
                     </span>
-                    <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 font-sans">
+                    <span className="text-[10px] font-bold text-[#2563EB] dark:text-blue-300 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800/40 font-sans">
                       {labels.level} {currentLevel}
                     </span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 truncate block mt-0.5">
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block mt-0.5">
                     {userProfile.username || levelTitle}
                   </span>
                 </div>
               </div>
 
               {/* XP & Streak Stats Pill Row */}
-              <div className="mt-2.5 pt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5 text-amber-400 font-sans font-black">
-                  <Sparkles className="h-3.5 w-3.5" />
+              <div className="mt-2.5 pt-2.5 border-t border-slate-200/80 dark:border-zinc-800/80 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5 text-[#2563EB] dark:text-blue-400 font-sans font-black">
+                  <Sparkles className="h-3.5 w-3.5 text-[#2563EB] dark:text-blue-400" />
                   <span>{userState.totalXp} XP</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-orange-400 font-sans font-bold">
-                  <Flame className="h-3.5 w-3.5" />
-                  <span>{userState.streakCount} {labels.streakDays} 🔥</span>
+                <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-sans font-bold">
+                  <Flame className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>{userState.streakCount} {labels.streakDays}</span>
                 </div>
 
-                <div className="flex items-center gap-1 text-[10px] text-zinc-400 group-hover:text-amber-300 transition-colors font-medium">
+                <div className="flex items-center gap-1 text-[10px] text-slate-500 dark:text-zinc-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors font-medium">
                   <span>فتح الملف</span>
                   <ArrowIcon className="h-3 w-3" />
                 </div>
@@ -480,7 +480,7 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
             {/* المجموعة الأولى: حسابي والمحفوظات */}
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
                 {labels.groupAccount}
               </span>
 
@@ -488,24 +488,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
               <button
                 id="drawer-item-saved"
                 onClick={() => handleItemClick('profile')}
-                className="w-full flex items-center justify-between p-3 rounded-xl border border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white text-start transition-all cursor-pointer"
+                className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white text-start transition-all cursor-pointer shadow-xs dark:shadow-none"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-800/80 text-sky-400 shrink-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-sky-400 shrink-0">
                     <Bookmark className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.savedItems}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.savedItemsSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.savedItems}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.savedItemsSub}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <span className={`flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-black font-sans ${
-                    savedCount > 0 ? 'bg-sky-500 text-black' : 'bg-zinc-800 text-zinc-400'
+                    savedCount > 0 ? 'bg-[#2563EB] text-white' : 'bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400'
                   }`}>
                     {savedCount}
                   </span>
-                  <ArrowIcon className="h-4 w-4 text-zinc-500" />
+                  <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500" />
                 </div>
               </button>
 
@@ -515,36 +515,36 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('wallet')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'wallet' || currentTab === 'rko'
-                    ? 'border-amber-400 bg-amber-500/15 text-amber-300 ring-1 ring-amber-400/40'
-                    : 'border-amber-500/30 bg-amber-500/5 text-zinc-200 hover:border-amber-400/60 hover:bg-amber-500/10'
+                    ? 'border-[#D4A72C] bg-[#D4A72C]/15 text-[#D4A72C] ring-1 ring-[#D4A72C]/40'
+                    : 'border-[#D4A72C]/30 bg-[#D4A72C]/5 text-slate-800 dark:text-zinc-200 hover:border-[#D4A72C]/60 hover:bg-[#D4A72C]/10'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-amber-500/40 shrink-0 shadow-sm">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white dark:bg-zinc-950 border border-[#D4A72C]/40 shrink-0 shadow-sm">
                     <RkoCoinLogo size="xs" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-bold block truncate">محفظة RKO</span>
-                      <span className="text-[9px] font-black px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                      <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">محفظة RKO</span>
+                      <span className="text-[9px] font-black px-1.5 py-0.2 rounded-full bg-[#D4A72C]/20 text-[#D4A72C] border border-[#D4A72C]/30">
                         عملة داخلية
                       </span>
                     </div>
-                    <span className="text-[10px] text-zinc-400 truncate block">الرصيد وسجل العمليات والمزايا</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">الرصيد وسجل العمليات والمزايا</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="flex h-5 items-center justify-center rounded-full px-2 text-[10px] font-black font-sans bg-amber-500 text-black">
+                  <span className="flex h-5 items-center justify-center rounded-full px-2 text-[10px] font-black font-sans bg-[#D4A72C] text-black">
                     {rkoBalance} RKO
                   </span>
-                  <ArrowIcon className="h-4 w-4 text-amber-400" />
+                  <ArrowIcon className="h-4 w-4 text-[#D4A72C]" />
                 </div>
               </button>
             </div>
 
             {/* المجموعة الثانية: أدوات المنصة */}
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
                 {labels.groupTools}
               </span>
 
@@ -554,24 +554,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('tools')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'tools'
-                    ? 'border-blue-500/60 bg-blue-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'tools'
-                      ? 'bg-blue-500 text-black'
-                      : 'bg-zinc-800/80 text-blue-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-blue-400'
                   }`}>
                     <Calculator className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.tools}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.toolsSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.tools}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.toolsSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
 
               {/* 2. صنّاع المحتوى */}
@@ -580,30 +580,30 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('creators')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'creators'
-                    ? 'border-indigo-500/60 bg-indigo-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-indigo-950/40 text-[#2563EB] dark:text-indigo-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'creators'
-                      ? 'bg-indigo-500 text-black'
-                      : 'bg-zinc-800/80 text-indigo-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-indigo-400'
                   }`}>
                     <Gamepad2 className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.creators}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.creatorsSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.creators}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.creatorsSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
             </div>
 
             {/* المجموعة الثالثة: عن المنصة والتواصل */}
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block px-1 mb-1.5">
                 {labels.groupAbout}
               </span>
 
@@ -613,24 +613,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('about')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'about'
-                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'about'
-                      ? 'bg-amber-500 text-black'
-                      : 'bg-zinc-800/80 text-amber-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-blue-400'
                   }`}>
                     <Info className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.about}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.aboutSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.about}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.aboutSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
 
               {/* 2. اتصل بنا */}
@@ -639,24 +639,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('contact')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'contact'
-                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'contact'
-                      ? 'bg-amber-500 text-black'
-                      : 'bg-zinc-800/80 text-amber-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-blue-400'
                   }`}>
                     <Mail className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.contact}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.contactSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.contact}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.contactSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
 
               {/* 3. شروط الاستخدام */}
@@ -665,24 +665,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('terms')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'terms' || currentTab === 'terms-of-use'
-                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'terms' || currentTab === 'terms-of-use'
-                      ? 'bg-amber-500 text-black'
-                      : 'bg-zinc-800/80 text-amber-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-blue-400'
                   }`}>
                     <FileText className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.terms}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.termsSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.terms}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.termsSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
 
               {/* 4. سياسة الخصوصية */}
@@ -691,24 +691,24 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('privacy')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'privacy' || currentTab === 'privacy-policy'
-                    ? 'border-emerald-500/60 bg-emerald-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'privacy' || currentTab === 'privacy-policy'
-                      ? 'bg-emerald-500 text-black'
-                      : 'bg-zinc-800/80 text-emerald-400'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-emerald-600 dark:text-emerald-400'
                   }`}>
                     <Shield className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.privacy}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.privacySub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.privacy}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.privacySub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
 
               {/* 5. سياسة الكوكيز والإعلانات */}
@@ -717,47 +717,47 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 onClick={() => handleItemClick('cookies')}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-start transition-all cursor-pointer ${
                   currentTab === 'cookies' || currentTab === 'cookie-policy'
-                    ? 'border-amber-500/60 bg-amber-500/15 text-white font-bold shadow-sm'
-                    : 'border-zinc-800/80 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900 hover:text-white'
+                    ? 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-300 font-bold shadow-sm'
+                    : 'border-slate-200 dark:border-zinc-800/80 bg-slate-50/70 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white shadow-xs dark:shadow-none'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
                     currentTab === 'cookies' || currentTab === 'cookie-policy'
-                      ? 'bg-amber-500 text-black'
-                      : 'bg-zinc-800/80 text-amber-400'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-slate-200/70 dark:bg-zinc-800/80 text-[#2563EB] dark:text-blue-400'
                   }`}>
                     <Cookie className="h-4.5 w-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-sm font-bold block truncate">{labels.cookies}</span>
-                    <span className="text-[10px] text-zinc-400 truncate block">{labels.cookiesSub}</span>
+                    <span className="text-sm font-bold block truncate text-slate-900 dark:text-white">{labels.cookies}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">{labels.cookiesSub}</span>
                   </div>
                 </div>
-                <ArrowIcon className="h-4 w-4 text-zinc-500 shrink-0" />
+                <ArrowIcon className="h-4 w-4 text-slate-400 dark:text-zinc-500 shrink-0" />
               </button>
             </div>
 
             {/* المجموعة الرابعة: الإعدادات */}
             <div className="space-y-2">
-              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block px-1">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block px-1">
                 {labels.groupSettings}
               </span>
 
-              <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/80 p-3.5 space-y-3">
+              <div className="rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-slate-50/90 dark:bg-zinc-950/80 p-3.5 space-y-3">
                 {/* Theme Mode */}
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-zinc-400 font-medium flex items-center gap-1.5">
-                    {theme === 'dark' ? <Moon className="h-3.5 w-3.5 text-sky-400" /> : <Sun className="h-3.5 w-3.5 text-amber-400" />}
+                  <span className="text-slate-700 dark:text-zinc-400 font-medium flex items-center gap-1.5">
+                    {theme === 'dark' ? <Moon className="h-3.5 w-3.5 text-sky-400" /> : <Sun className="h-3.5 w-3.5 text-[#2563EB] dark:text-blue-400" />}
                     <span>{labels.appearance}</span>
                   </span>
                   <ThemeSwitcher />
                 </div>
 
                 {/* Language Choice */}
-                <div className="flex items-center justify-between text-xs pt-1.5 border-t border-zinc-800/60">
-                  <span className="text-zinc-400 font-medium flex items-center gap-1.5">
-                    <Globe className="h-3.5 w-3.5 text-sky-400" />
+                <div className="flex items-center justify-between text-xs pt-1.5 border-t border-slate-200 dark:border-zinc-800/60">
+                  <span className="text-slate-700 dark:text-zinc-400 font-medium flex items-center gap-1.5">
+                    <Globe className="h-3.5 w-3.5 text-sky-500 dark:text-sky-400" />
                     <span>{labels.language}</span>
                   </span>
                   <LanguageSelector />
@@ -766,10 +766,10 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 {/* Direct Link to Profile Preferences */}
                 <button
                   onClick={() => handleItemClick('profile')}
-                  className="w-full mt-1 py-2 rounded-xl border border-zinc-800 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full mt-1 py-2 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white hover:bg-slate-100 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm dark:shadow-none"
                 >
                   <span>{labels.fullSettingsBtn}</span>
-                  <ArrowIcon className="h-3.5 w-3.5 text-zinc-500" />
+                  <ArrowIcon className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-500" />
                 </button>
               </div>
             </div>
@@ -777,7 +777,7 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
           </div>
 
           {/* Drawer Footer */}
-          <div className="p-3.5 border-t border-zinc-800/80 bg-zinc-950/90 text-center text-[10px] text-zinc-500">
+          <div className="p-3.5 border-t border-slate-200 dark:border-zinc-800/80 bg-slate-50/90 dark:bg-zinc-950/90 text-center text-[10px] text-slate-500 dark:text-zinc-500">
             <span>RikouZone PRO • منصة التعلم والتطبيق الرقمي</span>
           </div>
 

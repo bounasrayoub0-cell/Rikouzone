@@ -54,16 +54,16 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow */}
-        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/10 blur-2xl" />
+        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-blue-500/10 blur-2xl" />
 
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-zinc-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/15 text-[#2563EB] dark:text-blue-400 border border-blue-500/30 shadow-sm shadow-blue-500/10">
               <HelpCircle className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[11px] font-black uppercase text-amber-600 dark:text-amber-400 block tracking-wider">
+              <span className="text-[11px] font-black uppercase text-[#2563EB] dark:text-blue-400 block tracking-wider">
                 اختبار التحقق من الفهم
               </span>
               <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white line-clamp-1">
@@ -72,7 +72,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 dark:bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EFF6FF] dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/40 text-[#2563EB] dark:text-blue-300 text-xs font-black shadow-sm">
             <Sparkles className="h-3.5 w-3.5" />
             <span>+{challenge.xpReward} XP</span>
           </div>
@@ -90,7 +90,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
               let btnStyle = 'border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-[#12141d]/70 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-[#161825]';
 
               if (isSelected && !isAnswerSubmitted) {
-                btnStyle = 'border-orange-500 bg-orange-50 dark:bg-orange-950/20 text-orange-900 dark:text-white font-bold ring-1 ring-orange-500/40 shadow-sm shadow-orange-500/15';
+                btnStyle = 'border-[#2563EB] bg-[#EFF6FF] dark:bg-blue-950/30 text-[#101828] dark:text-white font-bold ring-1 ring-[#2563EB]/40 shadow-sm shadow-blue-500/15';
               }
 
               if (isAnswerSubmitted) {
@@ -150,10 +150,10 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
         )}
 
         {/* Actions Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-zinc-800/80">
           <button
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
           >
             إلغاء
           </button>
@@ -164,8 +164,8 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
               disabled={selectedOption === null}
               className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${
                 selectedOption !== null
-                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
-                  : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                  ? 'bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-md shadow-blue-500/25 border border-blue-400/30'
+                  : 'bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed'
               }`}
             >
               تأكيد الإجابة
@@ -173,7 +173,7 @@ export const ChallengeQuizModal: React.FC<ChallengeQuizModalProps> = ({
           ) : isCorrect ? (
             <button
               onClick={handleClaimReward}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-black font-black text-xs shadow-lg shadow-emerald-500/25 border border-emerald-400/30 cursor-pointer flex items-center gap-1.5"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-black text-xs shadow-lg shadow-emerald-500/25 border border-emerald-400/30 cursor-pointer flex items-center gap-1.5"
             >
               <Sparkles className="h-4 w-4" />
               <span>استلام {challenge.xpReward} XP وإنهاء التحدي</span>

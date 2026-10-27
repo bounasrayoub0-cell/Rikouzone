@@ -107,7 +107,7 @@ export const RkoWalletView: React.FC<RkoWalletViewProps> = ({ onNavigate }) => {
       )}
 
       {/* 1. Main RKO Wallet Card - Focused, clean and elegant */}
-      <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-gradient-to-br from-zinc-900 via-zinc-950 to-black text-white p-4.5 sm:p-8 shadow-xl shadow-amber-950/20 text-center sm:text-start w-full min-w-0">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-400/40 dark:border-amber-500/30 bg-gradient-to-br from-amber-50/80 via-white to-amber-50/30 dark:from-zinc-900 dark:via-zinc-950 dark:to-black text-slate-900 dark:text-white p-4.5 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-amber-950/20 text-center sm:text-start w-full min-w-0">
         {/* Subtle warm glow background */}
         <div className="absolute top-0 right-0 -mt-10 -mr-10 w-60 h-60 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
 
@@ -120,39 +120,39 @@ export const RkoWalletView: React.FC<RkoWalletViewProps> = ({ onNavigate }) => {
             </div>
             <div>
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
-                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
                   عملة داخلية
                 </span>
-                <span className="text-[10px] text-zinc-400">
+                <span className="text-[10px] text-slate-500 dark:text-zinc-400">
                   RikouZone Internal Currency
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                محفظة <span className="text-amber-400">RKO</span>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                محفظة <span className="text-amber-600 dark:text-amber-400">RKO</span>
               </h1>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-md leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-1 max-w-md leading-relaxed">
                 العملة الافتراضية للتحفيز والتعلم داخل المنصة. اجمع RKO عبر الأنشطة واستعملها لفتح القوالب والمزايا.
               </p>
             </div>
           </div>
 
           {/* Current User Balance */}
-          <div className="bg-zinc-900/90 border border-amber-500/30 px-6 py-4 rounded-2xl text-center w-full sm:w-auto min-w-[140px] sm:min-w-[170px] shrink-0">
-            <span className="text-[11px] text-zinc-400 font-medium block mb-0.5">الرصيد الحالي</span>
+          <div className="bg-white/95 dark:bg-zinc-900/90 border border-amber-400/40 dark:border-amber-500/30 px-6 py-4 rounded-2xl text-center w-full sm:w-auto min-w-[140px] sm:min-w-[170px] shrink-0 shadow-xs">
+            <span className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium block mb-0.5">الرصيد الحالي</span>
             <div className="flex items-baseline justify-center gap-1.5 font-sans">
-              <span className="text-3xl sm:text-4xl font-black text-amber-400 tracking-tight">
+              <span className="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400 tracking-tight">
                 {balance.toLocaleString()}
               </span>
-              <span className="text-sm font-black text-amber-300">RKO</span>
+              <span className="text-sm font-black text-amber-500 dark:text-amber-300">RKO</span>
             </div>
           </div>
 
         </div>
 
         {/* Small Disclaimer Badge */}
-        <div className="relative z-10 mt-6 pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400">
+        <div className="relative z-10 mt-6 pt-4 border-t border-slate-200 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 dark:text-zinc-400">
           <div className="flex items-center gap-2 text-[11px]">
-            <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+            <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
             <span>عملة افتراضية وتجريبية وداخلية، ولا تمثل رصيداً مالياً أو قيمة نقدية.</span>
           </div>
 
@@ -162,8 +162,8 @@ export const RkoWalletView: React.FC<RkoWalletViewProps> = ({ onNavigate }) => {
             disabled={isDailyClaimed || claiming}
             className={`px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
               isDailyClaimed
-                ? 'bg-zinc-800 text-zinc-500 border border-zinc-700/60 cursor-not-allowed'
-                : 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black active:scale-95 shadow-sm'
+                ? 'bg-slate-200 dark:bg-zinc-800 text-slate-500 dark:text-zinc-500 border border-slate-300 dark:border-zinc-700/60 cursor-not-allowed'
+                : 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-900 active:scale-95 shadow-sm font-bold'
             }`}
           >
             <Calendar className="w-3.5 h-3.5" />

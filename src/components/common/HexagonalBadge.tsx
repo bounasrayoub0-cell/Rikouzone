@@ -636,10 +636,10 @@ export const HexagonalBadge: React.FC<HexagonalBadgeProps> = ({
         {/* Unlocked Subtle Corner Star Badge */}
         {isUnlocked && size !== 'sm' && (
           <div 
-            className="absolute top-1 end-1 flex h-4 w-4 items-center justify-center rounded-full bg-black/60 border border-amber-500/40 shadow-sm"
+            className="absolute top-1 end-1 flex h-4 w-4 items-center justify-center rounded-full bg-black/60 border border-blue-500/40 shadow-sm"
             title="مكتسبة"
           >
-            <Check className="h-2.5 w-2.5 text-amber-400 font-bold" />
+            <Check className="h-2.5 w-2.5 text-blue-400 font-bold" />
           </div>
         )}
       </div>
@@ -650,7 +650,7 @@ export const HexagonalBadge: React.FC<HexagonalBadgeProps> = ({
           <h4 
             className={`text-[11px] sm:text-xs font-bold leading-snug line-clamp-2 transition-colors ${
               isUnlocked 
-                ? 'text-slate-800 dark:text-zinc-200 group-hover:text-amber-600 dark:group-hover:text-white' 
+                ? 'text-slate-800 dark:text-zinc-200 group-hover:text-[#2563EB] dark:group-hover:text-blue-400' 
                 : 'text-slate-500 dark:text-zinc-400 group-hover:text-slate-700 dark:group-hover:text-zinc-300'
             }`}
             title={loc.name}
@@ -660,7 +660,7 @@ export const HexagonalBadge: React.FC<HexagonalBadgeProps> = ({
 
           <div className="mt-0.5 flex items-center justify-center gap-1 font-mono text-[10px]">
             {isUnlocked ? (
-              <span className="text-amber-600 dark:text-amber-400/90 font-bold tracking-tight">
+              <span className="text-[#2563EB] dark:text-blue-400 font-bold tracking-tight">
                 +{badge.xpBonus} XP
               </span>
             ) : (
@@ -747,7 +747,7 @@ export const BadgeDetailModal: React.FC<BadgeDetailModalProps> = ({
 
         {/* XP Bonus pill */}
         <div className="mt-2 flex items-center gap-2">
-          <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-500/15 dark:bg-amber-500/10 px-3 py-0.5 rounded-full border border-amber-500/30">
+          <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-blue-400 bg-blue-500/15 dark:bg-blue-500/10 px-3 py-0.5 rounded-full border border-blue-500/30">
             +{badge.xpBonus} XP
           </span>
           <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
@@ -767,7 +767,7 @@ export const BadgeDetailModal: React.FC<BadgeDetailModalProps> = ({
         {/* Condition Box */}
         <div className="mt-5 w-full rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-slate-50 dark:bg-zinc-900/60 p-3.5 text-start shadow-sm dark:shadow-none">
           <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-zinc-400 mb-1">
-            <Target className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
+            <Target className="h-3.5 w-3.5 text-[#2563EB] dark:text-blue-400" />
             <span>{strings.requirement}</span>
           </div>
           <p className="text-xs sm:text-sm text-slate-900 dark:text-white font-medium">
@@ -780,7 +780,7 @@ export const BadgeDetailModal: React.FC<BadgeDetailModalProps> = ({
           <div className="mt-3.5 w-full rounded-2xl border border-slate-200 dark:border-zinc-800/90 bg-slate-50 dark:bg-zinc-900/60 p-3.5 shadow-sm dark:shadow-none">
             <div className="flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400 mb-1.5 font-mono">
               <span className="font-medium text-slate-700 dark:text-zinc-300">{strings.progressTitle}</span>
-              <span className="font-bold text-amber-600 dark:text-amber-400">
+              <span className="font-bold text-[#2563EB] dark:text-blue-400">
                 {progressInfo.formattedCurrent} / {progressInfo.formattedTarget} ({progressInfo.progressPercent}%)
               </span>
             </div>
@@ -789,7 +789,7 @@ export const BadgeDetailModal: React.FC<BadgeDetailModalProps> = ({
                 className={`h-full rounded-full transition-all duration-500 ${
                   isUnlocked
                     ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
-                    : 'bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-400'
+                    : 'bg-[#2563EB] dark:bg-blue-500'
                 }`}
                 style={{ width: `${progressInfo.progressPercent}%` }}
               />

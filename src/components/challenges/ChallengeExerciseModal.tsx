@@ -77,16 +77,16 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
         className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-zinc-800/90 bg-white dark:bg-[#0c0e15] text-slate-900 dark:text-zinc-100 p-5 sm:p-7 shadow-2xl my-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-amber-500/10 blur-2xl" />
+        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 -z-10 h-32 w-64 rounded-full bg-blue-500/10 blur-2xl" />
 
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-zinc-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/15 text-[#2563EB] dark:text-blue-400 border border-blue-500/30 shadow-sm shadow-blue-500/10">
               <Target className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[11px] font-black uppercase text-amber-600 dark:text-amber-400 block tracking-wider">
+              <span className="text-[11px] font-black uppercase text-[#2563EB] dark:text-blue-400 block tracking-wider">
                 التطبيق والتمرين العملي
               </span>
               <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white line-clamp-1">
@@ -95,7 +95,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 dark:bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-black shadow-sm shadow-amber-500/10">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EFF6FF] dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/40 text-[#2563EB] dark:text-blue-300 text-xs font-black shadow-sm">
             <Sparkles className="h-3.5 w-3.5" />
             <span>+{challenge.xpReward} XP</span>
           </div>
@@ -104,7 +104,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
         {/* Instructions */}
         <div className="my-5 space-y-4">
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#12141d]/80 border border-slate-200 dark:border-zinc-800 text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed">
-            <span className="text-amber-600 dark:text-amber-400 font-bold block mb-1">تعليمات المهمة:</span>
+            <span className="text-[#2563EB] dark:text-blue-400 font-bold block mb-1">تعليمات المهمة:</span>
             <p>{exercise.instructions}</p>
           </div>
 
@@ -121,7 +121,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
                 if (errorMsg) setErrorMsg(null);
               }}
               placeholder="اكتب هنا ما طبقته للتحقق والحصول على نقاط الـ XP..."
-              className="w-full rounded-2xl bg-white dark:bg-[#10121a] border border-slate-300 dark:border-zinc-800 p-3.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-amber-500 shadow-sm dark:shadow-none transition-colors"
+              className="w-full rounded-2xl bg-white dark:bg-[#10121a] border border-slate-300 dark:border-zinc-800 p-3.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] shadow-sm dark:shadow-none transition-colors"
             />
           </div>
 
@@ -145,7 +145,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
                     }`}
                   >
                     <div className={`h-4 w-4 rounded-md border flex items-center justify-center shrink-0 ${
-                      checked ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950'
+                      checked ? 'bg-emerald-500 border-emerald-500 text-white font-bold' : 'border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950'
                     }`}>
                       {checked && <Check className="h-3 w-3 stroke-[3]" />}
                     </div>
@@ -195,7 +195,7 @@ export const ChallengeExerciseModal: React.FC<ChallengeExerciseModalProps> = ({
             disabled={!isInputValid || !allChecksConfirmed}
             className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer flex items-center gap-1.5 ${
               isInputValid && allChecksConfirmed
-                ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white shadow-md shadow-orange-500/25 border border-orange-400/30'
+                ? 'bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-md shadow-blue-500/25 border border-blue-400/30'
                 : 'bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed'
             }`}
           >

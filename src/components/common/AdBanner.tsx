@@ -1,59 +1,64 @@
-import { useEffect, useRef } from "react";
-
-declare global {
-  interface Window {
-    atOptions?: {
-      key: string;
-      format: string;
-      height: number;
-      width: number;
-      params: Record<string, unknown>;
-    };
-  }
-}
+import React from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function AdBanner() {
-  const adRef = useRef<HTMLDivElement>(null);
-  const loadedRef = useRef<boolean>(false);
+  const { t } = useLanguage();
 
-  useEffect(() => {
-    if (!adRef.current || loadedRef.current) return;
-    loadedRef.current = true;
-
-    try {
-      window.atOptions = {
-        key: "ca5ce1a3af5ba19280aa690a8812d52e",
-        format: "iframe",
-        height: 50,
-        width: 320,
-        params: {},
+  const iframeContent = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var atOptions = {
+        'key' : 'ca5ce1a3af5ba19280aa690a8812d52e',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
       };
-
-      const script = document.createElement("script");
-      script.src =
-        "https://www.highrevenueformat.com/ca5ce1a3af5ba19280aa690a8812d52e/invoke.js";
-      script.async = true;
-      script.onerror = () => {
-        // Silently swallow ad network load failures (e.g. adblock or CORS or iframe sandboxing)
-      };
-
-      adRef.current.appendChild(script);
-    } catch {
-      // Ignore ad loading failure in restricted environments
-    }
-
-    return () => {
-      // Do not abruptly destroy DOM while external script might be writing to it
-    };
-  }, []);
+    </script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/ca5ce1a3af5ba19280aa690a8812d52e/invoke.js"></script>
+  </body>
+</html>`;
 
   return (
-    <div
-      ref={adRef}
-      className="mx-auto my-4 min-h-[50px] w-full max-w-[320px] flex items-center justify-center overflow-hidden"
-      style={{
-        minHeight: "50px",
-      }}
-    />
+    <div className="mx-auto my-4 w-full max-w-[340px] px-2 flex flex-col items-center justify-center">
+      <div className="w-[320px] h-[50px] min-h-[50px] relative overflow-hidden rounded-lg border border-slate-200/80 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50 flex items-center justify-center">
+        {/* Clean subtle placeholder behind the ad slot */}
+        <div className="absolute inset-0 flex items-center justify-center gap-1.5 text-[10px] text-slate-400 dark:text-zinc-500 font-mono select-none pointer-events-none opacity-60">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+          <span>{t.common?.sponsorSpace || 'Sponsor Space'} · 320×50</span>
+        </div>
+
+        {/* Adsterra 320x50 Banner executing in dedicated document context */}
+        <iframe
+          title="Adsterra Banner"
+          srcDoc={iframeContent}
+          width={320}
+          height={50}
+          className="relative z-10 w-[320px] h-[50px] border-0 overflow-hidden"
+          scrolling="no"
+          loading="lazy"
+        />
+      </div>
+    </div>
   );
 }

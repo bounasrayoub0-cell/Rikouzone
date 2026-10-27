@@ -67,14 +67,14 @@ const AdsterraNativeBannerInner: React.FC = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto my-6 sm:my-8 px-2 sm:px-4">
-      <div className="relative overflow-hidden rounded-2xl border border-amber-500/25 bg-gradient-to-r from-zinc-950 via-zinc-900/70 to-zinc-950 p-3 sm:p-4 backdrop-blur-md shadow-xl shadow-black/30 text-inherit">
+      <div className="adsterra-banner-card relative overflow-hidden rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-[#162032] p-3 sm:p-4 shadow-sm dark:shadow-xl text-inherit">
         {/* Header label for 4:1 Native Banner */}
-        <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/60 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">
-          <span className="flex items-center gap-1.5 text-amber-400/90 font-medium">
-            <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+        <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-zinc-800 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+          <span className="flex items-center gap-1.5 text-amber-500 dark:text-amber-400 font-medium">
+            <Sparkles className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
             <span>{t.common.sponsoredPartner}</span>
           </span>
-          <span className="rounded bg-zinc-800/80 px-2 py-0.5 text-[9px] text-zinc-400 font-mono border border-zinc-700/50">
+          <span className="rounded bg-slate-100 dark:bg-zinc-800/80 px-2 py-0.5 text-[9px] text-slate-600 dark:text-zinc-400 font-mono border border-slate-200 dark:border-zinc-700/50">
             4:1 Native Banner
           </span>
         </div>
@@ -82,12 +82,12 @@ const AdsterraNativeBannerInner: React.FC = () => {
         {/* Ad Container Area */}
         <div className="relative w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] overflow-hidden">
           {/* Subtle background placeholder sitting behind the ad slot as an absolute sibling (NOT a child of containerRef) */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center space-y-1 select-none pointer-events-none opacity-40">
-            <div className="flex items-center gap-2 text-zinc-400 text-xs font-medium">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center space-y-1 select-none pointer-events-none opacity-50 dark:opacity-40">
+            <div className="flex items-center gap-2 text-slate-400 dark:text-zinc-400 text-xs font-medium">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
               <span>{t.common.sponsorSpace}</span>
             </div>
-            <p className="text-[10px] text-zinc-600 font-mono">
+            <p className="text-[10px] text-slate-400 dark:text-zinc-600 font-mono">
               4:1 Native Ad Format
             </p>
           </div>
@@ -97,7 +97,7 @@ const AdsterraNativeBannerInner: React.FC = () => {
           <div
             id="container-fb9dcfb2b9721a8695db7a01aa84b72f"
             ref={containerRef}
-            className="relative z-10 w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] transition-all overflow-hidden text-inherit"
+            className="adsterra-container relative z-10 w-full flex items-center justify-center min-h-[90px] sm:min-h-[110px] transition-all overflow-hidden text-inherit"
           />
         </div>
       </div>
